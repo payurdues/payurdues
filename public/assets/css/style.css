@@ -1,0 +1,302 @@
+/*======================
+     01.BASICS
+========================*/
+
+:root {
+    --pColor: #F300CC;
+    --sColor: #813E95;
+    --textColor: #35363A;
+    --lightTextColor: rgba(53, 54, 58, .6);
+    --gradient: var(--sColor), var(--pColor)
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    color: var(--textColor);
+    line-height: normal;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: var(--textColor);
+    display: inline-block;
+}
+
+.btn-pay-gradient {
+    position: relative;
+    display: inline-block;
+    padding: 12px;
+    color: white;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(to bottom, var(--gradient));
+    transition: color 0.4s ease;
+    -webkit-transition: color 0.4s ease;
+    -moz-transition: color 0.4s ease;
+    -ms-transition: color 0.4s ease;
+    -o-transition: color 0.4s ease;
+}
+
+.btn-pay-gradient:hover {
+    color: #fff;
+}
+
+
+
+section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/*======================
+     02.HERO
+========================*/
+    .hero {
+        background: url(/assets/img/svg/Vector\ 3.svg);
+        background-size: cover;
+        /* min-height: 100vh; */
+        background-position: center center;
+        width: 100%;
+    }
+
+    header {
+        padding-top: 0;
+        padding-bottom: 0;
+        width: 100%;
+    }
+
+    .nav-logo_img {
+        height: 70px;
+        width: auto;
+    }
+
+    .nav-logo_text {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .hero-content {
+        margin-top: 50px;
+        margin-bottom: 80px;
+    }
+
+    .hero-content_heading {
+        font-weight: 700;
+        line-height: 80px;
+        text-align: center;
+    }
+
+    .hero-content_paragraph {
+        font-size: 25px;
+        line-height: normal;
+        text-align: center;
+        color: var(--lightTextColor);
+        margin-top: 40px;
+    }
+
+    .hero-content_button .btn-pay-gradient {
+        margin-top: 40px;
+        width: 400px;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        border-radius: 16px;
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        -ms-border-radius: 16px;
+        -o-border-radius: 16px;
+    }
+
+    .hero-partner {
+        margin-top: 60px;
+    }
+
+    .hero-partner_text p {
+        font-size: 24px;
+        position: relative; 
+        display: inline-block;
+        margin-bottom: 30px;
+    }
+    
+    .hero-partner_text p::before,
+    .hero-partner_text p::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: var(--textColor);
+        top: 50%;
+        transition: width 0.4s ease-in-out;
+        transform: translateY(-50%);
+        width: 160px;
+    }
+    
+    .hero-partner_text p::before {
+        left: -180px;
+    }
+    
+    .hero-partner_text p::after {
+        right: -180px;
+    }
+    
+/*======================
+     03.COMING SOON
+========================*/
+
+    
+
+    .coming-soon_label {
+        font-size: 20px;
+        font-weight: 600;
+        background: linear-gradient(to bottom, var(--gradient)); 
+        -webkit-background-clip: text; 
+        -webkit-text-fill-color: transparent; 
+    }
+
+
+    .coming-soon_title {
+        font-size: 50px;
+        font-weight: 700;
+        margin-top: 20px;
+    }
+
+    .coming-soon_subtitle {
+        font-size: 18px;
+        color: var(--lightTextColor);
+        margin-top: 20px;
+    }
+
+    .coming-soon_box-card {
+        height: 100%;
+        padding: 40px 24px;
+        border-radius: 24px;
+        -webkit-border-radius: 24px;
+        -moz-border-radius: 24px;
+        -ms-border-radius: 24px;
+        -o-border-radius: 24px;
+    }
+
+    .coming-soon_box-card-heading {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 35px;
+    }
+
+    .coming-soon_box-card-paragraph {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+
+/*======================
+     04.LAUNCHING SOON
+========================*/
+
+    .launching-soon_box {
+        background: linear-gradient(to bottom, var(--gradient));
+        padding: 90px 120px;
+        border-radius: 24px;
+        -webkit-border-radius: 24px;
+        -moz-border-radius: 24px;
+        -ms-border-radius: 24px;
+        -o-border-radius: 24px;
+    }
+
+    .launching-soon_heading {
+        color: #fff;
+        font-weight: bold;
+        font-size: 70px;
+        text-align: center;
+    }
+
+    .launching-soon_button .btn-white {
+        margin-top: 30px;
+        width: 400px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        background-color: white !important;
+        color: var(--pColor);
+        font-weight: bold;
+        font-size: 16px;
+        border-radius: 16px;
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        -ms-border-radius: 16px;
+        -o-border-radius: 16px;
+    }
+
+
+    .arrow-icon {
+        color: var(--pColor);
+        width: 20px;
+        height: 20px;
+    }
+    
+
+/*======================
+     05.FOOTER
+========================*/
+    
+    .footer-logo_img {
+        height: 70px;
+        width: auto;
+    }
+        
+    .footer-logo_text {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+
+    footer-text p {
+        font-size: 20px;
+    }
+
+/*======================
+     06.MODAL
+========================*/
+
+
+    
+    .modal-heading {
+        font-size: 40px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .modal-paragraph {
+        color: var(--lightTextColor);
+        font-size: 16px;
+    }
+
+    .modal-form {
+        margin-top: 30px;
+    }
+
+    .modal-form input.form-control {
+        height: 48px;
+        background-color: rgba(53, 54, 58, .05);
+        border: none;
+    }
+
+    .modal-form input.form-control:focus {
+        outline: none;
+        border: 1px solid var(--sColor);
+        background-color: rgba(53, 54, 58, .02);
+        box-shadow: 0 0 5px rgba(53, 54, 58, .2);
+    }
+
+    .modal-form .modal-button:hover {
+        color: #fff;
+    }
