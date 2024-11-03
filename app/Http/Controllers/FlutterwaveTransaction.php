@@ -12,6 +12,8 @@ class FlutterwaveTransaction extends Controller
     //
     public function paymentCallback(Request $request)
     {
+
+        dd($request->all());
         $transactionId = $request->input('transaction_id');
         $txRef = $request->input('tx_ref');
         $status = $request->input('status');

@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -23,17 +22,17 @@ class DuesTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // [
-            //     'name' => 'Annual Membership Fee',
-            //     'amount' => 100.00,
-            //     'charges' => 5.00,
-            //     'association_id' => 1, // Replace with a valid association ID
-            //     'payable_faculties' => json_encode(['CMS']),
-            //     'payable_departments' => json_encode(['MAC', 'PRO'.'BAM','ACC','PUB','OTM','MAR']),
-            //     'payable_levels' => json_encode(['100', '400']),
-            //     'created_at' => now(),
-            //     'updated_at' => now(),
-            // ],
+            [
+                'name' => 'Annual Membership Fee',
+                'amount' => 100.00,
+                'charges' => 5.00,
+                'association_id' => 1, // Replace with a valid association ID
+                'payable_faculties' => json_encode(['CMS']),
+                'payable_departments' => json_encode(['MAC', 'PRO'.'BAM','ACC','PUB','OTM','MAR']),
+                'payable_levels' => json_encode(['100', '400']),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
             // [
             //     'name' => 'Semester Exam Fee',
             //     'amount' => 50.00,

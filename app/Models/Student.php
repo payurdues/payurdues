@@ -13,6 +13,8 @@ class Student extends Authenticatable implements AuthenticatableContract
 
     use HasFactory;
 
+    protected $guarded = [];
+
     // public function association()
     // {
     //     return $this->belongsTo(Association::class);

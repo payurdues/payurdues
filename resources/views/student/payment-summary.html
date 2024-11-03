@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Meta tag -->
+        <meta charset="UTF-8">
+        <meta name="author" content="" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="../assets/img/favicons/favicon.png" />
+        <link rel="apple-touch-icon" href="../assets/img/favicons/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../assets/img/favicons//apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../assets/img/favicons/apple-touch-icon-114x114.png" />
+
+        <!-- Title -->
+        <title>PayUrDues - Payment Summary</title>
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Data Table CSS -->
+        <link href="../assets/css/datatables.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="../assets/css/style.css" rel="stylesheet">
+        <link href="../assets/css/responsive.css" rel="stylesheet">
+
+    </head>
+    <body class="dashboard">
+
+        <header class="px-3 px-md-5">
+            <nav class="d-flex justify-content-between align-items-center py-4">
+                <a href="index.html" class="d-flex gap-2 align-items-center d-md-none">
+                    <img src="../assets/img/svg/ArrowLeft.svg" alt="PayUrDues">
+                    <p class="mb-0 header-title">Payment Summary</p>
+                </a>
+                <div class="d-md-flex d-none gap-3 align-items-center">
+                    <div class="association-logo_img">
+                        <img src="../assets/img/svg/Ellipse 2.svg" alt="PayUrDues">
+                    </div>
+                    <div class="div">
+                        <p class="mb-0 header-title">Hello Adebola</p>
+                        <p class="mb-0 header-subtitle">You have some dues to pay, we are here to help you</p>
+                    </div>
+                </div>
+                <div class="nav-social d-flex gap-3 align-items-center">
+                    <button class="d-flex justify-content-center align-items-center d-md-none toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive" >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 6h18M3 12h18M3 18h18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+
+                </div>
+            </nav>
+        </header>
+
+
+
+        <section class="main-content flex-grow-1">
+            <div class="px-4 px-lg-5 h-100 d-flex mt-md-5 mt-4 gap-4">
+                
+                <!-- Start Sidebar -->
+                <div class="sidebar mt-md-4 offcanvas-md offcanvas-end" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+                    <div class="offcanvas-header d-flex d-md-none justify-content-between mb-4 align-items-center">
+                        <div class="d-flex gap-2 align-items-center">
+                            <img src="../assets/img/svg/Ellipse 1.svg" alt="PayUrDues" height="40" width="auto">
+                            <p class="mb-0">Adebola Adekunle </p>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+                      </div>
+                    
+                    <div class="top-sidebar">
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="index.html" class="d-flex align-items-center gap-4 active">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.8838 6.61598L8.88376 1.61598C8.64935 1.38164 8.33146 1.25 8.00001 1.25C7.66855 1.25 7.35067 1.38164 7.11626 1.61598L2.11626 6.61598C1.99971 6.73181 1.90732 6.86963 1.84445 7.02145C1.78158 7.17326 1.74948 7.33604 1.75001 7.50036V13.5004C1.75001 13.6993 1.82902 13.89 1.96968 14.0307C2.11033 14.1713 2.30109 14.2504 2.50001 14.2504H6.50001C6.69892 14.2504 6.88968 14.1713 7.03034 14.0307C7.17099 13.89 7.25001 13.6993 7.25001 13.5004V10.2504H8.75001V13.5004C8.75001 13.6993 8.82902 13.89 8.96968 14.0307C9.11033 14.1713 9.30109 14.2504 9.50001 14.2504H13.5C13.6989 14.2504 13.8897 14.1713 14.0303 14.0307C14.171 13.89 14.25 13.6993 14.25 13.5004V7.50036C14.2505 7.33604 14.2184 7.17326 14.1556 7.02145C14.0927 6.86963 14.0003 6.73181 13.8838 6.61598ZM12.75 12.7504H10.25V9.50036C10.25 9.30145 10.171 9.11068 10.0303 8.97003C9.88968 8.82938 9.69892 8.75036 9.50001 8.75036H6.50001C6.30109 8.75036 6.11033 8.82938 5.96968 8.97003C5.82902 9.11068 5.75001 9.30145 5.75001 9.50036V12.7504H3.25001V7.60348L8.00001 2.85348L12.75 7.60348V12.7504Z" fill="url(#paint0_linear_204_1221)"/>
+                                        <defs>
+                                            <linearGradient id="paint0_linear_204_1221" x1="-0.473843" y1="9.62337" x2="6.92065" y2="-0.882365" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#F300CC"/>
+                                                <stop offset="1" stop-color="#813E95"/>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                   <p>Home</p>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="view-all-dues.html" class="d-flex align-items-center gap-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16.839 4.00024H7.16C6.633 4.00024 6.179 4.00024 5.804 4.03024C5.409 4.06324 5.015 4.13424 4.637 4.32724C4.07254 4.61486 3.61362 5.07378 3.326 5.63824C3.23791 5.82937 3.18053 6.03322 3.156 6.24224C3.13 6.41624 3.11 6.62224 3.094 6.83924C3.061 7.27524 3.04 7.81424 3.027 8.36124C3 9.45724 3 10.6372 3 11.1972V11.2002C3 11.4655 3.10536 11.7198 3.29289 11.9073C3.48043 12.0949 3.73478 12.2002 4 12.2002C4.26522 12.2002 4.51957 12.0949 4.70711 11.9073C4.89464 11.7198 5 11.4655 5 11.2002C5 10.9202 5 10.4922 5.003 10.0002H19V14.8002C19 15.3772 19 15.7492 18.976 16.0322C18.954 16.3042 18.916 16.4042 18.891 16.4542C18.7951 16.6424 18.6422 16.7954 18.454 16.8912C18.404 16.9162 18.304 16.9542 18.032 16.9762C17.75 17.0002 17.377 17.0002 16.8 17.0002H12C11.7348 17.0002 11.4804 17.1056 11.2929 17.2931C11.1054 17.4807 11 17.735 11 18.0002C11 18.2655 11.1054 18.5198 11.2929 18.7073C11.4804 18.8949 11.7348 19.0002 12 19.0002H16.839C17.366 19.0002 17.821 19.0002 18.195 18.9702C18.59 18.9372 18.984 18.8662 19.362 18.6732C19.9265 18.3856 20.3854 17.9267 20.673 17.3622C20.866 16.9842 20.937 16.5902 20.969 16.1952C21 15.8202 21 15.3652 21 14.8392V8.16024C21 7.63324 21 7.17924 20.97 6.80424C20.937 6.40924 20.866 6.01524 20.673 5.63724C20.3854 5.07278 19.9265 4.61386 19.362 4.32624C18.984 4.13324 18.59 4.06224 18.195 4.03024C17.7432 4.00318 17.2905 3.99318 16.838 4.00024M18.998 8.00024H5.04C5.052 7.62124 5.069 7.27324 5.09 6.98724C5.10227 6.81896 5.12061 6.65119 5.145 6.48424C5.24133 6.32414 5.3806 6.19423 5.547 6.10924C5.597 6.08424 5.697 6.04624 5.969 6.02424C6.25 6.00024 6.623 6.00024 7.2 6.00024H16.8C17.377 6.00024 17.749 6.00024 18.032 6.02424C18.304 6.04624 18.404 6.08424 18.454 6.10924C18.6422 6.20511 18.7951 6.35809 18.891 6.54624C18.916 6.59624 18.954 6.69624 18.976 6.96824C18.996 7.21724 19 7.53524 19 8.00024" fill="#3A3A3A"/>
+                                        <path d="M9.31399 15.8766L8.59399 16.5766C9.04599 17.4296 8.90399 18.5016 8.16499 19.2176L7.01699 20.3316C6.56857 20.7601 5.97222 20.9992 5.35199 20.9992C4.73176 20.9992 4.1354 20.7601 3.68699 20.3316C3.47008 20.1243 3.29744 19.8753 3.17949 19.5994C3.06154 19.3235 3.00073 19.0266 3.00073 18.7266C3.00073 18.4266 3.06154 18.1297 3.17949 17.8538C3.29744 17.578 3.47008 17.3289 3.68699 17.1216L4.40699 16.4236C4.18121 15.9966 4.10084 15.5077 4.17808 15.0309C4.25532 14.5541 4.48595 14.1155 4.83499 13.7816L5.98299 12.6676C6.4314 12.2391 7.02775 12 7.64799 12C8.26822 12 8.86457 12.2391 9.31299 12.6676C9.52989 12.8749 9.70253 13.124 9.82048 13.3998C9.93843 13.6757 9.99924 13.9726 9.99924 14.2726C9.99924 14.5726 9.93843 14.8695 9.82048 15.1454C9.70253 15.4213 9.52989 15.6703 9.31299 15.8776M8.66199 15.2676C8.79605 15.1391 8.90273 14.9848 8.9756 14.814C9.04848 14.6431 9.08605 14.4593 9.08605 14.2736C9.08605 14.0879 9.04848 13.9041 8.9756 13.7333C8.90273 13.5625 8.79605 13.4081 8.66199 13.2796C8.38917 13.0177 8.02565 12.8715 7.64749 12.8715C7.26932 12.8715 6.90581 13.0177 6.63299 13.2796L5.48399 14.3936C5.30225 14.5684 5.17187 14.7896 5.10699 15.0332C5.04212 15.2769 5.04523 15.5336 5.11599 15.7756C5.54715 15.4759 6.06412 15.3245 6.58888 15.3443C7.11363 15.3642 7.61769 15.5541 8.02499 15.8856L8.66199 15.2676ZM7.37399 16.4996C7.12099 16.3125 6.81464 16.2116 6.49999 16.2116C6.18533 16.2116 5.87898 16.3125 5.62599 16.4996C5.87898 16.6867 6.18533 16.7877 6.49999 16.7877C6.81464 16.7877 7.12099 16.6867 7.37399 16.4996ZM4.33699 17.7326C4.20292 17.8611 4.09625 18.0155 4.02337 18.1863C3.95049 18.3571 3.91293 18.5409 3.91293 18.7266C3.91293 18.9123 3.95049 19.0961 4.02337 19.267C4.09625 19.4378 4.20292 19.5921 4.33699 19.7206C4.60981 19.9825 4.97332 20.1287 5.35149 20.1287C5.72965 20.1287 6.09317 19.9825 6.36599 19.7206L7.51499 18.6066C7.89999 18.2336 8.02299 17.7006 7.88299 17.2246C7.45182 17.5244 6.93485 17.6758 6.4101 17.6559C5.88534 17.6361 5.38128 17.4461 4.97399 17.1146L4.33699 17.7326ZM14 12.9996C13.7348 12.9996 13.4804 13.105 13.2929 13.2925C13.1053 13.4801 13 13.7344 13 13.9996C13 14.2648 13.1053 14.5192 13.2929 14.7067C13.4804 14.8943 13.7348 14.9996 14 14.9996H17C17.2652 14.9996 17.5196 14.8943 17.7071 14.7067C17.8946 14.5192 18 14.2648 18 13.9996C18 13.7344 17.8946 13.4801 17.7071 13.2925C17.5196 13.105 17.2652 12.9996 17 12.9996H14Z" fill="#3A3A3A"/>
+                                    </svg>
+                                   <p>Payable Dues</p>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="history.html" class="d-flex align-items-center gap-4">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8.75 5.00002V7.57565L10.8856 8.8569C10.972 8.90658 11.0476 8.97297 11.108 9.0522C11.1684 9.13142 11.2124 9.22189 11.2375 9.31831C11.2626 9.41474 11.2682 9.5152 11.254 9.61381C11.2398 9.71243 11.2061 9.80723 11.1549 9.89268C11.1036 9.97813 11.0359 10.0525 10.9556 10.1115C10.8753 10.1705 10.784 10.2128 10.6872 10.2362C10.5903 10.2595 10.4897 10.2633 10.3914 10.2473C10.2931 10.2313 10.1989 10.1959 10.1144 10.1431L7.61438 8.64315C7.50327 8.57654 7.41131 8.4823 7.34746 8.36959C7.2836 8.25688 7.25003 8.12956 7.25 8.00002V5.00002C7.25 4.80111 7.32902 4.61034 7.46967 4.46969C7.61032 4.32904 7.80109 4.25002 8 4.25002C8.19891 4.25002 8.38968 4.32904 8.53033 4.46969C8.67098 4.61034 8.75 4.80111 8.75 5.00002ZM8 1.75002C7.17818 1.7479 6.36412 1.9089 5.60497 2.22367C4.84582 2.53844 4.15669 3.00074 3.5775 3.58377C3.28438 3.88002 3.015 4.1694 2.75 4.45877V4.00002C2.75 3.80111 2.67098 3.61034 2.53033 3.46969C2.38968 3.32904 2.19891 3.25002 2 3.25002C1.80109 3.25002 1.61032 3.32904 1.46967 3.46969C1.32902 3.61034 1.25 3.80111 1.25 4.00002V6.50002C1.25 6.69893 1.32902 6.8897 1.46967 7.03035C1.61032 7.171 1.80109 7.25002 2 7.25002H4.5C4.69891 7.25002 4.88968 7.171 5.03033 7.03035C5.17098 6.8897 5.25 6.69893 5.25 6.50002C5.25 6.30111 5.17098 6.11034 5.03033 5.96969C4.88968 5.82904 4.69891 5.75002 4.5 5.75002H3.61063C3.9375 5.37502 4.27313 5.01377 4.64125 4.64127C5.30135 3.98098 6.1414 3.52987 7.05643 3.3443C7.97147 3.15874 8.92089 3.24696 9.78607 3.59793C10.6512 3.9489 11.3938 4.54706 11.921 5.31767C12.4481 6.08827 12.7365 6.99714 12.75 7.9307C12.7635 8.86426 12.5016 9.7811 11.997 10.5667C11.4925 11.3522 10.7675 11.9717 9.9129 12.3476C9.05826 12.7235 8.11179 12.8392 7.19176 12.6802C6.27174 12.5212 5.41896 12.0947 4.74 11.4538C4.59529 11.3172 4.40225 11.2437 4.20335 11.2494C4.00444 11.2552 3.81596 11.3397 3.67938 11.4844C3.54279 11.6291 3.46928 11.8221 3.47503 12.0211C3.48077 12.22 3.56529 12.4084 3.71 12.545C4.45189 13.2453 5.35393 13.7534 6.33737 14.0248C7.3208 14.2962 8.35573 14.3227 9.35179 14.1021C10.3479 13.8815 11.2748 13.4204 12.0516 12.7591C12.8284 12.0977 13.4315 11.2563 13.8083 10.3082C14.1851 9.36014 14.3241 8.33424 14.2131 7.32009C14.1021 6.30594 13.7445 5.33438 13.1716 4.49023C12.5987 3.64609 11.8279 2.95502 10.9264 2.47736C10.0249 1.99971 9.0202 1.74999 8 1.75002Z" fill="#3A3A3A"/>
+                                    </svg>        
+                                   <p>History</p>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="../dashboard/voting.html" class="d-flex align-items-center gap-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 22.0005C4.45 22.0005 3.97933 21.8048 3.588 21.4135C3.19667 21.0221 3.00067 20.5511 3 20.0005V15.4505L5.75 12.3255L7.175 13.7505L5.175 16.0005H18.825L16.875 13.8005L18.3 12.3755L21 15.4505V20.0005C21 20.5505 20.8043 21.0215 20.413 21.4135C20.0217 21.8055 19.5507 22.0011 19 22.0005H5ZM5 20.0005H19V18.0005H5V20.0005ZM10.625 14.3755L7.1 10.8505C6.71667 10.4671 6.52933 9.99646 6.538 9.43846C6.54667 8.88046 6.74233 8.40946 7.125 8.02546L12.025 3.12546C12.4083 2.74212 12.8833 2.54212 13.45 2.52546C14.0167 2.50879 14.4917 2.69212 14.875 3.07546L18.4 6.60046C18.7833 6.98379 18.9833 7.45046 19 8.00046C19.0167 8.55046 18.8333 9.01712 18.45 9.40046L13.45 14.4005C13.0667 14.7838 12.596 14.9715 12.038 14.9635C11.48 14.9555 11.009 14.7595 10.625 14.3755ZM17 8.02546L13.475 4.50046L8.525 9.45046L12.05 12.9755L17 8.02546Z" fill="#3A3A3A"/>
+                                    </svg>        
+                                   <p>Voting</p>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="notification.html" class="d-flex align-items-center gap-4">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14.0806 10.3706C13.5381 9.4375 13.25 8.09812 13.25 6.5C13.25 5.10761 12.6969 3.77226 11.7123 2.78769C10.7278 1.80312 9.3924 1.25 8.00002 1.25C6.60763 1.25 5.27227 1.80312 4.28771 2.78769C3.30314 3.77226 2.75002 5.10761 2.75002 6.5C2.75002 8.09875 2.46314 9.4375 1.92064 10.3706C1.80994 10.561 1.75126 10.7771 1.7505 10.9972C1.74973 11.2174 1.8069 11.4339 1.91627 11.625C2.02494 11.8162 2.18268 11.9749 2.3732 12.0848C2.56371 12.1947 2.7801 12.2517 3.00002 12.25H5.26127C5.32328 12.9335 5.63865 13.5691 6.14541 14.032C6.65217 14.4949 7.31369 14.7515 8.00002 14.7515C8.68635 14.7515 9.34787 14.4949 9.85463 14.032C10.3614 13.5691 10.6768 12.9335 10.7388 12.25H13C13.2196 12.2514 13.4356 12.1942 13.6258 12.0843C13.8159 11.9745 13.9734 11.8159 14.0819 11.625C14.1917 11.4342 14.2494 11.2178 14.2492 10.9976C14.249 10.7775 14.1909 10.5612 14.0806 10.3706ZM8.00002 13.25C7.71185 13.2501 7.43252 13.1506 7.20929 12.9683C6.98606 12.7861 6.83265 12.5323 6.77502 12.25H9.22502C9.16739 12.5323 9.01397 12.7861 8.79074 12.9683C8.56751 13.1506 8.28818 13.2501 8.00002 13.25ZM3.41627 10.75C3.96939 9.625 4.25002 8.19625 4.25002 6.5C4.25002 5.50544 4.64511 4.55161 5.34837 3.84835C6.05163 3.14509 7.00546 2.75 8.00002 2.75C8.99458 2.75 9.94841 3.14509 10.6517 3.84835C11.3549 4.55161 11.75 5.50544 11.75 6.5C11.75 8.19562 12.03 9.625 12.5831 10.75H3.41627Z" fill="#3A3A3A"/>
+                                    </svg>        
+                                   <p>Notification</p>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="account.html" class="d-flex align-items-center gap-4">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14.6487 13.1249C13.7918 11.621 12.4537 10.4491 10.8499 9.79805C11.6475 9.19988 12.2366 8.36594 12.5338 7.41434C12.8311 6.46275 12.8214 5.44175 12.5062 4.49597C12.1909 3.55018 11.586 2.72757 10.7773 2.14465C9.96852 1.56172 8.99685 1.24805 7.99991 1.24805C7.00296 1.24805 6.03129 1.56172 5.22253 2.14465C4.41377 2.72757 3.80892 3.55018 3.49366 4.49597C3.1784 5.44175 3.16871 6.46275 3.46597 7.41434C3.76322 8.36594 4.35235 9.19988 5.14991 9.79805C3.54611 10.4491 2.20806 11.621 1.35116 13.1249C1.29806 13.2103 1.26267 13.3055 1.24709 13.4048C1.23152 13.5041 1.23607 13.6056 1.26048 13.7031C1.28489 13.8006 1.32867 13.8923 1.3892 13.9725C1.44973 14.0528 1.52578 14.1201 1.61284 14.1704C1.6999 14.2207 1.79617 14.253 1.89596 14.2653C1.99574 14.2777 2.09698 14.2698 2.19367 14.2423C2.29036 14.2147 2.38051 14.168 2.45878 14.1049C2.53705 14.0418 2.60184 13.9636 2.64928 13.8749C3.78178 11.9174 5.78178 10.7499 7.99991 10.7499C10.218 10.7499 12.218 11.918 13.3505 13.8749C13.4534 14.0403 13.6164 14.1591 13.8053 14.2064C13.9942 14.2537 14.194 14.2256 14.3626 14.1282C14.5312 14.0308 14.6553 13.8717 14.7087 13.6845C14.7621 13.4972 14.7405 13.2966 14.6487 13.1249ZM4.74991 5.99992C4.74991 5.35713 4.94052 4.72878 5.29763 4.19432C5.65474 3.65986 6.16233 3.2433 6.75619 2.99731C7.35005 2.75133 8.00351 2.68697 8.63395 2.81237C9.26439 2.93777 9.84348 3.2473 10.298 3.70182C10.7525 4.15635 11.0621 4.73544 11.1875 5.36588C11.3129 5.99632 11.2485 6.64978 11.0025 7.24364C10.7565 7.8375 10.34 8.34508 9.80551 8.7022C9.27105 9.05931 8.6427 9.24992 7.99991 9.24992C7.13826 9.24893 6.31218 8.9062 5.70291 8.29692C5.09363 7.68764 4.7509 6.86157 4.74991 5.99992Z" fill="#3A3A3A"/>
+                                    </svg>        
+                                   <p>Account</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- End Start Sidebar -->
+
+
+                <div class="dashboard-content">
+
+                    <div class="dashboard-content_header mb-4 d-none d-md-flex justify-content-between align-items-center ps-5">
+                        <a href="index.html" class="d-flex gap-2 align-items-center">
+                            <img src="../assets/img/svg/ArrowLeft.svg" alt="PayUrDues">
+                            <h3 class="dashboard-content_heading">Payment Summary</h3>
+                        </a>
+                    </div>
+
+                    <div class="dashboard-content_details mb-5 col">
+
+                        <div class="payable-dues row g-3 px-md-3">
+
+                            <div class="col">
+                                <div class="row row-cols-1 row-cols-md-2 ">
+                                    <div class="col">
+                                        <div class="payable-dues_card">
+                                            <div class="row g-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="fw-bold">Due Name</p>
+                                                    <p class="text-end">Basic dues</p>
+                                                </div>
+        
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="fw-bold">Period</p>
+                                                    <p class="text-end">Basic dues</p>
+                                                </div>
+        
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="fw-bold">Price</p>
+                                                    <p class="text-end">₦2,500</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="payable-dues_card">
+                                            <div class="row g-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="fw-bold">Due Name</p>
+                                                    <p class="text-end">Basic dues</p>
+                                                </div>
+        
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="fw-bold">Period</p>
+                                                    <p class="text-end">Basic dues</p>
+                                                </div>
+        
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="fw-bold">Price</p>
+                                                    <p class="text-end">₦2,500</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="payable-dues_card">
+                                            <div class="row g-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="fw-bold">Due Name</p>
+                                                    <p class="text-end">Basic dues</p>
+                                                </div>
+        
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="fw-bold">Period</p>
+                                                    <p class="text-end">Basic dues</p>
+                                                </div>
+        
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="fw-bold">Price</p>
+                                                    <p class="text-end">₦2,500</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="payable-dues_card">
+                                    <p class="mb-4 fs-5 lightTextColor">Summary</p>
+                                    <div class="row g-2">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="fw-medium fs-6">Items (3)</p>
+                                            <p class="text-end fw-light lightTextColor fs-6">₦12,000</p>
+                                        </div>
+    
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="fw-medium fs-6">Service fee <img src="../assets/img/svg/caution.svg" class="d-inline" alt="PayUrDues"></p>
+                                            
+                                            <p class="text-end fw-light lightTextColor fs-6">₦300</p>
+                                        </div>
+    
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="fw-medium fs-6">Total</p>
+                                            <p class="text-end fw-light lightTextColor fs-6">₦12,300</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <a href="receipt.html" class="btn btn-pay-gradient modal-button col-11 col-md-7 mt-3 px-5">Make Payment</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+            </div>
+        </section>
+
+        
+
+        
+        
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+       
+        <!-- Data Table JS-->
+        <script src="../assets/js/datatables.min.js"></script>
+
+        <!-- Custom JS -->
+        <script src="../assets/js/main.js"></script>
+        
+    </body>
+</html>

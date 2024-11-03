@@ -19,18 +19,18 @@
 <script>
     function makePayment(amount, studentName, dueId) {
         FlutterwaveCheckout({
-            public_key: "FLWPUBK_TEST-02b9b5fc6406bd4a41c3ff141cc45e93-X",
+            public_key: "FLWPUBK-8a51bc8d13d58f823b94ca818a5e564a-X",
             tx_ref: "txref-" + new Date().getTime(), // Use a unique transaction reference
             amount: amount,
             currency: "NGN",
-            payment_options: "card, banktransfer, ussd",
+            payment_options: "banktransfer, card, ussd",
             meta: {
                 source: "docs-inline-test",
                 consumer_mac: "92a3-912ba-1192a",
                 due_id: dueId // Add due ID to meta for backend processing
             },
             customer: {
-                email: "{{ $student->email }}", // Use student's email
+                email: "oladitisodiq@gmail.com", // Use student's email
                 phone_number: "{{ $student->phone_number }}", // Use student's phone number
                 name: studentName, // Use student's name
             },

@@ -45,12 +45,12 @@ return [
             'provider' => 'students',
         ],
 
-        'admin' => [
+        'association' => [
             'driver' => 'session',
             'provider' => 'associations',
         ],
     ],
-
+    
 
     
 

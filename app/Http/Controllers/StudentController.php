@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Due;
 use App\Models\Student;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class StudentController extends Controller
 {
     // Show the login form
@@ -82,13 +84,40 @@ class StudentController extends Controller
 
         // Fetch dues based on the specified faculty with associated data
         $dues = Due::whereJsonContains('payable_faculties', $student->faculty)
+                ->whereDoesntHave('transactions', function ($query) use ($student) {
+                    $query->where('student_id', $student->id);
+                })
             ->with('association') // Load associated data
             ->get();
 
-        // Sum up the total dues
-        $totalAmount = $dues->sum('amount'); // Assuming there is an 'amount' field in your Due model
+        if ($dues->isEmpty()) {
+            // Handle the case where there are no dues
+            $countDue = 0;
+            $totalAmount = 0;
+        } else {
+            $countDue = $dues->count();
+            $totalAmount = $dues->sum('amount');
+        }
 
-        return view('student.select-due', compact('dues', 'student', 'totalAmount'));
+        $Transaction = Transaction::where('student_id', $student->id)->get();
+
+        if ($Transaction->isEmpty()) {
+            // Handle the case where there are no transactions
+            $paidDues = 0;
+            $TransactionCount = 0;
+        } else {
+            $paidDues = $Transaction->sum('amount');
+            $TransactionCount = $Transaction->count();
+        }
+
+        // Sum up the total dues
+        // Assuming there is an 'amount' field in your Due model
+
+        // return view('student.paystackselect-due', compact('dues','paidDues', 'countDue','student', 'totalAmount'));
+
+
+        
+        return view('student.index', compact('dues','paidDues','TransactionCount', 'countDue','student', 'totalAmount'));
     }
 
 }
