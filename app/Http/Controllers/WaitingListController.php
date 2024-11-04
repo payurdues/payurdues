@@ -13,8 +13,9 @@ class WaitingListController extends Controller
         // Validate the request data
         $request->validate([
             'fullname' => 'required|string|max:255',
-            'email' => 'required|email|unique:waiting_list,email',
+            'email' => 'required|email',
             'association_name' => 'required|string|max:255',
+            'phone' => 'required|numeric|max:11',
         ]);
 
         // Add the user to the waiting list
@@ -22,6 +23,7 @@ class WaitingListController extends Controller
             'fullname' => $request->fullname,
             'email' => $request->email,
             'association_name' => $request->association_name,
+            'phone' => $request->phone,
         ]);
 
         return response()->json(['message' => 'You have been added to the waiting list!'], 201);

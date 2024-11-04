@@ -102,6 +102,15 @@
                                                 </div>
                                             </div>
 
+                                            <div class="text-start mb-3">
+                                                <label for="phone" class="form-label fw-bold">Phone.No</label>
+                                                <div class="position-relative">
+                                                    <input type="number" class="form-control ps-3" name="phone" id="phone" placeholder="Enter your phone number">
+                                                    <img src="{{asset('assets/img/svg/Envelope.svg')}}" alt="" class="me-3 position-absolute top-50 end-0 translate-middle-y">
+                                                </div>
+                                            </div>
+
+
 
                                             <div class="text-start mb-3">
                                                 <label for="associationFullName" class="form-label fw-bold">Full Name</label>

@@ -26,9 +26,11 @@
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Custom CSS -->
-        <link href="assets/css/style.css" rel="stylesheet">
-        <link href="assets/css/responsive.css" rel="stylesheet">
+
+
+               <!-- Custom CSS -->
+               <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+               <link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet">
         <style>
             body {
                 background: url(/assets/img/svg/Vector\ 3.svg);
@@ -49,19 +51,23 @@
        <div class="text-center">
             <img src="assets/img/svg/fxemoji_confetti.svg" alt="">
             <p class="h1 mt-3">You are in</p>
-            <p class="mb-3">We would let you know when we lauch</p>
-            <a href="index.html" class="btn btn-pay-gradient mt-3 w-100">Back to home</a>
+            <p class="mb-3">We would put a reach out to you soon </p>
+            <a href="{{route('/')}}" class="btn btn-pay-gradient mt-3 w-100">Back to home</a>
        </div>
 
         
         
-        <!-- jQuery -->
+       
+
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+       
+
+  
         <!-- Custom JS -->
-        <script src="js/main.js"></script>
+        <script src="{{asset('assets/js/main.js')}}"></script>
         
     </body>
 </html>

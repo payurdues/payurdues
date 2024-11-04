@@ -276,7 +276,7 @@
             function payWithPaystack(amount, dueId) {
                 let handler = PaystackPop.setup({
                     key: "{{ env('PAYSTACK_PUBLIC_KEY') }}", // Paystack public key from .env
-                    email: "oladitisodiq@gmail.com", // User's email
+                    email: "payurdues.com.ng@gmail.com", // User's email
                     amount: amount, // Amount in kobo
                     currency: "NGN", // Nigerian Naira
                     metadata: {
