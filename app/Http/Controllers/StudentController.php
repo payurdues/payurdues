@@ -83,8 +83,7 @@ class StudentController extends Controller
         
 
         // Fetch dues based on the specified faculty with associated data
-        $dues = Due::whereJsonContains('payable_faculties', $student->faculty)
-                ->whereDoesntHave('transactions', function ($query) use ($student) {
+        $dues = Due::whereJsonContains('payable_faculties', $student->faculty)->whereJsonContains('payable_levels', $student->level)->whereDoesntHave('transactions', function ($query) use ($student) {
                     $query->where('student_id', $student->id);
                 })
             ->with('association') // Load associated data
