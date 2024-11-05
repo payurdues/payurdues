@@ -35,6 +35,7 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::post('/paystack/webhook', [PaymentController::class, 'handleWebhook'])->name('paystack.webhook');
 
 Route::post('/waiting-list', [WaitingListController::class, 'store']);
 
@@ -49,6 +50,10 @@ Route::post('/login', [StudentController::class, 'login'])->name('login');
 
 Route::middleware(['auth:student'])->group(function () {
     Route::get('/Pay-due', [StudentController::class, 'selectDue'])->name('select.due');
+
+    Route::get('/PaymentFassa', [StudentController::class, 'paymentpage'])->name('payment.show');
+
+    Route::get('/PaymentPROSPECTUS', [StudentController::class, 'paymentpagePROSPECTUS'])->name('PROSPECTUSpayment.show');
 
     Route::get('/payment/callback', [FlutterwaveTransaction::class, 'paymentCallback'])->name('payment.callback');
 

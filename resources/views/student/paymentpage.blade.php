@@ -142,25 +142,10 @@
 
                     <div class="dashboard-content_balance row row-cols-1 row-cols-md-2  mb-4" style="box-sizing: border-box;">
                        
-                        <div class="col">
-                            <div class="balance-card due-available">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <p class="balance-card_subtitle fw-light">Total dues</p>
-                                    <p class="fw-semibold">{{ $countDue }}</p>
-                                </div>
-                                <p class="balance-card_title mt-2 fw-medium">₦{{ number_format($totalAmount, 2) }}</p>
-                            </div>
+                        <div style="position: relative; overflow: hidden; width: 100%; height: 600px;">
+                            <iframe src="https://paystack.com/pay/facmas"  style="clip-path: inset(130px 0 0 0); width: 100%; height: 100%; border: none;"></iframe>
                         </div>
-
-                        <div class="col">
-                            <div class="balance-card due-paid">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <p class="balance-card_subtitle fw-light">Dues Paid</p>
-                                    <p class="fw-semibold">{{ $TransactionCount }}</p>
-                                </div>
-                                <p class="balance-card_title mt-2 fw-medium">₦{{ number_format($paidDues, 2) }}</p>
-                            </div>
-                        </div>
+                        
 
                     </div>
                     
@@ -175,48 +160,7 @@
 
                             <div class="d-flex flex-wrap flex-md-nowrap gap-2 g-md-3">
 
-                                @foreach ($dues as $due)
-
-                                    <div class="payable-dues_card col-12 col-md-6 col-lg-4">
-                                        <div class="row g-2">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="fw-bold">Due Name</p>
-                                                <p class="text-end">{{ $due->name }}</p>
-                                            </div>
-
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="fw-bold">Period</p>
-                                                <p class="text-end">Basic dues</p>
-                                            </div>
-
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="fw-bold">Price</p>
-                                                <p class="text-end">₦{{ number_format($due->amount, 2) }}</p>
-                                            </div>
-
-                                            <div class="form-check mt-3 d-flex gap-2 align-items-center">
-                                                {{-- <input class="form-check-input" type="checkbox" value="" name="select">
-                                                <label class="form-check-label" for="select">Select Dues</label> --}}
-
-                                                    @if($due->id == '1')
-                                                        <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn"
-                                                        
-                                                        onclick="window.location.href='{{ route('payment.show') }}'">
-                                                            Pay Now
-                                                        </button>
-                                                    @elseif($due->id =='2')
-                                                        <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn"
-                                                        
-                                                        onclick="window.location.href='{{ route('PROSPECTUSpayment.show') }}'">
-                                                            Pay Now
-                                                        </button>
-
-                                                    @endif
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                @endforeach
+                               
 
                                 {{-- <div class="payable-dues_card col-12 col-md-6 col-lg-4">
                                     <div class="row g-2">
@@ -264,7 +208,7 @@
         <!-- Custom JS -->
         <script src="{{asset('assets/js/main.js')}}"></script>
 
-       
+      
         
     </body>
 </html>

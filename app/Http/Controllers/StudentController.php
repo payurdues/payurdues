@@ -119,4 +119,43 @@ class StudentController extends Controller
         return view('student.index', compact('dues','paidDues','TransactionCount', 'countDue','student', 'totalAmount'));
     }
 
+
+    public function paymentpagePROSPECTUS(){
+        // Check if the student is authenticated
+        if (!Auth::guard('student')->check()) {
+            return redirect()->route('login'); // Redirect if not authenticated
+        }
+
+        // Fetch the authenticated student
+        $student = Auth::guard('student')->user();
+
+        
+
+        // Fetch dues based on the specified faculty with associated data
+        
+
+        
+        return view('student.paymentpagePROSPECTUS', compact('student'));
+
+    }
+
+    public function paymentpage(){
+        // Check if the student is authenticated
+        if (!Auth::guard('student')->check()) {
+            return redirect()->route('login'); // Redirect if not authenticated
+        }
+
+        // Fetch the authenticated student
+        $student = Auth::guard('student')->user();
+
+        
+
+        // Fetch dues based on the specified faculty with associated data
+        
+
+        
+        return view('student.paymentpage', compact('student'));
+
+    }
+
 }

@@ -198,20 +198,11 @@
                                                 {{-- <input class="form-check-input" type="checkbox" value="" name="select">
                                                 <label class="form-check-label" for="select">Select Dues</label> --}}
 
-                                                    @if($due->id == '1')
-                                                        <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn"
-                                                        
-                                                        onclick="window.location.href='{{ route('payment.show') }}'">
-                                                            Pay Now
-                                                        </button>
-                                                    @elseif($due->id =='2')
-                                                        <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn"
-                                                        
-                                                        onclick="window.location.href='{{ route('PROSPECTUSpayment.show') }}'">
-                                                            Pay Now
-                                                        </button>
-
-                                                    @endif
+                                                <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn"
+                                                        data-amount="{{ $due->amount }}"
+                                                        data-due-id="{{ $due->id }}">
+                                                    Pay Now
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -264,7 +255,62 @@
         <!-- Custom JS -->
         <script src="{{asset('assets/js/main.js')}}"></script>
 
-       
+        <script src="https://js.paystack.co/v1/inline.js"></script>
+        <script>
+            // Select all Pay Now buttons
+            const payNowButtons = document.querySelectorAll('.pay-now-btn');
+        
+            // Add event listener to each button
+            payNowButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    // Get amount and due ID from the clicked button's data attributes
+                    const amount = button.getAttribute('data-amount') * 100; // Convert to kobo
+                    const dueId = button.getAttribute('data-due-id');
+        
+                    // Call the Paystack function with the dynamic amount and due ID
+                    payWithPaystack(amount, dueId);
+                });
+            });
+        
+            // Function to handle Paystack payment
+            function payWithPaystack(amount, dueId) {
+                console.log('{{ $student->matric_no ?? $student->form_no }}');
+                let handler = PaystackPop.setup({
+                    key: "{{ env('PAYSTACK_PUBLIC_KEY') }}", // Paystack public key from .env
+                    email: "payurdues.com.ng@gmail.com", // User's email
+                    amount: amount, // Amount in kobo
+                    currency: "NGN", // Nigerian Naira
+                    metadata: {
+                        custom_fields: [
+                            {
+                                display_name: "Student Name",
+                                variable_name: "student_name",
+                                value: "{{ $student->first_name }} {{ $student->last_name }}"
+                            },
+                            {
+                                display_name: "Student Mat or Form No",
+                                variable_name: "student_matric_no",
+                                value: "{{ $student->form_no }}"
+                            },
+                            {
+                                display_name: "Due ID",
+                                variable_name: "due_id",
+                                value: dueId // Use dynamic due ID
+                            }
+                        ]
+                    },
+                    onClose: function() {
+                        alert('Payment window closed.');
+                    },
+                    callback: function(response) {
+                        // Redirect to the callback route with the transaction details
+                        window.location.href = "{{ route('callback') }}?reference=" + response.reference;
+                    }
+                });
+        
+                handler.openIframe(); // Open Paystack payment iframe
+            }
+        </script>
         
     </body>
 </html>

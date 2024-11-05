@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Models\WalletTransaction;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -405,7 +406,7 @@ class PaymentController extends Controller
                 $amount = $response->data->amount / 100;
                 $final_amount = $amount- $charges;
 
-                $student_matric_no = $response->data->metadata->custom_fields[1]->value;
+                // $student_matric_no = $response->data->metadata->custom_fields[1]->value;
 
                 
             
@@ -476,6 +477,84 @@ class PaymentController extends Controller
     {
         return "Payment is cancelled";
     }
+    public function handleWebhook(Request $request)
+    {
+        // Step 1: Verify Paystack signature
+        $signature = $request->header('x-paystack-signature');
+        $payload = $request->getContent();
+
+        Log::info("Received Paystack webhook payload: ", ['payload' => $payload]);
+
+        if ($signature !== hash_hmac('sha512', $payload, env('PAYSTACK_SECRET_KEY'))) {
+            Log::warning("Invalid Paystack signature.");
+            return response()->json(['error' => 'Invalid signature'], 400);
+        }
+
+        $response = json_decode($payload);
+
+        // Step 2: Check if transaction was successful
+        if ($response->data->status == 'success') {
+            $meta_data = $response->data->metadata->custom_fields;
+
+            // Step 3: Extract metadata
+            $student_name = $meta_data[0]->value;
+            $student_matric_no = $meta_data[1]->value;
+            $due_id = $meta_data[2]->value;
+
+            // Fetch due and association information
+            $due = Due::with(['association:id,name,email,contact_person_phone'])->where('id', $due_id)->first(['charges', 'name', 'association_id']);
+            $associationName = $due->association->name;
+            $associationEmail = $due->association->email;
+            $associationContact = $due->association->contact_person_phone;
+
+            // Calculate amounts and transaction details
+            $charges = $due->charges;
+            $narration = $due->name;
+            $association_id = $due->association_id;
+            $amount = $response->data->amount / 100;
+            $final_amount = $amount - $charges;
+
+            // Step 4: Find student record and update payment status
+            $studentQuery = Student::where(function ($query) use ($student_matric_no) {
+                $query->where('matric_no', $student_matric_no)
+                      ->orWhere('form_no', $student_matric_no);
+            })->first();
+
+            if ($studentQuery) {
+                $studentQuery->facultyduestatus = 'paid';
+                $studentQuery->save();
+            }
+
+            $student_id = $studentQuery->id;
+            $student_faculty = $studentQuery->faculty;
+            $dept = $studentQuery->department;
+            $status = "approved";
+            $trans_id = $studentQuery->dept . mt_rand(1000000, 9999999) . $studentQuery->level;
+
+            // Step 5: Record transaction in the database
+            $this->creditWalletTransaction(
+                $response->data->reference,
+                $amount,
+                $association_id,
+                $status,
+                $trans_id,
+                $student_id,
+                $narration,
+                $student_faculty,
+                $final_amount,
+                $charges,
+                $dept,
+                $due_id
+            );
+
+            return response()->json(['status' => 'success'], 200);
+        } else {
+            // Step 6: Handle unsuccessful payment
+            return response()->json(['error' => 'Payment failed'], 400);
+        }
+    }
+
+   
 
     // $this->creditWalletTransaction($reference,$amount,$association_id,$status,$trans_id, $student_id, $narration,$student_faculty,$final_amount,$charges);
 
