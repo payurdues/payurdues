@@ -15,9 +15,11 @@
 
                     <div class="dashboard-content_transaction-box d-block d-md-flex justify-content-between align-items-center">
                         <div class="d-flex gap-4">
-                            <a href="#" id="payoutLink" class="active fw-semibold">Payout</a>
                             <a href="#" id="receivedLink" class="fw-semibold">Received</a>
+                            <a href="#" id="payoutLink" class="active fw-semibold">Payout</a>
+                            
                         </div>
+
 
                         <div class="d-flex gap-3">
                             <div class="position-relative d-flex align-items-center">
@@ -34,7 +36,42 @@
 
                     <div class="dashboard-content_details mt-3 mt-md-5">
                         <div class="table-responsive">
-                            <div id="payoutDiv" class="d-block">
+
+                            <div id="receivedDiv" class="d-block">
+                                <table class="table table-hover" id="receivedTable">
+                                    <thead>
+                                        <tr class="table-light text-center">
+                                            <th class="text-start">Title</th>
+                                            {{-- <th class="text-start">Period</th> --}}
+                                            <th class="text-start">Amount</th>
+                                            <th class="text-start">Payer</th>
+                                            <th class="text-start">ID</th>
+                                            <th class="text-start">Date</th>
+                                            <th class="text-start">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($creditTransactions as $creditTransaction)
+                                            <tr>
+                                                <td class="">
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="me-2" src="/assets/img/svg/transaction-out.svg" style="transform: rotate(180deg);" alt="payYourDues">
+                                                        <span>{{ $creditTransaction->due->name }}</span>
+                                                    </div>
+                                                </td>
+                                                {{-- <td>Jul 2024-Jul 2024</td> --}}
+                                                <td>₦{{ number_format($creditTransaction->final_amount, 2) }}</td>
+                                                <td>{{ $creditTransaction->student->first_name }} {{ $creditTransaction->student->other_names }}</td>
+                                                <td>{{ $creditTransaction->trans_id }}</td>
+                                                <td>{{ $creditTransaction->created_at }}</td>
+                                                <td>Successful</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div id="payoutDiv" class="d-none">
                                 <table class="table table-hover" id="payoutTable">
                                     <thead>
                                         <tr class="table-light text-center">
@@ -46,53 +83,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="">
-                                                <div class="d-flex align-items-center">
-                                                    <img class="me-2" src="/assets/img/svg/transaction-out.svg" alt="payYourDues">
-                                                    <span>Basic Due Payment</span>
-                                                </div>
-                                            </td>
-                                            <td>₦4,000</td>
-                                            <td>16 Jul 2024</td>
-                                            <td>Nip_234Ad_hf..</td>
-                                            <td>Successful</td>
-                                        </tr>
+                                        @foreach ($debitTransactions as $debitTransaction)
+                                            <tr>
+                                                <td class="">
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="me-2" src="/assets/img/svg/transaction-out.svg" alt="payYourDues">
+                                                        <span>{{ $debitTransaction->due->name }}</span>
+                                                    </div>
+                                                </td>
+                                                 <td>₦{{ number_format($debitTransaction->final_amount, 2) }}</td>
+                                                 <td>{{ $debitTransaction->created_at }}</td>
+                                                 <td>{{ $debitTransaction->trans_id }}</td>
+                                                <td>Successful</td>
+                                            </tr>
+                                        @endforeach
+                                        
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div id="receivedDiv" class="d-none">
-                                <table class="table table-hover" id="receivedTable">
-                                    <thead>
-                                        <tr class="table-light text-center">
-                                            <th class="text-start">Title</th>
-                                            <th class="text-start">Period</th>
-                                            <th class="text-start">Amount</th>
-                                            <th class="text-start">Payer</th>
-                                            <th class="text-start">ID</th>
-                                            <th class="text-start">Date</th>
-                                            <th class="text-start">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="">
-                                                <div class="d-flex align-items-center">
-                                                    <img class="me-2" src="/assets/img/svg/transaction-out.svg" style="transform: rotate(180deg);" alt="payYourDues">
-                                                    <span>Basic Due Payment</span>
-                                                </div>
-                                            </td>
-                                            <td>Jul 2024-Jul 2024</td>
-                                            <td>₦4,000</td>
-                                            <td>Akerele Peter</td>
-                                            <td>Nip_234Ad_hf..</td>
-                                            <td>14 Jul 2024</td>
-                                            <td>Successful</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                           
                         </div>
                     </div>
 
@@ -130,34 +140,7 @@
 
 @push('script')
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const payoutLink = document.getElementById('payoutLink');
-        const receivedLink = document.getElementById('receivedLink');
-        const payoutDiv = document.getElementById('payoutDiv');
-        const receivedDiv = document.getElementById('receivedDiv');
 
-        payoutLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (payoutDiv.classList.contains('d-none')) {
-                payoutDiv.classList.remove('d-none');
-                receivedDiv.classList.add('d-none');
-                payoutLink.classList.toggle('active');
-                receivedLink.classList.remove('active');
-            } 
-        });
-
-        receivedLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (receivedDiv.classList.contains('d-none')) {
-                receivedDiv.classList.remove('d-none');
-                payoutDiv.classList.add('d-none');
-                receivedLink.classList.toggle('active');
-                payoutLink.classList.remove('active');
-            } 
-        });
-    });
-</script>
 
 @endpush
 

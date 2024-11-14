@@ -51,11 +51,18 @@ Route::post('/login', [StudentController::class, 'login'])->name('login');
 Route::middleware(['auth:student'])->group(function () {
     Route::get('/Pay-due', [StudentController::class, 'selectDue'])->name('select.due');
 
+    Route::get('/History', [StudentController::class, 'history'])->name('select.history');
+
+    Route::get('/select-due', [StudentController::class, 'oldselectDue'])->name('selecssst.due');
     Route::get('/PaymentFassa', [StudentController::class, 'paymentpage'])->name('payment.show');
 
     Route::get('/PaymentPROSPECTUS', [StudentController::class, 'paymentpagePROSPECTUS'])->name('PROSPECTUSpayment.show');
 
     Route::get('/payment/callback', [FlutterwaveTransaction::class, 'paymentCallback'])->name('payment.callback');
+
+    // routes/web.php
+    Route::get('/receipt/{trans_id}', [PaymentController::class, 'showReceipt'])->name('receipt.show');
+
 
 
     Route::get('callback', [PaymentController::class, 'callback'])->name('callback');
@@ -72,11 +79,11 @@ Route::get('/association/login', [AssociationController::class, 'showLoginForm']
 // Handle login submission
 Route::post('/association/login', [AssociationController::class, 'login'])->name('association.login');
 
-// Route::middleware(['auth:association'])->group(function () {
+Route::middleware(['auth:association'])->group(function () {
 
     Route::resource('dues', DuesController::class)->only(['index', 'show']);
     Route::resource('dashboard', DashboardController::class)->only(['index', 'show']);
     Route::resource('transactions', TransactionsController::class)->only(['index', 'show']);
     Route::resource('members', MembersController::class)->only(['index', 'show']);
 
-// });
+});

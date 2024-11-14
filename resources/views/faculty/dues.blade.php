@@ -48,8 +48,13 @@
                                 <td>
                                     {{ implode(', ', json_decode($due->payable_departments)) }}
                                 </td>
-                                <td>10</td>
-                                <td>₦40,000</td>
+                                <td>
+                                    @php
+                                         $transaction = \App\Models\Transaction::where('due_id',$due->id)->get();
+                                    @endphp
+                                    {{ $transaction->count() }}
+                                </td>
+                                <td>₦{{ number_format($transaction->sum('final_amount'), 2) }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -57,9 +62,6 @@
             </div>
         </div>
     </div>
-
-
-
                 
 
     <!-- Modal -->

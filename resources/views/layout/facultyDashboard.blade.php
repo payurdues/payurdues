@@ -32,7 +32,12 @@
         <!-- Custom CSS -->
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
         <link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet">
-
+        <style>
+            .dashboard-content_header {
+                background-color: transparent !important;
+                margin-top: 24px !important;
+            }
+        </style>
     </head>
     <body class="dashboard">
 
@@ -63,9 +68,9 @@
         </header>
 
         <section class="main-content flex-grow-1">
-            <div class="px-3 px-lg-5 h-100 d-flex  gap-4">
+            <div class="px-3 px-lg-5 h-100 d-flex mt-md-5 mt-4 gap-4">
                 
-                <div class="sidebar mt-md-5 mt-0 offcanvas-md offcanvas-end" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+                <div class="sidebar offcanvas-md offcanvas-end" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
                     <div class="offcanvas-header d-flex d-md-none justify-content-between mb-4 align-items-center">
                         <div class="d-flex gap-2 align-items-center">
                             <img src="{{asset('assets/img/svg/Ellipse 12.png')}}" alt="PayUrDues">
@@ -185,6 +190,35 @@
 
       <!-- Custom JS -->
       <script src="{{asset('assets/js/main.js')}}"></script>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const payoutLink = document.getElementById('payoutLink');
+            const receivedLink = document.getElementById('receivedLink');
+            const payoutDiv = document.getElementById('payoutDiv');
+            const receivedDiv = document.getElementById('receivedDiv');
+    
+            payoutLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (payoutDiv.classList.contains('d-none')) {
+                    payoutDiv.classList.remove('d-none');
+                    receivedDiv.classList.add('d-none');
+                    payoutLink.classList.toggle('active');
+                    receivedLink.classList.remove('active');
+                } 
+            });
+    
+            receivedLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (receivedDiv.classList.contains('d-none')) {
+                    receivedDiv.classList.remove('d-none');
+                    payoutDiv.classList.add('d-none');
+                    receivedLink.classList.toggle('active');
+                    payoutLink.classList.remove('active');
+                } 
+            });
+        });
+    </script>
       
   </body>
 </html>

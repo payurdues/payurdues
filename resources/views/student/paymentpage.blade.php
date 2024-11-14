@@ -142,10 +142,16 @@
 
                     <div class="dashboard-content_balance row row-cols-1 row-cols-md-2  mb-4" style="box-sizing: border-box;">
                        
-                        <div style="position: relative; overflow: hidden; width: 100%; height: 600px;">
+                        {{-- <div style="position: relative; overflow: hidden; width: 100%; height: 600px;">
                             <iframe src="https://paystack.com/pay/facmas"  style="clip-path: inset(130px 0 0 0); width: 100%; height: 100%; border: none;"></iframe>
-                        </div>
+                        </div> --}}
+
                         
+                        <a href="https://flutterwave.com/pay/facmassdueee" target="_blank" style="text-decoration: none;">
+                            <button style="padding: 10px 20px; background-color: #ff6600; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                              Pay Now
+                            </button>
+                        </a>
 
                     </div>
                     

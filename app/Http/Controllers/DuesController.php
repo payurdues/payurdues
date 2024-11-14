@@ -21,7 +21,6 @@ class DuesController extends Controller
         // add relationsip with tranasaction db
      
         $selectDue= Due::where('association_id',$association_id)->get();
-
         // dd( $selectDue);
         
         return view('faculty.dues',compact('selectDue'));

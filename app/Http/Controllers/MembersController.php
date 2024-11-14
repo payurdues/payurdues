@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Due;
+use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MembersController extends Controller
 {
@@ -14,7 +17,25 @@ class MembersController extends Controller
     public function index()
     {
         //
-        return view('faculty.members');
+
+        if (!Auth::guard('association')->check()) {
+            return redirect()->route('login'); // Redirect if not authenticated
+        }
+
+        // Fetch the authenticated student
+        $association_id = Auth::guard('association')->user()->id;
+
+
+        $Duee =Due::where('association_id',$association_id)->with(['association'])->first(['payable_faculties']);
+        $Due = json_decode($Duee->payable_faculties, true);
+
+        $students= Student::where('faculty',$Due)->get();
+
+        $duesCount =Due::where('association_id',$association_id)->count();
+
+        // dd($Transactions->due->count());
+       
+        return view('faculty.members',compact('students'));
     }
 
     /**

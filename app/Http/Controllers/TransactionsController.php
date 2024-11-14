@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionsController extends Controller
 {
@@ -14,7 +16,24 @@ class TransactionsController extends Controller
     public function index()
     {
         //
-        return view('faculty.transaction');
+        if (!Auth::guard('association')->check()) {
+            return redirect()->route('login'); // Redirect if not authenticated
+        }
+
+        // Fetch the authenticated student
+        $association_id = Auth::guard('association')->user()->id;
+
+      
+        // $allTransactions = Transaction::getTransactions($association_id)->with(['student']);
+
+        // For credit transactions only
+        $creditTransactions = Transaction::getTransactions($association_id, 'credit');
+
+        // For debit transactions only
+        $debitTransactions = Transaction::getTransactions($association_id, 'debit');
+
+
+        return view('faculty.transaction',compact('creditTransactions','debitTransactions'));
     }
 
     /**

@@ -320,6 +320,44 @@ class PaymentController extends Controller
             return 50; // NGN 50 for transfers above NGN 50,000
         }
     }
+   
+    public function showReceipt($trans_id)
+    {
+        // Fetch the transaction details using the trans_id
+        $checkTransaction = Transaction::where('trans_id', $trans_id)->firstOrFail();
+
+        if ($checkTransaction){
+
+            $due = Due::with(['association:id,name,email,contact_person_phone'])->where('id', $checkTransaction->due_id)->first(['charges', 'name', 'association_id']);
+
+            $studentQuery= Student::where('id', $checkTransaction->student_id)->first();
+
+            $associationName = $due->association->name;
+            $associationEmail = $due->association->email;
+            $associationContact = $due->association->contact_person_phone;
+          
+
+                 $successMessage = 'Payment successful!';
+                $student_name = $studentQuery->first_name.' '. $studentQuery->other_names;
+            
+                $level=$studentQuery->level;
+
+                $amount= $checkTransaction->amount;
+
+
+                $trans_id= $checkTransaction->trans_id;
+
+                $due_name=$due->name;
+
+                $date = date('dMY');
+            
+
+
+                return view('student.receipt', compact('successMessage','amount','due_name','level','student_name','trans_id','date','associationName','associationEmail','associationContact'));
+
+        }
+    }
+
 
     public function callback(Request $request)
     {

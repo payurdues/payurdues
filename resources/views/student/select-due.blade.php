@@ -10,23 +10,23 @@
     @foreach ($dues as $due)
         <div class="due-item mb-3"> {{-- Added margin for spacing --}}
             <h3>{{ $due->name }} (₦{{ number_format($due->amount, 2) }})</h3> {{-- Display due name and amount --}}
-            <button type="button" class="btn btn-primary" onclick="makePayment({{ $due->amount }}, '{{ $student->name }}', '{{ $student->id }}', '{{ $due->id }}')">Pay Now</button>
+            <button type="button" class="btn btn-primary" onclick="makePayment({{ $due->amount }}, '{{ $student->name }}', '{{ $student->id }}', '{{ $due->id }}','{{ $student->form_no }}')">Pay Now</button>
         </div>
     @endforeach
 </div>
 
 <script src="https://checkout.flutterwave.com/v3.js"></script>
 <script>
-    function makePayment(amount, studentName, dueId) {
+    function makePayment(amount, studentName, dueId,form_no) {
         FlutterwaveCheckout({
             public_key: "FLWPUBK-8a51bc8d13d58f823b94ca818a5e564a-X",
             tx_ref: "txref-" + new Date().getTime(), // Use a unique transaction reference
-            amount: amount,
+            amount: 100,
             currency: "NGN",
             payment_options: "banktransfer, card, ussd",
             meta: {
-                source: "docs-inline-test",
-                consumer_mac: "92a3-912ba-1192a",
+                source: "duepayment",
+                form_no: "{{ $student->phone_number }}",
                 due_id: dueId // Add due ID to meta for backend processing
             },
             customer: {
@@ -35,7 +35,7 @@
                 name: studentName, // Use student's name
             },
             customizations: {
-                title: "Flutterwave Payment",
+                title: "Facmas fee and Facmas Prospectus Fee",
                 description: "Payment for " + studentName,
                 logo: "https://checkout.flutterwave.com/assets/img/rave-logo.png",
             },
@@ -43,7 +43,7 @@
                 console.log("Payment callback:", data);
                 // Handle payment success response
                 if (data.status === "successful") {
-                    window.location.href = "{{ route('payment.callback') }}?tx_ref=" + data.tx_ref + "&transaction_id=" + data.transaction_id + "&status=" + data.status + "&due_id=" + dueId;
+                    window.location.href = "{{ route('payment.callback') }}?tx_ref=" + data.tx_ref + "&transaction_id=" + data.transaction_id + "&status=" + data.status + "&due_id=" + dueId + "&form_no=" + form_no;
                 }
             },
             onclose: function() {
