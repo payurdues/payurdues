@@ -87,3 +87,7 @@ Route::middleware(['auth:association'])->group(function () {
     Route::resource('members', MembersController::class)->only(['index', 'show']);
 
 });
+
+Route::get('/offline', function () {
+    return view('offline');
+    });
