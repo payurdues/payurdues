@@ -99,6 +99,20 @@
                         </div>
 
                     </div>
+
+                    @if(Session::has('error'))
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <strong>Oops!</strong> {{ Session::get('error')}}
+                    </div>
+                    @endif
+                    @if(Session::has('success'))
+        
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <strong>Congrats!</strong>  {{ Session::get('success') }}
+                    </div>
+                    @endif
                     
                     @if(!$dues->isEmpty()) 
                         <div class="dashboard-content_details my-5 col">
@@ -141,9 +155,9 @@
                                                         
                                                         onclick="window.location.href='https://flutterwave.com/pay/facmassdueee'">
                                                             Pay Now 
-
-                                                    @endif
                                                         </button>
+                                                    @endif
+                                                       
                                                     @if($due->id =='3')
                                                         <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn"
                                                         
@@ -152,6 +166,16 @@
                                                         </button>
 
                                                     @endif
+
+
+                                                    @if(($due->id== '2') || ($due->id== '4'))
+
+                                                        <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn" onclick="makePayment({{$student->levelduestatus === 'paid' ? 1200:3900 }}, '{{ $student->first_name }}', '{{ $student->id }}', '{{ json_encode($student->levelduestatus === 'paid' ? ['2'] : ['2', '4']) }}','{{  $student->matric_no }}')">Pay Now</button>
+
+
+                            
+
+                                                    @endif 
 
 
                                                 </div>
@@ -253,6 +277,80 @@
         <script src="{{asset('assets/js/main.js')}}"></script>
 
        
-        
+        <script src="https://checkout.flutterwave.com/v3.js"></script>
+        <script>
+
+            
+            function makePayment(amount, studentName,studentId, dueId,form_no) {
+                FlutterwaveCheckout({
+                    public_key: "{{ env('flw_PUBLIC_KEY') }}",
+                    tx_ref: "txref-" + new Date().getTime(), // Use a unique transaction reference
+                    amount:100 ,
+                    currency: "NGN",
+                    payment_options: "banktransfer",
+                    meta: {
+                        source: "duepayment",
+                        form_no: "form_no",
+                        due_id: dueId // Add due ID to meta for backend processing
+                    },
+                    customer: {
+                        email: "payurdues.com.ng@gmail.com", // Use student's email
+                        phone_number: "{{ $student->phone_number }}", // Use student's phone number
+                        name: studentName, // Use student's name
+                    },
+                    customizations: {
+                        title: studentName + "Facmas fee & Facmas Prospectus Fee",
+                        description: "Payment for " + studentName,
+                        logo: "https://www.payurdues.com.ng/assets/img/svg/logo.svg",
+                    },
+                    callback: function (data) {
+                        console.log("Payment callback:", data);
+                        // Handle payment success response
+                        // if (data.status === "completed") {
+                        //     window.location.href = "{{ route('payment.callback') }}?tx_ref=" + data.tx_ref + "&transaction_id=" + data.transaction_id + "&status=" + data.status + "&due_id=" + dueId + "&form_no=" + form_no;
+                        // }
+
+                        if (data.status === "completed") {
+                            const form = document.createElement("form");
+                            form.method = "POST";
+                            form.action = "{{ route('payment.callback') }}";
+
+                            // Add CSRF token for Laravel
+                            const csrfInput = document.createElement("input");
+                            csrfInput.type = "hidden";
+                            csrfInput.name = "_token";
+                            csrfInput.value = "{{ csrf_token() }}";
+                            form.appendChild(csrfInput);
+
+                            // Append data fields
+                            const fields = {
+                                tx_ref: data.tx_ref,
+                                transaction_id: data.transaction_id,
+                                status: data.status,
+                                due_id: dueId,
+                                amount: amount,
+                                student_id: studentId,
+                                form_no: form_no
+                            };
+
+                            for (const [key, value] of Object.entries(fields)) {
+                                const input = document.createElement("input");
+                                input.type = "hidden";
+                                input.name = key;
+                                input.value = value;
+                                form.appendChild(input);
+                            }
+
+                            document.body.appendChild(form);
+                            form.submit();
+                        }
+
+                    },
+                    onclose: function() {
+                        console.log("Payment cancelled!");
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

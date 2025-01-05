@@ -573,6 +573,7 @@ class ComposerStaticInitd529836a804f61563e2d5f863884a766
         'App\\Http\\Controllers\\StudentController' => __DIR__ . '/../..' . '/app/Http/Controllers/StudentController.php',
         'App\\Http\\Controllers\\TransactionsController' => __DIR__ . '/../..' . '/app/Http/Controllers/TransactionsController.php',
         'App\\Http\\Controllers\\WaitingListController' => __DIR__ . '/../..' . '/app/Http/Controllers/WaitingListController.php',
+        'App\\Http\\Controllers\\WebhookController' => __DIR__ . '/../..' . '/app/Http/Controllers/WebhookController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',

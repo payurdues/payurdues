@@ -19,6 +19,7 @@ return array(
     'App\\Http\\Controllers\\StudentController' => $baseDir . '/app/Http/Controllers/StudentController.php',
     'App\\Http\\Controllers\\TransactionsController' => $baseDir . '/app/Http/Controllers/TransactionsController.php',
     'App\\Http\\Controllers\\WaitingListController' => $baseDir . '/app/Http/Controllers/WaitingListController.php',
+    'App\\Http\\Controllers\\WebhookController' => $baseDir . '/app/Http/Controllers/WebhookController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',

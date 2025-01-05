@@ -37,7 +37,7 @@ Route::get('/', function () {
 
 Route::post('/paystack/webhook', [PaymentController::class, 'handleWebhook'])->name('paystack.webhook');
 
-Route::post('/waiting-list', [WaitingListController::class, 'store']);
+Route::post('/waiting-list', [WaitingListController::class, 'store'])->name('waitlist.form');
 
 // Show login form
 Route::get('/login', [StudentController::class, 'showLoginForm'])->name('login.form');
@@ -45,20 +45,24 @@ Route::get('/login', [StudentController::class, 'showLoginForm'])->name('login.f
 // Handle login submission
 Route::post('/login', [StudentController::class, 'login'])->name('login');
 
+Route::post('/flw-webhook', [FlutterwaveTransaction::class, 'handleFlutterwaveWebhook']);
 
- Route::get('/payment/callback', [FlutterwaveTransaction::class, 'paymentCallback'])->name('payment.callback');
+ Route::post('/payment/callback', [FlutterwaveTransaction::class, 'paymentCallback'])->name('payment.callback');
 
 Route::middleware(['auth:student'])->group(function () {
     Route::get('/Pay-due', [StudentController::class, 'selectDue'])->name('select.due');
 
     Route::get('/History', [StudentController::class, 'history'])->name('select.history');
 
+    Route::post('/flutterwave/bank-transfer', [StudentController::class, 'initiateBankTransfer']);
+
+
     Route::get('/select-due', [StudentController::class, 'oldselectDue'])->name('selecssst.due');
     Route::get('/PaymentFassa', [StudentController::class, 'paymentpage'])->name('payment.show');
 
     Route::get('/PaymentPROSPECTUS', [StudentController::class, 'paymentpagePROSPECTUS'])->name('PROSPECTUSpayment.show');
 
-    Route::get('/payment/callback', [FlutterwaveTransaction::class, 'paymentCallback'])->name('payment.callback');
+    Route::post('/payment/callback', [FlutterwaveTransaction::class, 'paymentCallback'])->name('payment.callback');
 
     // routes/web.php
     Route::get('/receipt/{trans_id}', [PaymentController::class, 'showReceipt'])->name('receipt.show');

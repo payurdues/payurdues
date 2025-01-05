@@ -84,8 +84,8 @@
                                         <p class="modal-paragraph">Join 64 others that are waiting for this project launch</p>
                                     </div>
 
-                                    <div class="modal-form">
-                                        <form action="">
+                                    <div class="modal-form">  
+                                        <form action="{{ route('waitlist.form') }}" method="POST">
                                             <div class="text-start mb-3">
                                                 <label for="fullName" class="form-label fw-bold">Full Name</label>
                                                 <div class="position-relative">
