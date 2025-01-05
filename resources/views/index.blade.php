@@ -73,62 +73,93 @@
                     <div class="modal fade" id="joinWaitlist" tabindex="-1" aria-labelledby="joinWaitlistLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content p-3 py-5 p-md-5">
-                            
                                 <div class="d-flex justify-content-end">
                                     <button type="button" class="btn-close mb-3 border rounded-md p-1" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-
                                 <div class="modal-body mx-1 mx-md-3">
                                     <div class="modal-text text-center">
-                                        <p class="modal-heading">Join our wait list</p>
+                                        <p class="modal-heading">Join our waitlist</p>
                                         <p class="modal-paragraph">Join 64 others that are waiting for this project launch</p>
                                     </div>
-
-                                    <div class="modal-form">  
-                                        <form action="{{ route('waitlist.form') }}" method="POST">
+                                    <div class="modal-form">
+                                        <!-- Form -->
+                                        <form id="waitlistForm" action="{{ route('waitlist.form') }}" method="POST">
+                                            <meta name="csrf-token" content="{{ csrf_token() }}">
                                             <div class="text-start mb-3">
-                                                <label for="fullName" class="form-label fw-bold">Full Name</label>
+                                                <label for="fullname" class="form-label fw-bold">Full Name</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control ps-3" name="fullName" id="fullName" placeholder="Enter your full name">
-                                                    <img src="{{asset('assets/img/svg/User.svg')}}" alt="" class="me-3 position-absolute top-50 end-0 translate-middle-y">
+                                                    <input type="text" class="form-control ps-3" name="fullname" id="fullname" placeholder="Enter your full name" required>
+                                                    <img src="{{ asset('assets/img/svg/User.svg') }}" alt="" class="me-3 position-absolute top-50 end-0 translate-middle-y">
                                                 </div>
                                             </div>
-
                                             <div class="text-start mb-3">
-                                                <label for="email" class="form-label fw-bold">Email address</label>
+                                                <label for="email" class="form-label fw-bold">Email Address</label>
                                                 <div class="position-relative">
-                                                    <input type="email" class="form-control ps-3" name="email" id="email" placeholder="Enter Email Address">
-                                                    <img src="{{asset('assets/img/svg/Envelope.svg')}}" alt="" class="me-3 position-absolute top-50 end-0 translate-middle-y">
+                                                    <input type="email" class="form-control ps-3" name="email" id="email" placeholder="Enter your email address" required>
+                                                    <img src="{{ asset('assets/img/svg/Envelope.svg') }}" alt="" class="me-3 position-absolute top-50 end-0 translate-middle-y">
                                                 </div>
                                             </div>
-
                                             <div class="text-start mb-3">
-                                                <label for="phone" class="form-label fw-bold">Phone.No</label>
+                                                <label for="phone" class="form-label fw-bold">Phone Number</label>
                                                 <div class="position-relative">
-                                                    <input type="number" class="form-control ps-3" name="phone" id="phone" placeholder="Enter your phone number">
-                                                    <img src="{{asset('assets/img/svg/Envelope.svg')}}" alt="" class="me-3 position-absolute top-50 end-0 translate-middle-y">
+                                                    <input type="number" class="form-control ps-3" name="phone" id="phone" placeholder="Enter your phone number" required>
+                                                    <img src="{{ asset('assets/img/svg/Phone.svg') }}" alt="" class="me-3 position-absolute top-50 end-0 translate-middle-y">
                                                 </div>
                                             </div>
-
-
-
                                             <div class="text-start mb-3">
-                                                <label for="associationFullName" class="form-label fw-bold">Full Name</label>
+                                                <label for="association_name" class="form-label fw-bold">Association Name</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control ps-3" name="associationFullName" id="associationFullName" placeholder="Enter your Association full name">
-                                                    <img src="{{asset('assets/img/svg/User.svg')}}" alt="" class="me-3 position-absolute top-50 end-0 translate-middle-y">
+                                                    <input type="text" class="form-control ps-3" name="association_name" id="association_name" placeholder="Enter your association name" required>
+                                                    <img src="{{ asset('assets/img/svg/User.svg') }}" alt="" class="me-3 position-absolute top-50 end-0 translate-middle-y">
                                                 </div>
                                             </div>
-
-                                            <input type="submit" value="Join Waitlist" class="btn btn-pay-gradient w-100 mt-3 modal-button">
-
+                                            <button type="submit" class="btn btn-pay-gradient w-100 mt-3 modal-button">Join Waitlist</button>
                                         </form>
                                     </div>
                                 </div>
-                            
                             </div>
                         </div>
                     </div>
+                    
+
+                    <div class="modal fade" id="alreadyInWaitlist" tabindex="-1" aria-labelledby="alreadyInWaitlistLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content p-3 py-5 p-md-5">
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn-close mb-3 border rounded-md p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body mx-1 mx-md-3">
+                                    <div class="text-center">
+                                        <img src="assets/img/svg/noto_bubble-tea.svg"  class="img-fluid mb-3">
+                                        <p class="h1 mt-3">Ops! you already in</p>
+                                        <p class="mb-3">Your details are already on the <br class="d-md-none" /> waitlist. Grab a drink and chill!</p>
+                                        <a href="/" class="btn btn-pay-gradient mt-3 w-100">Back to home</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content p-3 py-5 p-md-5">
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn-close mb-3 border rounded-md p-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body mx-1 mx-md-3">
+                                    <div class="modal-text text-center">
+                                        <img src="assets/img/svg/fxemoji_confetti.svg" alt="" class="img-fluid mb-3">
+                                  
+                                        <p class="h1 mt-3">Welcome to the Waitlist!</p>
+                                        <p class="mb-3">We're excited to have you on board. Sit back, relax, and stay tuned for updates!</p>
+                                        <a href="/" class="btn btn-pay-gradient mt-3 w-100">Back to Home</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
 
                     <!-- Hero Partners -->
                     <div class="hero-partner">
@@ -310,6 +341,49 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Custom JS -->
         <script src="{{asset('assets/js/main.js')}}"></script>
+
+
+        <script>
+
+            document.getElementById('waitlistForm').addEventListener('submit', function (e) {
+                e.preventDefault(); // Prevent default form submission behavior
+
+                const form = e.target;
+                const formData = new FormData(form);
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                    },
+                    body: formData,
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const joinWaitlistModal = bootstrap.Modal.getInstance(document.getElementById('joinWaitlist'));
+                        if (joinWaitlistModal) {
+                            joinWaitlistModal.hide();
+                        }
+                        if (data.status === 'already_exists') {
+                            // Insert and show the "already in waitlist" modal
+                            document.body.insertAdjacentHTML('beforeend', data.html);
+                            const modal = new bootstrap.Modal(document.getElementById('alreadyInWaitlist'));
+                            modal.show();
+                        } else if (data.status === 'new_user') {
+                            // Show the "welcome" modal for new users
+                            const welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
+                            welcomeModal.show();
+
+                            // Optionally reset the form after submission
+                            form.reset();
+                        }
+                    })
+                    .catch((error) => console.error('Error:', error));
+            });
+
+        </script>
         
     </body>
 </html>
