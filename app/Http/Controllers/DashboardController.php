@@ -30,7 +30,9 @@ class DashboardController extends Controller
         $Transactions =Transaction::where('association_id',$association_id)->with(['due', 'association'])->get();
 
 
-        $Duee =Due::where('association_id',$association_id)->with(['association'])->first(['payable_faculties']);
+        $Duee =Due::where(column: 'association_id',$association_id)->with(['association'])->first(['payable_faculties']);
+
+        
         $Due = json_decode($Duee->payable_faculties, true);
 
         $students= Student::where('faculty',$Due)->get();

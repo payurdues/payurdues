@@ -18,6 +18,10 @@ class Due extends Model
     {
         return $this->hasMany(Transaction::class, 'due_id');
     }
+    public function foprospectuspayment()
+    {
+        return $this->hasMany(Foprospectuspayment::class, 'due_id');
+    }
 
     // public function student()
     // {

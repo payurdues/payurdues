@@ -285,7 +285,7 @@
                 FlutterwaveCheckout({
                     public_key: "{{ env('flw_PUBLIC_KEY') }}",
                     tx_ref: "txref-" + new Date().getTime(), // Use a unique transaction reference
-                    amount:100 ,
+                    amount:amount ,
                     currency: "NGN",
                     payment_options: "banktransfer",
                     meta: {
