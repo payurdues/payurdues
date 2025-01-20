@@ -219,6 +219,90 @@
             });
         });
     </script>
+    <script>
+    
+$(document).ready(function() {
+    const dateRangeSelect = $('#date-range');
+    const customDateRangeDiv = $('#custom-date-range');
+    const startDateInput = $('#start-date');
+    const endDateInput = $('#end-date');
+    const searchButton = $('#search-button');
+    const searchForm = $('#search-form');
+
+    // Function to toggle custom date range fields
+    const toggleCustomDateFields = () => {
+        if (dateRangeSelect.val() === 'custom') {
+            customDateRangeDiv.removeClass('d-none'); // Show custom date inputs
+            searchButton.show(); // Show search button
+        } else {
+            customDateRangeDiv.addClass('d-none'); // Hide custom date inputs
+            searchButton.hide(); // Hide search button
+        }
+    };
+
+    // Event listener for dropdown changes
+    dateRangeSelect.on('change', function() {
+        toggleCustomDateFields();
+        // Automatically populate dates for other ranges and submit the form
+        const selectedRange = $(this).val();
+        const today = new Date();
+        let startDate, endDate;
+
+        switch (selectedRange) {
+            case 'today':
+                startDate = endDate = today;
+                break;
+            case 'yesterday':
+                today.setDate(today.getDate() - 1);
+                startDate = endDate = today;
+                break;
+            case 'this_week':
+                const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+                startDate = firstDayOfWeek;
+                endDate = new Date();
+                break;
+            case '7':
+                startDate = new Date(today.setDate(today.getDate() - 7));
+                endDate = new Date();
+                break;
+            case '30':
+                startDate = new Date(today.setDate(today.getDate() - 30));
+                endDate = new Date();
+                break;
+            case '90':
+                startDate = new Date(today.setDate(today.getDate() - 90));
+                endDate = new Date();
+                break;
+            default:
+                return; // Do nothing if 'custom' is selected
+        }
+
+        // Update input fields with the calculated date range (except 'custom')
+        if (selectedRange !== 'custom') {
+            startDateInput.val(formatDate(startDate));
+            endDateInput.val(formatDate(endDate));
+            // Automatically submit the form
+            searchForm.submit();
+        }
+    });
+
+    // Helper function to format date in 'yyyy-mm-dd' format
+    function formatDate(date) {
+        const d = new Date(date);
+        const year = d.getFullYear();
+        const month = (d.getMonth() + 1).toString().padStart(2, '0');
+        const day = d.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    // Initialize the custom date range toggle state based on the initial value
+    toggleCustomDateFields();
+});
+
+
+
+
+</script>
       
   </body>
 </html>

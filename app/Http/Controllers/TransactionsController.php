@@ -36,6 +36,93 @@ class TransactionsController extends Controller
         return view('faculty.transaction',compact('creditTransactions','debitTransactions'));
     }
 
+
+    // public function search(Request $request)
+    // {
+    //     if (!Auth::guard('association')->check()) {
+    //         return redirect()->route('login'); // Redirect if not authenticated
+    //     }
+    
+    //     $association_id = Auth::guard('association')->user()->id;
+    
+    //     // Parse date range from request
+    //     $range = $request->input('range', '90'); // Default to past 90 days
+    //     $endDate = now(); // Current date and time
+    
+    //     // Handle custom date range if provided
+    //     if ($range === 'custom') {
+    //         $startDate = Carbon::parse($request->input('start_date'))->startOfDay();
+    //         $endDate = Carbon::parse($request->input('end_date'))->endOfDay();
+    //     } else {
+    //         // Default date handling
+    //         $startDate = match ($range) {
+    //             'today' => $endDate->copy()->startOfDay(),
+    //             'yesterday' => $endDate->copy()->subDay()->startOfDay(),
+    //             'this_week' => $endDate->copy()->startOfWeek(),
+    //             default => $endDate->copy()->subDays((int)$range),
+    //         };
+    //     }
+    
+    //     // Fetch filtered transactions
+    //     $creditTransactions = Transaction::where('association_id', $association_id)
+    //         ->whereBetween('created_at', [$startDate, $endDate])
+    //         ->where('amount_type', 'credit')
+    //         ->with(['student'])
+    //         ->get();
+    
+    //     $debitTransactions = Transaction::where('association_id', $association_id)
+    //         ->whereBetween('created_at', [$startDate, $endDate])
+    //         ->where('amount_type', 'debit')
+    //         ->with(['student'])
+    //         ->get();
+    
+    //     return view('faculty.transaction', compact('creditTransactions', 'debitTransactions'));
+    // }
+
+    public function search(Request $request)
+{
+    if (!Auth::guard('association')->check()) {
+        return redirect()->route('login'); // Redirect if not authenticated
+    }
+
+    $association_id = Auth::guard('association')->user()->id;
+
+    // Parse date range from request
+    $range = $request->input('range', '90'); // Default to past 90 days
+    $endDate = now(); // Current date and time
+
+    // Handle custom date range if provided
+    if ($range === 'custom') {
+        $startDate = Carbon::parse($request->input('start_date'))->startOfDay();
+        $endDate = Carbon::parse($request->input('end_date'))->endOfDay();
+    } else {
+        // Default date handling for predefined ranges
+        $startDate = match ($range) {
+            'today' => $endDate->copy()->startOfDay(),
+            'yesterday' => $endDate->copy()->subDay()->startOfDay(),
+            'this_week' => $endDate->copy()->startOfWeek(),
+            default => $endDate->copy()->subDays((int)$range),
+        };
+    }
+
+    // Fetch filtered transactions
+    $creditTransactions = Transaction::where('association_id', $association_id)
+        ->whereBetween('created_at', [$startDate, $endDate])
+        ->where('amount_type', 'credit')
+        ->with(['student'])
+        ->get();
+
+    $debitTransactions = Transaction::where('association_id', $association_id)
+        ->whereBetween('created_at', [$startDate, $endDate])
+        ->where('amount_type', 'debit')
+        ->with(['student'])
+        ->get();
+
+    return view('faculty.transaction', compact('creditTransactions', 'debitTransactions'));
+}
+
+    
+
     /**
      * Show the form for creating a new resource.
      *

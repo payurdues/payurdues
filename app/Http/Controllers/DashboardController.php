@@ -17,7 +17,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         if (!Auth::guard('association')->check()) {
@@ -29,8 +29,8 @@ class DashboardController extends Controller
 
         $Transactions =Transaction::where('association_id',$association_id)->with(['due', 'association'])->get();
 
-
-        $Duee =Due::where(column: 'association_id',$association_id)->with(['association'])->first(['payable_faculties']);
+     
+        $Duee =Due::where('association_id',$association_id)->with(['association'])->first(['payable_faculties']);
 
         
         $Due = json_decode($Duee->payable_faculties, true);
@@ -81,11 +81,7 @@ class DashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
-
+   
     /**
      * Show the form for editing the specified resource.
      *

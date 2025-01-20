@@ -21,7 +21,7 @@
                         </div>
 
 
-                        <div class="d-flex gap-3">
+                        {{-- <div class="d-flex gap-3">
                             <div class="position-relative d-flex align-items-center">
                                 <select name="" id="" class="form-select">
                                     <option value="90">Past 90 Days</option>
@@ -31,7 +31,35 @@
                                 <img src="/assets/img/svg/CalendarDots.svg" alt="" class="ms-3 position-absolute top-50 start-0 translate-middle-y" height="21">
                             </div>
                             <p class="mb-0 ">17 Jun 2024<span class="mx-2 fw-medium">to</span>15 Sep 2024</p>
+                        </div> --}}
+                        <div class="d-flex gap-3 align-items-center">
+                            <form id="search-form" action="{{ route('transactions.search') }}" method="GET" class="d-flex gap-3">
+                                <!-- Dropdown for selecting date range -->
+                                <div class="position-relative">
+                                    <select name="range" id="date-range" class="form-select">
+                                        <option value="today">Today</option>
+                                        <option value="yesterday">Yesterday</option>
+                                        <option value="this_week">This Week</option>
+                                        <option value="7">Past 7 Days</option>
+                                        <option value="30">Past 30 Days</option>
+                                        <option value="90">Past 90 Days</option>
+                                        <option value="custom">Custom</option>
+                                    </select>
+                                    <img src="/assets/img/svg/CalendarDots.svg" alt="Calendar" class="ms-3 position-absolute top-50 start-0 translate-middle-y" height="21">
+                                </div>
+
+                                <!-- Display start and end date fields only when 'Custom' is selected -->
+                                <div id="custom-date-range" class="d-none">
+                                    <input type="date" name="start_date" id="start-date" class="form-control" placeholder="Start Date">
+                                    <input type="date" name="end_date" id="end-date" class="form-control" placeholder="End Date">
+                                </div>
+
+                                <!-- Search button (only visible when 'Custom' is selected) -->
+                                <button type="submit" class="btn btn-primary" id="search-button">Search</button>
+                            </form>
                         </div>
+
+
                     </div>
 
                     <div class="dashboard-content_details mt-3 mt-md-5">
@@ -136,9 +164,11 @@
             </div>
         </div>
 
+
 @endsection
 
 @push('script')
+
 
 
 
