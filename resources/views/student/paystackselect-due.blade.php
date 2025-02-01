@@ -9,7 +9,7 @@
         <div class="due-item mb-3"> {{-- Added margin for spacing --}}
             <h3>{{ $due->name }} (₦{{ number_format($due->amount, 2) }})</h3> {{-- Display due name and amount --}}
             <button type="button" class="btn btn-primary pay-now-btn"
-                    data-amount="{{ $due->amount }}"
+                    data-amount="{{ $due->amount }} {{$student->levelduestatus === 'paid' ? 1200:3900 }}"
                     data-due-id="{{ $due->id }}">
                 Pay Now with Paystack
             </button>

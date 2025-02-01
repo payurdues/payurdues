@@ -242,12 +242,10 @@ class StudentController extends Controller
         if (!Auth::guard('student')->check()) {
             return redirect()->route('login'); // Redirect if not authenticated
         }
+         // Fetch the authenticated student
+         $student = Auth::guard('student')->user();
 
-        // Fetch the authenticated student
-        $student = Auth::guard('student')->user();
-
-        
-
+    
         // Fetch dues based on the specified faculty with associated data
         $dues = Due::whereJsonContains('payable_faculties', $student->faculty)->whereJsonContains('payable_levels', $student->level)->whereDoesntHave('transactions', function ($query) use ($student) {
                     $query->where('student_id', $student->id);
@@ -265,21 +263,21 @@ class StudentController extends Controller
             $totalAmount = $dues->sum('amount');
         }
 
-        $Transaction = Transaction::where('student_id', $student->id)->get();
+        $Transactions = Transaction::where('student_id', $student->id)->get();
 
-        if ($Transaction->isEmpty()) {
+        if ($Transactions->isEmpty()) {
             // Handle the case where there are no transactions
             $paidDues = 0;
             $TransactionCount = 0;
         } else {
-            $paidDues = $Transaction->sum('amount');
-            $TransactionCount = $Transaction->count();
+            $paidDues = $Transactions->sum('amount');
+            $TransactionCount = $Transactions->count();
         }
 
         // Sum up the total dues
         // Assuming there is an 'amount' field in your Due model
 
-        return view('student.select-due', compact('dues','paidDues', 'countDue','student', 'totalAmount'));
+        return view('student.npaystackselect-due', compact('Transactions','TransactionCount','dues','paidDues', 'countDue','student', 'totalAmount'));
 
 
         
