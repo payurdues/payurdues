@@ -20,10 +20,10 @@ class TransactionsExportcopy implements FromCollection, WithHeadings, WithDrawin
     {
         return $this->transactions->map(function ($transaction) {
             return [
-                'Name' => $transaction->student->first_name ?? 'N/A',
+                'Name' => $transaction->student->first_name." ".$transaction->student->other_names ?? 'N/A',
                 'Matric/Form No' => $transaction->student->matric_no ?? $transaction->student->form_no ?? 'N/A',
                 'Department' => $transaction->student->department ?? 'N/A',
-                'Amount' => number_format($transaction->amount, 2),
+                'Amount' => number_format($transaction->final_amount, 2),
             ];
         });
     }
