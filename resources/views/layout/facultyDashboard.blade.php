@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="keywords" content="" />
         <meta name="description" content="" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- favicon -->
         <link rel="shortcut icon" href="{{asset('assets/img/favicons/favicon.png')}}" />
@@ -192,6 +193,9 @@
       <script src="{{asset('assets/js/main.js')}}"></script>
 
       <script>
+
+
+
         document.addEventListener('DOMContentLoaded', function() {
             const payoutLink = document.getElementById('payoutLink');
             const receivedLink = document.getElementById('receivedLink');
@@ -219,9 +223,12 @@
             });
         });
     </script>
+
+
     <script>
     
 $(document).ready(function() {
+
     const dateRangeSelect = $('#date-range');
     const customDateRangeDiv = $('#custom-date-range');
     const startDateInput = $('#start-date');
@@ -297,8 +304,11 @@ $(document).ready(function() {
 
     // Initialize the custom date range toggle state based on the initial value
     toggleCustomDateFields();
-});
 
+    // $('#type').on('change', function() {
+    //     $('#type-form').submit();
+    // });
+});
 
 
 

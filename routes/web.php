@@ -88,8 +88,13 @@ Route::middleware(['auth:association'])->group(function () {
     Route::resource('dues', DuesController::class)->only(['index', 'show']);
     Route::resource('dashboard', DashboardController::class)->only(['index', 'show']);
     Route::get('transactions/search', [TransactionsController::class, 'search'])->name('transactions.search');
+
+    Route::get('transactions/type', [TransactionsController::class, 'type'])->name('transactions.type');
+
     Route::resource('transactions', TransactionsController::class)->only(['index', 'show']);
-    
+
+    Route::post('/transactions/export', [TransactionsController::class, 'export'])->name('transactions.export');
+   
 
     Route::resource('members', MembersController::class)->only(['index', 'show']);
 

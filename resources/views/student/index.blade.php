@@ -290,13 +290,13 @@
                     payment_options: "banktransfer",
                     meta: {
                         source: "duepayment",
-                        form_no: "form_no",
+                        form_no: "{{ $student->matric_no ?? $student->form_no }}",
                         due_id: dueId // Add due ID to meta for backend processing
                     },
                     customer: {
-                        email: "payurdues.com.ng@gmail.com", // Use student's email
+                        email: "{{ $student->email }}", // Use student's email
                         phone_number: "{{ $student->phone_number }}", // Use student's phone number
-                        name: studentName, // Use student's name
+                        name: "{{ $student->first_name }} {{ $student->other_names }}", // Use student's name
                     },
                     customizations: {
                         title: studentName + "Facmas fee & Facmas Prospectus Fee",

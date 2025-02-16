@@ -59,6 +59,62 @@
                             </form>
                         </div>
 
+                        <div class="d-flex gap-3 align-items-center">
+                            <form id="type-form" action="{{ route('transactions.type') }}" method="GET" class="d-flex gap-3">
+                                <!-- Dropdown for selecting date range -->
+                                <div class="position-relative">
+                                    <select name="type" id="type" class="form-select">
+                                        <option value="ND1">ND1</option>
+                                        <option value="NDDPT1">NDDPT1</option>
+                                        <option value="HND1">HND1</option>
+
+                                        
+                                        <option value="ND2">ND2</option>
+                                        <option value="NDDPT2">NDDPT2</option>
+                                        <option value="HND2">HND2</option>
+                                        
+                                    </select>
+                                  
+                                </div>
+
+                                <div class="position-relative">
+                                    <select name="dept" id="dept" class="form-select">
+                                        <option value="all">All</option>
+                                        <option value="ACC">ACC</option>
+                                        <option value="BAM">BAM</option>
+                                        <option value="MAC">MAC</option>
+                                        <option value="MAR">MAR</option>
+                                        <option value="OTM">OTM</option>
+                                        <option value="PRO">PRO</option>
+                                        <option value="PUB">PUB</option>
+                                        
+                                    </select>
+                                  
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary" id="search-button">Search</button>
+
+                        
+
+                            
+
+
+                            </form>
+
+
+                            
+                                <button type="submit" class="btn btn-success" id="export-button">Export</button>
+                           
+
+                          
+                            
+                            
+                               
+                           
+                           
+                        </div>
+
 
                     </div>
 
@@ -86,11 +142,16 @@
                                                         <img class="me-2" src="/assets/img/svg/transaction-out.svg" style="transform: rotate(180deg);" alt="payYourDues">
                                                         <span>{{ $creditTransaction->due->name }}</span>
                                                     </div>
+
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="me-2" src="/assets/img/svg/transaction-out.svg" style="transform: rotate(180deg);" alt="payYourDues">
+                                                        <span>{{ $creditTransaction->student->department }}</span>
+                                                    </div>
                                                 </td>
                                                 {{-- <td>Jul 2024-Jul 2024</td> --}}
                                                 <td>₦{{ number_format($creditTransaction->final_amount, 2) }}</td>
                                                 <td>{{ $creditTransaction->student->first_name }} {{ $creditTransaction->student->other_names }}</td>
-                                                <td>{{ $creditTransaction->trans_id }}</td>
+                                                <td>{{ $creditTransaction->student->matric_no ?? $creditTransaction->student->form_no  }}</td>
                                                 <td>{{ $creditTransaction->created_at }}</td>
                                                 <td>Successful</td>
                                             </tr>
@@ -166,6 +227,43 @@
 
 
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#export-button").click(function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            let type = $("#type").val();
+            let dept = $("#dept").val();
+
+            $.ajax({
+                url: "{{ route('transactions.export') }}", // Laravel route for export
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    type: type,
+                    dept: dept
+                },
+                xhrFields: {
+                    responseType: 'blob' // Handle file download response
+                },
+                success: function (response) {
+                    let blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                    let link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "export.xlsx";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error exporting:", error);
+                    alert("Export failed! Please try again.");
+                }
+            });
+        });
+    });
+</script>
 
 @push('script')
 
