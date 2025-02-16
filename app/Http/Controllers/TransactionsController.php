@@ -202,7 +202,7 @@ class TransactionsController extends Controller
         
 
         $transactions = Transaction::where('association_id', $association_id)->with(['student:id,first_name,matric_no,form_no,department'])
-            ->select('id', 'student_id', 'amount');
+            ->select('id', 'student_id', 'amount','final_amount');
 
         // Apply filters in the controller
         if (!empty($request->type) && $request->type !== 'all') {
