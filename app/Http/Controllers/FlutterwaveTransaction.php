@@ -69,21 +69,23 @@ class FlutterwaveTransaction extends Controller
         $status = $request->input('status');
         $due_ids = $request->input('due_id');
         $formNo = $request->input('form_no');
-        // $amount = $request->input('amount');
-
-        $array = json_decode($due_ids, true);
-
-   
 
 
-        // Implement your logic to verify and update the payment status
-        // if (($status === 'completed') && ($amount === 3400) ) {
-        if (($status === 'completed') ) {
+        $checkTransaction= Transaction::where('reference',$reference)->first();
+        
+        if ($checkTransaction){
+            return redirect()->route('select.due')
+            ->with('success', 'Payment successful!');
 
-            // Update the due record as paid
+        }else{
 
+            // $amount = $request->input('amount');
 
-            // try {
+            $array = json_decode($due_ids, true);
+            // Implement your logic to verify and update the payment status
+       
+            if (($status === 'completed') ) {
+                // Update the due record as paid
                 // Fetch the student record using matriculation number or form number
                 $studentQuery = Student::where(function ($query) use ($formNo) {
                     $query->where('matric_no', $formNo)
@@ -109,13 +111,10 @@ class FlutterwaveTransaction extends Controller
     
                 // Generate a unique transaction ID
                 $trans_id = $dept . mt_rand(1000000, 9999999) . $studentQuery->level;
-    
-    
-    
                 // Fetch due information with association details
-               
+            
                 $provider = 'flutterwave';
-               
+            
                 // dd($due_ids);
                 // Association details
                 foreach ($array as $due_id) {
@@ -136,76 +135,17 @@ class FlutterwaveTransaction extends Controller
         
                     $this->creditWalletTransaction($reference,$dueamount,$association_id,$status,$trans_id, $student_id, $narration,$student_faculty,$final_amount,$charges,$dept, $due_id,$provider,$provider_charges);
     
-    
                 }
-    
-                // Calculate final amount after deducting charges
-               
-    
-    
-    
-    
-                return redirect()->route('select.due')
-                                ->with('success', 'Payment successful!');
-    
-                // $successMessage = 'Payment successful!';
-                // $student_name = $studentQuery->first_name.' '. $studentQuery->other_names;
-            
-                // $level=$studentQuery->level;
-    
-                
-    
-    
-             
-    
-                // $due_name=$due->name;
-    
-                // $date = date('dMY');
-            
-    
-    
-                // return view('student.receipt', compact('successMessage','amount','due_name','level','student_name','trans_id','date','associationName','associationEmail','associationContact'));
-                
-    
-                // // Log the transaction for reference
-                // Log::info('Processing payment', [
-                //     'student_id' => $studentId,
-                //     'faculty' => $studentFaculty,
-                //     'department' => $department,
-                //     'transaction_id' => $transactionId,
-                //     'amount' => $amount,
-                //     'final_amount' => $finalAmount,
-                //     'association_name' => $associationName,
-                // ]);
-    
-                // // Return successful response
-                // return [
-                //     'status' => 'success',
-                //     'message' => 'Payment processed successfully.',
-                //     'data' => [
-                //         'student_id' => $studentId,
-                //         'transaction_id' => $transactionId,
-                //         'amount' => $finalAmount,
-                //         'narration' => $narration,
-                //         'association_name' => $associationName,
-                //         'association_email' => $associationEmail,
-                //         'association_contact' => $associationContact,
-                //     ],
-            //     // ];
-            // } catch (Exception $e) {
-            //     // Handle exceptions and log errors
-            //     Log::error('Error processing payment', ['error' => $e->getMessage()]);
-            //     return [
-            //         'status' => 'error',
-            //         'message' => 'An error occurred while processing the payment. Please try again.',
-            //     ];
-            // }
+                return redirect()->route('select.due')->with('success', 'Payment successful!');
+            } else {
+                // Handle payment failure
+                return redirect()->route('select.due')->with('error', 'Payment failed!');
+            }
 
-           
-        } else {
-            // Handle payment failure
-            return redirect()->route('select.due')->with('error', 'Payment failed!');
         }
+
+
+        
     }
     
 
