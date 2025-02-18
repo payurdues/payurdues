@@ -337,7 +337,7 @@
                     let blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
                     let link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "export.xlsx";
+                    link.download = "transactions.xlsx";
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
