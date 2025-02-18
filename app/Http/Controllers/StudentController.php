@@ -128,7 +128,9 @@ class StudentController extends Controller
                 
             $dues = Due::whereJsonContains('payable_faculties', $student->faculty)->whereJsonContains('payable_levels', $student->level)->whereDoesntHave('foprospectuspayment', function ($query) use ($student) {
                 $query->where('id', $student->id);
-            })
+            })->whereDoesntHave('transactions', function ($query) use ($student) {
+                    $query->where('student_id', $student->id);
+                })
         ->with('association') // Load associated data
         ->get();
 
@@ -140,7 +142,7 @@ class StudentController extends Controller
 
             
             // dd($dues );
-
+// 
         if ($dues->isEmpty()) {
             // Handle the case where there are no dues
             $countDue = 0;

@@ -114,6 +114,7 @@
                     </div>
                     @endif
                     
+                    {{-- @if(($student->facultyduestatus != "paid") && ($student->levelduestatus != "pending")) --}}
                     @if(!$dues->isEmpty()) 
                         <div class="dashboard-content_details my-5 col">
                             <div class="payable-dues">
@@ -148,7 +149,7 @@
                                                     {{-- <input class="form-check-input" type="checkbox" value="" name="select">
                                                     <label class="form-check-label" for="select">Select Dues</label> --}}
 
-                                                       
+                                               
 
                                                     @if($due->id == '1')
                                                         <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn"
@@ -212,6 +213,10 @@
                             </div>
                         </div>
                     @endif
+
+                    {{-- @endif --}}
+
+
                     @if(!$Transactions->isEmpty()) 
                         <div class="dashboard-content_details my-5 col">
 

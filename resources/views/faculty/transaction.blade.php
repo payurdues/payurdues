@@ -19,20 +19,7 @@
                             <a href="#" id="payoutLink" class="active fw-semibold">Payout</a>
                             
                         </div>
-
-
-                        {{-- <div class="d-flex gap-3">
-                            <div class="position-relative d-flex align-items-center">
-                                <select name="" id="" class="form-select">
-                                    <option value="90">Past 90 Days</option>
-                                    <option value="30">Past 30 Days</option>
-                                    <option value="7">Past 7 Days</option>
-                                </select>
-                                <img src="/assets/img/svg/CalendarDots.svg" alt="" class="ms-3 position-absolute top-50 start-0 translate-middle-y" height="21">
-                            </div>
-                            <p class="mb-0 ">17 Jun 2024<span class="mx-2 fw-medium">to</span>15 Sep 2024</p>
-                        </div> --}}
-                        <div class="d-flex gap-3 align-items-center">
+                        {{-- <div class="d-flex gap-3 align-items-center">
                             <form id="search-form" action="{{ route('transactions.search') }}" method="GET" class="d-flex gap-3">
                                 <!-- Dropdown for selecting date range -->
                                 <div class="position-relative">
@@ -113,7 +100,59 @@
                                
                            
                            
+                        </div> --}}
+
+                        <div class="d-flex gap-3 align-items-center">
+                            <form id="filter-form" action="{{ route('transactions.search') }}" method="GET" class="d-flex gap-3">
+                                <!-- Date Range Filter -->
+                                <div class="position-relative">
+                                    <select name="range" id="date-range" class="form-select">
+                                        <option value="today" {{ request('range') == 'today' ? 'selected' : '' }}>Today</option>
+                                        <option value="yesterday" {{ request('range') == 'yesterday' ? 'selected' : '' }}>Yesterday</option>
+                                        <option value="this_week" {{ request('range') == 'this_week' ? 'selected' : '' }}>This Week</option>
+                                        <option value="7" {{ request('range') == '7' ? 'selected' : '' }}>Past 7 Days</option>
+                                        <option value="30" {{ request('range') == '30' ? 'selected' : '' }}>Past 30 Days</option>
+                                        <option value="90" {{ request('range') == '90' ? 'selected' : '' }}>Past 90 Days</option>
+                                        <option value="custom" {{ request('range') == 'custom' ? 'selected' : '' }}>Custom</option>
+                                    </select>
+                                    <img src="/assets/img/svg/CalendarDots.svg" alt="Calendar" class="ms-3 position-absolute top-50 start-0 translate-middle-y" height="21">
+                                </div>
+                        
+                                <div id="custom-date-range" class="d-none">
+                                    <input type="date" name="start_date" id="start-date" class="form-control" placeholder="Start Date">
+                                    <input type="date" name="end_date" id="end-date" class="form-control" placeholder="End Date">
+                                </div>
+                        
+                                <!-- Student Level Filter -->
+                                
+                                <select name="type" id="type" class="form-select">
+                                    <option value="">Select Level</option>
+                                    <option value="ND1" {{ request('type') == 'ND1' ? 'selected' : '' }}>ND1</option>
+                                    <option value="NDDPT1" {{ request('type') == 'NDDPT1' ? 'selected' : '' }}>NDDPT1</option>
+                                    <option value="HND1" {{ request('type') == 'HND1' ? 'selected' : '' }}>HND1</option>
+                                    <option value="ND2" {{ request('type') == 'ND2' ? 'selected' : '' }}>ND2</option>
+                                    <option value="NDDPT2" {{ request('type') == 'NDDPT2' ? 'selected' : '' }}>NDDPT2</option>
+                                    <option value="HND2" {{ request('type') == 'HND2' ? 'selected' : '' }}>HND2</option>
+                                </select>
+                                
+                        
+                                <!-- Department Filter -->
+                                <select name="dept" id="dept" class="form-select">
+                                    <option value="all" {{ request('dept') == 'all' ? 'selected' : '' }}>All</option>
+                                    <option value="ACC" {{ request('dept') == 'ACC' ? 'selected' : '' }}>ACC</option>
+                                    <option value="BAM" {{ request('dept') == 'BAM' ? 'selected' : '' }}>BAM</option>
+                                    <option value="MAC" {{ request('dept') == 'MAC' ? 'selected' : '' }}>MAC</option>
+                                    <option value="MAR" {{ request('dept') == 'MAR' ? 'selected' : '' }}>MAR</option>
+                                    <option value="OTM" {{ request('dept') == 'OTM' ? 'selected' : '' }}>OTM</option>
+                                    <option value="PRO" {{ request('dept') == 'PRO' ? 'selected' : '' }}>PRO</option>
+                                    <option value="PUB" {{ request('dept') == 'PUB' ? 'selected' : '' }}>PUB</option>
+                                </select>
+                        
+                                <button type="submit" class="btn btn-primary">Search</button>
+                                <button type="button" class="btn btn-success" id="export-button">Export</button>
+                            </form>
                         </div>
+                        
 
 
                     </div>
@@ -229,24 +268,71 @@
 @endsection
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $("#export-button").click(function (e) {
-            e.preventDefault(); // Prevent default form submission
+    // $(document).ready(function () {
+    //     $("#export-button").click(function (e) {
+    //         e.preventDefault(); // Prevent default form submission
 
-            let type = $("#type").val();
-            let dept = $("#dept").val();
+    //         let type = $("#type").val();
+    //         let dept = $("#dept").val();
+
+    //         $.ajax({
+    //             url: "{{ route('transactions.export') }}", // Laravel route for export
+    //             type: "POST",
+    //             data: {
+    //                 _token: "{{ csrf_token() }}",
+    //                 type: type,
+    //                 dept: dept
+    //             },
+    //             xhrFields: {
+    //                 responseType: 'blob' // Handle file download response
+    //             },
+    //             success: function (response) {
+    //                 let blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    //                 let link = document.createElement('a');
+    //                 link.href = window.URL.createObjectURL(blob);
+    //                 link.download = "export.xlsx";
+    //                 document.body.appendChild(link);
+    //                 link.click();
+    //                 document.body.removeChild(link);
+    //             },
+    //             error: function (xhr, status, error) {
+    //                 console.error("Error exporting:", error);
+    //                 alert("Export failed! Please try again.");
+    //             }
+    //         });
+    //     });
+    // });
+
+    $(document).ready(function () {
+        const dateRangeSelect = $('#date-range');
+        const customDateRangeDiv = $('#custom-date-range');
+        const startDateInput = $('#start-date');
+        const endDateInput = $('#end-date');
+        const filterForm = $('#filter-form');
+
+        const toggleCustomDateFields = () => {
+            if (dateRangeSelect.val() === 'custom') {
+                customDateRangeDiv.removeClass('d-none');
+            } else {
+                customDateRangeDiv.addClass('d-none');
+            }
+        };
+
+        dateRangeSelect.on('change', function () {
+            toggleCustomDateFields();
+        });
+
+        // Handle Export Button Click
+        $("#export-button").click(function (e) {
+            e.preventDefault();
+
+            let formData = filterForm.serialize(); // Get all filter values
 
             $.ajax({
-                url: "{{ route('transactions.export') }}", // Laravel route for export
+                url: "{{ route('transactions.export') }}",
                 type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    type: type,
-                    dept: dept
-                },
-                xhrFields: {
-                    responseType: 'blob' // Handle file download response
-                },
+                data: formData + "&_token={{ csrf_token() }}",
+                xhrFields: { responseType: 'blob' },
                 success: function (response) {
                     let blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
                     let link = document.createElement('a');
@@ -262,7 +348,10 @@
                 }
             });
         });
+
+        toggleCustomDateFields();
     });
+
 </script>
 
 @push('script')
