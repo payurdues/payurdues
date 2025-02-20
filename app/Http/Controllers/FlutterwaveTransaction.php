@@ -242,37 +242,160 @@ class FlutterwaveTransaction extends Controller
     
 
 
+    // public function handleFlutterwaveWebhook(Request $request)
+    // {
+    //     // Get the secret hash from the environment
+    //     $secretHash ="yugs-6st7-jqu9-9o01";
+
+    //     $payload = $request->all();
+
+    //     // Log the webhook for debugging
+    //     Log::info('Flutterwave Webhook:', $payload);
+
+    //     // Verify the webhook signature (optional but recommended)
+        
+    //     if ($request->header('verif-hash') !== $secretHash) {
+    //         return response()->json(['message' => 'Invalid signature'], 403);
+    //     }
+
+    //     // Process the webhook event
+    //     if ($payload['event'] === 'charge.completed' && $payload['data']['status'] === 'successful') {
+    //         // Extract transaction details
+    //         $txRef = $payload['data']['tx_ref'];
+    //         $amount = $payload['data']['amount'];
+    //         $customer = $payload['data']['customer']['email'];
+    //         $meta = $payload['data']['meta'] ?? [];
+
+    //         // Process the payment (e.g., update order status)
+    //         // Example: Order::where('tx_ref', $txRef)->update(['status' => 'paid']);
+
+    //         return response()->json(['message' => 'Webhook processed']);
+    //     }
+
+    //     return response()->json(['mesgsage' => 'Event ignored']);
+    // }
+
     public function handleFlutterwaveWebhook(Request $request)
     {
         // Get the secret hash from the environment
-        $secretHash ="yugs-6st7-jqu9-9o01";
+        $secretHash = "yugs-6st7-jqu9-9o01";
 
+        // Get the entire payload
         $payload = $request->all();
 
         // Log the webhook for debugging
-        Log::info('Flutterwave Webhook:', $payload);
+        Log::info('Flutterwave Webhook Received:', $payload);
 
-        // Verify the webhook signature (optional but recommended)
-        
+        // Verify the webhook signature
         if ($request->header('verif-hash') !== $secretHash) {
             return response()->json(['message' => 'Invalid signature'], 403);
         }
 
-        // Process the webhook event
-        if ($payload['event'] === 'charge.completed' && $payload['data']['status'] === 'successful') {
-            // Extract transaction details
-            $txRef = $payload['data']['tx_ref'];
-            $amount = $payload['data']['amount'];
-            $customer = $payload['data']['customer']['email'];
-            $meta = $payload['data']['meta'] ?? [];
-
-            // Process the payment (e.g., update order status)
-            // Example: Order::where('tx_ref', $txRef)->update(['status' => 'paid']);
-
-            return response()->json(['message' => 'Webhook processed']);
+        // Ensure the expected event type exists
+        if (!isset($payload['event.type']) || $payload['event.type'] !== 'BANK_TRANSFER_TRANSACTION') {
+            return response()->json(['message' => 'Event ignored'], 400);
         }
 
-        return response()->json(['mesgsage' => 'Event ignored']);
+        // Extract transaction details
+        $reference = $payload['txRef'] ?? null;
+        $status = $payload['status'] ?? null;
+        $metaData = $payload['meta_data'] ?? [];
+
+        // Extract values from meta_data
+        $formNo = $metaData['form_no'] ?? null;
+        $due_ids = json_decode($metaData['due_id'] ?? '[]', true); // Convert JSON string to array
+
+        // Log extracted values for debugging
+        Log::info('Extracted Data:', [
+            'tx_ref' => $reference,
+            'status' => $status,
+            'form_no' => $formNo,
+            'due_id' => $due_ids,
+        ]);
+
+        // Process the webhook (e.g., update database)
+        if ($status === 'successful') {
+            // Example: Update a transaction record
+            // Transaction::where('tx_ref', $txRef)->update(['status' => 'paid']);
+
+            $checkTransaction= Transaction::where('reference',$reference)->first();
+            
+            if ($checkTransaction){
+                return redirect()->route('select.due')
+                ->with('success', 'Payment successful!');
+
+            }else{
+
+                // $amount = $request->input('amount');
+
+                $array = json_decode($due_ids, true);
+                // Implement your logic to verify and update the payment status
+        
+                if (($status === 'successful') ) {
+                    // Update the due record as paid
+                    // Fetch the student record using matriculation number or form number
+                    $studentQuery = Student::where(function ($query) use ($formNo) {
+                        $query->where('matric_no', $formNo)
+                            ->orWhere('form_no', $formNo);
+                    })->first();
+        
+                    if (!$studentQuery) {
+                        return [
+                            'status' => 'error',
+                            'message' => 'Student record not found.',
+                        ];
+                    }
+        
+                    // Update student's due status
+                    $studentQuery->levelduestatus = 'paid';
+                    $studentQuery->facultyduestatus = 'paid';
+                    $studentQuery->save();
+        
+                    $student_id = $studentQuery->id;
+                    $student_faculty = $studentQuery->faculty;
+                    $dept = $studentQuery->department;
+                    $status = "approved";
+        
+                    // Generate a unique transaction ID
+                    $trans_id = $dept . mt_rand(1000000, 9999999) . $studentQuery->level;
+                    // Fetch due information with association details
+                
+                    $provider = 'flutterwave';
+                
+                    // dd($due_ids);
+                    // Association details
+                    foreach ($array as $due_id) {
+        
+                        $due = Due::with(['association:id,name,email,contact_person_phone'])
+                        ->where('id', $due_id)
+                        ->first(['charges', 'name', 'association_id', 'amount']);
+        
+                        $charges = $due->charges;
+                        $narration = $due->name;
+                        $association_id = $due->association_id;
+                        $trans_id = $dept . mt_rand(100000, 999999) . $studentQuery->level."MN";
+                        $dueamount = $due->amount;
+                        $final_amount = $dueamount - $charges;
+                        // $reference="";
+            
+                        $provider_charges = $this->getProviderCharges($provider, $dueamount);
+            
+                        $this->creditWalletTransaction($reference,$dueamount,$association_id,$status,$trans_id, $student_id, $narration,$student_faculty,$final_amount,$charges,$dept, $due_id,$provider,$provider_charges);
+        
+                    }
+                    return redirect()->route('select.due')->with('success', 'Payment successful!');
+                } else {
+                    // Handle payment failure
+                    return redirect()->route('select.due')->with('error', 'Payment failed!');
+                }
+
+            }
+
+
+           
+        }
+
+        return response()->json(['message' => 'Transaction not successful']);
     }
 
     function processStudentDuePayment($due_ids, $amount, $formNo, $reference, $provider)
