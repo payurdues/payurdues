@@ -272,7 +272,7 @@ class FlutterwaveTransaction extends Controller
             return response()->json(['message' => 'Webhook processed']);
         }
 
-        return response()->json(['message' => 'Event ignored']);
+        return response()->json(['mesgsage' => 'Event ignored']);
     }
 
     function processStudentDuePayment($due_ids, $amount, $formNo, $reference, $provider)
