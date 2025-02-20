@@ -48,6 +48,10 @@ Route::post('/login', [StudentController::class, 'login'])->name('login');
 Route::post('/flw-webhook', [FlutterwaveTransaction::class, 'handleFlutterwaveWebhook']);
 
  Route::post('/payment/callback', [FlutterwaveTransaction::class, 'paymentCallback'])->name('payment.callback');
+ 
+ Route::get('/manual', [StudentController::class, 'manualform'])->name('manual.form');
+
+ Route::post('/manualpayment/calls', [FlutterwaveTransaction::class, 'MANpaymentCallback'])->name('manual.callback');
 
 Route::middleware(['auth:student'])->group(function () {
     Route::get('/Pay-due', [StudentController::class, 'selectDue'])->name('select.due');

@@ -16,6 +16,11 @@ class StudentController extends Controller
         return view('student.login'); // Ensure you have a login view created
     }
 
+    public function manualform()
+    {
+        return view('student.manaual'); // Ensure you have a login view created
+    }
+
     // Handle the login submission
   
 
