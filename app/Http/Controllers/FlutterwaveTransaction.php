@@ -303,7 +303,8 @@ class FlutterwaveTransaction extends Controller
 
         // Extract values from meta_data
         $formNo = $metaData['form_no'] ?? null;
-        $due_ids = json_decode($metaData['due_id'] ?? '[]', true); // Convert JSON string to array
+
+        $due_ids = $metaData['due_id'];
 
         // Log extracted values for debugging
         Log::info('Extracted Data:', [
