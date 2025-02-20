@@ -114,6 +114,7 @@
                     </div>
                     @endif
                     
+                    {{-- @if(($student->facultyduestatus != "paid") && ($student->levelduestatus != "pending")) --}}
                     @if(!$dues->isEmpty()) 
                         <div class="dashboard-content_details my-5 col">
                             <div class="payable-dues">
@@ -145,35 +146,37 @@
                                                 </div>
 
                                                 <div class="form-check mt-3 d-flex gap-2 align-items-center">
-                                                   
-                                                    
-                                                @if(($due->id== '1') || ($due->id== '3'))
+                                                    {{-- <input class="form-check-input" type="checkbox" value="" name="select">
+                                                    <label class="form-check-label" for="select">Select Dues</label> --}}
+
+                                               
+
+                                                    @if($due->id == '1')
+                                                        <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn"
                                                         
-
-                                                        <button type="button" class="btn btn-primary pay-now-btn"
-                                                                data-amount="4400"
-                                                                data-due-id="{{ $due->id }}">
-                                                            Pay Now with Paystack
+                                                        onclick="window.location.href='https://flutterwave.com/pay/facmassdueee'">
+                                                            Pay Now 
                                                         </button>
-                                                @endif
+                                                    @endif
                                                        
-                                                   
-
-
-                                                @if(($due->id== '2') || ($due->id== '4'))
-
-                                                    <!-- <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn" onclick="makePayment({{$student->levelduestatus === 'paid' ? 1200:3900 }}, '{{ $student->first_name }}', '{{ $student->id }}', '{{ json_encode($student->levelduestatus === 'paid' ? ['2'] : ['2', '4']) }}','{{  $student->matric_no }}')">Pay Now</button> -->
-
-                                                    <button type="button" class="btn btn-primary pay-now-btn"
-                                                                data-amount="{{$student->levelduestatus === 'paid' ? 1200:3900 }}"
-                                                                data-due-id="{{ $due->id }}">
-                                                            Pay Now with Paystack
+                                                    @if($due->id =='3')
+                                                        <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn"
+                                                        
+                                                        onclick="window.location.href='https://flutterwave.com/pay/facmassdueee'">
+                                                            Pay Now
                                                         </button>
 
+                                                    @endif
 
-                        
 
-                                                @endif 
+                                                    @if(($due->id== '2') || ($due->id== '4'))
+
+                                                        <button type="button" class="btn btn-pay-gradient w-100 mt-3 modal-button pay-now-btn" onclick="makePayment({{$student->levelduestatus === 'paid' ? 1200:3900 }}, '{{ $student->first_name }}', '{{ $student->id }}', '{{ json_encode($student->levelduestatus === 'paid' ? ['2'] : ['2', '4']) }}','{{  $student->matric_no }}')">Pay Now</button>
+
+
+                            
+
+                                                    @endif 
 
 
                                                 </div>
@@ -182,12 +185,38 @@
 
                                     @endforeach
 
-                                  
+                                    {{-- <div class="payable-dues_card col-12 col-md-6 col-lg-4">
+                                        <div class="row g-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="fw-bold">Due Name</p>
+                                                <p class="text-end">Basic dues</p>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="fw-bold">Period</p>
+                                                <p class="text-end">Basic dues</p>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="fw-bold">Price</p>
+                                                <p class="text-end">₦2,500</p>
+                                            </div>
+
+                                            <div class="form-check mt-3 d-flex gap-2 align-items-center">
+                                                <input class="form-check-input" type="checkbox" value="" name="select">
+                                                <label class="form-check-label" for="select">Select Dues</label>
+                                            </div>
+                                        </div>
+                                    </div> --}}
 
                                 </div>
                             </div>
                         </div>
                     @endif
+
+                    {{-- @endif --}}
+
+
                     @if(!$Transactions->isEmpty()) 
                         <div class="dashboard-content_details my-5 col">
 
@@ -236,7 +265,10 @@
             </div>
         </section>
 
+        
 
+        
+        
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         
@@ -249,60 +281,80 @@
         <!-- Custom JS -->
         <script src="{{asset('assets/js/main.js')}}"></script>
 
-        <script src="https://js.paystack.co/v1/inline.js"></script>
-
+       
+        <script src="https://checkout.flutterwave.com/v3.js"></script>
         <script>
-            // Select all Pay Now buttons
-            const payNowButtons = document.querySelectorAll('.pay-now-btn');
 
-            // Add event listener to each button
-            payNowButtons.forEach(button => {
-                button.addEventListener("click", function() {
-                    // Get amount and due ID from the clicked button's data attributes
-                    const amount = button.getAttribute('data-amount') * 100; // Convert to kobo
-                    const dueId = button.getAttribute('data-due-id');
+            
+            function makePayment(amount, studentName,studentId, dueId,form_no) {
+                FlutterwaveCheckout({
+                    public_key: "{{ env('flw_PUBLIC_KEY') }}",
+                    tx_ref: "txref-" + new Date().getTime(), // Use a unique transaction reference
+                    amount:100 ,
+                    currency: "NGN",
+                    payment_options: "banktransfer",
+                    meta: {
+                        source: "duepayment",
+                        form_no: "{{ $student->matric_no ?? $student->form_no }}",
+                        due_id: dueId // Add due ID to meta for backend processing
+                    },
+                    customer: {
+                        email: "{{ $student->email }}", // Use student's email
+                        phone_number: "{{ $student->phone_number }}", // Use student's phone number
+                        name: "{{ $student->first_name }} {{ $student->other_names }}", // Use student's name
+                    },
+                    customizations: {
+                        title: studentName + "Facmas fee & Facmas Prospectus Fee",
+                        description: "Payment for " + studentName,
+                        logo: "https://www.payurdues.com.ng/assets/img/svg/logo.svg",
+                    },
+                    callback: function (data) {
+                        console.log("Payment callback:", data);
+                        // Handle payment success response
+                        // if (data.status === "completed") {
+                        //     window.location.href = "{{ route('payment.callback') }}?tx_ref=" + data.tx_ref + "&transaction_id=" + data.transaction_id + "&status=" + data.status + "&due_id=" + dueId + "&form_no=" + form_no;
+                        // }
 
-                    // Call the Paystack function with the dynamic amount and due ID
-                    payWithPaystack(amount, dueId);
-                });
-            });
+                        if (data.status === "completed") {
+                            const form = document.createElement("form");
+                            form.method = "POST";
+                            form.action = "{{ route('payment.callback') }}";
 
-            // Function to handle Paystack payment
-            function payWithPaystack(amount, dueId) {
-                let handler = PaystackPop.setup({
-                    key: "{{ env('PAYSTACK_PUBLIC_KEY') }}", // Paystack public key from .env
-                    email: "oladitisodiq@gmail.com", // User's email
-                    amount: 100, // Amount in kobo
-                    currency: "NGN", // Nigerian Naira
-                    metadata: {
-                        custom_fields: [
-                            {
-                                display_name: "Student Name",
-                                variable_name: "student_name",
-                                value: "{{ $student->first_name }} {{ $student->last_name }}"
-                            },
-                            {
-                                display_name: "Student Mat or Form No",
-                                variable_name: "student_matric_no",
-                                value: "{{ $student->matric_no ?? $student->form_no }}"
-                            },
-                            {
-                                display_name: "Due ID",
-                                variable_name: "due_id",
-                                value: dueId // Use dynamic due ID
+                            // Add CSRF token for Laravel
+                            const csrfInput = document.createElement("input");
+                            csrfInput.type = "hidden";
+                            csrfInput.name = "_token";
+                            csrfInput.value = "{{ csrf_token() }}";
+                            form.appendChild(csrfInput);
+
+                            // Append data fields
+                            const fields = {
+                                tx_ref: data.tx_ref,
+                                transaction_id: data.transaction_id,
+                                status: data.status,
+                                due_id: dueId,
+                                amount: amount,
+                                student_id: studentId,
+                                form_no: form_no
+                            };
+
+                            for (const [key, value] of Object.entries(fields)) {
+                                const input = document.createElement("input");
+                                input.type = "hidden";
+                                input.name = key;
+                                input.value = value;
+                                form.appendChild(input);
                             }
-                        ]
+
+                            document.body.appendChild(form);
+                            form.submit();
+                        }
+
                     },
-                    onClose: function() {
-                        alert('Payment window closed.');
-                    },
-                    callback: function(response) {
-                        // Redirect to the callback route with the transaction details
-                        window.location.href = "{{ route('callback') }}?reference=" + response.reference;
+                    onclose: function() {
+                        console.log("Payment cancelled!");
                     }
                 });
-
-                handler.openIframe(); // Open Paystack payment iframe
             }
         </script>
     </body>

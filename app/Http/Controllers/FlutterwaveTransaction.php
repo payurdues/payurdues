@@ -247,26 +247,32 @@ class FlutterwaveTransaction extends Controller
         // Get the secret hash from the environment
         $secretHash ="yugs-6st7-jqu9-9o01";
 
-        // Get the signature from headers
-        $signature = $request->header('verif-hash');
-
-        // Verify the signature
-        if (!$signature || $signature !== $secretHash) {
-            // This request isn't from Flutterwave; discard
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        // Get the payload
         $payload = $request->all();
 
-        // Log the payload
-        Log::info('Flutterwave Webhook Received:', $payload);
+        // Log the webhook for debugging
+        Log::info('Flutterwave Webhook:', $payload);
 
-        // Perform any additional processing you need
-        // Ensure the processing is lightweight to avoid timeouts
+        // Verify the webhook signature (optional but recommended)
+        
+        if ($request->header('verif-hash') !== $secretHash) {
+            return response()->json(['message' => 'Invalid signature'], 403);
+        }
 
-        // Return a 200 response
-        return response()->json(['status' => 'success'], 200);
+        // Process the webhook event
+        if ($payload['event'] === 'charge.completed' && $payload['data']['status'] === 'successful') {
+            // Extract transaction details
+            $txRef = $payload['data']['tx_ref'];
+            $amount = $payload['data']['amount'];
+            $customer = $payload['data']['customer']['email'];
+            $meta = $payload['data']['meta'] ?? [];
+
+            // Process the payment (e.g., update order status)
+            // Example: Order::where('tx_ref', $txRef)->update(['status' => 'paid']);
+
+            return response()->json(['message' => 'Webhook processed']);
+        }
+
+        return response()->json(['message' => 'Event ignored']);
     }
 
     function processStudentDuePayment($due_ids, $amount, $formNo, $reference, $provider)

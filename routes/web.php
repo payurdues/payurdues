@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
+// axc3-45678-234p-om78
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,7 +60,7 @@ Route::middleware(['auth:student'])->group(function () {
 
     Route::post('/flutterwave/bank-transfer', [StudentController::class, 'initiateBankTransfer']);
 
-
+    Route::get('/test-due', [StudentController::class, 'noldselectDue'])->name('test.due');
     Route::get('/select-due', [StudentController::class, 'oldselectDue'])->name('selecssst.due');
     Route::get('/PaymentFassa', [StudentController::class, 'paymentpage'])->name('payment.show');
 
