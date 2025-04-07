@@ -29,7 +29,7 @@
                 <p class="lead fw-bold fs-5 mb-4">Filter</p>
 
                 <form method="GET" action="{{ route('members.index') }}" id="filterForm">
-                    <p class="">Level</p>
+                   <b> <p class="">Level</p></b>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="levels[]" value="100" onchange="document.getElementById('filterForm').submit()">
                         <label class="form-check-label">100</label><br>
@@ -45,7 +45,7 @@
                     </div>
                     <!-- Repeat for other levels -->
 
-                    <p class="">Dues paid</p>
+                    <b><p class="">Dues paid</p></b>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" name="basic">
                         <label class="form-check-label" for="basic">Basic Dues</label>
