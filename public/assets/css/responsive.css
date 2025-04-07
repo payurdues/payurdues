@@ -1,0 +1,145 @@
+
+
+/* Extra small devices (phones, 576px and down) */
+@media (max-width: 576px) { 
+
+
+}
+
+@media (max-width: 767.98px) {
+    .nav-logo_img {
+        height: 40px;
+        width: auto;
+    }
+
+    .sidebar {
+        padding: 0 10px;
+    }
+
+    .dt-layout-row {
+        display: flex !important;
+    }
+
+    .dashboard-content {
+        width: 100%;
+    } 
+    
+    .payable-dues_card .nav-logo_img {
+        height: 30px;
+        width: auto;
+    }
+
+    .payable-dues_card .nav-logo_text {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    
+
+    
+
+}
+
+
+/* Small devices (landscape phones, between 576px and 767.98px) */
+@media (min-width: 576.2px) and (max-width: 767.98px) {  
+    
+
+      
+}
+
+@media (min-width: 768px) {
+    section {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+
+    .payable-dues_card {
+        font-size: 100%;
+    }
+
+    
+    .balance-card_title {
+        font-size: 32px;
+    }
+
+    
+    
+   
+
+    .dt-search input {
+        width: 290px;
+    }
+
+    
+}
+
+@media (max-width: 991.98px) {
+
+    .hero-content_heading {
+        font-size: 50px;
+        line-height: 60px;
+        padding: 0 16px;
+    }
+
+    .hero-content_heading br{
+        display: none;
+    }
+
+    .hero-content_paragraph {
+        font-size: 18px;
+        line-height: 24px;
+        padding: 0 20px;
+        margin-top: 20px;
+    }
+
+    .hero-content_paragraph br {
+        display: none;
+    }
+
+    .hero-content_button .btn-pay-gradient {
+       margin-top: 20px;
+       width: 100%;
+    }
+
+    .launching-soon_box {
+        padding: 70px 20px;
+    }
+
+    .launching-soon_heading {
+        
+        
+        font-size: 40px;
+        
+    }
+
+    
+}
+
+/* Medium devices (tablets, between 768px and 991.98px) */
+
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    .dashboard .sidebar {
+        width: 22%;
+    }
+
+    .dashboard-content {
+        width: 78%;
+    }
+}
+
+/* Large  devices (desktop, 992px and up) */
+@media (min-width: 992px) { 
+    .dashboard .sidebar {
+        width: 20%;
+    }
+
+    .dashboard-content {
+        width: 80%;
+    }
+
+    .dashboard-content_details_filter.col-2 {
+        width: 14% !important;
+    }
+}
+
