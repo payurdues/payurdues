@@ -60,7 +60,7 @@
 
         <section class="main-content flex-grow-1">
             <div class="px-3 px-lg-5 h-100 d-flex  gap-4">
-                
+
                 <div class="sidebar mt-md-5 mt-0 offcanvas-md offcanvas-end" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
                     <div class="offcanvas-header d-flex d-md-none justify-content-between mb-4 align-items-center">
                         <div class="d-flex gap-2 align-items-center">
@@ -69,7 +69,7 @@
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
                       </div>
-                    
+
                     <div class="top-sidebar">
                         <ul class="list-unstyled mb-0">
                             <li>
@@ -115,7 +115,7 @@
                                         </defs>
                                         <path d="M5 22.0005C4.45 22.0005 3.97933 21.8048 3.588 21.4135C3.19667 21.0221 3.00067 20.5511 3 20.0005V15.4505L5.75 12.3255L7.175 13.7505L5.175 16.0005H18.825L16.875 13.8005L18.3 12.3755L21 15.4505V20.0005C21 20.5505 20.8043 21.0215 20.413 21.4135C20.0217 21.8055 19.5507 22.0011 19 22.0005H5ZM5 20.0005H19V18.0005H5V20.0005ZM10.625 14.3755L7.1 10.8505C6.71667 10.4671 6.52933 9.99646 6.538 9.43846C6.54667 8.88046 6.74233 8.40946 7.125 8.02546L12.025 3.12546C12.4083 2.74212 12.8833 2.54212 13.45 2.52546C14.0167 2.50879 14.4917 2.69212 14.875 3.07546L18.4 6.60046C18.7833 6.98379 18.9833 7.45046 19 8.00046C19.0167 8.55046 18.8333 9.01712 18.45 9.40046L13.45 14.4005C13.0667 14.7838 12.596 14.9715 12.038 14.9635C11.48 14.9555 11.009 14.7595 10.625 14.3755ZM17 8.02546L13.475 4.50046L8.525 9.45046L12.05 12.9755L17 8.02546Z" fill="url(#gradient1)"/>
                                     </svg>
-         
+
                                    <p>Voting</p>
                                 </a>
                             </li>
@@ -133,12 +133,12 @@
 
                     <div class="bottom-sidebar mt-4">
                         <ul class="list-unstyled mb-0">
-                            
+
                             <li>
                                 <a href="settings.html" class="d-flex align-items-center gap-4">
                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M11 6.12499C10.0358 6.12499 9.09329 6.41091 8.2916 6.94658C7.48991 7.48225 6.86507 8.24362 6.49609 9.13441C6.12712 10.0252 6.03058 11.0054 6.21868 11.9511C6.40678 12.8967 6.87108 13.7654 7.55286 14.4471C8.23464 15.1289 9.10328 15.5932 10.0489 15.7813C10.9946 15.9694 11.9748 15.8729 12.8656 15.5039C13.7564 15.1349 14.5177 14.5101 15.0534 13.7084C15.5891 12.9067 15.875 11.9642 15.875 11C15.8735 9.70752 15.3594 8.46841 14.4455 7.55449C13.5316 6.64057 12.2925 6.12648 11 6.12499ZM11 13.625C10.4808 13.625 9.97331 13.471 9.54164 13.1826C9.10996 12.8942 8.7735 12.4842 8.57482 12.0045C8.37614 11.5249 8.32416 10.9971 8.42545 10.4879C8.52673 9.97868 8.77674 9.51095 9.14385 9.14384C9.51096 8.77672 9.97869 8.52672 10.4879 8.42543C10.9971 8.32414 11.5249 8.37613 12.0046 8.57481C12.4842 8.77349 12.8942 9.10994 13.1826 9.54162C13.4711 9.9733 13.625 10.4808 13.625 11C13.625 11.6962 13.3484 12.3639 12.8562 12.8561C12.3639 13.3484 11.6962 13.625 11 13.625ZM21.6744 8.9778C21.6427 8.81934 21.5772 8.66958 21.4824 8.5387C21.3876 8.40783 21.2657 8.29891 21.125 8.21937L18.5197 6.73343L18.5094 3.79812C18.5088 3.63526 18.4729 3.47446 18.4041 3.32684C18.3353 3.17922 18.2353 3.0483 18.1109 2.94312C17.061 2.05481 15.8522 1.37371 14.5484 0.935929C14.3997 0.885764 14.2422 0.867272 14.0859 0.881642C13.9296 0.896011 13.778 0.942925 13.6409 1.01937L11 2.49405L8.35907 1.01843C8.22182 0.941567 8.06997 0.894345 7.91333 0.879812C7.75669 0.865278 7.59875 0.883757 7.44969 0.934054C6.14559 1.37366 4.93672 2.05667 3.88719 2.94687C3.76326 3.05193 3.66356 3.18259 3.59494 3.32986C3.52632 3.47713 3.49042 3.63752 3.48969 3.79999L3.47657 6.73812L0.875007 8.2203C0.734298 8.30015 0.612465 8.4094 0.517819 8.54061C0.423172 8.67182 0.357939 8.8219 0.326569 8.98062C0.0617165 10.3148 0.0617165 11.688 0.326569 13.0222C0.358188 13.1806 0.423536 13.3303 0.518171 13.4611C0.612806 13.592 0.734509 13.701 0.875007 13.7806L3.48313 15.2666L3.49344 18.2019C3.49401 18.3647 3.52993 18.5255 3.59872 18.6731C3.66752 18.8208 3.76754 18.9517 3.89188 19.0569C4.94178 19.9452 6.15065 20.6263 7.45438 21.0641C7.6031 21.1142 7.76067 21.1327 7.91696 21.1183C8.07325 21.104 8.22481 21.0571 8.36188 20.9806L11 19.5059L13.6381 20.9816C13.7754 21.0584 13.9272 21.1056 14.0839 21.1202C14.2405 21.1347 14.3985 21.1162 14.5475 21.0659C15.8516 20.6263 17.0605 19.9433 18.11 19.0531C18.2339 18.9481 18.3336 18.8174 18.4023 18.6701C18.4709 18.5228 18.5068 18.3625 18.5075 18.2L18.5206 15.2619L21.1278 13.7797C21.2685 13.6998 21.3904 13.5906 21.485 13.4594C21.5797 13.3282 21.6449 13.1781 21.6763 13.0194C21.9405 11.6851 21.9399 10.3119 21.6744 8.9778ZM19.5528 12.0884L17.0328 13.5209C16.8538 13.6224 16.7062 13.7713 16.6063 13.9512C16.5556 14.045 16.5022 14.1322 16.4469 14.2212C16.3358 14.3986 16.2764 14.6035 16.2753 14.8128L16.2622 17.6562C15.6557 18.1126 14.9915 18.4868 14.2869 18.7691L11.7416 17.345C11.5737 17.251 11.3846 17.2016 11.1922 17.2016H11.165C11.0581 17.2016 10.9494 17.2016 10.8425 17.2016C10.6415 17.1968 10.4428 17.2457 10.2669 17.3431L7.71876 18.7644C7.01297 18.4835 6.34724 18.1109 5.73876 17.6562L5.72844 14.8212C5.72758 14.6116 5.66815 14.4064 5.55688 14.2287C5.50251 14.1406 5.44813 14.0497 5.39751 13.9587C5.2975 13.7799 5.15026 13.632 4.97188 13.5312L2.45001 12.0903C2.35204 11.3674 2.35204 10.6345 2.45001 9.91155L4.97001 8.47905C5.14875 8.37758 5.29627 8.22908 5.39657 8.04968C5.44719 7.95593 5.50063 7.8678 5.55594 7.77874C5.66705 7.60135 5.72646 7.39649 5.72751 7.18718L5.73782 4.34374C6.34453 3.88866 7.00872 3.51574 7.71313 3.23468L10.2584 4.65874C10.4343 4.75738 10.6335 4.80662 10.835 4.80124C10.9419 4.80124 11.0506 4.80124 11.1575 4.80124C11.3585 4.806 11.5572 4.75714 11.7331 4.65968L14.2813 3.23562C14.987 3.51645 15.6528 3.88903 16.2613 4.34374L16.2716 7.17874C16.2724 7.38837 16.3319 7.59358 16.4431 7.77124C16.4975 7.85937 16.5519 7.9503 16.6025 8.04124C16.7025 8.22006 16.8498 8.36795 17.0281 8.46874L19.55 9.90593C19.6493 10.63 19.6502 11.3641 19.5528 12.0884Z" fill="#3A3A3A"/>
-                                    </svg>        
+                                    </svg>
                                    <p>Settings</p>
                                 </a>
                             </li>
@@ -147,7 +147,7 @@
                                 <a href="#" class="d-flex align-items-center gap-4">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M11.625 20.25C11.625 20.5484 11.5065 20.8345 11.2955 21.0455C11.0845 21.2565 10.7984 21.375 10.5 21.375H4.5C4.20163 21.375 3.91548 21.2565 3.7045 21.0455C3.49353 20.8345 3.375 20.5484 3.375 20.25V3.75C3.375 3.45163 3.49353 3.16548 3.7045 2.9545C3.91548 2.74353 4.20163 2.625 4.5 2.625H10.5C10.7984 2.625 11.0845 2.74353 11.2955 2.9545C11.5065 3.16548 11.625 3.45163 11.625 3.75C11.625 4.04837 11.5065 4.33452 11.2955 4.5455C11.0845 4.75647 10.7984 4.875 10.5 4.875H5.625V19.125H10.5C10.7984 19.125 11.0845 19.2435 11.2955 19.4545C11.5065 19.6655 11.625 19.9516 11.625 20.25ZM21.7959 11.2041L18.0459 7.45406C17.8346 7.24272 17.5479 7.12399 17.2491 7.12399C16.9502 7.12399 16.6635 7.24272 16.4522 7.45406C16.2408 7.66541 16.1221 7.95205 16.1221 8.25094C16.1221 8.54982 16.2408 8.83647 16.4522 9.04781L18.2812 10.875H10.5C10.2016 10.875 9.91548 10.9935 9.7045 11.2045C9.49353 11.4155 9.375 11.7016 9.375 12C9.375 12.2984 9.49353 12.5845 9.7045 12.7955C9.91548 13.0065 10.2016 13.125 10.5 13.125H18.2812L16.4512 14.9541C16.2399 15.1654 16.1212 15.4521 16.1212 15.7509C16.1212 16.0498 16.2399 16.3365 16.4512 16.5478C16.6626 16.7592 16.9492 16.8779 17.2481 16.8779C17.547 16.8779 17.8337 16.7592 18.045 16.5478L21.795 12.7978C21.8999 12.6934 21.9832 12.5692 22.0401 12.4325C22.097 12.2958 22.1263 12.1492 22.1264 12.0011C22.1264 11.8531 22.0973 11.7064 22.0406 11.5697C21.9839 11.4329 21.9008 11.3086 21.7959 11.2041Z" fill="#3A3A3A"/>
-                                    </svg>        
+                                    </svg>
                                    <p>Logout</p>
                                 </a>
                             </li>
@@ -156,26 +156,26 @@
                                 <a href="members.html" class="d-flex align-items-center justify-content-center gap-1 btn-pay-gradient" data-bs-toggle="modal" data-bs-target="#addMember">
                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M10.6875 6C10.6875 6.14918 10.6282 6.29226 10.5227 6.39775C10.4173 6.50324 10.2742 6.5625 10.125 6.5625H6.5625V10.125C6.5625 10.2742 6.50324 10.4173 6.39775 10.5227C6.29226 10.6282 6.14918 10.6875 6 10.6875C5.85082 10.6875 5.70774 10.6282 5.60225 10.5227C5.49676 10.4173 5.4375 10.2742 5.4375 10.125V6.5625H1.875C1.72582 6.5625 1.58274 6.50324 1.47725 6.39775C1.37176 6.29226 1.3125 6.14918 1.3125 6C1.3125 5.85082 1.37176 5.70774 1.47725 5.60225C1.58274 5.49676 1.72582 5.4375 1.875 5.4375H5.4375V1.875C5.4375 1.72582 5.49676 1.58274 5.60225 1.47725C5.70774 1.37176 5.85082 1.3125 6 1.3125C6.14918 1.3125 6.29226 1.37176 6.39775 1.47725C6.50324 1.58274 6.5625 1.72582 6.5625 1.875V5.4375H10.125C10.2742 5.4375 10.4173 5.49676 10.5227 5.60225C10.6282 5.70774 10.6875 5.85082 10.6875 6Z" fill="white"/>
-                                    </svg>        
+                                    </svg>
                                    <p class="text-light">Add Members</p>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                
-                
+
+
 
                 <div class="dashboard-content">
-                    
+
                     <div class="dashboard-content_header px-md-3 d-flex justify-content-between align-items-center">
                         <h1 class="dashboard-content_heading">Voting</h1>
-                        
+
                         <!-- <div class="">
                             <a href="members.html" class="d-flex align-items-center justify-content-center gap-1 btn-pay-gradient" data-bs-toggle="modal" data-bs-target="#createDue">
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.6875 6C10.6875 6.14918 10.6282 6.29226 10.5227 6.39775C10.4173 6.50324 10.2742 6.5625 10.125 6.5625H6.5625V10.125C6.5625 10.2742 6.50324 10.4173 6.39775 10.5227C6.29226 10.6282 6.14918 10.6875 6 10.6875C5.85082 10.6875 5.70774 10.6282 5.60225 10.5227C5.49676 10.4173 5.4375 10.2742 5.4375 10.125V6.5625H1.875C1.72582 6.5625 1.58274 6.50324 1.47725 6.39775C1.37176 6.29226 1.3125 6.14918 1.3125 6C1.3125 5.85082 1.37176 5.70774 1.47725 5.60225C1.58274 5.49676 1.72582 5.4375 1.875 5.4375H5.4375V1.875C5.4375 1.72582 5.49676 1.58274 5.60225 1.47725C5.70774 1.37176 5.85082 1.3125 6 1.3125C6.14918 1.3125 6.29226 1.37176 6.39775 1.47725C6.50324 1.58274 6.5625 1.72582 6.5625 1.875V5.4375H10.125C10.2742 5.4375 10.4173 5.49676 10.5227 5.60225C10.6282 5.70774 10.6875 5.85082 10.6875 6Z" fill="white"/>
-                                </svg>        
+                                </svg>
                                <p class="text-light">Create a vote</p>
                             </a>
                         </div> -->
@@ -210,46 +210,129 @@
             </div>
         </section>
 
-        <!-- Modal -->
+     <!-- Modal -->
 
-         <!-- Add Member Modal -->
-        <div class="modal fade" id="addMember" tabindex="-1" aria-labelledby="addMemberLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered ">
-                <div class="modal-content p-3 py-5 p-md-5">
-                            
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn-close mb-3 border rounded-md p-1" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+    <!-- Add Member Modal -->
+    <div class="modal fade" id="addMember" tabindex="-1" aria-labelledby="addMemberLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content p-3 py-5 p-md-5">
 
-                    <div class="modal-body mx-1 mx-md-3">
-                        <div class="modal-text text-center">
-                            <p class="modal-heading-2">Add Members link</p>
-                            <p class="modal-paragraph px-4">Send the link below to your members to onboard new members</p>
-                        </div>
-
-                        <a class="modal-link my-4" href="">https://payurdues.com/Adeleke-association/members onboarding</a>
-
-                        <a href="#" class="btn btn-pay-gradient w-100 mt-3 modal-button">Copy link</a>
-                        <a href="#" class="btn btn-pay-gradient-outline w-100 mt-2 modal-button">Add Manually</a>
-                    </div>
-                            
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn-close mb-3 border rounded-md p-1" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
+
+                <div class="modal-body mx-1 mx-md-3">
+                    <div class="modal-text text-center">
+                        <p class="modal-heading-2">Add Members link</p>
+                        <p class="modal-paragraph px-4">Send the link below to your members to onboard new members</p>
+                    </div>
+
+                    <a class="modal-link my-4" href="">https://payurdues.com/Adeleke-association/members
+                        onboarding</a>
+
+                    <a href="#" class="btn btn-pay-gradient w-100 mt-3 modal-button">Copy link</a>
+                    <a href="#" class="btn btn-pay-gradient-outline w-100 mt-2 modal-button" data-bs-toggle="modal"
+                        data-bs-target="#addMemberForm">Add Manually</a>
+                    <a href="#" class="btn btn-pay-gradient-outline w-100 mt-2 modal-button" data-bs-toggle="modal"
+                        data-bs-target="#uploadFile">Upload CSV File</a>
+                </div>
+
             </div>
         </div>
+    </div>
 
-        
-        
+     <div class="modal fade" id="addMemberForm" tabindex="-1" aria-labelledby="addMemberForm"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="POST"  action="{{ route('students.store') }}">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMemberFormLabel">Register Member</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="matricNumber" class="form-label">Matric Number</label>
+                        <input type="text" class="form-control" id="matricNumber" name="matric_no" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jambNumber" class="form-label">Jamb Registration Number</label>
+                        <input type="text" class="form-control" id="jambNumber" name="jamb_reg" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formNumber" class="form-label">Form Number</label>
+                        <input type="text" class="form-control" id="formNumber" name="form_no" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="first_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="otherNames" class="form-label">Other Names</label>
+                        <input type="text" class="form-control" id="otherNames" name="other_names" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="faculty" class="form-label">Faculty</label>
+                        <input type="text" class="form-control" id="faculty" name="faculty" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="department" class="form-label">Department</label>
+                        <input type="text" class="form-control" id="department" name="department" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="level" class="form-label">Level</label>
+                        <input type="text" class="form-control" id="level" name="level" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="d-flex align-items-center justify-content-center gap-1 btn-pay-gradient">Add Member</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="modal fade" id="uploadFile" tabindex="-1" aria-labelledby="uploadFile" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ route('students.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadFileLabel">Upload CSV File</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="mb-3">
+                        <label for="csv_file" class="form-label"></label>
+                        <input type="file" name="csv_file" class="form-control" required>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="d-flex align-items-center justify-content-center gap-1 btn-pay-gradient">Upload File</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        
+
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-       
+
         <!-- Data Table JS-->
         <script src="../assets/js/datatables.min.js"></script>
 
         <!-- Custom JS -->
         <script src="../assets/js/main.js"></script>
-        
+
     </body>
 </html>

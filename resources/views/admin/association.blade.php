@@ -1,6 +1,6 @@
-@extends('layout.facultyDashboard')
+@extends('layout.adminDashboard')
 
-@section('title', 'Dashboard')
+@section('title', 'Association')
 
 
 
@@ -11,7 +11,7 @@
         <div class="dashboard-content_balance d-flex flex-wrap flex-md-nowrap gap-3 mb-4" style="box-sizing: border-box;">
 
             <div class="col-lg-4 col-md col-12 balance-card">
-                <p class="balance-card_subtitle">Income dues from</p>
+                <p class="balance-card_title">{{ $association->name }}</p>
                 <div class="d-flex align-items-center gap-3 mt-4">
                     <div class="svg-box">
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
@@ -23,12 +23,12 @@
                                 fill="#3A3A3A" />
                         </svg>
                     </div>
-                    <p class="balance-card_title">₦{{ number_format($inflow_transaction, 2) }}</p>
+                    <p class="balance-card_subtitle"><b>Email: {{ $association->email }} <br> Link: {{ $association->link }} <br> About: {{ $association->about }}</b></p>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-auto col balance-card ">
-                <p class="balance-card_subtitle">Members</p>
+                <p class="balance-card_title">Contact Person Info</p>
                 <div class="d-flex align-items-center gap-3 mt-4">
                     <div class="svg-box">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -50,12 +50,12 @@
                                 stroke="#3A3A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </div>
-                    <p class="balance-card_title">{{ $students->count() }}</p>
+                    <p class="balance-card_subtitle"><b>Name: {{ $association->contact_person_name }} <br> Phone: {{ $association->contact_person_phone }} <br> Provider: {{ $association->provider }}</b></p>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-auto col balance-card">
-                <p class="balance-card_subtitle">Created Dues</p>
+                <p class="balance-card_title">Bank Account Info</p>
                 <div class="d-flex align-items-center gap-2 mt-4">
                     <div class="svg-box">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -68,12 +68,12 @@
                                 fill="#3A3A3A" />
                         </svg>
                     </div>
-                    <p class="balance-card_title">{{ $duesCount ?? ""}}</p>
+                    <p class="balance-card_subtitle"><b>Bank Name: {{ $association->bank_name }} <br> Account Name: {{ $association->bank_account_name }} <br> Account Number: {{ $association->bank_account_no }} <br> Bank Code: {{ $association->bank_code }}</b></p>
                 </div>
             </div>
         </div>
         <div class="dashboard-content_header d-flex justify-content-between align-items-center">
-            <h1 class="dashboard-content_heading">Members</h1>
+            <h1 class="dashboard-content_heading">{{ $association->name }} Members</h1>
             <div class="dashboard-content_search d-flex gap-2">
                 <div class="position-relative dashboard-content_search-box d-none d-md-flex">
                     <input type="text" class="form-control" placeholder="Search">
@@ -92,141 +92,36 @@
                     <thead>
                         <tr class="table-light text-center">
                             <th>Matric No</th>
+                            <th>Form No</th>
                             <th>Name</th>
                             <th>Level</th>
                             <th>Department</th>
+                            <th>Faculty</th>
                             {{-- <th>No of dues paid</th> --}}
                             {{-- <th>Last dues paid</th> --}}
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($students as $student)
+                          @foreach ($students as $student)
+                              
+                          
                             <tr>
-                                <td> {{ $student->form_no ?? $student->matric_no }}</td>
+                                <td> {{ $student->matric_no }}</td>
+                                <td>{{ $student->form_no }}</td>
                                 <td>{{ $student->first_name }} {{ $student->other_names }}</td>
-                                <td> {{ $student->level }}</td>
-                                <td> {{ $student->department }}</td>
+                                <td>{{ $student->level }} </td>
+                                <td>{{ $student->department }} </td>
+                                <td>{{ $student->faculty }}</td>
                                 {{-- <td>3</td>
                                 <td>₦4,000-Basic dues</td> --}}
                             </tr>
-                        @endforeach
+                         @endforeach
 
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-
-    <!-- Add Member Modal -->
-    <div class="modal fade" id="addMember" tabindex="-1" aria-labelledby="addMemberLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered ">
-            <div class="modal-content p-3 py-5 p-md-5">
-
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn-close mb-3 border rounded-md p-1" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-
-                <div class="modal-body mx-1 mx-md-3">
-                    <div class="modal-text text-center">
-                        <p class="modal-heading-2">Add Members link</p>
-                        <p class="modal-paragraph px-4">Send the link below to your members to onboard new members</p>
-                    </div>
-
-                    <a class="modal-link my-4" href="">https://payurdues.com/Adeleke-association/members
-                        onboarding</a>
-
-                    <a href="#" class="btn btn-pay-gradient w-100 mt-3 modal-button">Copy link</a>
-                    <a href="#" class="btn btn-pay-gradient-outline w-100 mt-2 modal-button" data-bs-toggle="modal"
-                        data-bs-target="#addMemberForm">Add Manually</a>
-                    <a href="#" class="btn btn-pay-gradient-outline w-100 mt-2 modal-button" data-bs-toggle="modal"
-                        data-bs-target="#uploadFile">Upload CSV File</a>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-     <div class="modal fade" id="addMemberForm" tabindex="-1" aria-labelledby="addMemberForm"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <form method="POST"  action="{{ route('students.store') }}">
-            @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addMemberFormLabel">Register Member</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="matricNumber" class="form-label">Matric Number</label>
-                        <input type="text" class="form-control" id="matricNumber" name="matric_no" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="jambNumber" class="form-label">Jamb Registration Number</label>
-                        <input type="text" class="form-control" id="jambNumber" name="jamb_reg" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="formNumber" class="form-label">Form Number</label>
-                        <input type="text" class="form-control" id="formNumber" name="form_no" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName" name="first_name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="otherNames" class="form-label">Other Names</label>
-                        <input type="text" class="form-control" id="otherNames" name="other_names" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="faculty" class="form-label">Faculty</label>
-                        <input type="text" class="form-control" id="faculty" name="faculty" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="department" class="form-label">Department</label>
-                        <input type="text" class="form-control" id="department" name="department" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="level" class="form-label">Level</label>
-                        <input type="text" class="form-control" id="level" name="level" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="d-flex align-items-center justify-content-center gap-1 btn-pay-gradient">Add Member</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-<div class="modal fade" id="uploadFile" tabindex="-1" aria-labelledby="uploadFile" aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="{{ route('students.import') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="uploadFileLabel">Upload CSV File</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="mb-3">
-                        <label for="csv_file" class="form-label"></label>
-                        <input type="file" name="csv_file" class="form-control" required>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="d-flex align-items-center justify-content-center gap-1 btn-pay-gradient">Upload File</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
 
 
 @endsection

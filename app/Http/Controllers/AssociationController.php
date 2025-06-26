@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use App\Models\Student;
+
 class AssociationController extends Controller
 {
     //
@@ -64,4 +66,6 @@ class AssociationController extends Controller
          Auth::logout();
          return redirect()->route('login.form')->with('success', 'You have been logged out successfully.');
      }
+
+    
 }

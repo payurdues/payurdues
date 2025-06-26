@@ -34,4 +34,16 @@ class Student extends Authenticatable implements AuthenticatableContract
     {
         return Due::whereJsonContains('payable_faculties', $this->faculty)->get();
     }
+
+     protected $fillable = [
+        'matric_no',
+        'jamb_reg',
+        'form_no',
+        'first_name',
+        'other_names',
+        'faculty',
+        'department',
+        'level',
+        'association_id'
+    ];
 }

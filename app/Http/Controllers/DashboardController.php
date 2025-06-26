@@ -29,13 +29,17 @@ class DashboardController extends Controller
 
         $Transactions =Transaction::where('association_id',$association_id)->with(['due', 'association'])->get();
 
-     
+
         $Duee =Due::where('association_id',$association_id)->with(['association'])->first(['payable_faculties']);
 
-        
-        $Due = json_decode($Duee->payable_faculties, true);
 
-        $students= Student::where('faculty',$Due)->get();
+        $Due = "No Due";
+        if(isset($Duee->payable_faculties)){
+
+        $Due = json_decode($Duee->payable_faculties, true);
+        }
+      //  $students= Student::where('faculty',$Due)->get();
+        $students= Student::where('association_id',$association_id)->get();
 
         $duesCount =Due::where('association_id',$association_id)->count();
 
@@ -49,7 +53,7 @@ class DashboardController extends Controller
             $inflow_transactionCount = $Transactions->count();
         }
 
-        
+
         return view('faculty.index',compact('duesCount','inflow_transaction','students','inflow_transactionCount'));
 
     }
@@ -81,7 +85,7 @@ class DashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   
+
     /**
      * Show the form for editing the specified resource.
      *

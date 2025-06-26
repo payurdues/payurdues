@@ -375,8 +375,8 @@ class ComposerStaticInitd529836a804f61563e2d5f863884a766
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -608,6 +608,7 @@ class ComposerStaticInitd529836a804f61563e2d5f863884a766
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Exports\\TransactionsExport' => __DIR__ . '/../..' . '/app/Exports/TransactionsExport.php',
         'App\\Exports\\TransactionsExportcopy' => __DIR__ . '/../..' . '/app/Exports/TransactionsExportcopy.php',
+        'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\AssociationController' => __DIR__ . '/../..' . '/app/Http/Controllers/AssociationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
