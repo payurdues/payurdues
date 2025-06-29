@@ -93,6 +93,32 @@ h1, h2, h3, h4, h5, h6, p, span {
     color: #fff;
 }
 
+.bg-gradient {
+    background: linear-gradient(to right, var(--gradient)) !important;
+    color: white;
+}
+
+.text-color-gradient {
+    background: linear-gradient(to bottom, var(--gradient)); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+}
+
+.fs-small {
+    font-size: 70%;
+    color: var(--textColor) !important;
+    background: none !important;
+    font-weight: 400 !important;
+}
+
+.bg-p-light {
+    border: 1px solid #e8a4d1 !important;
+}
+
+.border-p {
+    border-color: var(--pColor) !important;
+}
+
 
 
 section {
@@ -550,9 +576,14 @@ section {
     .dashboard-content_header {
         background-color: #fff;
         padding: 10px;
-        padding-bottom: 24px;
-        padding-top: 16px;
-    }
+        padding-bottom: 18px;
+        padding-top: 18px;
+        border-radius: 12px;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        -ms-border-radius: 12px;
+        -o-border-radius: 12px;
+}
 
     .dashboard-content_paragraph {
         color: var(--lightTextColor);
@@ -713,10 +744,122 @@ section {
         -o-border-radius: 16px;
     }
 
+    .payable-dues_card.countdown_card {
+        font-size: 82%;
+    }
+
     .payable-dues_card input[type="checkbox"] {
         height: 16px;
         width: 16px;
     }
+
+    .voting-NavLink {
+        background-color: #FEE6FA;
+        color: black;
+        overflow: hidden;
+        border-radius: 16px;
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        -ms-border-radius: 16px;
+        -o-border-radius: 16px;
+}
+
+    .voting-NavLink > a {
+        padding: 10px 18px;
+        text-align: center;
+        display: inline-block;
+        position: relative;
+        transform: translateY(0);
+        text-decoration: none;
+        color: inherit;
+        z-index: 1;
+        border-radius: 16px;
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        -ms-border-radius: 16px;
+        -o-border-radius: 16px;
+        transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        -webkit-transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        -moz-transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        -ms-transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        -o-transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+    .voting-NavLink > a.active {
+        background-color: white;
+        transform: translateY(0);
+    }
+
+    .voting-NavLink > a.active span {
+        background: linear-gradient(to bottom, var(--gradient));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    
+    .voting-NavLink > a::after,
+    .voting-NavLink > a:hover::after {
+        content: '';
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(to right, var(--gradient));
+        transform: translateX(-50%);
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+}
+
+    .voting-NavLink > a.active::after {
+        display: none;
+    }
+
+    .voting-NavLink > a:hover::after {
+        width: 70%;
+    }
+
+    .voting-NavLink > a.active::after {
+        width: 70%;
+    }
+
+    .content-section {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .content-section:not(.d-none) {
+        animation: fadeIn 0.3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+            -webkit-transform: translateY(10px);
+            -moz-transform: translateY(10px);
+            -ms-transform: translateY(10px);
+            -o-transform: translateY(10px);
+        }
+
+        40% {
+            opacity: 0.5;
+            transform: translateY(5px);
+            -webkit-transform: translateY(5px);
+            -moz-transform: translateY(5px);
+            -ms-transform: translateY(5px);
+            -o-transform: translateY(5px);
+}
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+
 
     .dashboard-content_details th, td {
         padding: 16px 24px !important;
@@ -880,3 +1023,224 @@ section {
     .form-progress>div.active {
         background-color: var(--pColor);
     }
+
+
+
+
+
+
+.step {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.step p {
+    color: #b4b4b4;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.step .content {
+    margin-left: 15px;
+    z-index: 20;
+}
+
+.step .circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    position: relative;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+/* Default: line going down */
+.step .circle::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 2px;
+    height: 54px;
+    background: #ccc;
+    transform: translateX(-50%);
+}
+
+/* For the last child: remove ::after (downward line) */
+.step:last-child .circle::after {
+    display: none;
+}
+
+/* Add upward line using ::before on last step */
+.step:last-child .circle::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    width: 2px;
+    height: 54px;
+    background: #ccc;
+    transform: translateX(-50%);
+}
+
+
+.step.active .circle {
+    color: transparent;
+    background: linear-gradient(to bottom, var(--gradient));
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-color: transparent;
+    outline: 2px solid;
+}
+
+.step.active .circle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px;
+    padding: 2px; 
+    background: linear-gradient(to bottom, var(--gradient));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+}
+
+.step.active h4,
+.step.completed h4 {
+    font-weight: 600;
+}
+
+.step.active p,
+.step.completed p {
+    color: #333;
+}
+
+
+.step.inactive .circle {
+    border: 2px solid #ccc;
+    color: #ccc;
+    background-color: white;
+}
+
+.step.inactive h4 {
+    color: #ccc;
+}
+
+.step.inactive p {
+    color: #ddd;
+}
+
+
+.step.completed .circle {
+    background: linear-gradient(to right, var(--gradient));
+    color: white;
+}
+
+.step.completed .circle span {
+    font-size: 16px;
+}
+
+.step.completed h4 {
+    background: linear-gradient(to bottom, var(--gradient)); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+}
+
+
+.accordion-button {
+    border: solid 1.5px var(--pColor);
+    background-color: #fff;
+}
+
+
+
+
+
+
+.accordion-button:not(.collapsed) {
+    color: #fff !important;
+    background: var(--pColor) !important;
+    box-shadow: none !important;
+}
+
+.accordion-button:not(.collapsed) h4 {
+    background: none;
+    color: #fff;
+    -webkit-text-fill-color: #fff; 
+
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e") !important;
+}
+
+.accordion-button:focus {
+    box-shadow: none !important;
+}
+
+.accordion-item {
+    color: var(--bs-accordion-color);
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.accordion-item:first-of-type>.accordion-header .accordion-button {
+    border-top-left-radius: 16px !important;
+    border-top-right-radius: 16px !important;
+    border-bottom-left-radius: 16px !important;
+    border-bottom-right-radius: 16px !important;
+}
+
+.accordion-body {
+    padding: 0 !important;
+}
+
+.candidate h5 {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.candidate.winner h5 {
+    background: linear-gradient(to bottom, var(--gradient)); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    font-weight: 600;
+}
+
+
+.candidate.winner .square-image-container>div {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    display: block;
+}
+
+.candidate .square-image-container>div {
+    display: none;
+}
+
+.square-image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background-color: #fff;
+    
+}
+
+.square-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
