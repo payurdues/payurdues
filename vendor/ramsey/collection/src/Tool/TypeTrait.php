@@ -36,6 +36,7 @@ trait TypeTrait
      * @param string $type The type to check the value against.
      * @param mixed $value The value to check.
      */
+<<<<<<< HEAD
     // phpcs:ignore SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
     protected function checkType(string $type, $value): bool
     {
@@ -70,5 +71,24 @@ trait TypeTrait
             default:
                 return $value instanceof $type;
         }
+=======
+    protected function checkType(string $type, mixed $value): bool
+    {
+        return match ($type) {
+            'array' => is_array($value),
+            'bool', 'boolean' => is_bool($value),
+            'callable' => is_callable($value),
+            'float', 'double' => is_float($value),
+            'int', 'integer' => is_int($value),
+            'null' => $value === null,
+            'numeric' => is_numeric($value),
+            'object' => is_object($value),
+            'resource' => is_resource($value),
+            'scalar' => is_scalar($value),
+            'string' => is_string($value),
+            'mixed' => true,
+            default => $value instanceof $type,
+        };
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

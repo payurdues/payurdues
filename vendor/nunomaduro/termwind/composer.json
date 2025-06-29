@@ -10,6 +10,7 @@
         }
     ],
     "require": {
+<<<<<<< HEAD
         "php": "^8.0",
         "ext-mbstring": "*",
         "symfony/console": "^5.3.0|^6.0.0"
@@ -24,6 +25,21 @@
         "phpstan/phpstan": "^1.4.6",
         "phpstan/phpstan-strict-rules": "^1.1.0",
         "symfony/var-dumper": "^5.2.7|^6.0.0",
+=======
+        "php": "^8.1",
+        "ext-mbstring": "*",
+        "symfony/console": "^6.4.15"
+    },
+    "require-dev": {
+        "illuminate/console": "^10.48.24",
+        "illuminate/support": "^10.48.24",
+        "laravel/pint": "^1.18.2",
+        "pestphp/pest": "^2.36.0",
+        "pestphp/pest-plugin-mock": "2.0.0",
+        "phpstan/phpstan": "^1.12.11",
+        "phpstan/phpstan-strict-rules": "^1.6.1",
+        "symfony/var-dumper": "^6.4.15",
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         "thecodingmachine/phpstan-strict-rules": "^1.0.0"
     },
     "autoload": {

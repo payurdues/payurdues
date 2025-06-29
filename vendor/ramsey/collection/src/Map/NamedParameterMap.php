@@ -21,13 +21,20 @@ use Ramsey\Collection\Tool\ValueToStringTrait;
 use function array_combine;
 use function array_key_exists;
 use function is_int;
+<<<<<<< HEAD
 use function var_export;
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
 /**
  * `NamedParameterMap` represents a mapping of values to a set of named keys
  * that may optionally be typed
  *
+<<<<<<< HEAD
  * @extends AbstractMap<mixed>
+=======
+ * @extends AbstractMap<string, mixed>
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  */
 class NamedParameterMap extends AbstractMap
 {
@@ -39,13 +46,21 @@ class NamedParameterMap extends AbstractMap
      *
      * @var array<string, string>
      */
+<<<<<<< HEAD
     protected array $namedParameters;
+=======
+    private readonly array $namedParameters;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Constructs a new `NamedParameterMap`.
      *
      * @param array<array-key, string> $namedParameters The named parameters defined for this map.
+<<<<<<< HEAD
      * @param array<array-key, mixed> $data An initial set of data to set on this map.
+=======
+     * @param array<string, mixed> $data An initial set of data to set on this map.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function __construct(array $namedParameters, array $data = [])
     {
@@ -63,6 +78,7 @@ class NamedParameterMap extends AbstractMap
         return $this->namedParameters;
     }
 
+<<<<<<< HEAD
     /**
      * @inheritDoc
      */
@@ -79,6 +95,14 @@ class NamedParameterMap extends AbstractMap
             throw new InvalidArgumentException(
                 'Attempting to set value for unconfigured parameter \''
                 . $offset . '\'',
+=======
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        if (!array_key_exists($offset, $this->namedParameters)) {
+            throw new InvalidArgumentException(
+                'Attempting to set value for unconfigured parameter \''
+                . $this->toolValueToString($offset) . '\'',
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             );
         }
 

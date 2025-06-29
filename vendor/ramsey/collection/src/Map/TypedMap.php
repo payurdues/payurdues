@@ -14,8 +14,11 @@ declare(strict_types=1);
 
 namespace Ramsey\Collection\Map;
 
+<<<<<<< HEAD
 use Ramsey\Collection\Tool\TypeTrait;
 
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 /**
  * A `TypedMap` represents a map of elements where key and value are typed.
  *
@@ -31,7 +34,11 @@ use Ramsey\Collection\Tool\TypeTrait;
  *
  * Example usage:
  *
+<<<<<<< HEAD
  * ```php
+=======
+ * ```
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  * $map = new TypedMap('string', Foo::class);
  * $map['x'] = new Foo();
  * foreach ($map as $key => $value) {
@@ -53,7 +60,11 @@ use Ramsey\Collection\Tool\TypeTrait;
  * It is preferable to subclass `AbstractTypedMap` to create your own typed map
  * implementation:
  *
+<<<<<<< HEAD
  * ```php
+=======
+ * ```
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  * class FooTypedMap extends AbstractTypedMap
  * {
  *     public function getKeyType()
@@ -70,7 +81,11 @@ use Ramsey\Collection\Tool\TypeTrait;
  *
  * … but you also may use the `TypedMap` class:
  *
+<<<<<<< HEAD
  * ```php
+=======
+ * ```
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  * class FooTypedMap extends TypedMap
  * {
  *     public function __constructor(array $data = [])
@@ -86,6 +101,7 @@ use Ramsey\Collection\Tool\TypeTrait;
  */
 class TypedMap extends AbstractTypedMap
 {
+<<<<<<< HEAD
     use TypeTrait;
 
     /**
@@ -104,6 +120,8 @@ class TypedMap extends AbstractTypedMap
      */
     private string $valueType;
 
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     /**
      * Constructs a map object of the specified key and value types,
      * optionally with the specified data.
@@ -112,11 +130,19 @@ class TypedMap extends AbstractTypedMap
      * @param string $valueType The data type of the map's values.
      * @param array<K, T> $data The initial data to set for this map.
      */
+<<<<<<< HEAD
     public function __construct(string $keyType, string $valueType, array $data = [])
     {
         $this->keyType = $keyType;
         $this->valueType = $valueType;
 
+=======
+    public function __construct(
+        private readonly string $keyType,
+        private readonly string $valueType,
+        array $data = [],
+    ) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         parent::__construct($data);
     }
 

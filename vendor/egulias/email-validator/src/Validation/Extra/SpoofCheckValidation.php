@@ -22,9 +22,12 @@ class SpoofCheckValidation implements EmailValidation
         }
     }
 
+<<<<<<< HEAD
     /**
      * @psalm-suppress InvalidArgument
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function isValid(string $email, EmailLexer $emailLexer) : bool
     {
         $checker = new Spoofchecker();
@@ -37,9 +40,12 @@ class SpoofCheckValidation implements EmailValidation
         return $this->error === null;
     }
 
+<<<<<<< HEAD
     /**
      * @return InvalidEmail
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getError() : ?InvalidEmail
     {
         return $this->error;

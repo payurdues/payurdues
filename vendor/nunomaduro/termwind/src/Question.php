@@ -27,9 +27,15 @@ final class Question
      */
     private SymfonyQuestionHelper $helper;
 
+<<<<<<< HEAD
     public function __construct(SymfonyQuestionHelper $helper = null)
     {
         $this->helper = $helper ?? new QuestionHelper();
+=======
+    public function __construct(?SymfonyQuestionHelper $helper = null)
+    {
+        $this->helper = $helper ?? new QuestionHelper;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -37,7 +43,11 @@ final class Question
      */
     public static function setStreamableInput(StreamableInputInterface|null $streamableInput): void
     {
+<<<<<<< HEAD
         self::$streamableInput = $streamableInput ?? new ArgvInput();
+=======
+        self::$streamableInput = $streamableInput ?? new ArgvInput;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -45,7 +55,11 @@ final class Question
      */
     public static function getStreamableInput(): StreamableInputInterface
     {
+<<<<<<< HEAD
         return self::$streamableInput ??= new ArgvInput();
+=======
+        return self::$streamableInput ??= new ArgvInput;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -53,7 +67,11 @@ final class Question
      *
      * @param  iterable<array-key, string>|null  $autocomplete
      */
+<<<<<<< HEAD
     public function ask(string $question, iterable $autocomplete = null): mixed
+=======
+    public function ask(string $question, ?iterable $autocomplete = null): mixed
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $html = (new HtmlRenderer)->parse($question)->toString();
 
@@ -73,7 +91,11 @@ final class Question
 
             $currentHelper = $property->isInitialized($output)
                 ? $property->getValue($output)
+<<<<<<< HEAD
                 : new SymfonyQuestionHelper();
+=======
+                : new SymfonyQuestionHelper;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             $property->setValue($output, new QuestionHelper);
 

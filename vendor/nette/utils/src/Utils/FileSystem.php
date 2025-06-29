@@ -271,7 +271,11 @@ final class FileSystem
 	 */
 	public static function isAbsolute(string $path): bool
 	{
+<<<<<<< HEAD
 		return (bool) preg_match('#([a-z]:)?[/\\\\]|[a-z][a-z0-9+.-]*://#Ai', $path);
+=======
+		return (bool) preg_match('#([a-z]:)?[/\\\]|[a-z][a-z0-9+.-]*://#Ai', $path);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	}
 
 
@@ -280,7 +284,11 @@ final class FileSystem
 	 */
 	public static function normalizePath(string $path): string
 	{
+<<<<<<< HEAD
 		$parts = $path === '' ? [] : preg_split('~[/\\\\]+~', $path);
+=======
+		$parts = $path === '' ? [] : preg_split('~[/\\\]+~', $path);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 		$res = [];
 		foreach ($parts as $part) {
 			if ($part === '..' && $res && end($res) !== '..' && end($res) !== '') {
@@ -306,6 +314,22 @@ final class FileSystem
 
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Resolves a path against a base path. If the path is absolute, returns it directly, if it's relative, joins it with the base path.
+	 */
+	public static function resolvePath(string $basePath, string $path): string
+	{
+		return match (true) {
+			self::isAbsolute($path) => self::platformSlashes($path),
+			$path === '' => self::platformSlashes($basePath),
+			default => self::joinPaths($basePath, $path),
+		};
+	}
+
+
+	/**
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	 * Converts backslashes to slashes.
 	 */
 	public static function unixSlashes(string $path): string

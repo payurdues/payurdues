@@ -86,7 +86,11 @@ class Pool implements PromisorInterface
      * @param ClientInterface $client   Client used to send the requests
      * @param array|\Iterator $requests Requests to send concurrently.
      * @param array           $options  Passes through the options available in
+<<<<<<< HEAD
      *                                  {@see \GuzzleHttp\Pool::__construct}
+=======
+     *                                  {@see Pool::__construct}
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      *
      * @return array Returns an array containing the response or an exception
      *               in the same order that the requests were sent.

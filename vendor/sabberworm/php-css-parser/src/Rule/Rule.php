@@ -46,11 +46,21 @@ class Rule implements Renderable, Commentable
 
     /**
      * @var int
+<<<<<<< HEAD
+=======
+     *
+     * @internal since 8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected $iColNo;
 
     /**
      * @var array<array-key, Comment>
+<<<<<<< HEAD
+=======
+     *
+     * @internal since 8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected $aComments;
 
@@ -71,14 +81,28 @@ class Rule implements Renderable, Commentable
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @param array<int, Comment> $commentsBeforeRule
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @return Rule
      *
      * @throws UnexpectedEOFException
      * @throws UnexpectedTokenException
+<<<<<<< HEAD
      */
     public static function parse(ParserState $oParserState)
     {
         $aComments = $oParserState->consumeWhiteSpace();
+=======
+     *
+     * @internal since V8.8.0
+     */
+    public static function parse(ParserState $oParserState, $commentsBeforeRule = [])
+    {
+        $aComments = \array_merge($commentsBeforeRule, $oParserState->consumeWhiteSpace());
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $oRule = new Rule(
             $oParserState->parseIdentifier(!$oParserState->comes("--")),
             $oParserState->currentLine(),
@@ -108,22 +132,45 @@ class Rule implements Renderable, Commentable
             $oParserState->consume(';');
         }
 
+<<<<<<< HEAD
         $oParserState->consumeWhiteSpace();
 
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         return $oRule;
     }
 
     /**
+<<<<<<< HEAD
      * @param string $sRule
      *
      * @return array<int, string>
+=======
+     * Returns a list of delimiters (or separators).
+     * The first item is the innermost separator (or, put another way, the highest-precedence operator).
+     * The sequence continues to the outermost separator (or lowest-precedence operator).
+     *
+     * @param string $sRule
+     *
+     * @return list<non-empty-string>
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     private static function listDelimiterForRule($sRule)
     {
         if (preg_match('/^font($|-)/', $sRule)) {
             return [',', '/', ' '];
         }
+<<<<<<< HEAD
         return [',', ' ', '/'];
+=======
+
+        switch ($sRule) {
+            case 'src':
+                return [' ', ','];
+            default:
+                return [',', ' ', '/'];
+        }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -293,6 +340,11 @@ class Rule implements Renderable, Commentable
      * @param int $iModifier
      *
      * @return void
+<<<<<<< HEAD
+=======
+     *
+     * @deprecated since V8.8.0, will be removed in V9.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function addIeHack($iModifier)
     {
@@ -303,6 +355,11 @@ class Rule implements Renderable, Commentable
      * @param array<int, int> $aModifiers
      *
      * @return void
+<<<<<<< HEAD
+=======
+     *
+     * @deprecated since V8.8.0, will be removed in V9.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setIeHack(array $aModifiers)
     {
@@ -311,6 +368,11 @@ class Rule implements Renderable, Commentable
 
     /**
      * @return array<int, int>
+<<<<<<< HEAD
+=======
+     *
+     * @deprecated since V8.8.0, will be removed in V9.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function getIeHack()
     {
@@ -337,6 +399,11 @@ class Rule implements Renderable, Commentable
 
     /**
      * @return string
+<<<<<<< HEAD
+=======
+     *
+     * @deprecated in V8.8.0, will be removed in V9.0.0. Use `render` instead.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function __toString()
     {

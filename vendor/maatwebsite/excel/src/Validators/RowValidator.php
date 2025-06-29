@@ -134,6 +134,17 @@ class RowValidator
             return $rules;
         }
 
+<<<<<<< HEAD
+=======
+        if (Str::contains($rules, 'required_without') && preg_match('/(.*?):(.*)/', $rules, $matches)) {
+            $column = array_map(function ($match) {
+                return Str::startsWith($match, '*.') ? $match : '*.' . $match;
+            }, explode(',', $matches[2]));
+
+            return $matches[1] . ':' . implode(',', $column);
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if (Str::contains($rules, 'required_') && preg_match('/(.*?):(.*),(.*)/', $rules, $matches)) {
             $column = Str::startsWith($matches[2], '*.') ? $matches[2] : '*.' . $matches[2];
 

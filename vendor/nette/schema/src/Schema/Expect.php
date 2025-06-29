@@ -24,7 +24,10 @@ use Nette\Schema\Elements\Type;
  * @method static Type float($default = null)
  * @method static Type bool($default = null)
  * @method static Type null()
+<<<<<<< HEAD
  * @method static Type array($default = [])
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  * @method static Type list($default = [])
  * @method static Type mixed($default = null)
  * @method static Type email($default = null)
@@ -32,8 +35,11 @@ use Nette\Schema\Elements\Type;
  */
 final class Expect
 {
+<<<<<<< HEAD
 	use Nette\SmartObject;
 
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	public static function __callStatic(string $name, array $args): Type
 	{
 		$type = new Type($name);
@@ -51,16 +57,21 @@ final class Expect
 	}
 
 
+<<<<<<< HEAD
 	/**
 	 * @param  mixed|Schema  ...$set
 	 */
 	public static function anyOf(...$set): AnyOf
+=======
+	public static function anyOf(mixed ...$set): AnyOf
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	{
 		return new AnyOf(...$set);
 	}
 
 
 	/**
+<<<<<<< HEAD
 	 * @param  Schema[]  $items
 	 */
 	public static function structure(array $items): Structure
@@ -84,6 +95,30 @@ final class Expect
 					$item->required();
 				} else {
 					$def = $prop->getValue($object);
+=======
+	 * @param  Schema[]  $shape
+	 */
+	public static function structure(array $shape): Structure
+	{
+		return new Structure($shape);
+	}
+
+
+	public static function from(object $object, array $items = []): Structure
+	{
+		$ro = new \ReflectionObject($object);
+		$props = $ro->hasMethod('__construct')
+			? $ro->getMethod('__construct')->getParameters()
+			: $ro->getProperties();
+
+		foreach ($props as $prop) {
+			$item = &$items[$prop->getName()];
+			if (!$item) {
+				$type = Helpers::getPropertyType($prop) ?? 'mixed';
+				$item = new Type($type);
+				if ($prop instanceof \ReflectionProperty ? $prop->isInitialized($object) : $prop->isOptional()) {
+					$def = ($prop instanceof \ReflectionProperty ? $prop->getValue($object) : $prop->getDefaultValue());
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 					if (is_object($def)) {
 						$item = static::from($def);
 					} elseif ($def === null && !Nette\Utils\Validators::is(null, $type)) {
@@ -91,6 +126,11 @@ final class Expect
 					} else {
 						$item->default($def);
 					}
+<<<<<<< HEAD
+=======
+				} else {
+					$item->required();
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 				}
 			}
 		}
@@ -100,19 +140,37 @@ final class Expect
 
 
 	/**
+<<<<<<< HEAD
 	 * @param  string|Schema  $valueType
 	 * @param  string|Schema|null  $keyType
 	 */
 	public static function arrayOf($valueType, $keyType = null): Type
+=======
+	 * @param  mixed[]  $shape
+	 */
+	public static function array(?array $shape = []): Structure|Type
+	{
+		return Nette\Utils\Arrays::first($shape ?? []) instanceof Schema
+			? (new Structure($shape))->castTo('array')
+			: (new Type('array'))->default($shape);
+	}
+
+
+	public static function arrayOf(string|Schema $valueType, string|Schema|null $keyType = null): Type
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	{
 		return (new Type('array'))->items($valueType, $keyType);
 	}
 
 
+<<<<<<< HEAD
 	/**
 	 * @param  string|Schema  $type
 	 */
 	public static function listOf($type): Type
+=======
+	public static function listOf(string|Schema $type): Type
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	{
 		return (new Type('list'))->items($type);
 	}

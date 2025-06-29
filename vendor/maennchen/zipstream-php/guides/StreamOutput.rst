@@ -5,9 +5,15 @@ Stream to S3 Bucket
 ---------------
 
 .. code-block:: php
+<<<<<<< HEAD
     use Aws\S3\S3Client;
     use Aws\Credentials\CredentialProvider;
     use ZipStream\Option\Archive;
+=======
+
+    use Aws\S3\S3Client;
+    use Aws\Credentials\CredentialProvider;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     use ZipStream\ZipStream;
 
     $bucket = 'your bucket name';
@@ -21,6 +27,7 @@ Stream to S3 Bucket
 
     $zipFile = fopen("s3://$bucket/example.zip", 'w');
 
+<<<<<<< HEAD
     $options = new Archive();
     $options->setEnableZip64(false);
     $options->setOutputStream($zipFile);
@@ -31,3 +38,21 @@ Stream to S3 Bucket
     $zip->finish();
 
     fclose($zipFile);
+=======
+    $zip = new ZipStream(
+        enableZip64: false,
+        outputStream: $zipFile,
+    );
+
+    $zip->addFile(
+        fileName: 'file1.txt',
+        data: 'File1 data',
+    );
+    $zip->addFile(
+        fileName: 'file2.txt',
+        data: 'File2 data',
+    );
+    $zip->finish();
+
+    fclose($zipFile);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5

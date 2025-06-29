@@ -59,8 +59,11 @@ final class StyleToMethod
 
     /**
      * Converts the given style to a method name.
+<<<<<<< HEAD
      *
      * @return Styles
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function __invoke(string|int ...$arguments): Styles
     {
@@ -98,6 +101,10 @@ final class StyleToMethod
             return $this->__invoke(...$arguments);
         }
 
+<<<<<<< HEAD
+=======
+        // @phpstan-ignore-next-line
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         return $this->styles
             ->setStyle($this->style)
             ->$methodName(...array_reverse($arguments));

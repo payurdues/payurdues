@@ -19,14 +19,22 @@ final class Reflection
 {
 	use Nette\StaticClass;
 
+<<<<<<< HEAD
 	/** @deprecated use Nette\Utils\Validator::isBuiltinType() */
+=======
+	/** @deprecated use Nette\Utils\Validators::isBuiltinType() */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	public static function isBuiltinType(string $type): bool
 	{
 		return Validators::isBuiltinType($type);
 	}
 
 
+<<<<<<< HEAD
 	/** @deprecated use Nette\Utils\Validator::isClassKeyword() */
+=======
+	/** @deprecated use Nette\Utils\Validators::isClassKeyword() */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	public static function isClassKeyword(string $name): bool
 	{
 		return Validators::isClassKeyword($name);

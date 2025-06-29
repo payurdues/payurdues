@@ -260,8 +260,13 @@ final class Type
 				$subtypes,
 				fn($subtype) => Validators::isBuiltinType($type)
 					? strcasecmp($type, $subtype) === 0
+<<<<<<< HEAD
 					: is_a($subtype, $type, allow_string: true)
 			)
+=======
+					: is_a($subtype, $type, allow_string: true),
+			),
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 		);
 	}
 }

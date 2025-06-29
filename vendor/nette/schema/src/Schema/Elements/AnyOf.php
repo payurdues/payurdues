@@ -18,6 +18,7 @@ use Nette\Schema\Schema;
 final class AnyOf implements Schema
 {
 	use Base;
+<<<<<<< HEAD
 	use Nette\SmartObject;
 
 	/** @var array */
@@ -28,6 +29,13 @@ final class AnyOf implements Schema
 	 * @param  mixed|Schema  ...$set
 	 */
 	public function __construct(...$set)
+=======
+
+	private array $set;
+
+
+	public function __construct(mixed ...$set)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	{
 		if (!$set) {
 			throw new Nette\InvalidStateException('The enumeration must not be empty.');
@@ -61,13 +69,21 @@ final class AnyOf implements Schema
 	/********************* processing ****************d*g**/
 
 
+<<<<<<< HEAD
 	public function normalize($value, Context $context)
+=======
+	public function normalize(mixed $value, Context $context): mixed
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	{
 		return $this->doNormalize($value, $context);
 	}
 
 
+<<<<<<< HEAD
 	public function merge($value, $base)
+=======
+	public function merge(mixed $value, mixed $base): mixed
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	{
 		if (is_array($value) && isset($value[Helpers::PreventMerging])) {
 			unset($value[Helpers::PreventMerging]);
@@ -78,7 +94,11 @@ final class AnyOf implements Schema
 	}
 
 
+<<<<<<< HEAD
 	public function complete($value, Context $context)
+=======
+	public function complete(mixed $value, Context $context): mixed
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	{
 		$isOk = $context->createChecker();
 		$value = $this->findAlternative($value, $context);
@@ -87,7 +107,11 @@ final class AnyOf implements Schema
 	}
 
 
+<<<<<<< HEAD
 	private function findAlternative($value, Context $context)
+=======
+	private function findAlternative(mixed $value, Context $context): mixed
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	{
 		$expecteds = $innerErrors = [];
 		foreach ($this->set as $item) {
@@ -125,6 +149,7 @@ final class AnyOf implements Schema
 				[
 					'value' => $value,
 					'expected' => implode('|', array_unique($expecteds)),
+<<<<<<< HEAD
 				]
 			);
 		}
@@ -132,11 +157,26 @@ final class AnyOf implements Schema
 
 
 	public function completeDefault(Context $context)
+=======
+				],
+			);
+		}
+
+		return null;
+	}
+
+
+	public function completeDefault(Context $context): mixed
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	{
 		if ($this->required) {
 			$context->addError(
 				'The mandatory item %path% is missing.',
+<<<<<<< HEAD
 				Nette\Schema\Message::MissingItem
+=======
+				Nette\Schema\Message::MissingItem,
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 			);
 			return null;
 		}

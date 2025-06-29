@@ -49,6 +49,11 @@ class DeclarationBlock extends RuleSet
      *
      * @throws UnexpectedTokenException
      * @throws UnexpectedEOFException
+<<<<<<< HEAD
+=======
+     *
+     * @internal since V8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public static function parse(ParserState $oParserState, $oList = null)
     {
@@ -432,8 +437,13 @@ class DeclarationBlock extends RuleSet
             'background-repeat' => ['repeat'],
             'background-attachment' => ['scroll'],
             'background-position' => [
+<<<<<<< HEAD
                 new Size(0, '%', null, false, $this->iLineNo),
                 new Size(0, '%', null, false, $this->iLineNo),
+=======
+                new Size(0, '%', false, $this->iLineNo),
+                new Size(0, '%', false, $this->iLineNo),
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             ],
         ];
         $mRuleValue = $oRule->getValue();
@@ -829,6 +839,11 @@ class DeclarationBlock extends RuleSet
      * @return string
      *
      * @throws OutputException
+<<<<<<< HEAD
+=======
+     *
+     * @deprecated in V8.8.0, will be removed in V9.0.0. Use `render` instead.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function __toString()
     {

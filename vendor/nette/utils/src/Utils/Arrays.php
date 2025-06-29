@@ -277,7 +277,12 @@ class Arrays
 	 */
 	public static function isList(mixed $value): bool
 	{
+<<<<<<< HEAD
 		return is_array($value) && (PHP_VERSION_ID < 80100
+=======
+		return is_array($value) && (
+			PHP_VERSION_ID < 80100
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 			? !$value || array_keys($value) === range(0, count($value) - 1)
 			: array_is_list($value)
 		);

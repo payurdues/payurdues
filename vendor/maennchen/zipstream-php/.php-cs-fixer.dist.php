@@ -26,7 +26,11 @@ $config = new Config();
 return $config->setRules([
         '@PER' => true,
         '@PER:risky' => true,
+<<<<<<< HEAD
         '@PHP81Migration' => true,
+=======
+        '@PHP82Migration' => true,
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         '@PHPUnit84Migration:risky' => true,
         'array_syntax' => ['syntax' => 'short'],
         'class_attributes_separation' => true,
@@ -50,7 +54,10 @@ return $config->setRules([
         'semicolon_after_instruction' => true,
         'short_scalar_cast' => true,
         'simplified_null_return' => true,
+<<<<<<< HEAD
         'single_blank_line_before_namespace' => true,
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         'single_class_element_per_statement' => true,
         'single_line_comment_style' => true,
         'single_quote' => true,
@@ -68,4 +75,8 @@ return $config->setRules([
         ],
     ])
     ->setFinder($finder)
+<<<<<<< HEAD
     ->setRiskyAllowed(true);
+=======
+    ->setRiskyAllowed(true);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5

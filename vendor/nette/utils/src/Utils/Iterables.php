@@ -233,6 +233,10 @@ final class Iterables
 			$iterable instanceof \Iterator => $iterable,
 			$iterable instanceof \IteratorAggregate => self::toIterator($iterable->getIterator()),
 			is_array($iterable) => new \ArrayIterator($iterable),
+<<<<<<< HEAD
+=======
+			default => throw new Nette\ShouldNotHappenException,
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 		};
 	}
 }

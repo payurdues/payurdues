@@ -1,5 +1,10 @@
 <?php
 
+<<<<<<< HEAD
+=======
+declare(strict_types=1);
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 namespace Doctrine\Instantiator;
 
 use ArrayIterator;
@@ -20,8 +25,11 @@ use function sprintf;
 use function strlen;
 use function unserialize;
 
+<<<<<<< HEAD
 use const PHP_VERSION_ID;
 
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 final class Instantiator implements InstantiatorInterface
 {
     /**
@@ -31,23 +39,33 @@ final class Instantiator implements InstantiatorInterface
      *
      * @deprecated This constant will be private in 2.0
      */
+<<<<<<< HEAD
     public const SERIALIZATION_FORMAT_USE_UNSERIALIZER = 'C';
 
     /** @deprecated This constant will be private in 2.0 */
     public const SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
+=======
+    private const SERIALIZATION_FORMAT_USE_UNSERIALIZER   = 'C';
+    private const SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Used to instantiate specific classes, indexed by class name.
      *
      * @var callable[]
      */
+<<<<<<< HEAD
     private static $cachedInstantiators = [];
+=======
+    private static array $cachedInstantiators = [];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Array of objects that can directly be cloned, indexed by class name.
      *
      * @var object[]
      */
+<<<<<<< HEAD
     private static $cachedCloneables = [];
 
     /**
@@ -55,13 +73,24 @@ final class Instantiator implements InstantiatorInterface
      * @phpstan-param class-string<T> $className
      *
      * @return object
+=======
+    private static array $cachedCloneables = [];
+
+    /**
+     * @phpstan-param class-string<T> $className
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @phpstan-return T
      *
      * @throws ExceptionInterface
      *
      * @template T of object
      */
+<<<<<<< HEAD
     public function instantiate($className)
+=======
+    public function instantiate(string $className): object
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (isset(self::$cachedCloneables[$className])) {
             /** @phpstan-var T */
@@ -84,12 +113,19 @@ final class Instantiator implements InstantiatorInterface
      *
      * @phpstan-param class-string<T> $className
      *
+<<<<<<< HEAD
      * @return object
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @phpstan-return T
      *
      * @template T of object
      */
+<<<<<<< HEAD
     private function buildAndCacheFromFactory(string $className)
+=======
+    private function buildAndCacheFromFactory(string $className): object
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $factory  = self::$cachedInstantiators[$className] = $this->buildFactory($className);
         $instance = $factory();
@@ -127,14 +163,22 @@ final class Instantiator implements InstantiatorInterface
             '%s:%d:"%s":0:{}',
             is_subclass_of($className, Serializable::class) ? self::SERIALIZATION_FORMAT_USE_UNSERIALIZER : self::SERIALIZATION_FORMAT_AVOID_UNSERIALIZER,
             strlen($className),
+<<<<<<< HEAD
             $className
+=======
+            $className,
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         );
 
         $this->checkIfUnSerializationIsSupported($reflectionClass, $serializedString);
 
+<<<<<<< HEAD
         return static function () use ($serializedString) {
             return unserialize($serializedString);
         };
+=======
+        return static fn () => unserialize($serializedString);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -153,7 +197,11 @@ final class Instantiator implements InstantiatorInterface
             throw InvalidArgumentException::fromNonExistingClass($className);
         }
 
+<<<<<<< HEAD
         if (PHP_VERSION_ID >= 80100 && enum_exists($className, false)) {
+=======
+        if (enum_exists($className, false)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             throw InvalidArgumentException::fromEnum($className);
         }
 
@@ -181,7 +229,11 @@ final class Instantiator implements InstantiatorInterface
                 $message,
                 $code,
                 $file,
+<<<<<<< HEAD
                 $line
+=======
+                $line,
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             );
 
             return true;

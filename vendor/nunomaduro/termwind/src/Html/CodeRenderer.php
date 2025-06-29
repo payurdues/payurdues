@@ -173,7 +173,10 @@ final class CodeRenderer
      * Splits tokens into lines.
      *
      * @param  array<int, array{0: string, 1: string}>  $tokens
+<<<<<<< HEAD
      * @param  int  $startLine
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @return array<int, array<int, array{0: string, 1: non-empty-string}>>
      */
     private function splitToLines(array $tokens, int $startLine): array
@@ -228,8 +231,11 @@ final class CodeRenderer
      * Prepends line numbers into lines.
      *
      * @param  array<int, string>  $lines
+<<<<<<< HEAD
      * @param  int  $markLine
      * @return string
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     private function lineNumbers(array $lines, int $markLine): string
     {

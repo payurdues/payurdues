@@ -17,13 +17,20 @@ namespace Ramsey\Collection;
 use Closure;
 use Ramsey\Collection\Exception\CollectionMismatchException;
 use Ramsey\Collection\Exception\InvalidArgumentException;
+<<<<<<< HEAD
 use Ramsey\Collection\Exception\InvalidSortOrderException;
 use Ramsey\Collection\Exception\OutOfBoundsException;
+=======
+use Ramsey\Collection\Exception\InvalidPropertyOrMethod;
+use Ramsey\Collection\Exception\NoSuchElementException;
+use Ramsey\Collection\Exception\UnsupportedOperationException;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Ramsey\Collection\Tool\TypeTrait;
 use Ramsey\Collection\Tool\ValueExtractorTrait;
 use Ramsey\Collection\Tool\ValueToStringTrait;
 
 use function array_filter;
+<<<<<<< HEAD
 use function array_map;
 use function array_merge;
 use function array_search;
@@ -38,6 +45,21 @@ use function reset;
 use function spl_object_id;
 use function sprintf;
 use function unserialize;
+=======
+use function array_key_first;
+use function array_key_last;
+use function array_map;
+use function array_merge;
+use function array_reduce;
+use function array_search;
+use function array_udiff;
+use function array_uintersect;
+use function in_array;
+use function is_int;
+use function is_object;
+use function spl_object_id;
+use function sprintf;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use function usort;
 
 /**
@@ -55,27 +77,43 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
     use ValueExtractorTrait;
 
     /**
+<<<<<<< HEAD
      * @inheritDoc
      */
     public function add($element): bool
+=======
+     * @throws InvalidArgumentException if $element is of the wrong type.
+     */
+    public function add(mixed $element): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this[] = $element;
 
         return true;
     }
 
+<<<<<<< HEAD
     /**
      * @inheritDoc
      */
     public function contains($element, bool $strict = true): bool
+=======
+    public function contains(mixed $element, bool $strict = true): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return in_array($element, $this->data, $strict);
     }
 
     /**
+<<<<<<< HEAD
      * @inheritDoc
      */
     public function offsetSet($offset, $value): void
+=======
+     * @throws InvalidArgumentException if $element is of the wrong type.
+     */
+    public function offsetSet(mixed $offset, mixed $value): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($this->checkType($this->getType(), $value) === false) {
             throw new InvalidArgumentException(
@@ -91,10 +129,14 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
         }
     }
 
+<<<<<<< HEAD
     /**
      * @inheritDoc
      */
     public function remove($element): bool
+=======
+    public function remove(mixed $element): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (($position = array_search($element, $this->data, true)) !== false) {
             unset($this[$position]);
@@ -106,6 +148,14 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @throws InvalidPropertyOrMethod if the $propertyOrMethod does not exist
+     *     on the elements in this collection.
+     * @throws UnsupportedOperationException if unable to call column() on this
+     *     collection.
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @inheritDoc
      */
     public function column(string $propertyOrMethod): array
@@ -113,17 +163,22 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
         $temp = [];
 
         foreach ($this->data as $item) {
+<<<<<<< HEAD
             /** @var mixed $value */
             $value = $this->extractValue($item, $propertyOrMethod);
 
             /** @psalm-suppress MixedAssignment */
             $temp[] = $value;
+=======
+            $temp[] = $this->extractValue($item, $propertyOrMethod);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         return $temp;
     }
 
     /**
+<<<<<<< HEAD
      * @inheritDoc
      */
     public function first()
@@ -162,10 +217,54 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
             throw new InvalidSortOrderException('Invalid sort order given: ' . $order);
         }
 
+=======
+     * @return T
+     *
+     * @throws NoSuchElementException if this collection is empty.
+     */
+    public function first(): mixed
+    {
+        $firstIndex = array_key_first($this->data);
+
+        if ($firstIndex === null) {
+            throw new NoSuchElementException('Can\'t determine first item. Collection is empty');
+        }
+
+        return $this->data[$firstIndex];
+    }
+
+    /**
+     * @return T
+     *
+     * @throws NoSuchElementException if this collection is empty.
+     */
+    public function last(): mixed
+    {
+        $lastIndex = array_key_last($this->data);
+
+        if ($lastIndex === null) {
+            throw new NoSuchElementException('Can\'t determine last item. Collection is empty');
+        }
+
+        return $this->data[$lastIndex];
+    }
+
+    /**
+     * @return CollectionInterface<T>
+     *
+     * @throws InvalidPropertyOrMethod if the $propertyOrMethod does not exist
+     *     on the elements in this collection.
+     * @throws UnsupportedOperationException if unable to call sort() on this
+     *     collection.
+     */
+    public function sort(?string $propertyOrMethod = null, Sort $order = Sort::Ascending): CollectionInterface
+    {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $collection = clone $this;
 
         usort(
             $collection->data,
+<<<<<<< HEAD
             /**
              * @param T $a
              * @param T $b
@@ -178,12 +277,27 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
                 $bValue = $this->extractValue($b, $propertyOrMethod);
 
                 return ($aValue <=> $bValue) * ($order === self::SORT_DESC ? -1 : 1);
+=======
+            function (mixed $a, mixed $b) use ($propertyOrMethod, $order): int {
+                $aValue = $this->extractValue($a, $propertyOrMethod);
+                $bValue = $this->extractValue($b, $propertyOrMethod);
+
+                return ($aValue <=> $bValue) * ($order === Sort::Descending ? -1 : 1);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             },
         );
 
         return $collection;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param callable(T): bool $callback A callable to use for filtering elements.
+     *
+     * @return CollectionInterface<T>
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function filter(callable $callback): CollectionInterface
     {
         $collection = clone $this;
@@ -193,6 +307,7 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      */
     public function where(string $propertyOrMethod, $value): CollectionInterface
@@ -205,11 +320,61 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
         });
     }
 
+=======
+     * @return CollectionInterface<T>
+     *
+     * @throws InvalidPropertyOrMethod if the $propertyOrMethod does not exist
+     *     on the elements in this collection.
+     * @throws UnsupportedOperationException if unable to call where() on this
+     *     collection.
+     */
+    public function where(?string $propertyOrMethod, mixed $value): CollectionInterface
+    {
+        return $this->filter(
+            fn (mixed $item): bool => $this->extractValue($item, $propertyOrMethod) === $value,
+        );
+    }
+
+    /**
+     * @param callable(T): TCallbackReturn $callback A callable to apply to each
+     *     item of the collection.
+     *
+     * @return CollectionInterface<TCallbackReturn>
+     *
+     * @template TCallbackReturn
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function map(callable $callback): CollectionInterface
     {
         return new Collection('mixed', array_map($callback, $this->data));
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param callable(TCarry, T): TCarry $callback A callable to apply to each
+     *     item of the collection to reduce it to a single value.
+     * @param TCarry $initial This is the initial value provided to the callback.
+     *
+     * @return TCarry
+     *
+     * @template TCarry
+     */
+    public function reduce(callable $callback, mixed $initial): mixed
+    {
+        return array_reduce($this->data, $callback, $initial);
+    }
+
+    /**
+     * @param CollectionInterface<T> $other The collection to check for divergent
+     *     items.
+     *
+     * @return CollectionInterface<T>
+     *
+     * @throws CollectionMismatchException if the compared collections are of
+     *     differing types.
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function diff(CollectionInterface $other): CollectionInterface
     {
         $this->compareCollectionTypes($other);
@@ -217,28 +382,62 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
         $diffAtoB = array_udiff($this->data, $other->toArray(), $this->getComparator());
         $diffBtoA = array_udiff($other->toArray(), $this->data, $this->getComparator());
 
+<<<<<<< HEAD
         /** @var array<array-key, T> $diff */
         $diff = array_merge($diffAtoB, $diffBtoA);
 
         $collection = clone $this;
         $collection->data = $diff;
+=======
+        $collection = clone $this;
+        $collection->data = array_merge($diffAtoB, $diffBtoA);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         return $collection;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param CollectionInterface<T> $other The collection to check for
+     *     intersecting items.
+     *
+     * @return CollectionInterface<T>
+     *
+     * @throws CollectionMismatchException if the compared collections are of
+     *     differing types.
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function intersect(CollectionInterface $other): CollectionInterface
     {
         $this->compareCollectionTypes($other);
 
+<<<<<<< HEAD
         /** @var array<array-key, T> $intersect */
         $intersect = array_uintersect($this->data, $other->toArray(), $this->getComparator());
 
         $collection = clone $this;
         $collection->data = $intersect;
+=======
+        $collection = clone $this;
+        $collection->data = array_uintersect($this->data, $other->toArray(), $this->getComparator());
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         return $collection;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param CollectionInterface<T> ...$collections The collections to merge.
+     *
+     * @return CollectionInterface<T>
+     *
+     * @throws CollectionMismatchException if unable to merge any of the given
+     *     collections or items within the given collections due to type
+     *     mismatch errors.
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function merge(CollectionInterface ...$collections): CollectionInterface
     {
         $mergedCollection = clone $this;
@@ -275,6 +474,7 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
     }
 
     /**
+<<<<<<< HEAD
      * @inheritDoc
      */
     public function unserialize($serialized): void
@@ -287,6 +487,11 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
 
     /**
      * @param CollectionInterface<T> $other
+=======
+     * @param CollectionInterface<T> $other
+     *
+     * @throws CollectionMismatchException
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     private function compareCollectionTypes(CollectionInterface $other): void
     {
@@ -303,6 +508,7 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
 
     private function getComparator(): Closure
     {
+<<<<<<< HEAD
         return /**
              * @param T $a
              * @param T $b
@@ -320,6 +526,21 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
 
                 return $a === $b ? 0 : ($a < $b ? 1 : -1);
             };
+=======
+        return function (mixed $a, mixed $b): int {
+            // If the two values are object, we convert them to unique scalars.
+            // If the collection contains mixed values (unlikely) where some are objects
+            // and some are not, we leave them as they are.
+            // The comparator should still work and the result of $a < $b should
+            // be consistent but unpredictable since not documented.
+            if (is_object($a) && is_object($b)) {
+                $a = spl_object_id($a);
+                $b = spl_object_id($b);
+            }
+
+            return $a === $b ? 0 : ($a < $b ? 1 : -1);
+        };
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -327,6 +548,7 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
      */
     private function getUniformType(CollectionInterface $collection): string
     {
+<<<<<<< HEAD
         switch ($collection->getType()) {
             case 'integer':
                 return 'int';
@@ -337,5 +559,13 @@ abstract class AbstractCollection extends AbstractArray implements CollectionInt
             default:
                 return $collection->getType();
         }
+=======
+        return match ($collection->getType()) {
+            'integer' => 'int',
+            'boolean' => 'bool',
+            'double' => 'float',
+            default => $collection->getType(),
+        };
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

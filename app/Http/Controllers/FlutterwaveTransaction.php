@@ -81,7 +81,7 @@ class FlutterwaveTransaction extends Controller
 
             // $amount = $request->input('amount');
 
-            $array = json_decode($due_ids, true);
+            $array = json_decode($due_ids, associative: true);
             // Implement your logic to verify and update the payment status
        
             if (($status === 'completed') ) {

@@ -107,7 +107,11 @@ class Uri implements UriInterface, \JsonSerializable
     {
         // If IPv6
         $prefix = '';
+<<<<<<< HEAD
         if (preg_match('%^(.*://\[[0-9:a-f]+\])(.*?)$%', $url, $matches)) {
+=======
+        if (preg_match('%^(.*://\[[0-9:a-fA-F]+\])(.*?)$%', $url, $matches)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             /** @var array{0:string, 1:string, 2:string} $matches */
             $prefix = $matches[1];
             $url = $matches[2];

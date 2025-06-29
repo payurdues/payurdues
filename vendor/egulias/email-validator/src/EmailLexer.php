@@ -5,6 +5,7 @@ namespace Egulias\EmailValidator;
 use Doctrine\Common\Lexer\AbstractLexer;
 use Doctrine\Common\Lexer\Token;
 
+<<<<<<< HEAD
 /**
  * @extends AbstractLexer<int, string>
  */
@@ -12,6 +13,13 @@ class EmailLexer extends AbstractLexer
 {
     //ASCII values
     public const S_EMPTY            = null;
+=======
+/** @extends AbstractLexer<int, string> */
+class EmailLexer extends AbstractLexer
+{
+    //ASCII values
+    public const S_EMPTY            = -1;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public const C_NUL              = 0;
     public const S_HTAB             = 9;
     public const S_LF               = 10;
@@ -50,7 +58,11 @@ class EmailLexer extends AbstractLexer
     public const S_CLOSECURLYBRACES = 125;
     public const S_TILDE            = 126;
     public const C_DEL              = 127;
+<<<<<<< HEAD
     public const INVERT_QUESTIONMARK= 168;
+=======
+    public const INVERT_QUESTIONMARK = 168;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public const INVERT_EXCLAMATION = 173;
     public const GENERIC            = 300;
     public const S_IPV6TAG          = 301;
@@ -63,7 +75,11 @@ class EmailLexer extends AbstractLexer
     /**
      * US-ASCII visible characters not valid for atext (@link http://tools.ietf.org/html/rfc5322#section-3.2.3)
      *
+<<<<<<< HEAD
      * @var array
+=======
+     * @var array<string, int>
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected $charValue = [
         '{'    => self::S_OPENCURLYBRACES,
@@ -135,15 +151,22 @@ class EmailLexer extends AbstractLexer
     protected $hasInvalidTokens = false;
 
     /**
+<<<<<<< HEAD
      * @var array
      *
      * @psalm-var array{value:string, type:null|int, position:int}|array<empty, empty>
      */
     protected $previous = [];
+=======
+     * @var Token<int, string>
+     */
+    protected Token $previous;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * The last matched/seen token.
      *
+<<<<<<< HEAD
      * @var array|Token
      *
      * @psalm-suppress NonInvariantDocblockPropertyType
@@ -167,6 +190,16 @@ class EmailLexer extends AbstractLexer
         'type' => null,
         'position' => 0,
     ];
+=======
+     * @var Token<int, string>
+     */
+    public Token $current;
+
+    /**
+     * @var Token<int, string>
+     */
+    private Token $nullToken;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /** @var string */
     private $accumulator = '';
@@ -176,6 +209,7 @@ class EmailLexer extends AbstractLexer
 
     public function __construct()
     {
+<<<<<<< HEAD
         $this->previous = $this->token = self::$nullToken;
         $this->lookahead = null;
     }
@@ -185,6 +219,21 @@ class EmailLexer extends AbstractLexer
         $this->hasInvalidTokens = false;
         parent::reset();
         $this->previous = $this->token = self::$nullToken;
+=======
+        /** @var Token<int, string> $nullToken */
+        $nullToken = new Token('', self::S_EMPTY, 0);
+        $this->nullToken = $nullToken;
+
+        $this->current = $this->previous = $this->nullToken;
+        $this->lookahead = null;
+    }
+
+    public function reset(): void
+    {
+        $this->hasInvalidTokens = false;
+        parent::reset();
+        $this->current = $this->previous = $this->nullToken;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -192,9 +241,14 @@ class EmailLexer extends AbstractLexer
      * @throws \UnexpectedValueException
      * @return boolean
      *
+<<<<<<< HEAD
      * @psalm-suppress InvalidScalarArgument
      */
     public function find($type) : bool
+=======
+     */
+    public function find($type): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $search = clone $this;
         $search->skipUntil($type);
@@ -210,6 +264,7 @@ class EmailLexer extends AbstractLexer
      *
      * @return boolean
      */
+<<<<<<< HEAD
     public function moveNext() : bool
     {
         if ($this->hasToRecord && $this->previous === self::$nullToken) {
@@ -226,6 +281,25 @@ class EmailLexer extends AbstractLexer
 
         if ($this->hasToRecord) {
             $this->accumulator .= ((array) $this->token)['value'];
+=======
+    public function moveNext(): bool
+    {
+        if ($this->hasToRecord && $this->previous === $this->nullToken) {
+            $this->accumulator .= $this->current->value;
+        }
+
+        $this->previous = $this->current;
+
+        if ($this->lookahead === null) {
+            $this->lookahead = $this->nullToken;
+        }
+
+        $hasNext = parent::moveNext();
+        $this->current = $this->token ?? $this->nullToken;
+
+        if ($this->hasToRecord) {
+            $this->accumulator .= $this->current->value;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         return $hasNext;
@@ -238,7 +312,11 @@ class EmailLexer extends AbstractLexer
      * @throws \InvalidArgumentException
      * @return integer
      */
+<<<<<<< HEAD
     protected function getType(&$value)
+=======
+    protected function getType(&$value): int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $encoded = $value;
 
@@ -259,31 +337,54 @@ class EmailLexer extends AbstractLexer
             return self::INVALID;
         }
 
+<<<<<<< HEAD
 
         return  self::GENERIC;
     }
 
     protected function isValid(string $value) : bool
+=======
+        return self::GENERIC;
+    }
+
+    protected function isValid(string $value): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return isset($this->charValue[$value]);
     }
 
+<<<<<<< HEAD
     protected function isNullType(string $value) : bool
+=======
+    protected function isNullType(string $value): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $value === "\0";
     }
 
+<<<<<<< HEAD
     protected function isInvalidChar(string $value) : bool
+=======
+    protected function isInvalidChar(string $value): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return !preg_match(self::INVALID_CHARS_REGEX, $value);
     }
 
+<<<<<<< HEAD
     protected function isUTF8Invalid(string $value) : bool
+=======
+    protected function isUTF8Invalid(string $value): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return preg_match(self::VALID_UTF8_REGEX, $value) !== false;
     }
 
+<<<<<<< HEAD
     public function hasInvalidTokens() : bool
+=======
+    public function hasInvalidTokens(): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->hasInvalidTokens;
     }
@@ -291,9 +392,15 @@ class EmailLexer extends AbstractLexer
     /**
      * getPrevious
      *
+<<<<<<< HEAD
      * @return array
      */
     public function getPrevious() : array
+=======
+     * @return Token<int, string>
+     */
+    public function getPrevious(): Token
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->previous;
     }
@@ -303,7 +410,11 @@ class EmailLexer extends AbstractLexer
      *
      * @return string[]
      */
+<<<<<<< HEAD
     protected function getCatchablePatterns() : array
+=======
+    protected function getCatchablePatterns(): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return self::CATCHABLE_PATTERNS;
     }
@@ -313,32 +424,56 @@ class EmailLexer extends AbstractLexer
      *
      * @return string[]
      */
+<<<<<<< HEAD
     protected function getNonCatchablePatterns() : array
+=======
+    protected function getNonCatchablePatterns(): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return self::NON_CATCHABLE_PATTERNS;
     }
 
+<<<<<<< HEAD
     protected function getModifiers() : string
+=======
+    protected function getModifiers(): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return self::MODIFIERS;
     }
 
+<<<<<<< HEAD
     public function getAccumulatedValues() : string
+=======
+    public function getAccumulatedValues(): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->accumulator;
     }
 
+<<<<<<< HEAD
     public function startRecording() : void
+=======
+    public function startRecording(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->hasToRecord = true;
     }
 
+<<<<<<< HEAD
     public function stopRecording() : void
+=======
+    public function stopRecording(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->hasToRecord = false;
     }
 
+<<<<<<< HEAD
     public function clearRecorded() : void
+=======
+    public function clearRecorded(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->accumulator = '';
     }

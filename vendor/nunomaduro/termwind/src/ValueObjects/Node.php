@@ -14,9 +14,13 @@ final class Node
     /**
      * A value object with helper methods for working with DOM node.
      */
+<<<<<<< HEAD
     public function __construct(private \DOMNode $node)
     {
     }
+=======
+    public function __construct(private \DOMNode $node) {}
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Gets the value of the node.
@@ -34,7 +38,11 @@ final class Node
     public function getChildNodes(): Generator
     {
         foreach ($this->node->childNodes as $node) {
+<<<<<<< HEAD
             yield new static($node);
+=======
+            yield new self($node);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
     }
 
@@ -106,7 +114,11 @@ final class Node
         $node = $this->node;
 
         while ($node = $node->previousSibling) {
+<<<<<<< HEAD
             $node = new static($node);
+=======
+            $node = new self($node);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             if ($node->isEmpty()) {
                 $node = $node->node;
@@ -121,7 +133,11 @@ final class Node
             $node = $node->node;
         }
 
+<<<<<<< HEAD
         return is_null($node) ? null : new static($node);
+=======
+        return is_null($node) ? null : new self($node);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -132,7 +148,11 @@ final class Node
         $node = $this->node;
 
         while ($node = $node->nextSibling) {
+<<<<<<< HEAD
             $node = new static($node);
+=======
+            $node = new self($node);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             if ($node->isEmpty()) {
                 $node = $node->node;
@@ -147,7 +167,11 @@ final class Node
             $node = $node->node;
         }
 
+<<<<<<< HEAD
         return is_null($node) ? null : new static($node);
+=======
+        return is_null($node) ? null : new self($node);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**

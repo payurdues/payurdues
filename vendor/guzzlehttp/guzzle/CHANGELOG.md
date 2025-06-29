@@ -3,6 +3,17 @@
 Please refer to [UPGRADING](UPGRADING.md) guide for upgrading to a major version.
 
 
+<<<<<<< HEAD
+=======
+## 7.9.3 - 2025-03-27
+
+### Changed
+
+- Remove explicit content-length header for GET requests
+- Improve compatibility with bad servers for boolean cookie values
+
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 ## 7.9.2 - 2024-07-24
 
 ### Fixed

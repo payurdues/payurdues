@@ -29,7 +29,11 @@ final class HtmlRenderer
      */
     public function parse(string $html): Components\Element
     {
+<<<<<<< HEAD
         $dom = new DOMDocument();
+=======
+        $dom = new DOMDocument;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if (strip_tags($html) === $html) {
             return Termwind::span($html);

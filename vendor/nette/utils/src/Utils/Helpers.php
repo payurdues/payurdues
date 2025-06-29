@@ -14,6 +14,12 @@ use Nette;
 
 class Helpers
 {
+<<<<<<< HEAD
+=======
+	public const IsWindows = PHP_OS_FAMILY === 'Windows';
+
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 	/**
 	 * Executes a callback and returns the captured output as a string.
 	 */

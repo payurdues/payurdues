@@ -16,7 +16,11 @@ final class Style
     /**
      * Creates a new value object instance.
      *
+<<<<<<< HEAD
      * @param Closure(Styles $styles, string|int ...$argument): Styles  $callback
+=======
+     * @param  Closure(Styles $styles, string|int ...$argument): Styles  $callback
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function __construct(private Closure $callback, private string $color = '')
     {

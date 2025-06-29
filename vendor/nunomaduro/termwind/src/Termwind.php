@@ -25,7 +25,11 @@ final class Termwind
      */
     public static function renderUsing(OutputInterface|null $renderer): void
     {
+<<<<<<< HEAD
         self::$renderer = $renderer ?? new ConsoleOutput();
+=======
+        self::$renderer = $renderer ?? new ConsoleOutput;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -278,7 +282,11 @@ final class Termwind
      */
     public static function getRenderer(): OutputInterface
     {
+<<<<<<< HEAD
         return self::$renderer ??= new ConsoleOutput();
+=======
+        return self::$renderer ??= new ConsoleOutput;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**

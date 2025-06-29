@@ -465,13 +465,26 @@ class Sheet
      */
     public function fromQuery(FromQuery $sheetExport, Worksheet $worksheet)
     {
+<<<<<<< HEAD
         if ($sheetExport->query() instanceof \Laravel\Scout\Builder) {
+=======
+        $query = $sheetExport->query();
+        if ($query instanceof \Laravel\Scout\Builder) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $this->fromScout($sheetExport, $worksheet);
 
             return;
         }
 
+<<<<<<< HEAD
         $sheetExport->query()->chunk($this->getChunkSize($sheetExport), function ($chunk) use ($sheetExport) {
+=======
+        //Operate on a clone to avoid altering the original
+        //and use the clone operator directly to support old versions of Laravel
+        //that don't have a clone method in eloquent
+        $clonedQuery = clone $query;
+        $clonedQuery->chunk($this->getChunkSize($sheetExport), function ($chunk) use ($sheetExport) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $this->appendRows($chunk, $sheetExport);
         });
     }

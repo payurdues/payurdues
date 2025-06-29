@@ -33,16 +33,31 @@ abstract class CSSList implements Renderable, Commentable
 {
     /**
      * @var array<array-key, Comment>
+<<<<<<< HEAD
+=======
+     *
+     * @internal since 8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected $aComments;
 
     /**
      * @var array<int, RuleSet|CSSList|Import|Charset>
+<<<<<<< HEAD
+=======
+     *
+     * @internal since 8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected $aContents;
 
     /**
      * @var int
+<<<<<<< HEAD
+=======
+     *
+     * @internal since 8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected $iLineNo;
 
@@ -61,6 +76,11 @@ abstract class CSSList implements Renderable, Commentable
      *
      * @throws UnexpectedTokenException
      * @throws SourceException
+<<<<<<< HEAD
+=======
+     *
+     * @internal since V8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public static function parseList(ParserState $oParserState, CSSList $oList)
     {
@@ -408,6 +428,11 @@ abstract class CSSList implements Renderable, Commentable
 
     /**
      * @return string
+<<<<<<< HEAD
+=======
+     *
+     * @deprecated in V8.8.0, will be removed in V9.0.0. Use `render` instead.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function __toString()
     {

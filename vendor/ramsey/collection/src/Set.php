@@ -24,11 +24,19 @@ namespace Ramsey\Collection;
  *
  * Example usage:
  *
+<<<<<<< HEAD
  * ``` php
  * $foo = new \My\Foo();
  * $set = new Set(\My\Foo::class);
  *
  * $set->add($foo); // returns TRUE, the element don't exists
+=======
+ * ```
+ * $foo = new \My\Foo();
+ * $set = new Set(\My\Foo::class);
+ *
+ * $set->add($foo); // returns TRUE, the element doesn't exist
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  * $set->add($foo); // returns FALSE, the element already exists
  *
  * $bar = new \My\Foo();
@@ -41,6 +49,7 @@ namespace Ramsey\Collection;
 class Set extends AbstractSet
 {
     /**
+<<<<<<< HEAD
      * The type of elements stored in this set
      *
      * A set's type is immutable. For this reason, this property is private.
@@ -57,6 +66,16 @@ class Set extends AbstractSet
     public function __construct(string $setType, array $data = [])
     {
         $this->setType = $setType;
+=======
+     * Constructs a set object of the specified type, optionally with the
+     * specified data.
+     *
+     * @param string $setType The type or class name associated with this set.
+     * @param array<array-key, T> $data The initial items to store in the set.
+     */
+    public function __construct(private readonly string $setType, array $data = [])
+    {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         parent::__construct($data);
     }
 
