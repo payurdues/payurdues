@@ -26,6 +26,7 @@ use Symfony\Component\Process\Process;
  */
 class WindowsPipes extends AbstractPipes
 {
+<<<<<<< HEAD
     private $files = [];
     private $fileHandles = [];
     private $lockHandles = [];
@@ -34,6 +35,16 @@ class WindowsPipes extends AbstractPipes
         Process::STDERR => 0,
     ];
     private $haveReadSupport;
+=======
+    private array $files = [];
+    private array $fileHandles = [];
+    private array $lockHandles = [];
+    private array $readBytes = [
+        Process::STDOUT => 0,
+        Process::STDERR => 0,
+    ];
+    private bool $haveReadSupport;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(mixed $input, bool $haveReadSupport)
     {
@@ -93,7 +104,11 @@ class WindowsPipes extends AbstractPipes
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
+<<<<<<< HEAD
     public function __wakeup()
+=======
+    public function __wakeup(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }
@@ -103,9 +118,12 @@ class WindowsPipes extends AbstractPipes
         $this->close();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getDescriptors(): array
     {
         if (!$this->haveReadSupport) {
@@ -128,17 +146,23 @@ class WindowsPipes extends AbstractPipes
         ];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getFiles(): array
     {
         return $this->files;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function readAndWrite(bool $blocking, bool $close = false): array
     {
         $this->unblock();
@@ -149,7 +173,11 @@ class WindowsPipes extends AbstractPipes
             if ($w) {
                 @stream_select($r, $w, $e, 0, Process::TIMEOUT_PRECISION * 1E6);
             } elseif ($this->fileHandles) {
+<<<<<<< HEAD
                 usleep(Process::TIMEOUT_PRECISION * 1E6);
+=======
+                usleep((int) (Process::TIMEOUT_PRECISION * 1E6));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
         }
         foreach ($this->fileHandles as $type => $fileHandle) {
@@ -171,26 +199,36 @@ class WindowsPipes extends AbstractPipes
         return $read;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function haveReadSupport(): bool
     {
         return $this->haveReadSupport;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function areOpen(): bool
     {
         return $this->pipes && $this->fileHandles;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function close()
+=======
+    public function close(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         parent::close();
         foreach ($this->fileHandles as $type => $handle) {

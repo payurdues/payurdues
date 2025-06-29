@@ -20,7 +20,11 @@ use Symfony\Component\HttpFoundation\Session\Storage\Proxy\AbstractProxy;
  */
 class PhpBridgeSessionStorage extends NativeSessionStorage
 {
+<<<<<<< HEAD
     public function __construct(AbstractProxy|\SessionHandlerInterface $handler = null, MetadataBag $metaBag = null)
+=======
+    public function __construct(AbstractProxy|\SessionHandlerInterface|null $handler = null, ?MetadataBag $metaBag = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!\extension_loaded('session')) {
             throw new \LogicException('PHP extension "session" is required.');
@@ -30,9 +34,12 @@ class PhpBridgeSessionStorage extends NativeSessionStorage
         $this->setSaveHandler($handler);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function start(): bool
     {
         if ($this->started) {
@@ -45,7 +52,11 @@ class PhpBridgeSessionStorage extends NativeSessionStorage
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function clear()
     {

@@ -30,6 +30,7 @@ class LazyString implements \Stringable, \JsonSerializable
         }
 
         $lazyString = new static();
+<<<<<<< HEAD
         $lazyString->value = static function () use (&$callback, &$arguments, &$value): string {
             if (null !== $arguments) {
                 if (!\is_callable($callback)) {
@@ -38,6 +39,18 @@ class LazyString implements \Stringable, \JsonSerializable
                 }
                 $value = $callback(...$arguments);
                 $callback = self::getPrettyName($callback);
+=======
+        $lazyString->value = static function () use (&$callback, &$arguments): string {
+            static $value;
+
+            if (null !== $arguments) {
+                if (!\is_callable($callback)) {
+                    $callback[0] = $callback[0]();
+                    $callback[1] ??= '__invoke';
+                }
+                $value = $callback(...$arguments);
+                $callback = !\is_scalar($value) && !$value instanceof \Stringable ? self::getPrettyName($callback) : 'callable';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $arguments = null;
             }
 
@@ -50,7 +63,11 @@ class LazyString implements \Stringable, \JsonSerializable
     public static function fromStringable(string|int|float|bool|\Stringable $value): static
     {
         if (\is_object($value)) {
+<<<<<<< HEAD
             return static::fromCallable([$value, '__toString']);
+=======
+            return static::fromCallable($value->__toString(...));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         $lazyString = new static();
@@ -86,7 +103,11 @@ class LazyString implements \Stringable, \JsonSerializable
         try {
             return $this->value = ($this->value)();
         } catch (\Throwable $e) {
+<<<<<<< HEAD
             if (\TypeError::class === \get_class($e) && __FILE__ === $e->getFile()) {
+=======
+            if (\TypeError::class === $e::class && __FILE__ === $e->getFile()) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $type = explode(', ', $e->getMessage());
                 $type = substr(array_pop($type), 0, -\strlen(' returned'));
                 $r = new \ReflectionFunction($this->value);
@@ -127,7 +148,11 @@ class LazyString implements \Stringable, \JsonSerializable
         } elseif ($callback instanceof \Closure) {
             $r = new \ReflectionFunction($callback);
 
+<<<<<<< HEAD
             if (false !== strpos($r->name, '{closure}') || !$class = \PHP_VERSION_ID >= 80111 ? $r->getClosureCalledClass() : $r->getClosureScopeClass()) {
+=======
+            if (str_contains($r->name, '{closure') || !$class = \PHP_VERSION_ID >= 80111 ? $r->getClosureCalledClass() : $r->getClosureScopeClass()) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 return $r->name;
             }
 

@@ -12,7 +12,10 @@
 namespace Symfony\Component\HttpKernel\DependencyInjection;
 
 use Composer\Autoload\ClassLoader;
+<<<<<<< HEAD
 use Symfony\Component\Debug\DebugClassLoader as LegacyDebugClassLoader;
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\ErrorHandler\DebugClassLoader;
@@ -25,7 +28,11 @@ use Symfony\Component\HttpKernel\Kernel;
  */
 class AddAnnotatedClassesToCachePass implements CompilerPassInterface
 {
+<<<<<<< HEAD
     private $kernel;
+=======
+    private Kernel $kernel;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(Kernel $kernel)
     {
@@ -33,7 +40,11 @@ class AddAnnotatedClassesToCachePass implements CompilerPassInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function process(ContainerBuilder $container)
     {
@@ -93,7 +104,11 @@ class AddAnnotatedClassesToCachePass implements CompilerPassInterface
                 continue;
             }
 
+<<<<<<< HEAD
             if ($function[0] instanceof DebugClassLoader || $function[0] instanceof LegacyDebugClassLoader) {
+=======
+            if ($function[0] instanceof DebugClassLoader) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $function = $function[0]->getClassLoader();
             }
 
@@ -117,7 +132,11 @@ class AddAnnotatedClassesToCachePass implements CompilerPassInterface
             $regex = strtr($regex, ['\\*\\*' => '.*?', '\\*' => '[^\\\\]*?']);
 
             // If this class does not end by a slash, anchor the end
+<<<<<<< HEAD
             if ('\\' !== substr($regex, -1)) {
+=======
+            if (!str_ends_with($regex, '\\')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $regex .= '$';
             }
 

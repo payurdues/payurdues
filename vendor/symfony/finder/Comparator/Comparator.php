@@ -50,6 +50,7 @@ class Comparator
      */
     public function test(mixed $test): bool
     {
+<<<<<<< HEAD
         switch ($this->operator) {
             case '>':
                 return $test > $this->target;
@@ -64,5 +65,15 @@ class Comparator
         }
 
         return $test == $this->target;
+=======
+        return match ($this->operator) {
+            '>' => $test > $this->target,
+            '>=' => $test >= $this->target,
+            '<' => $test < $this->target,
+            '<=' => $test <= $this->target,
+            '!=' => $test != $this->target,
+            default => $test == $this->target,
+        };
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

@@ -20,8 +20,13 @@ use Symfony\Component\Console\Input\InputOption;
  */
 final class CompletionSuggestions
 {
+<<<<<<< HEAD
     private $valueSuggestions = [];
     private $optionSuggestions = [];
+=======
+    private array $valueSuggestions = [];
+    private array $optionSuggestions = [];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Add a suggested value for an input option or argument.

@@ -36,12 +36,20 @@ class YamlFileLoader extends FileLoader
     private const AVAILABLE_KEYS = [
         'resource', 'type', 'prefix', 'path', 'host', 'schemes', 'methods', 'defaults', 'requirements', 'options', 'condition', 'controller', 'name_prefix', 'trailing_slash_on_root', 'locale', 'format', 'utf8', 'exclude', 'stateless',
     ];
+<<<<<<< HEAD
     private $yamlParser;
+=======
+    private YamlParser $yamlParser;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * @throws \InvalidArgumentException When a route can't be parsed because YAML is invalid
      */
+<<<<<<< HEAD
     public function load(mixed $file, string $type = null): RouteCollection
+=======
+    public function load(mixed $file, ?string $type = null): RouteCollection
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $path = $this->locator->locate($file);
 
@@ -75,7 +83,11 @@ class YamlFileLoader extends FileLoader
         }
 
         foreach ($parsedConfig as $name => $config) {
+<<<<<<< HEAD
             if (0 === strpos($name, 'when@')) {
+=======
+            if (str_starts_with($name, 'when@')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 if (!$this->env || 'when@'.$this->env !== $name) {
                     continue;
                 }
@@ -105,16 +117,25 @@ class YamlFileLoader extends FileLoader
         return $collection;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function supports(mixed $resource, string $type = null): bool
+=======
+    public function supports(mixed $resource, ?string $type = null): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return \is_string($resource) && \in_array(pathinfo($resource, \PATHINFO_EXTENSION), ['yml', 'yaml'], true) && (!$type || 'yaml' === $type);
     }
 
     /**
      * Parses a route and adds it to the RouteCollection.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function parseRoute(RouteCollection $collection, string $name, array $config, string $path)
     {
@@ -158,7 +179,11 @@ class YamlFileLoader extends FileLoader
             $defaults['_stateless'] = $config['stateless'];
         }
 
+<<<<<<< HEAD
         $routes = $this->createLocalizedRoute($collection, $name, $config['path']);
+=======
+        $routes = $this->createLocalizedRoute(new RouteCollection(), $name, $config['path']);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $routes->addDefaults($defaults);
         $routes->addRequirements($requirements);
         $routes->addOptions($options);
@@ -169,10 +194,20 @@ class YamlFileLoader extends FileLoader
         if (isset($config['host'])) {
             $this->addHost($routes, $config['host']);
         }
+<<<<<<< HEAD
+=======
+
+        $collection->addCollection($routes);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
      * Parses an import and adds the routes in the resource to the RouteCollection.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function parseImport(RouteCollection $collection, array $config, string $path, string $file)
     {
@@ -241,6 +276,11 @@ class YamlFileLoader extends FileLoader
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws \InvalidArgumentException If one of the provided config keys is not supported,
      *                                   something is missing or the combination is nonsense
      */

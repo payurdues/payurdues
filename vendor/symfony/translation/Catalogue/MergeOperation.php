@@ -25,7 +25,11 @@ use Symfony\Component\Translation\MessageCatalogueInterface;
 class MergeOperation extends AbstractOperation
 {
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function processDomain(string $domain)
     {
@@ -36,6 +40,21 @@ class MergeOperation extends AbstractOperation
         ];
         $intlDomain = $domain.MessageCatalogueInterface::INTL_DOMAIN_SUFFIX;
 
+<<<<<<< HEAD
+=======
+        foreach ($this->target->getCatalogueMetadata('', $domain) ?? [] as $key => $value) {
+            if (null === $this->result->getCatalogueMetadata($key, $domain)) {
+                $this->result->setCatalogueMetadata($key, $value, $domain);
+            }
+        }
+
+        foreach ($this->target->getCatalogueMetadata('', $intlDomain) ?? [] as $key => $value) {
+            if (null === $this->result->getCatalogueMetadata($key, $intlDomain)) {
+                $this->result->setCatalogueMetadata($key, $value, $intlDomain);
+            }
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         foreach ($this->source->all($domain) as $id => $message) {
             $this->messages[$domain]['all'][$id] = $message;
             $d = $this->source->defines($id, $intlDomain) ? $intlDomain : $domain;

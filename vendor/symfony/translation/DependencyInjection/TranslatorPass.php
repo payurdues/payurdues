@@ -18,6 +18,12 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class TranslatorPass implements CompilerPassInterface
 {
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('translator.default')) {
@@ -49,6 +55,26 @@ class TranslatorPass implements CompilerPassInterface
             ->replaceArgument(3, $loaders)
         ;
 
+<<<<<<< HEAD
+=======
+        if ($container->hasDefinition('validator') && $container->hasDefinition('translation.extractor.visitor.constraint')) {
+            $constraintVisitorDefinition = $container->getDefinition('translation.extractor.visitor.constraint');
+            $constraintClassNames = [];
+
+            foreach ($container->getDefinitions() as $definition) {
+                if (!$definition->hasTag('validator.constraint_validator')) {
+                    continue;
+                }
+                // Resolve constraint validator FQCN even if defined as %foo.validator.class% parameter
+                $className = $container->getParameterBag()->resolveValue($definition->getClass());
+                // Extraction of the constraint class name from the Constraint Validator FQCN
+                $constraintClassNames[] = str_replace('Validator', '', substr(strrchr($className, '\\'), 1));
+            }
+
+            $constraintVisitorDefinition->setArgument(0, $constraintClassNames);
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if (!$container->hasParameter('twig.default_path')) {
             return;
         }

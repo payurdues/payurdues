@@ -82,7 +82,11 @@ class File extends \SplFileInfo
      *
      * @throws FileException if the target file could not be created
      */
+<<<<<<< HEAD
     public function move(string $directory, string $name = null): self
+=======
+    public function move(string $directory, ?string $name = null): self
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $target = $this->getTargetFile($directory, $name);
 
@@ -112,7 +116,11 @@ class File extends \SplFileInfo
         return $content;
     }
 
+<<<<<<< HEAD
     protected function getTargetFile(string $directory, string $name = null): self
+=======
+    protected function getTargetFile(string $directory, ?string $name = null): self
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!is_dir($directory)) {
             if (false === @mkdir($directory, 0777, true) && !is_dir($directory)) {

@@ -34,8 +34,13 @@ use Symfony\Component\Mime\RawMessage;
 class SendmailTransport extends AbstractTransport
 {
     private string $command = '/usr/sbin/sendmail -bs';
+<<<<<<< HEAD
     private $stream;
     private $transport = null;
+=======
+    private ProcessStream $stream;
+    private ?SmtpTransport $transport = null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Constructor.
@@ -49,7 +54,11 @@ class SendmailTransport extends AbstractTransport
      *
      * -f<sender> flag will be appended automatically if one is not present.
      */
+<<<<<<< HEAD
     public function __construct(string $command = null, EventDispatcherInterface $dispatcher = null, LoggerInterface $logger = null)
+=======
+    public function __construct(?string $command = null, ?EventDispatcherInterface $dispatcher = null, ?LoggerInterface $logger = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         parent::__construct($dispatcher, $logger);
 
@@ -64,11 +73,19 @@ class SendmailTransport extends AbstractTransport
         $this->stream = new ProcessStream();
         if (str_contains($this->command, ' -bs')) {
             $this->stream->setCommand($this->command);
+<<<<<<< HEAD
+=======
+            $this->stream->setInteractive(true);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $this->transport = new SmtpTransport($this->stream, $dispatcher, $logger);
         }
     }
 
+<<<<<<< HEAD
     public function send(RawMessage $message, Envelope $envelope = null): ?SentMessage
+=======
+    public function send(RawMessage $message, ?Envelope $envelope = null): ?SentMessage
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($this->transport) {
             return $this->transport->send($message, $envelope);
@@ -113,7 +130,11 @@ class SendmailTransport extends AbstractTransport
         $this->stream->setCommand($command);
         $this->stream->initialize();
         foreach ($chunks as $chunk) {
+<<<<<<< HEAD
             $this->stream->write($chunk);
+=======
+            $this->stream->write($chunk, false);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
         $this->stream->flush();
         $this->stream->terminate();

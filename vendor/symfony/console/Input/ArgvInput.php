@@ -43,9 +43,15 @@ class ArgvInput extends Input
     private array $tokens;
     private array $parsed;
 
+<<<<<<< HEAD
     public function __construct(array $argv = null, InputDefinition $definition = null)
     {
         $argv = $argv ?? $_SERVER['argv'] ?? [];
+=======
+    public function __construct(?array $argv = null, ?InputDefinition $definition = null)
+    {
+        $argv ??= $_SERVER['argv'] ?? [];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         // strip the application name
         array_shift($argv);
@@ -55,13 +61,23 @@ class ArgvInput extends Input
         parent::__construct($definition);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function setTokens(array $tokens)
     {
         $this->tokens = $tokens;
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function parse()
     {
@@ -92,7 +108,11 @@ class ArgvInput extends Input
     /**
      * Parses a short option.
      */
+<<<<<<< HEAD
     private function parseShortOption(string $token)
+=======
+    private function parseShortOption(string $token): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $name = substr($token, 1);
 
@@ -113,7 +133,11 @@ class ArgvInput extends Input
      *
      * @throws RuntimeException When option given doesn't exist
      */
+<<<<<<< HEAD
     private function parseShortOptionSet(string $name)
+=======
+    private function parseShortOptionSet(string $name): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $len = \strlen($name);
         for ($i = 0; $i < $len; ++$i) {
@@ -136,7 +160,11 @@ class ArgvInput extends Input
     /**
      * Parses a long option.
      */
+<<<<<<< HEAD
     private function parseLongOption(string $token)
+=======
+    private function parseLongOption(string $token): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $name = substr($token, 2);
 
@@ -155,7 +183,11 @@ class ArgvInput extends Input
      *
      * @throws RuntimeException When too many arguments are given
      */
+<<<<<<< HEAD
     private function parseArgument(string $token)
+=======
+    private function parseArgument(string $token): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $c = \count($this->arguments);
 
@@ -199,7 +231,11 @@ class ArgvInput extends Input
      *
      * @throws RuntimeException When option given doesn't exist
      */
+<<<<<<< HEAD
     private function addShortOption(string $shortcut, mixed $value)
+=======
+    private function addShortOption(string $shortcut, mixed $value): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$this->definition->hasShortcut($shortcut)) {
             throw new RuntimeException(sprintf('The "-%s" option does not exist.', $shortcut));
@@ -213,7 +249,11 @@ class ArgvInput extends Input
      *
      * @throws RuntimeException When option given doesn't exist
      */
+<<<<<<< HEAD
     private function addLongOption(string $name, mixed $value)
+=======
+    private function addLongOption(string $name, mixed $value): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$this->definition->hasOption($name)) {
             if (!$this->definition->hasNegation($name)) {
@@ -263,9 +303,12 @@ class ArgvInput extends Input
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getFirstArgument(): ?string
     {
         $isOption = false;
@@ -298,9 +341,12 @@ class ArgvInput extends Input
         return null;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function hasParameterOption(string|array $values, bool $onlyParams = false): bool
     {
         $values = (array) $values;
@@ -323,9 +369,12 @@ class ArgvInput extends Input
         return false;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getParameterOption(string|array $values, string|bool|int|float|array|null $default = false, bool $onlyParams = false): mixed
     {
         $values = (array) $values;

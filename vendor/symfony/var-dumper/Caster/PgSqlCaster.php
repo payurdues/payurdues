@@ -69,6 +69,12 @@ class PgSqlCaster
         'function' => \PGSQL_DIAG_SOURCE_FUNCTION,
     ];
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castLargeObject($lo, array $a, Stub $stub, bool $isNested)
     {
         $a['seek position'] = pg_lo_tell($lo);
@@ -76,6 +82,12 @@ class PgSqlCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castLink($link, array $a, Stub $stub, bool $isNested)
     {
         $a['status'] = pg_connection_status($link);
@@ -108,6 +120,12 @@ class PgSqlCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castResult($result, array $a, Stub $stub, bool $isNested)
     {
         $a['num rows'] = pg_num_rows($result);

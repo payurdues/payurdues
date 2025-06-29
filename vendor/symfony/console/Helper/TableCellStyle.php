@@ -67,9 +67,13 @@ class TableCellStyle
     {
         return array_filter(
             $this->getOptions(),
+<<<<<<< HEAD
             function ($key) {
                 return \in_array($key, self::TAG_OPTIONS) && isset($this->options[$key]);
             },
+=======
+            fn ($key) => \in_array($key, self::TAG_OPTIONS) && isset($this->options[$key]),
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             \ARRAY_FILTER_USE_KEY
         );
     }

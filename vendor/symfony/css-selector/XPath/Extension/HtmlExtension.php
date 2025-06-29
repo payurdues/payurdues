@@ -36,6 +36,7 @@ class HtmlExtension extends AbstractExtension
             ->setFlag(NodeExtension::ATTRIBUTE_NAME_IN_LOWER_CASE, true);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
@@ -60,6 +61,26 @@ class HtmlExtension extends AbstractExtension
     {
         return [
             'lang' => [$this, 'translateLang'],
+=======
+    public function getPseudoClassTranslators(): array
+    {
+        return [
+            'checked' => $this->translateChecked(...),
+            'link' => $this->translateLink(...),
+            'disabled' => $this->translateDisabled(...),
+            'enabled' => $this->translateEnabled(...),
+            'selected' => $this->translateSelected(...),
+            'invalid' => $this->translateInvalid(...),
+            'hover' => $this->translateHover(...),
+            'visited' => $this->translateVisited(...),
+        ];
+    }
+
+    public function getFunctionTranslators(): array
+    {
+        return [
+            'lang' => $this->translateLang(...),
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         ];
     }
 
@@ -177,9 +198,12 @@ class HtmlExtension extends AbstractExtension
         return $xpath->addCondition('0');
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'html';

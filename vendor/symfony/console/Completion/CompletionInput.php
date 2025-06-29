@@ -31,11 +31,19 @@ final class CompletionInput extends ArgvInput
     public const TYPE_OPTION_NAME = 'option_name';
     public const TYPE_NONE = 'none';
 
+<<<<<<< HEAD
     private $tokens;
     private $currentIndex;
     private $completionType;
     private $completionName = null;
     private $completionValue = '';
+=======
+    private array $tokens;
+    private int $currentIndex;
+    private string $completionType;
+    private ?string $completionName = null;
+    private string $completionValue = '';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Converts a terminal string into tokens.
@@ -53,7 +61,11 @@ final class CompletionInput extends ArgvInput
      * Create an input based on an COMP_WORDS token list.
      *
      * @param string[] $tokens       the set of split tokens (e.g. COMP_WORDS or argv)
+<<<<<<< HEAD
      * @param          $currentIndex the index of the cursor (e.g. COMP_CWORD)
+=======
+     * @param int      $currentIndex the index of the cursor (e.g. COMP_CWORD)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public static function fromTokens(array $tokens, int $currentIndex): self
     {
@@ -64,9 +76,12 @@ final class CompletionInput extends ArgvInput
         return $input;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function bind(InputDefinition $definition): void
     {
         parent::bind($definition);
@@ -84,7 +99,11 @@ final class CompletionInput extends ArgvInput
                 return;
             }
 
+<<<<<<< HEAD
             if (null !== $option && $option->acceptValue()) {
+=======
+            if ($option?->acceptValue()) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $this->completionType = self::TYPE_OPTION_VALUE;
                 $this->completionName = $option->getName();
                 $this->completionValue = $optionValue ?: (!str_starts_with($optionToken, '--') ? substr($optionToken, 2) : '');
@@ -97,7 +116,11 @@ final class CompletionInput extends ArgvInput
         if ('-' === $previousToken[0] && '' !== trim($previousToken, '-')) {
             // check if previous option accepted a value
             $previousOption = $this->getOptionFromToken($previousToken);
+<<<<<<< HEAD
             if (null !== $previousOption && $previousOption->acceptValue()) {
+=======
+            if ($previousOption?->acceptValue()) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $this->completionType = self::TYPE_OPTION_VALUE;
                 $this->completionName = $previousOption->getName();
                 $this->completionValue = $relevantToken;
@@ -144,7 +167,13 @@ final class CompletionInput extends ArgvInput
      * TYPE_OPTION_NAME    when completing the name of an input option
      * TYPE_NONE           when nothing should be completed
      *
+<<<<<<< HEAD
      * @return string One of self::TYPE_* constants. TYPE_OPTION_NAME and TYPE_NONE are already implemented by the Console component
+=======
+     * TYPE_OPTION_NAME and TYPE_NONE are already implemented by the Console component.
+     *
+     * @return self::TYPE_*
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function getCompletionType(): string
     {
@@ -183,7 +212,11 @@ final class CompletionInput extends ArgvInput
     {
         try {
             return parent::parseToken($token, $parseOptions);
+<<<<<<< HEAD
         } catch (RuntimeException $e) {
+=======
+        } catch (RuntimeException) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             // suppress errors, completed input is almost never valid
         }
 

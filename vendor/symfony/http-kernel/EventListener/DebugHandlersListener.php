@@ -21,7 +21,11 @@ use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
+<<<<<<< HEAD
  * Configures errors and exceptions handlers.
+=======
+ * Sets an exception handler.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  *
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -33,16 +37,21 @@ class DebugHandlersListener implements EventSubscriberInterface
 {
     private string|object|null $earlyHandler;
     private ?\Closure $exceptionHandler;
+<<<<<<< HEAD
     private $logger;
     private $deprecationLogger;
     private array|int|null $levels;
     private ?int $throwAt;
     private bool $scream;
     private bool $scope;
+=======
+    private bool $webMode;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private bool $firstCall = true;
     private bool $hasTerminatedWithException = false;
 
     /**
+<<<<<<< HEAD
      * @param callable|null  $exceptionHandler A handler that must support \Throwable instances that will be called on Exception
      * @param array|int|null $levels           An array map of E_* to LogLevel::* or an integer bit field of E_* constants
      * @param int|null       $throwAt          Thrown errors in a bit field of E_* constants, or null to keep the current value
@@ -62,20 +71,45 @@ class DebugHandlersListener implements EventSubscriberInterface
         $this->scream = $scream;
         $this->scope = $scope;
         $this->deprecationLogger = $deprecationLogger;
+=======
+     * @param bool          $webMode
+     * @param callable|null $exceptionHandler A handler that must support \Throwable instances that will be called on Exception
+     */
+    public function __construct(?callable $exceptionHandler = null, bool|LoggerInterface|null $webMode = null)
+    {
+        if ($webMode instanceof LoggerInterface) {
+            // BC with Symfony 5
+            $webMode = null;
+        }
+
+        $handler = set_exception_handler('var_dump');
+        $this->earlyHandler = \is_array($handler) ? $handler[0] : null;
+        restore_exception_handler();
+
+        $this->exceptionHandler = null === $exceptionHandler ? null : $exceptionHandler(...);
+        $this->webMode = $webMode ?? !\in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
      * Configures the error handler.
      */
+<<<<<<< HEAD
     public function configure(object $event = null)
     {
         if ($event instanceof ConsoleEvent && !\in_array(\PHP_SAPI, ['cli', 'phpdbg'], true)) {
+=======
+    public function configure(?object $event = null): void
+    {
+        if ($event instanceof ConsoleEvent && $this->webMode) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return;
         }
         if (!$event instanceof KernelEvent ? !$this->firstCall : !$event->isMainRequest()) {
             return;
         }
         $this->firstCall = $this->hasTerminatedWithException = false;
+<<<<<<< HEAD
 
         $handler = set_exception_handler('is_int');
         $handler = \is_array($handler) ? $handler[0] : null;
@@ -111,6 +145,10 @@ class DebugHandlersListener implements EventSubscriberInterface
                 $handler->throwAt($this->throwAt, true);
             }
         }
+=======
+        $hasRun = null;
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if (!$this->exceptionHandler) {
             if ($event instanceof KernelEvent) {
                 if (method_exists($kernel = $event->getKernel(), 'terminateWithException')) {
@@ -136,6 +174,7 @@ class DebugHandlersListener implements EventSubscriberInterface
             }
         }
         if ($this->exceptionHandler) {
+<<<<<<< HEAD
             if ($handler instanceof ErrorHandler) {
                 $handler->setExceptionHandler($this->exceptionHandler);
             }
@@ -168,6 +207,33 @@ class DebugHandlersListener implements EventSubscriberInterface
 
         if ($this->logger && $defaultLoggerLevels) {
             $handler->setDefaultLogger($this->logger, $defaultLoggerLevels);
+=======
+            $handler = set_exception_handler('var_dump');
+            $handler = \is_array($handler) ? $handler[0] : null;
+            restore_exception_handler();
+
+            if (!$handler instanceof ErrorHandler) {
+                $handler = $this->earlyHandler;
+            }
+
+            if ($handler instanceof ErrorHandler) {
+                $handler->setExceptionHandler($this->exceptionHandler);
+                if (null !== $hasRun) {
+                    $throwAt = $handler->throwAt(0) | \E_ERROR | \E_CORE_ERROR | \E_COMPILE_ERROR | \E_USER_ERROR | \E_RECOVERABLE_ERROR | \E_PARSE;
+                    $loggers = [];
+
+                    foreach ($handler->setLoggers([]) as $type => $log) {
+                        if ($type & $throwAt) {
+                            $loggers[$type] = [null, $log[1]];
+                        }
+                    }
+
+                    // Assume $kernel->terminateWithException() will log uncaught exceptions appropriately
+                    $handler->setLoggers($loggers);
+                }
+            }
+            $this->exceptionHandler = null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
     }
 

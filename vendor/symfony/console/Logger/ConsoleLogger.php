@@ -29,7 +29,11 @@ class ConsoleLogger extends AbstractLogger
     public const INFO = 'info';
     public const ERROR = 'error';
 
+<<<<<<< HEAD
     private $output;
+=======
+    private OutputInterface $output;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private array $verbosityLevelMap = [
         LogLevel::EMERGENCY => OutputInterface::VERBOSITY_NORMAL,
         LogLevel::ALERT => OutputInterface::VERBOSITY_NORMAL,
@@ -59,9 +63,12 @@ class ConsoleLogger extends AbstractLogger
         $this->formatLevelMap = $formatLevelMap + $this->formatLevelMap;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function log($level, $message, array $context = []): void
     {
         if (!isset($this->verbosityLevelMap[$level])) {
@@ -109,9 +116,15 @@ class ConsoleLogger extends AbstractLogger
             if (null === $val || \is_scalar($val) || $val instanceof \Stringable) {
                 $replacements["{{$key}}"] = $val;
             } elseif ($val instanceof \DateTimeInterface) {
+<<<<<<< HEAD
                 $replacements["{{$key}}"] = $val->format(\DateTime::RFC3339);
             } elseif (\is_object($val)) {
                 $replacements["{{$key}}"] = '[object '.\get_class($val).']';
+=======
+                $replacements["{{$key}}"] = $val->format(\DateTimeInterface::RFC3339);
+            } elseif (\is_object($val)) {
+                $replacements["{{$key}}"] = '[object '.$val::class.']';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             } else {
                 $replacements["{{$key}}"] = '['.\gettype($val).']';
             }

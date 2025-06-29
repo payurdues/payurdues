@@ -43,10 +43,18 @@ class FileProfilerStorage implements ProfilerStorageInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      */
     public function find(?string $ip, ?string $url, ?int $limit, ?string $method, int $start = null, int $end = null, string $statusCode = null): array
     {
+=======
+     * @param \Closure|null $filter A filter to apply on the list of tokens
+     */
+    public function find(?string $ip, ?string $url, ?int $limit, ?string $method, ?int $start = null, ?int $end = null, ?string $statusCode = null/* , \Closure $filter = null */): array
+    {
+        $filter = 7 < \func_num_args() ? func_get_arg(7) : null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $file = $this->getIndexFilename();
 
         if (!file_exists($file)) {
@@ -58,11 +66,30 @@ class FileProfilerStorage implements ProfilerStorageInterface
 
         $result = [];
         while (\count($result) < $limit && $line = $this->readLineFromFile($file)) {
+<<<<<<< HEAD
             $values = str_getcsv($line);
             [$csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode] = $values;
             $csvTime = (int) $csvTime;
 
             if ($ip && !str_contains($csvIp, $ip) || $url && !str_contains($csvUrl, $url) || $method && !str_contains($csvMethod, $method) || $statusCode && !str_contains($csvStatusCode, $statusCode)) {
+=======
+            $values = str_getcsv($line, ',', '"', '\\');
+
+            if (7 > \count($values)) {
+                // skip invalid lines
+                continue;
+            }
+
+            [$csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode, $csvVirtualType] = $values + [7 => null];
+            $csvTime = (int) $csvTime;
+
+            $urlFilter = false;
+            if ($url) {
+                $urlFilter = str_starts_with($url, '!') ? str_contains($csvUrl, substr($url, 1)) : !str_contains($csvUrl, $url);
+            }
+
+            if ($ip && !str_contains($csvIp, $ip) || $urlFilter || $method && !str_contains($csvMethod, $method) || $statusCode && !str_contains($csvStatusCode, $statusCode)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 continue;
             }
 
@@ -74,7 +101,11 @@ class FileProfilerStorage implements ProfilerStorageInterface
                 continue;
             }
 
+<<<<<<< HEAD
             $result[$csvToken] = [
+=======
+            $profile = [
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 'token' => $csvToken,
                 'ip' => $csvIp,
                 'method' => $csvMethod,
@@ -82,7 +113,18 @@ class FileProfilerStorage implements ProfilerStorageInterface
                 'time' => $csvTime,
                 'parent' => $csvParent,
                 'status_code' => $csvStatusCode,
+<<<<<<< HEAD
             ];
+=======
+                'virtual_type' => $csvVirtualType ?: 'request',
+            ];
+
+            if ($filter && !$filter($profile)) {
+                continue;
+            }
+
+            $result[$csvToken] = $profile;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         fclose($file);
@@ -91,7 +133,11 @@ class FileProfilerStorage implements ProfilerStorageInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function purge()
     {
@@ -108,17 +154,23 @@ class FileProfilerStorage implements ProfilerStorageInterface
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function read(string $token): ?Profile
     {
         return $this->doRead($token);
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws \RuntimeException
      */
     public function write(Profile $profile): bool
@@ -138,9 +190,13 @@ class FileProfilerStorage implements ProfilerStorageInterface
         // when there are errors in sub-requests, the parent and/or children tokens
         // may equal the profile token, resulting in infinite loops
         $parentToken = $profile->getParentToken() !== $profileToken ? $profile->getParentToken() : null;
+<<<<<<< HEAD
         $childrenToken = array_filter(array_map(function (Profile $p) use ($profileToken) {
             return $profileToken !== $p->getToken() ? $p->getToken() : null;
         }, $profile->getChildren()));
+=======
+        $childrenToken = array_filter(array_map(fn (Profile $p) => $profileToken !== $p->getToken() ? $p->getToken() : null, $profile->getChildren()));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         // Store profile
         $data = [
@@ -153,6 +209,10 @@ class FileProfilerStorage implements ProfilerStorageInterface
             'url' => $profile->getUrl(),
             'time' => $profile->getTime(),
             'status_code' => $profile->getStatusCode(),
+<<<<<<< HEAD
+=======
+            'virtual_type' => $profile->getVirtualType() ?? 'request',
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         ];
 
         $data = serialize($data);
@@ -176,11 +236,24 @@ class FileProfilerStorage implements ProfilerStorageInterface
                 $profile->getIp(),
                 $profile->getMethod(),
                 $profile->getUrl(),
+<<<<<<< HEAD
                 $profile->getTime(),
                 $profile->getParentToken(),
                 $profile->getStatusCode(),
             ]);
             fclose($file);
+=======
+                $profile->getTime() ?: time(),
+                $profile->getParentToken(),
+                $profile->getStatusCode(),
+                $profile->getVirtualType() ?? 'request',
+            ], ',', '"', '\\');
+            fclose($file);
+
+            if (1 === mt_rand(1, 10)) {
+                $this->removeExpiredProfiles();
+            }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         return true;
@@ -251,7 +324,14 @@ class FileProfilerStorage implements ProfilerStorageInterface
         return '' === $line ? null : $line;
     }
 
+<<<<<<< HEAD
     protected function createProfileFromData(string $token, array $data, Profile $parent = null)
+=======
+    /**
+     * @return Profile
+     */
+    protected function createProfileFromData(string $token, array $data, ?Profile $parent = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $profile = new Profile($token);
         $profile->setIp($data['ip']);
@@ -259,6 +339,10 @@ class FileProfilerStorage implements ProfilerStorageInterface
         $profile->setUrl($data['url']);
         $profile->setTime($data['time']);
         $profile->setStatusCode($data['status_code']);
+<<<<<<< HEAD
+=======
+        $profile->setVirtualType($data['virtual_type'] ?: 'request');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $profile->setCollectors($data['data']);
 
         if (!$parent && $data['parent']) {
@@ -278,7 +362,11 @@ class FileProfilerStorage implements ProfilerStorageInterface
         return $profile;
     }
 
+<<<<<<< HEAD
     private function doRead($token, Profile $profile = null): ?Profile
+=======
+    private function doRead($token, ?Profile $profile = null): ?Profile
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$token || !file_exists($file = $this->getFilename($token))) {
             return null;
@@ -300,4 +388,40 @@ class FileProfilerStorage implements ProfilerStorageInterface
 
         return $this->createProfileFromData($token, $data, $profile);
     }
+<<<<<<< HEAD
+=======
+
+    private function removeExpiredProfiles(): void
+    {
+        $minimalProfileTimestamp = time() - 2 * 86400;
+        $file = $this->getIndexFilename();
+        $handle = fopen($file, 'r');
+
+        if ($offset = is_file($file.'.offset') ? (int) file_get_contents($file.'.offset') : 0) {
+            fseek($handle, $offset);
+        }
+
+        while ($line = fgets($handle)) {
+            $values = str_getcsv($line, ',', '"', '\\');
+
+            if (7 > \count($values)) {
+                // skip invalid lines
+                $offset += \strlen($line);
+                continue;
+            }
+
+            [$csvToken, , , , $csvTime] = $values;
+
+            if ($csvTime >= $minimalProfileTimestamp) {
+                break;
+            }
+
+            @unlink($this->getFilename($csvToken));
+            $offset += \strlen($line);
+        }
+        fclose($handle);
+
+        file_put_contents($file.'.offset', $offset);
+    }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

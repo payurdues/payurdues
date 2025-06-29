@@ -18,8 +18,13 @@ use Symfony\Component\Mime\Header\Headers;
  */
 abstract class AbstractMultipartPart extends AbstractPart
 {
+<<<<<<< HEAD
     private $boundary;
     private $parts = [];
+=======
+    private ?string $boundary = null;
+    private array $parts = [];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(AbstractPart ...$parts)
     {
@@ -90,10 +95,14 @@ abstract class AbstractMultipartPart extends AbstractPart
 
     private function getBoundary(): string
     {
+<<<<<<< HEAD
         if (null === $this->boundary) {
             $this->boundary = strtr(base64_encode(random_bytes(6)), '+/', '-_');
         }
 
         return $this->boundary;
+=======
+        return $this->boundary ??= strtr(base64_encode(random_bytes(6)), '+/', '-_');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

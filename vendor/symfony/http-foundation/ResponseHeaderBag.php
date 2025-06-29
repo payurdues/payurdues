@@ -55,6 +55,12 @@ class ResponseHeaderBag extends HeaderBag
         return $headers;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function allPreserveCaseWithoutCookies()
     {
         $headers = $this->allPreserveCase();
@@ -66,7 +72,11 @@ class ResponseHeaderBag extends HeaderBag
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function replace(array $headers = [])
     {
@@ -83,10 +93,14 @@ class ResponseHeaderBag extends HeaderBag
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function all(string $key = null): array
+=======
+    public function all(?string $key = null): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $headers = parent::all();
 
@@ -104,7 +118,11 @@ class ResponseHeaderBag extends HeaderBag
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function set(string $key, string|array|null $values, bool $replace = true)
     {
@@ -135,7 +153,11 @@ class ResponseHeaderBag extends HeaderBag
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function remove(string $key)
     {
@@ -159,22 +181,34 @@ class ResponseHeaderBag extends HeaderBag
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function hasCacheControlDirective(string $key): bool
     {
         return \array_key_exists($key, $this->computedCacheControl);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getCacheControlDirective(string $key): bool|string|null
     {
         return $this->computedCacheControl[$key] ?? null;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function setCookie(Cookie $cookie)
     {
         $this->cookies[$cookie->getDomain()][$cookie->getPath()][$cookie->getName()] = $cookie;
@@ -183,12 +217,21 @@ class ResponseHeaderBag extends HeaderBag
 
     /**
      * Removes a cookie from the array, but does not unset it in the browser.
+<<<<<<< HEAD
      */
     public function removeCookie(string $name, ?string $path = '/', string $domain = null)
     {
         if (null === $path) {
             $path = '/';
         }
+=======
+     *
+     * @return void
+     */
+    public function removeCookie(string $name, ?string $path = '/', ?string $domain = null)
+    {
+        $path ??= '/';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         unset($this->cookies[$domain][$path][$name]);
 
@@ -236,14 +279,32 @@ class ResponseHeaderBag extends HeaderBag
 
     /**
      * Clears a cookie in the browser.
+<<<<<<< HEAD
      */
     public function clearCookie(string $name, ?string $path = '/', string $domain = null, bool $secure = false, bool $httpOnly = true, string $sameSite = null)
     {
         $this->setCookie(new Cookie($name, null, 1, $path, $domain, $secure, $httpOnly, false, $sameSite));
+=======
+     *
+     * @param bool $partitioned
+     *
+     * @return void
+     */
+    public function clearCookie(string $name, ?string $path = '/', ?string $domain = null, bool $secure = false, bool $httpOnly = true, ?string $sameSite = null /* , bool $partitioned = false */)
+    {
+        $partitioned = 6 < \func_num_args() ? \func_get_arg(6) : false;
+
+        $this->setCookie(new Cookie($name, null, 1, $path, $domain, $secure, $httpOnly, false, $sameSite, $partitioned));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
      * @see HeaderUtils::makeDisposition()
+<<<<<<< HEAD
+=======
+     *
+     * @return string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function makeDisposition(string $disposition, string $filename, string $filenameFallback = '')
     {

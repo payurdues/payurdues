@@ -18,13 +18,21 @@ namespace Symfony\Component\Uid;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
+<<<<<<< HEAD
 class UuidV6 extends Uuid
+=======
+class UuidV6 extends Uuid implements TimeBasedUidInterface
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 {
     protected const TYPE = 6;
 
     private static string $node;
 
+<<<<<<< HEAD
     public function __construct(string $uuid = null)
+=======
+    public function __construct(?string $uuid = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null === $uuid) {
             $this->uid = static::generate();
@@ -43,7 +51,11 @@ class UuidV6 extends Uuid
         return substr($this->uid, 24);
     }
 
+<<<<<<< HEAD
     public static function generate(\DateTimeInterface $time = null, Uuid $node = null): string
+=======
+    public static function generate(?\DateTimeInterface $time = null, ?Uuid $node = null): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $uuidV1 = UuidV1::generate($time, $node);
         $uuid = substr($uuidV1, 15, 3).substr($uuidV1, 9, 4).$uuidV1[0].'-'.substr($uuidV1, 1, 4).'-6'.substr($uuidV1, 5, 3).substr($uuidV1, 18, 6);

@@ -23,10 +23,17 @@ class UuidFactory
     private string $timeBasedClass;
     private string $nameBasedClass;
     private string $randomBasedClass;
+<<<<<<< HEAD
     private $timeBasedNode;
     private $nameBasedNamespace;
 
     public function __construct(string|int $defaultClass = UuidV6::class, string|int $timeBasedClass = UuidV6::class, string|int $nameBasedClass = UuidV5::class, string|int $randomBasedClass = UuidV4::class, Uuid|string $timeBasedNode = null, Uuid|string $nameBasedNamespace = null)
+=======
+    private ?Uuid $timeBasedNode;
+    private ?Uuid $nameBasedNamespace;
+
+    public function __construct(string|int $defaultClass = UuidV6::class, string|int $timeBasedClass = UuidV6::class, string|int $nameBasedClass = UuidV5::class, string|int $randomBasedClass = UuidV4::class, Uuid|string|null $timeBasedNode = null, Uuid|string|null $nameBasedNamespace = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null !== $timeBasedNode && !$timeBasedNode instanceof Uuid) {
             $timeBasedNode = Uuid::fromString($timeBasedNode);
@@ -44,7 +51,11 @@ class UuidFactory
         $this->nameBasedNamespace = $nameBasedNamespace;
     }
 
+<<<<<<< HEAD
     public function create(): UuidV6|UuidV4|UuidV1
+=======
+    public function create(): Uuid
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $class = $this->defaultClass;
 
@@ -56,9 +67,15 @@ class UuidFactory
         return new RandomBasedUuidFactory($this->randomBasedClass);
     }
 
+<<<<<<< HEAD
     public function timeBased(Uuid|string $node = null): TimeBasedUuidFactory
     {
         $node ?? $node = $this->timeBasedNode;
+=======
+    public function timeBased(Uuid|string|null $node = null): TimeBasedUuidFactory
+    {
+        $node ??= $this->timeBasedNode;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if (null !== $node && !$node instanceof Uuid) {
             $node = Uuid::fromString($node);
@@ -67,9 +84,15 @@ class UuidFactory
         return new TimeBasedUuidFactory($this->timeBasedClass, $node);
     }
 
+<<<<<<< HEAD
     public function nameBased(Uuid|string $namespace = null): NameBasedUuidFactory
     {
         $namespace ?? $namespace = $this->nameBasedNamespace;
+=======
+    public function nameBased(Uuid|string|null $namespace = null): NameBasedUuidFactory
+    {
+        $namespace ??= $this->nameBasedNamespace;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if (null === $namespace) {
             throw new \LogicException(sprintf('A namespace should be defined when using "%s()".', __METHOD__));
@@ -84,6 +107,7 @@ class UuidFactory
             return $namespace;
         }
 
+<<<<<<< HEAD
         switch ($namespace) {
             case 'dns': return new UuidV1(Uuid::NAMESPACE_DNS);
             case 'url': return new UuidV1(Uuid::NAMESPACE_URL);
@@ -91,5 +115,14 @@ class UuidFactory
             case 'x500': return new UuidV1(Uuid::NAMESPACE_X500);
             default: return Uuid::fromString($namespace);
         }
+=======
+        return match ($namespace) {
+            'dns' => new UuidV1(Uuid::NAMESPACE_DNS),
+            'url' => new UuidV1(Uuid::NAMESPACE_URL),
+            'oid' => new UuidV1(Uuid::NAMESPACE_OID),
+            'x500' => new UuidV1(Uuid::NAMESPACE_X500),
+            default => Uuid::fromString($namespace),
+        };
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

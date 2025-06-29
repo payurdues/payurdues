@@ -21,15 +21,47 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class ConsoleSignalEvent extends ConsoleEvent
 {
     private int $handlingSignal;
+<<<<<<< HEAD
 
     public function __construct(Command $command, InputInterface $input, OutputInterface $output, int $handlingSignal)
     {
         parent::__construct($command, $input, $output);
         $this->handlingSignal = $handlingSignal;
+=======
+    private int|false $exitCode;
+
+    public function __construct(Command $command, InputInterface $input, OutputInterface $output, int $handlingSignal, int|false $exitCode = 0)
+    {
+        parent::__construct($command, $input, $output);
+        $this->handlingSignal = $handlingSignal;
+        $this->exitCode = $exitCode;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     public function getHandlingSignal(): int
     {
         return $this->handlingSignal;
     }
+<<<<<<< HEAD
+=======
+
+    public function setExitCode(int $exitCode): void
+    {
+        if ($exitCode < 0 || $exitCode > 255) {
+            throw new \InvalidArgumentException('Exit code must be between 0 and 255.');
+        }
+
+        $this->exitCode = $exitCode;
+    }
+
+    public function abortExit(): void
+    {
+        $this->exitCode = false;
+    }
+
+    public function getExitCode(): int|false
+    {
+        return $this->exitCode;
+    }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

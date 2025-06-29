@@ -6,7 +6,11 @@
         <meta name="robots" content="noindex,nofollow" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <title><?= $_message; ?></title>
+<<<<<<< HEAD
         <link rel="icon" type="image/png" href="<?= $this->include('assets/images/favicon.png.base64'); ?>">
+=======
+        <link rel="icon" type="image/png" href="<?= $this->include('assets/images/favicon.png.base64'); ?>" />
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         <style><?= $this->include('assets/css/exception.css'); ?></style>
         <style><?= $this->include('assets/css/exception_full.css'); ?></style>
     </head>

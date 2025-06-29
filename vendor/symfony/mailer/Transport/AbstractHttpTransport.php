@@ -28,7 +28,11 @@ abstract class AbstractHttpTransport extends AbstractTransport
     protected $port;
     protected $client;
 
+<<<<<<< HEAD
     public function __construct(HttpClientInterface $client = null, EventDispatcherInterface $dispatcher = null, LoggerInterface $logger = null)
+=======
+    public function __construct(?HttpClientInterface $client = null, ?EventDispatcherInterface $dispatcher = null, ?LoggerInterface $logger = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->client = $client;
         if (null === $client) {
@@ -66,7 +70,10 @@ abstract class AbstractHttpTransport extends AbstractTransport
 
     protected function doSend(SentMessage $message): void
     {
+<<<<<<< HEAD
         $response = null;
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         try {
             $response = $this->doSendHttp($message);
             $message->appendDebug($response->getInfo('debug') ?? '');

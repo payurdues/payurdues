@@ -20,7 +20,11 @@ use Symfony\Component\Process\Process;
  */
 class ProcessFailedException extends RuntimeException
 {
+<<<<<<< HEAD
     private $process;
+=======
+    private Process $process;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(Process $process)
     {
@@ -47,6 +51,12 @@ class ProcessFailedException extends RuntimeException
         $this->process = $process;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return Process
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getProcess()
     {
         return $this->process;

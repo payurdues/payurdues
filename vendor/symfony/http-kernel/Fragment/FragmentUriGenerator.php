@@ -13,8 +13,13 @@ namespace Symfony\Component\HttpKernel\Fragment;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\UriSigner;
+=======
+use Symfony\Component\HttpFoundation\UriSigner;
+use Symfony\Component\HttpKernel\Controller\ControllerReference;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
 /**
  * Generates a fragment URI.
@@ -25,20 +30,31 @@ use Symfony\Component\HttpKernel\UriSigner;
 final class FragmentUriGenerator implements FragmentUriGeneratorInterface
 {
     private string $fragmentPath;
+<<<<<<< HEAD
     private $signer;
     private $requestStack;
 
     public function __construct(string $fragmentPath, UriSigner $signer = null, RequestStack $requestStack = null)
+=======
+    private ?UriSigner $signer;
+    private ?RequestStack $requestStack;
+
+    public function __construct(string $fragmentPath, ?UriSigner $signer = null, ?RequestStack $requestStack = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->fragmentPath = $fragmentPath;
         $this->signer = $signer;
         $this->requestStack = $requestStack;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritDoc}
      */
     public function generate(ControllerReference $controller, Request $request = null, bool $absolute = false, bool $strict = true, bool $sign = true): string
+=======
+    public function generate(ControllerReference $controller, ?Request $request = null, bool $absolute = false, bool $strict = true, bool $sign = true): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null === $request && (null === $this->requestStack || null === $request = $this->requestStack->getCurrentRequest())) {
             throw new \LogicException('Generating a fragment URL can only be done when handling a Request.');

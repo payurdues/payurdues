@@ -33,6 +33,10 @@ class Profile
     private ?int $time = null;
     private ?int $statusCode = null;
     private ?self $parent = null;
+<<<<<<< HEAD
+=======
+    private ?string $virtualType = null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * @var Profile[]
@@ -44,6 +48,12 @@ class Profile
         $this->token = $token;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function setToken(string $token)
     {
         $this->token = $token;
@@ -59,6 +69,11 @@ class Profile
 
     /**
      * Sets the parent token.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setParent(self $parent)
     {
@@ -78,7 +93,11 @@ class Profile
      */
     public function getParentToken(): ?string
     {
+<<<<<<< HEAD
         return $this->parent ? $this->parent->getToken() : null;
+=======
+        return $this->parent?->getToken();
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -89,6 +108,12 @@ class Profile
         return $this->ip;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function setIp(?string $ip)
     {
         $this->ip = $ip;
@@ -102,6 +127,12 @@ class Profile
         return $this->method;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function setMethod(string $method)
     {
         $this->method = $method;
@@ -115,6 +146,12 @@ class Profile
         return $this->url;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function setUrl(?string $url)
     {
         $this->url = $url;
@@ -125,11 +162,23 @@ class Profile
         return $this->time ?? 0;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function setTime(int $time)
     {
         $this->time = $time;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function setStatusCode(int $statusCode)
     {
         $this->statusCode = $statusCode;
@@ -141,6 +190,25 @@ class Profile
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @internal
+     */
+    public function setVirtualType(?string $virtualType): void
+    {
+        $this->virtualType = $virtualType;
+    }
+
+    /**
+     * @internal
+     */
+    public function getVirtualType(): ?string
+    {
+        return $this->virtualType;
+    }
+
+    /**
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * Finds children profilers.
      *
      * @return self[]
@@ -154,6 +222,11 @@ class Profile
      * Sets children profiler.
      *
      * @param Profile[] $children
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setChildren(array $children)
     {
@@ -165,6 +238,11 @@ class Profile
 
     /**
      * Adds the child token.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function addChild(self $child)
     {
@@ -211,6 +289,11 @@ class Profile
      * Sets the Collectors associated with this profile.
      *
      * @param DataCollectorInterface[] $collectors
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setCollectors(array $collectors)
     {
@@ -222,6 +305,11 @@ class Profile
 
     /**
      * Adds a Collector.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function addCollector(DataCollectorInterface $collector)
     {
@@ -235,6 +323,10 @@ class Profile
 
     public function __sleep(): array
     {
+<<<<<<< HEAD
         return ['token', 'parent', 'children', 'collectors', 'ip', 'method', 'url', 'time', 'statusCode'];
+=======
+        return ['token', 'parent', 'children', 'collectors', 'ip', 'method', 'url', 'time', 'statusCode', 'virtualType'];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

@@ -27,9 +27,12 @@ final class EmailAddressContains extends Constraint
         $this->expectedValue = $expectedValue;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function toString(): string
     {
         return sprintf('contains address "%s" with value "%s"', $this->headerName, $this->expectedValue);
@@ -37,12 +40,19 @@ final class EmailAddressContains extends Constraint
 
     /**
      * @param RawMessage $message
+<<<<<<< HEAD
      *
      * {@inheritdoc}
      */
     protected function matches($message): bool
     {
         if (RawMessage::class === \get_class($message)) {
+=======
+     */
+    protected function matches($message): bool
+    {
+        if (RawMessage::class === $message::class) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             throw new \LogicException('Unable to test a message address on a RawMessage instance.');
         }
 
@@ -64,8 +74,11 @@ final class EmailAddressContains extends Constraint
 
     /**
      * @param RawMessage $message
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function failureDescription($message): string
     {

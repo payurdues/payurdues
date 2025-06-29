@@ -52,7 +52,11 @@ class MetadataBag implements SessionBagInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function initialize(array &$array)
     {
@@ -81,19 +85,33 @@ class MetadataBag implements SessionBagInterface
     /**
      * Stamps a new session's metadata.
      *
+<<<<<<< HEAD
      * @param int $lifetime Sets the cookie lifetime for the session cookie. A null value
      *                      will leave the system settings unchanged, 0 sets the cookie
      *                      to expire with browser session. Time is in seconds, and is
      *                      not a Unix timestamp.
      */
     public function stampNew(int $lifetime = null)
+=======
+     * @param int|null $lifetime Sets the cookie lifetime for the session cookie. A null value
+     *                           will leave the system settings unchanged, 0 sets the cookie
+     *                           to expire with browser session. Time is in seconds, and is
+     *                           not a Unix timestamp.
+     *
+     * @return void
+     */
+    public function stampNew(?int $lifetime = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->stampCreated($lifetime);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getStorageKey(): string
     {
         return $this->storageKey;
@@ -119,18 +137,24 @@ class MetadataBag implements SessionBagInterface
         return $this->lastUsed;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function clear(): mixed
     {
         // nothing to do
         return null;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return $this->name;
@@ -138,13 +162,22 @@ class MetadataBag implements SessionBagInterface
 
     /**
      * Sets name.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setName(string $name)
     {
         $this->name = $name;
     }
 
+<<<<<<< HEAD
     private function stampCreated(int $lifetime = null): void
+=======
+    private function stampCreated(?int $lifetime = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $timeStamp = time();
         $this->meta[self::CREATED] = $this->meta[self::UPDATED] = $this->lastUsed = $timeStamp;

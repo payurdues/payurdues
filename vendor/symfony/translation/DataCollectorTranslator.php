@@ -25,7 +25,11 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
     public const MESSAGE_MISSING = 1;
     public const MESSAGE_EQUALS_FALLBACK = 2;
 
+<<<<<<< HEAD
     private $translator;
+=======
+    private TranslatorInterface $translator;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private array $messages = [];
 
     /**
@@ -40,10 +44,14 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
         $this->translator = $translator;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null): string
+=======
+    public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $trans = $this->translator->trans($id = (string) $id, $parameters, $domain, $locale);
         $this->collectMessage($locale, $domain, $id, $trans, $parameters);
@@ -52,37 +60,52 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setLocale(string $locale)
     {
         $this->translator->setLocale($locale);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getLocale(): string
     {
         return $this->translator->getLocale();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function getCatalogue(string $locale = null): MessageCatalogueInterface
+=======
+    public function getCatalogue(?string $locale = null): MessageCatalogueInterface
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->translator->getCatalogue($locale);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getCatalogues(): array
     {
         return $this->translator->getCatalogues();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      *
@@ -92,6 +115,12 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
     {
         if ($this->translator instanceof WarmableInterface) {
             return (array) $this->translator->warmUp($cacheDir);
+=======
+    public function warmUp(string $cacheDir, ?string $buildDir = null): array
+    {
+        if ($this->translator instanceof WarmableInterface) {
+            return (array) $this->translator->warmUp($cacheDir, $buildDir);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         return [];
@@ -110,7 +139,11 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
     }
 
     /**
+<<<<<<< HEAD
      * Passes through all unknown calls onto the translator object.
+=======
+     * @return mixed
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function __call(string $method, array $args)
     {
@@ -122,11 +155,17 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
         return $this->messages;
     }
 
+<<<<<<< HEAD
     private function collectMessage(?string $locale, ?string $domain, string $id, string $translation, ?array $parameters = [])
     {
         if (null === $domain) {
             $domain = 'messages';
         }
+=======
+    private function collectMessage(?string $locale, ?string $domain, string $id, string $translation, ?array $parameters = []): void
+    {
+        $domain ??= 'messages';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         $catalogue = $this->translator->getCatalogue($locale);
         $locale = $catalogue->getLocale();

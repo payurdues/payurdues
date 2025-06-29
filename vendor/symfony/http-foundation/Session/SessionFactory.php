@@ -22,6 +22,7 @@ class_exists(Session::class);
  */
 class SessionFactory implements SessionFactoryInterface
 {
+<<<<<<< HEAD
     private $requestStack;
     private $storageFactory;
     private ?\Closure $usageReporter;
@@ -31,6 +32,17 @@ class SessionFactory implements SessionFactoryInterface
         $this->requestStack = $requestStack;
         $this->storageFactory = $storageFactory;
         $this->usageReporter = $usageReporter instanceof \Closure || !\is_callable($usageReporter) ? $usageReporter : \Closure::fromCallable($usageReporter);
+=======
+    private RequestStack $requestStack;
+    private SessionStorageFactoryInterface $storageFactory;
+    private ?\Closure $usageReporter;
+
+    public function __construct(RequestStack $requestStack, SessionStorageFactoryInterface $storageFactory, ?callable $usageReporter = null)
+    {
+        $this->requestStack = $requestStack;
+        $this->storageFactory = $storageFactory;
+        $this->usageReporter = null === $usageReporter ? null : $usageReporter(...);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     public function createSession(): SessionInterface

@@ -16,6 +16,7 @@ namespace Symfony\Component\Uid;
  *
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
+<<<<<<< HEAD
 class UuidV1 extends Uuid
 {
     protected const TYPE = 1;
@@ -26,6 +27,18 @@ class UuidV1 extends Uuid
     {
         if (null === $uuid) {
             $this->uid = uuid_create(static::TYPE);
+=======
+class UuidV1 extends Uuid implements TimeBasedUidInterface
+{
+    protected const TYPE = 1;
+
+    private static string $clockSeq;
+
+    public function __construct(?string $uuid = null)
+    {
+        if (null === $uuid) {
+            $this->uid = strtolower(uuid_create(static::TYPE));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         } else {
             parent::__construct($uuid, true);
         }
@@ -41,7 +54,11 @@ class UuidV1 extends Uuid
         return uuid_mac($this->uid);
     }
 
+<<<<<<< HEAD
     public static function generate(\DateTimeInterface $time = null, Uuid $node = null): string
+=======
+    public static function generate(?\DateTimeInterface $time = null, ?Uuid $node = null): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $uuid = !$time || !$node ? uuid_create(static::TYPE) : parent::NIL;
 
@@ -49,6 +66,7 @@ class UuidV1 extends Uuid
             if ($node) {
                 // use clock_seq from the node
                 $seq = substr($node->uid, 19, 4);
+<<<<<<< HEAD
             } else {
                 // generate a static random clock_seq to prevent any collisions with the real one
                 $seq = substr($uuid, 19, 4);
@@ -56,6 +74,15 @@ class UuidV1 extends Uuid
                 while (null === self::$clockSeq || $seq === self::$clockSeq) {
                     self::$clockSeq = sprintf('%04x', random_int(0, 0x3FFF) | 0x8000);
                 }
+=======
+            } elseif (!$seq = self::$clockSeq ?? '') {
+                // generate a static random clock_seq to prevent any collisions with the real one
+                $seq = substr($uuid, 19, 4);
+
+                do {
+                    self::$clockSeq = sprintf('%04x', random_int(0, 0x3FFF) | 0x8000);
+                } while ($seq === self::$clockSeq);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
                 $seq = self::$clockSeq;
             }

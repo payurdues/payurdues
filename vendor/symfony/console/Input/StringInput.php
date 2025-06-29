@@ -24,6 +24,12 @@ use Symfony\Component\Console\Exception\InvalidArgumentException;
  */
 class StringInput extends ArgvInput
 {
+<<<<<<< HEAD
+=======
+    /**
+     * @deprecated since Symfony 6.1
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public const REGEX_STRING = '([^\s]+?)(?:\s|(?<!\\\\)"|(?<!\\\\)\'|$)';
     public const REGEX_UNQUOTED_STRING = '([^\s\\\\]+?)';
     public const REGEX_QUOTED_STRING = '(?:"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\')';

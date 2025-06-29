@@ -30,11 +30,17 @@ class MockFileSessionStorage extends MockArraySessionStorage
     /**
      * @param string|null $savePath Path of directory to save session files
      */
+<<<<<<< HEAD
     public function __construct(string $savePath = null, string $name = 'MOCKSESSID', MetadataBag $metaBag = null)
     {
         if (null === $savePath) {
             $savePath = sys_get_temp_dir();
         }
+=======
+    public function __construct(?string $savePath = null, string $name = 'MOCKSESSID', ?MetadataBag $metaBag = null)
+    {
+        $savePath ??= sys_get_temp_dir();
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if (!is_dir($savePath) && !@mkdir($savePath, 0777, true) && !is_dir($savePath)) {
             throw new \RuntimeException(sprintf('Session Storage was not able to create directory "%s".', $savePath));
@@ -45,9 +51,12 @@ class MockFileSessionStorage extends MockArraySessionStorage
         parent::__construct($name, $metaBag);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function start(): bool
     {
         if ($this->started) {
@@ -65,10 +74,14 @@ class MockFileSessionStorage extends MockArraySessionStorage
         return true;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function regenerate(bool $destroy = false, int $lifetime = null): bool
+=======
+    public function regenerate(bool $destroy = false, ?int $lifetime = null): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$this->started) {
             $this->start();
@@ -82,7 +95,11 @@ class MockFileSessionStorage extends MockArraySessionStorage
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function save()
     {

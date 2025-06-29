@@ -30,6 +30,7 @@ class DateComparator extends Comparator
         }
 
         try {
+<<<<<<< HEAD
             $date = new \DateTime($matches[2]);
             $target = $date->format('U');
         } catch (\Exception $e) {
@@ -37,6 +38,15 @@ class DateComparator extends Comparator
         }
 
         $operator = $matches[1] ?? '==';
+=======
+            $date = new \DateTimeImmutable($matches[2]);
+            $target = $date->format('U');
+        } catch (\Exception) {
+            throw new \InvalidArgumentException(sprintf('"%s" is not a valid date.', $matches[2]));
+        }
+
+        $operator = $matches[1] ?: '==';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if ('since' === $operator || 'after' === $operator) {
             $operator = '>';
         }

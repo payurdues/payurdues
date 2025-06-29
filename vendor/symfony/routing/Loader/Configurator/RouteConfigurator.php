@@ -24,7 +24,11 @@ class RouteConfigurator
 
     protected $parentConfigurator;
 
+<<<<<<< HEAD
     public function __construct(RouteCollection $collection, RouteCollection $route, string $name = '', CollectionConfigurator $parentConfigurator = null, array $prefixes = null)
+=======
+    public function __construct(RouteCollection $collection, RouteCollection $route, string $name = '', ?CollectionConfigurator $parentConfigurator = null, ?array $prefixes = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->collection = $collection;
         $this->route = $route;
@@ -42,7 +46,18 @@ class RouteConfigurator
      */
     final public function host(string|array $host): static
     {
+<<<<<<< HEAD
         $this->addHost($this->route, $host);
+=======
+        $previousRoutes = clone $this->route;
+        $this->addHost($this->route, $host);
+        foreach ($previousRoutes as $name => $route) {
+            if (!$this->route->get($name)) {
+                $this->collection->remove($name);
+            }
+        }
+        $this->collection->addCollection($this->route);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         return $this;
     }

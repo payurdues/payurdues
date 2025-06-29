@@ -30,6 +30,10 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
     private const QUERY_FRAGMENT_DECODED = [
         // RFC 3986 explicitly allows those in the query/fragment to reference other URIs unencoded
         '%2F' => '/',
+<<<<<<< HEAD
+=======
+        '%252F' => '%2F',
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         '%3F' => '?',
         // reserved chars that have no special meaning for HTTP URIs in a query or fragment
         // this excludes esp. "&", "=" and also "+" because PHP would treat it as a space (form-encoded)
@@ -82,7 +86,11 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
         '%7C' => '|',
     ];
 
+<<<<<<< HEAD
     public function __construct(RouteCollection $routes, RequestContext $context, LoggerInterface $logger = null, string $defaultLocale = null)
+=======
+    public function __construct(RouteCollection $routes, RequestContext $context, ?LoggerInterface $logger = null, ?string $defaultLocale = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->routes = $routes;
         $this->context = $context;
@@ -91,37 +99,52 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setContext(RequestContext $context)
     {
         $this->context = $context;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getContext(): RequestContext
     {
         return $this->context;
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setStrictRequirements(?bool $enabled)
     {
         $this->strictRequirements = $enabled;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function isStrictRequirements(): ?bool
     {
         return $this->strictRequirements;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
@@ -131,6 +154,12 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
         $locale = $parameters['_locale']
             ?? $this->context->getParameter('_locale')
             ?: $this->defaultLocale;
+=======
+    public function generate(string $name, array $parameters = [], int $referenceType = self::ABSOLUTE_PATH): string
+    {
+        $route = null;
+        $locale = $parameters['_locale'] ?? $this->context->getParameter('_locale') ?: $this->defaultLocale;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if (null !== $locale) {
             do {
@@ -140,7 +169,11 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
             } while (false !== $locale = strstr($locale, '_', true));
         }
 
+<<<<<<< HEAD
         if (null === $route = $route ?? $this->routes->get($name)) {
+=======
+        if (null === $route ??= $this->routes->get($name)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             throw new RouteNotFoundException(sprintf('Unable to generate a URL for the named route "%s" as such route does not exist.', $name));
         }
 
@@ -173,7 +206,11 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
 
         // all params must be given
         if ($diff = array_diff_key($variables, $mergedParams)) {
+<<<<<<< HEAD
             throw new MissingMandatoryParametersException(sprintf('Some mandatory parameters are missing ("%s") to generate a URL for route "%s".', implode('", "', array_keys($diff)), $name));
+=======
+            throw new MissingMandatoryParametersException($name, array_keys($diff));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         $url = '';
@@ -192,9 +229,13 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
                             throw new InvalidParameterException(strtr($message, ['{parameter}' => $varName, '{route}' => $name, '{expected}' => $token[2], '{given}' => $mergedParams[$varName]]));
                         }
 
+<<<<<<< HEAD
                         if ($this->logger) {
                             $this->logger->error($message, ['parameter' => $varName, 'route' => $name, 'expected' => $token[2], 'given' => $mergedParams[$varName]]);
                         }
+=======
+                        $this->logger?->error($message, ['parameter' => $varName, 'route' => $name, 'expected' => $token[2], 'given' => $mergedParams[$varName]]);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
                         return '';
                     }
@@ -247,9 +288,13 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
                             throw new InvalidParameterException(strtr($message, ['{parameter}' => $token[3], '{route}' => $name, '{expected}' => $token[2], '{given}' => $mergedParams[$token[3]]]));
                         }
 
+<<<<<<< HEAD
                         if ($this->logger) {
                             $this->logger->error($message, ['parameter' => $token[3], 'route' => $name, 'expected' => $token[2], 'given' => $mergedParams[$token[3]]]);
                         }
+=======
+                        $this->logger?->error($message, ['parameter' => $token[3], 'route' => $name, 'expected' => $token[2], 'given' => $mergedParams[$token[3]]]);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
                         return '';
                     }
@@ -289,9 +334,13 @@ class UrlGenerator implements UrlGeneratorInterface, ConfigurableRequirementsInt
         }
 
         // add a query string if needed
+<<<<<<< HEAD
         $extra = array_udiff_assoc(array_diff_key($parameters, $variables), $defaults, function ($a, $b) {
             return $a == $b ? 0 : 1;
         });
+=======
+        $extra = array_udiff_assoc(array_diff_key($parameters, $variables), $defaults, fn ($a, $b) => $a == $b ? 0 : 1);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         array_walk_recursive($extra, $caster = static function (&$v) use (&$caster) {
             if (\is_object($v)) {

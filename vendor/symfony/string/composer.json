@@ -16,13 +16,18 @@
         }
     ],
     "require": {
+<<<<<<< HEAD
         "php": ">=8.0.2",
+=======
+        "php": ">=8.1",
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         "symfony/polyfill-ctype": "~1.8",
         "symfony/polyfill-intl-grapheme": "~1.0",
         "symfony/polyfill-intl-normalizer": "~1.0",
         "symfony/polyfill-mbstring": "~1.0"
     },
     "require-dev": {
+<<<<<<< HEAD
         "symfony/error-handler": "^5.4|^6.0",
         "symfony/http-client": "^5.4|^6.0",
         "symfony/translation-contracts": "^2.0|^3.0",
@@ -30,6 +35,16 @@
     },
     "conflict": {
         "symfony/translation-contracts": "<2.0"
+=======
+        "symfony/error-handler": "^5.4|^6.0|^7.0",
+        "symfony/intl": "^6.2|^7.0",
+        "symfony/http-client": "^5.4|^6.0|^7.0",
+        "symfony/translation-contracts": "^2.5|^3.0",
+        "symfony/var-exporter": "^5.4|^6.0|^7.0"
+    },
+    "conflict": {
+        "symfony/translation-contracts": "<2.5"
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     },
     "autoload": {
         "psr-4": { "Symfony\\Component\\String\\": "" },

@@ -26,18 +26,26 @@ use Symfony\Component\Console\Input\InputOption;
  */
 class JsonDescriptor extends Descriptor
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function describeInputArgument(InputArgument $argument, array $options = [])
+=======
+    protected function describeInputArgument(InputArgument $argument, array $options = []): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->writeData($this->getInputArgumentData($argument), $options);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function describeInputOption(InputOption $option, array $options = [])
+=======
+    protected function describeInputOption(InputOption $option, array $options = []): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->writeData($this->getInputOptionData($option), $options);
         if ($option->isNegatable()) {
@@ -45,26 +53,38 @@ class JsonDescriptor extends Descriptor
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function describeInputDefinition(InputDefinition $definition, array $options = [])
+=======
+    protected function describeInputDefinition(InputDefinition $definition, array $options = []): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->writeData($this->getInputDefinitionData($definition), $options);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function describeCommand(Command $command, array $options = [])
+=======
+    protected function describeCommand(Command $command, array $options = []): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->writeData($this->getCommandData($command, $options['short'] ?? false), $options);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function describeApplication(Application $application, array $options = [])
+=======
+    protected function describeApplication(Application $application, array $options = []): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $describedNamespace = $options['namespace'] ?? null;
         $description = new ApplicationDescription($application, $describedNamespace, true);
@@ -96,7 +116,11 @@ class JsonDescriptor extends Descriptor
     /**
      * Writes data as json.
      */
+<<<<<<< HEAD
     private function writeData(array $data, array $options)
+=======
+    private function writeData(array $data, array $options): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $flags = $options['json_encoding'] ?? 0;
 

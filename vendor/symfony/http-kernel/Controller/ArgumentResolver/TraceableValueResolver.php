@@ -13,6 +13,10 @@ namespace Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+<<<<<<< HEAD
+=======
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Stopwatch\Stopwatch;
 
@@ -21,23 +25,44 @@ use Symfony\Component\Stopwatch\Stopwatch;
  *
  * @author Iltar van der Berg <kjarli@gmail.com>
  */
+<<<<<<< HEAD
 final class TraceableValueResolver implements ArgumentValueResolverInterface
 {
     private $inner;
     private $stopwatch;
 
     public function __construct(ArgumentValueResolverInterface $inner, Stopwatch $stopwatch)
+=======
+final class TraceableValueResolver implements ArgumentValueResolverInterface, ValueResolverInterface
+{
+    private ArgumentValueResolverInterface|ValueResolverInterface $inner;
+    private Stopwatch $stopwatch;
+
+    public function __construct(ArgumentValueResolverInterface|ValueResolverInterface $inner, Stopwatch $stopwatch)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->inner = $inner;
         $this->stopwatch = $stopwatch;
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      */
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
         $method = \get_class($this->inner).'::'.__FUNCTION__;
+=======
+     * @deprecated since Symfony 6.2, use resolve() instead
+     */
+    public function supports(Request $request, ArgumentMetadata $argument): bool
+    {
+        if ($this->inner instanceof ValueResolverInterface) {
+            return true;
+        }
+
+        $method = $this->inner::class.'::'.__FUNCTION__;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $this->stopwatch->start($method, 'controller.argument_value_resolver');
 
         $return = $this->inner->supports($request, $argument);
@@ -47,12 +72,18 @@ final class TraceableValueResolver implements ArgumentValueResolverInterface
         return $return;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $method = \get_class($this->inner).'::'.__FUNCTION__;
+=======
+    public function resolve(Request $request, ArgumentMetadata $argument): iterable
+    {
+        $method = $this->inner::class.'::'.__FUNCTION__;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $this->stopwatch->start($method, 'controller.argument_value_resolver');
 
         yield from $this->inner->resolve($request, $argument);

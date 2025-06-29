@@ -16,33 +16,45 @@ use Symfony\Component\Console\Command\Command;
 
 final class CommandIsSuccessful extends Constraint
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function toString(): string
     {
         return 'is successful';
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function matches($other): bool
     {
         return Command::SUCCESS === $other;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function failureDescription($other): string
     {
         return 'the command '.$this->toString();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function additionalFailureDescription($other): string
     {
         $mapping = [

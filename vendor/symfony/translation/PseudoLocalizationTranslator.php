@@ -20,7 +20,11 @@ final class PseudoLocalizationTranslator implements TranslatorInterface
 {
     private const EXPANSION_CHARACTER = '~';
 
+<<<<<<< HEAD
     private $translator;
+=======
+    private TranslatorInterface $translator;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private bool $accents;
     private float $expansionFactor;
     private bool $brackets;
@@ -83,10 +87,14 @@ final class PseudoLocalizationTranslator implements TranslatorInterface
         $this->localizableHTMLAttributes = $options['localizable_html_attributes'] ?? [];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null): string
+=======
+    public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $trans = '';
         $visibleText = '';
@@ -123,7 +131,11 @@ final class PseudoLocalizationTranslator implements TranslatorInterface
             return [[true, true, $originalTrans]];
         }
 
+<<<<<<< HEAD
         $html = mb_encode_numericentity($originalTrans, [0x80, 0xFFFF, 0, 0xFFFF], mb_detect_encoding($originalTrans, null, true) ?: 'UTF-8');
+=======
+        $html = mb_encode_numericentity($originalTrans, [0x80, 0x10FFFF, 0, 0x1FFFFF], mb_detect_encoding($originalTrans, null, true) ?: 'UTF-8');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         $useInternalErrors = libxml_use_internal_errors(true);
 

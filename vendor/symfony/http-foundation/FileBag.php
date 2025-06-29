@@ -32,7 +32,11 @@ class FileBag extends ParameterBag
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function replace(array $files = [])
     {
@@ -41,7 +45,11 @@ class FileBag extends ParameterBag
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function set(string $key, mixed $value)
     {
@@ -53,7 +61,11 @@ class FileBag extends ParameterBag
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function add(array $files = [])
     {
@@ -84,7 +96,11 @@ class FileBag extends ParameterBag
                 $file = new UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['error'], false);
             }
         } else {
+<<<<<<< HEAD
             $file = array_map(function ($v) { return $v instanceof UploadedFile || \is_array($v) ? $this->convertFileInformation($v) : $v; }, $file);
+=======
+            $file = array_map(fn ($v) => $v instanceof UploadedFile || \is_array($v) ? $this->convertFileInformation($v) : $v, $file);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             if (array_keys($keys) === $keys) {
                 $file = array_filter($file);
             }

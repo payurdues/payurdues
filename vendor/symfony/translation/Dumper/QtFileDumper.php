@@ -20,9 +20,12 @@ use Symfony\Component\Translation\MessageCatalogue;
  */
 class QtFileDumper extends FileDumper
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function formatCatalogue(MessageCatalogue $messages, string $domain, array $options = []): string
     {
         $dom = new \DOMDocument('1.0', 'utf-8');
@@ -51,9 +54,12 @@ class QtFileDumper extends FileDumper
         return $dom->saveXML();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function getExtension(): string
     {
         return 'ts';

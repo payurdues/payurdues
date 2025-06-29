@@ -22,17 +22,25 @@ use Symfony\Component\Mailer\EventListener\MessageLoggerListener;
  */
 final class MessageDataCollector extends DataCollector
 {
+<<<<<<< HEAD
     private $events;
+=======
+    private MessageEvents $events;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(MessageLoggerListener $logger)
     {
         $this->events = $logger->getEvents();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function collect(Request $request, Response $response, \Throwable $exception = null)
+=======
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->data['events'] = $this->events;
     }
@@ -50,17 +58,24 @@ final class MessageDataCollector extends DataCollector
         return base64_encode($data);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function reset()
+=======
+    public function reset(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->data = [];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'mailer';

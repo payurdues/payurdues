@@ -22,9 +22,15 @@ use Symfony\Component\Process\Process;
  */
 class UnixPipes extends AbstractPipes
 {
+<<<<<<< HEAD
     private $ttyMode;
     private $ptyMode;
     private $haveReadSupport;
+=======
+    private ?bool $ttyMode;
+    private bool $ptyMode;
+    private bool $haveReadSupport;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(?bool $ttyMode, bool $ptyMode, mixed $input, bool $haveReadSupport)
     {
@@ -40,7 +46,11 @@ class UnixPipes extends AbstractPipes
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
+<<<<<<< HEAD
     public function __wakeup()
+=======
+    public function __wakeup(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }
@@ -50,9 +60,12 @@ class UnixPipes extends AbstractPipes
         $this->close();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getDescriptors(): array
     {
         if (!$this->haveReadSupport) {
@@ -77,7 +90,11 @@ class UnixPipes extends AbstractPipes
             return [
                 ['pty'],
                 ['pty'],
+<<<<<<< HEAD
                 ['pty'],
+=======
+                ['pipe', 'w'], // stderr needs to be in a pipe to correctly split error and output, since PHP will use the same stream for both
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             ];
         }
 
@@ -88,17 +105,23 @@ class UnixPipes extends AbstractPipes
         ];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getFiles(): array
     {
         return [];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function readAndWrite(bool $blocking, bool $close = false): array
     {
         $this->unblock();
@@ -109,7 +132,11 @@ class UnixPipes extends AbstractPipes
         unset($r[0]);
 
         // let's have a look if something changed in streams
+<<<<<<< HEAD
         set_error_handler([$this, 'handleError']);
+=======
+        set_error_handler($this->handleError(...));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if (($r || $w) && false === stream_select($r, $w, $e, 0, $blocking ? Process::TIMEOUT_PRECISION * 1E6 : 0)) {
             restore_error_handler();
             // if a system call has been interrupted, forget about it, let's try again
@@ -145,17 +172,23 @@ class UnixPipes extends AbstractPipes
         return $read;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function haveReadSupport(): bool
     {
         return $this->haveReadSupport;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function areOpen(): bool
     {
         return (bool) $this->pipes;

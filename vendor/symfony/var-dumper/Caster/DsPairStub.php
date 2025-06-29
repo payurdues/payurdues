@@ -18,7 +18,11 @@ use Symfony\Component\VarDumper\Cloner\Stub;
  */
 class DsPairStub extends Stub
 {
+<<<<<<< HEAD
     public function __construct(string|int $key, mixed $value)
+=======
+    public function __construct(mixed $key, mixed $value)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->value = [
             Caster::PREFIX_VIRTUAL.'key' => $key,

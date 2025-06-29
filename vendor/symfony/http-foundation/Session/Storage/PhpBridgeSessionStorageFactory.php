@@ -22,11 +22,19 @@ class_exists(PhpBridgeSessionStorage::class);
  */
 class PhpBridgeSessionStorageFactory implements SessionStorageFactoryInterface
 {
+<<<<<<< HEAD
     private $handler;
     private $metaBag;
     private bool $secure;
 
     public function __construct(AbstractProxy|\SessionHandlerInterface $handler = null, MetadataBag $metaBag = null, bool $secure = false)
+=======
+    private AbstractProxy|\SessionHandlerInterface|null $handler;
+    private ?MetadataBag $metaBag;
+    private bool $secure;
+
+    public function __construct(AbstractProxy|\SessionHandlerInterface|null $handler = null, ?MetadataBag $metaBag = null, bool $secure = false)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->handler = $handler;
         $this->metaBag = $metaBag;
@@ -36,7 +44,11 @@ class PhpBridgeSessionStorageFactory implements SessionStorageFactoryInterface
     public function createStorage(?Request $request): SessionStorageInterface
     {
         $storage = new PhpBridgeSessionStorage($this->handler, $this->metaBag);
+<<<<<<< HEAD
         if ($this->secure && $request && $request->isSecure()) {
+=======
+        if ($this->secure && $request?->isSecure()) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $storage->setOptions(['cookie_secure' => true]);
         }
 

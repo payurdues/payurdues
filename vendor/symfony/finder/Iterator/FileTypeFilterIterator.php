@@ -26,8 +26,13 @@ class FileTypeFilterIterator extends \FilterIterator
     private int $mode;
 
     /**
+<<<<<<< HEAD
      * @param \Iterator $iterator The Iterator to filter
      * @param int       $mode     The mode (self::ONLY_FILES or self::ONLY_DIRECTORIES)
+=======
+     * @param \Iterator<string, \SplFileInfo> $iterator The Iterator to filter
+     * @param int                             $mode     The mode (self::ONLY_FILES or self::ONLY_DIRECTORIES)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function __construct(\Iterator $iterator, int $mode)
     {

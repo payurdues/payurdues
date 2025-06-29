@@ -14,12 +14,26 @@ namespace Symfony\Component\Mailer;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\Bridge\Amazon\Transport\SesTransportFactory;
+<<<<<<< HEAD
 use Symfony\Component\Mailer\Bridge\Google\Transport\GmailTransportFactory;
 use Symfony\Component\Mailer\Bridge\Mailchimp\Transport\MandrillTransportFactory;
 use Symfony\Component\Mailer\Bridge\Mailgun\Transport\MailgunTransportFactory;
 use Symfony\Component\Mailer\Bridge\Mailjet\Transport\MailjetTransportFactory;
 use Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpTransportFactory;
 use Symfony\Component\Mailer\Bridge\Postmark\Transport\PostmarkTransportFactory;
+=======
+use Symfony\Component\Mailer\Bridge\Brevo\Transport\BrevoTransportFactory;
+use Symfony\Component\Mailer\Bridge\Google\Transport\GmailTransportFactory;
+use Symfony\Component\Mailer\Bridge\Infobip\Transport\InfobipTransportFactory;
+use Symfony\Component\Mailer\Bridge\Mailchimp\Transport\MandrillTransportFactory;
+use Symfony\Component\Mailer\Bridge\MailerSend\Transport\MailerSendTransportFactory;
+use Symfony\Component\Mailer\Bridge\Mailgun\Transport\MailgunTransportFactory;
+use Symfony\Component\Mailer\Bridge\Mailjet\Transport\MailjetTransportFactory;
+use Symfony\Component\Mailer\Bridge\MailPace\Transport\MailPaceTransportFactory;
+use Symfony\Component\Mailer\Bridge\OhMySmtp\Transport\OhMySmtpTransportFactory;
+use Symfony\Component\Mailer\Bridge\Postmark\Transport\PostmarkTransportFactory;
+use Symfony\Component\Mailer\Bridge\Scaleway\Transport\ScalewayTransportFactory;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Symfony\Component\Mailer\Bridge\Sendgrid\Transport\SendgridTransportFactory;
 use Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueTransportFactory;
 use Symfony\Component\Mailer\Exception\InvalidArgumentException;
@@ -43,12 +57,26 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 final class Transport
 {
     private const FACTORY_CLASSES = [
+<<<<<<< HEAD
         GmailTransportFactory::class,
         MailgunTransportFactory::class,
         MailjetTransportFactory::class,
         MandrillTransportFactory::class,
         OhMySmtpTransportFactory::class,
         PostmarkTransportFactory::class,
+=======
+        BrevoTransportFactory::class,
+        GmailTransportFactory::class,
+        InfobipTransportFactory::class,
+        MailerSendTransportFactory::class,
+        MailgunTransportFactory::class,
+        MailjetTransportFactory::class,
+        MailPaceTransportFactory::class,
+        MandrillTransportFactory::class,
+        OhMySmtpTransportFactory::class,
+        PostmarkTransportFactory::class,
+        ScalewayTransportFactory::class,
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         SendgridTransportFactory::class,
         SendinblueTransportFactory::class,
         SesTransportFactory::class,
@@ -56,14 +84,22 @@ final class Transport
 
     private iterable $factories;
 
+<<<<<<< HEAD
     public static function fromDsn(string $dsn, EventDispatcherInterface $dispatcher = null, HttpClientInterface $client = null, LoggerInterface $logger = null): TransportInterface
+=======
+    public static function fromDsn(#[\SensitiveParameter] string $dsn, ?EventDispatcherInterface $dispatcher = null, ?HttpClientInterface $client = null, ?LoggerInterface $logger = null): TransportInterface
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $factory = new self(iterator_to_array(self::getDefaultFactories($dispatcher, $client, $logger)));
 
         return $factory->fromString($dsn);
     }
 
+<<<<<<< HEAD
     public static function fromDsns(array $dsns, EventDispatcherInterface $dispatcher = null, HttpClientInterface $client = null, LoggerInterface $logger = null): TransportInterface
+=======
+    public static function fromDsns(#[\SensitiveParameter] array $dsns, ?EventDispatcherInterface $dispatcher = null, ?HttpClientInterface $client = null, ?LoggerInterface $logger = null): TransportInterface
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $factory = new self(iterator_to_array(self::getDefaultFactories($dispatcher, $client, $logger)));
 
@@ -78,7 +114,11 @@ final class Transport
         $this->factories = $factories;
     }
 
+<<<<<<< HEAD
     public function fromStrings(array $dsns): Transports
+=======
+    public function fromStrings(#[\SensitiveParameter] array $dsns): Transports
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $transports = [];
         foreach ($dsns as $name => $dsn) {
@@ -88,17 +128,29 @@ final class Transport
         return new Transports($transports);
     }
 
+<<<<<<< HEAD
     public function fromString(string $dsn): TransportInterface
     {
         [$transport, $offset] = $this->parseDsn($dsn);
         if ($offset !== \strlen($dsn)) {
             throw new InvalidArgumentException(sprintf('The DSN has some garbage at the end: "%s".', substr($dsn, $offset)));
+=======
+    public function fromString(#[\SensitiveParameter] string $dsn): TransportInterface
+    {
+        [$transport, $offset] = $this->parseDsn($dsn);
+        if ($offset !== \strlen($dsn)) {
+            throw new InvalidArgumentException('The mailer DSN has some garbage at the end.');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         return $transport;
     }
 
+<<<<<<< HEAD
     private function parseDsn(string $dsn, int $offset = 0): array
+=======
+    private function parseDsn(#[\SensitiveParameter] string $dsn, int $offset = 0): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         static $keywords = [
             'failover' => FailoverTransport::class,
@@ -159,7 +211,11 @@ final class Transport
     /**
      * @return \Traversable<int, TransportFactoryInterface>
      */
+<<<<<<< HEAD
     public static function getDefaultFactories(EventDispatcherInterface $dispatcher = null, HttpClientInterface $client = null, LoggerInterface $logger = null): \Traversable
+=======
+    public static function getDefaultFactories(?EventDispatcherInterface $dispatcher = null, ?HttpClientInterface $client = null, ?LoggerInterface $logger = null): \Traversable
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         foreach (self::FACTORY_CLASSES as $factoryClass) {
             if (class_exists($factoryClass)) {

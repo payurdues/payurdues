@@ -61,7 +61,11 @@ class StaticPrefixCollection
     /**
      * Adds a route to a group.
      */
+<<<<<<< HEAD
     public function addRoute(string $prefix, array|StaticPrefixCollection $route)
+=======
+    public function addRoute(string $prefix, array|self $route): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         [$prefix, $staticPrefix] = $this->getCommonPrefix($prefix, $prefix);
 
@@ -147,12 +151,20 @@ class StaticPrefixCollection
         $baseLength = \strlen($this->prefix);
         $end = min(\strlen($prefix), \strlen($anotherPrefix));
         $staticLength = null;
+<<<<<<< HEAD
         set_error_handler([__CLASS__, 'handleError']);
+=======
+        set_error_handler(self::handleError(...));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         try {
             for ($i = $baseLength; $i < $end && $prefix[$i] === $anotherPrefix[$i]; ++$i) {
                 if ('(' === $prefix[$i]) {
+<<<<<<< HEAD
                     $staticLength = $staticLength ?? $i;
+=======
+                    $staticLength ??= $i;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                     for ($j = 1 + $i, $n = 1; $j < $end && 0 < $n; ++$j) {
                         if ($prefix[$j] !== $anotherPrefix[$j]) {
                             break 2;
@@ -196,8 +208,15 @@ class StaticPrefixCollection
         return [substr($prefix, 0, $i), substr($prefix, 0, $staticLength ?? $i)];
     }
 
+<<<<<<< HEAD
     public static function handleError(int $type, string $msg)
     {
         return str_contains($msg, 'Compilation failed: lookbehind assertion is not fixed length');
+=======
+    public static function handleError(int $type, string $msg): bool
+    {
+        return str_contains($msg, 'Compilation failed: lookbehind assertion is not fixed length')
+            || str_contains($msg, 'Compilation failed: length of lookbehind assertion is not limited');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

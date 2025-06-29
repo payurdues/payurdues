@@ -22,18 +22,28 @@ class_exists(IntlFormatter::class);
  */
 class MessageFormatter implements MessageFormatterInterface, IntlFormatterInterface
 {
+<<<<<<< HEAD
     private $translator;
     private $intlFormatter;
+=======
+    private TranslatorInterface $translator;
+    private IntlFormatterInterface $intlFormatter;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * @param TranslatorInterface|null $translator An identity translator to use as selector for pluralization
      */
+<<<<<<< HEAD
     public function __construct(TranslatorInterface $translator = null, IntlFormatterInterface $intlFormatter = null)
+=======
+    public function __construct(?TranslatorInterface $translator = null, ?IntlFormatterInterface $intlFormatter = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->translator = $translator ?? new IdentityTranslator();
         $this->intlFormatter = $intlFormatter ?? new IntlFormatter();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
@@ -49,6 +59,13 @@ class MessageFormatter implements MessageFormatterInterface, IntlFormatterInterf
     /**
      * {@inheritdoc}
      */
+=======
+    public function format(string $message, string $locale, array $parameters = []): string
+    {
+        return $this->translator->trans($message, $parameters, null, $locale);
+    }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function formatIntl(string $message, string $locale, array $parameters = []): string
     {
         return $this->intlFormatter->formatIntl($message, $locale, $parameters);

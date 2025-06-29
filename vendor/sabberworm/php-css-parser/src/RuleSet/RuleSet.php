@@ -23,17 +23,34 @@ use Sabberworm\CSS\Rule\Rule;
 abstract class RuleSet implements Renderable, Commentable
 {
     /**
+<<<<<<< HEAD
      * @var array<string, Rule>
+=======
+     * the rules in this rule set, using the property name as the key,
+     * with potentially multiple rules per property name.
+     *
+     * @var array<string, array<int<0, max>, Rule>>
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     private $aRules;
 
     /**
      * @var int
+<<<<<<< HEAD
+=======
+     *
+     * @internal since 8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected $iLineNo;
 
     /**
      * @var array<array-key, Comment>
+<<<<<<< HEAD
+=======
+     *
+     * @internal since 8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected $aComments;
 
@@ -52,17 +69,34 @@ abstract class RuleSet implements Renderable, Commentable
      *
      * @throws UnexpectedTokenException
      * @throws UnexpectedEOFException
+<<<<<<< HEAD
+=======
+     *
+     * @internal since V8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public static function parseRuleSet(ParserState $oParserState, RuleSet $oRuleSet)
     {
         while ($oParserState->comes(';')) {
             $oParserState->consume(';');
         }
+<<<<<<< HEAD
         while (!$oParserState->comes('}')) {
             $oRule = null;
             if ($oParserState->getSettings()->bLenientParsing) {
                 try {
                     $oRule = Rule::parse($oParserState);
+=======
+        while (true) {
+            $commentsBeforeRule = $oParserState->consumeWhiteSpace();
+            if ($oParserState->comes('}')) {
+                break;
+            }
+            $oRule = null;
+            if ($oParserState->getSettings()->bLenientParsing) {
+                try {
+                    $oRule = Rule::parse($oParserState, $commentsBeforeRule);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 } catch (UnexpectedTokenException $e) {
                     try {
                         $sConsume = $oParserState->consumeUntil(["\n", ";", '}'], true);
@@ -80,7 +114,11 @@ abstract class RuleSet implements Renderable, Commentable
                     }
                 }
             } else {
+<<<<<<< HEAD
                 $oRule = Rule::parse($oParserState);
+=======
+                $oRule = Rule::parse($oParserState, $commentsBeforeRule);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
             if ($oRule) {
                 $oRuleSet->addRule($oRule);
@@ -262,6 +300,11 @@ abstract class RuleSet implements Renderable, Commentable
 
     /**
      * @return string
+<<<<<<< HEAD
+=======
+     *
+     * @deprecated in V8.8.0, will be removed in V9.0.0. Use `render` instead.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function __toString()
     {
@@ -276,6 +319,7 @@ abstract class RuleSet implements Renderable, Commentable
         $sResult = '';
         $bIsFirst = true;
         $oNextLevel = $oOutputFormat->nextLevel();
+<<<<<<< HEAD
         foreach ($this->aRules as $aRules) {
             foreach ($aRules as $oRule) {
                 $sRendered = $oNextLevel->safely(function () use ($oRule, $oNextLevel) {
@@ -292,6 +336,22 @@ abstract class RuleSet implements Renderable, Commentable
                 }
                 $sResult .= $sRendered;
             }
+=======
+        foreach ($this->getRules() as $oRule) {
+            $sRendered = $oNextLevel->safely(function () use ($oRule, $oNextLevel) {
+                return $oRule->render($oNextLevel);
+            });
+            if ($sRendered === null) {
+                continue;
+            }
+            if ($bIsFirst) {
+                $bIsFirst = false;
+                $sResult .= $oNextLevel->spaceBeforeRules();
+            } else {
+                $sResult .= $oNextLevel->spaceBetweenRules();
+            }
+            $sResult .= $sRendered;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         if (!$bIsFirst) {

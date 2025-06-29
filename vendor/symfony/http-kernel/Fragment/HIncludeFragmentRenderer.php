@@ -13,8 +13,13 @@ namespace Symfony\Component\HttpKernel\Fragment;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\UriSigner;
+=======
+use Symfony\Component\HttpFoundation\UriSigner;
+use Symfony\Component\HttpKernel\Controller\ControllerReference;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Twig\Environment;
 
 /**
@@ -25,6 +30,7 @@ use Twig\Environment;
 class HIncludeFragmentRenderer extends RoutableFragmentRenderer
 {
     private ?string $globalDefaultTemplate;
+<<<<<<< HEAD
     private $signer;
     private $twig;
     private string $charset;
@@ -33,6 +39,16 @@ class HIncludeFragmentRenderer extends RoutableFragmentRenderer
      * @param string $globalDefaultTemplate The global default content (it can be a template name or the content)
      */
     public function __construct(Environment $twig = null, UriSigner $signer = null, string $globalDefaultTemplate = null, string $charset = 'utf-8')
+=======
+    private ?UriSigner $signer;
+    private ?Environment $twig;
+    private string $charset;
+
+    /**
+     * @param string|null $globalDefaultTemplate The global default content (it can be a template name or the content)
+     */
+    public function __construct(?Environment $twig = null, ?UriSigner $signer = null, ?string $globalDefaultTemplate = null, string $charset = 'utf-8')
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->twig = $twig;
         $this->globalDefaultTemplate = $globalDefaultTemplate;
@@ -49,8 +65,11 @@ class HIncludeFragmentRenderer extends RoutableFragmentRenderer
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * Additional available options:
      *
      *  * default:    The default content (it can be a template name or the content)
@@ -92,9 +111,12 @@ class HIncludeFragmentRenderer extends RoutableFragmentRenderer
         return new Response(sprintf('<hx:include src="%s"%s>%s</hx:include>', $uri, $renderedAttributes, $content));
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'hinclude';

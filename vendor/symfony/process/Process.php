@@ -17,7 +17,10 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Exception\ProcessSignaledException;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Exception\RuntimeException;
+<<<<<<< HEAD
 use Symfony\Component\Process\Pipes\PipesInterface;
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Symfony\Component\Process\Pipes\UnixPipes;
 use Symfony\Component\Process\Pipes\WindowsPipes;
 
@@ -51,6 +54,7 @@ class Process implements \IteratorAggregate
     public const ITER_SKIP_OUT = 4;     // Use this flag to skip STDOUT while iterating
     public const ITER_SKIP_ERR = 8;     // Use this flag to skip STDERR while iterating
 
+<<<<<<< HEAD
     private $callback;
     private $hasCallback = false;
     private $commandline;
@@ -82,6 +86,40 @@ class Process implements \IteratorAggregate
     private $latestSignal;
 
     private static $sigchild;
+=======
+    private ?\Closure $callback = null;
+    private array|string $commandline;
+    private ?string $cwd;
+    private array $env = [];
+    /** @var resource|string|\Iterator|null */
+    private $input;
+    private ?float $starttime = null;
+    private ?float $lastOutputTime = null;
+    private ?float $timeout = null;
+    private ?float $idleTimeout = null;
+    private ?int $exitcode = null;
+    private array $fallbackStatus = [];
+    private array $processInformation;
+    private bool $outputDisabled = false;
+    /** @var resource */
+    private $stdout;
+    /** @var resource */
+    private $stderr;
+    /** @var resource|null */
+    private $process;
+    private string $status = self::STATUS_READY;
+    private int $incrementalOutputOffset = 0;
+    private int $incrementalErrorOutputOffset = 0;
+    private bool $tty = false;
+    private bool $pty;
+    private array $options = ['suppress_errors' => true, 'bypass_shell' => true];
+
+    private WindowsPipes|UnixPipes $processPipes;
+
+    private ?int $latestSignal = null;
+
+    private static ?bool $sigchild = null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Exit codes translation table.
@@ -140,7 +178,11 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException When proc_open is not installed
      */
+<<<<<<< HEAD
     public function __construct(array $command, string $cwd = null, array $env = null, mixed $input = null, ?float $timeout = 60)
+=======
+    public function __construct(array $command, ?string $cwd = null, ?array $env = null, mixed $input = null, ?float $timeout = 60)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!\function_exists('proc_open')) {
             throw new LogicException('The Process class relies on proc_open, which is not available on your PHP installation.');
@@ -162,7 +204,10 @@ class Process implements \IteratorAggregate
 
         $this->setInput($input);
         $this->setTimeout($timeout);
+<<<<<<< HEAD
         $this->useFileHandles = '\\' === \DIRECTORY_SEPARATOR;
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $this->pty = false;
     }
 
@@ -187,7 +232,11 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException When proc_open is not installed
      */
+<<<<<<< HEAD
     public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, mixed $input = null, ?float $timeout = 60): static
+=======
+    public static function fromShellCommandline(string $command, ?string $cwd = null, ?array $env = null, mixed $input = null, ?float $timeout = 60): static
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $process = new static([], $cwd, $env, $input, $timeout);
         $process->commandline = $command;
@@ -200,6 +249,12 @@ class Process implements \IteratorAggregate
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function __wakeup()
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
@@ -242,7 +297,11 @@ class Process implements \IteratorAggregate
      *
      * @final
      */
+<<<<<<< HEAD
     public function run(callable $callback = null, array $env = []): int
+=======
+    public function run(?callable $callback = null, array $env = []): int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->start($callback, $env);
 
@@ -261,7 +320,11 @@ class Process implements \IteratorAggregate
      *
      * @final
      */
+<<<<<<< HEAD
     public function mustRun(callable $callback = null, array $env = []): static
+=======
+    public function mustRun(?callable $callback = null, array $env = []): static
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (0 !== $this->run($callback, $env)) {
             throw new ProcessFailedException($this);
@@ -285,11 +348,20 @@ class Process implements \IteratorAggregate
      * @param callable|null $callback A PHP callback to run whenever there is some
      *                                output available on STDOUT or STDERR
      *
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws RuntimeException When process can't be launched
      * @throws RuntimeException When process is already running
      * @throws LogicException   In case a callback is provided and output has been disabled
      */
+<<<<<<< HEAD
     public function start(callable $callback = null, array $env = [])
+=======
+    public function start(?callable $callback = null, array $env = [])
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($this->isRunning()) {
             throw new RuntimeException('Process is already running.');
@@ -298,8 +370,12 @@ class Process implements \IteratorAggregate
         $this->resetProcessData();
         $this->starttime = $this->lastOutputTime = microtime(true);
         $this->callback = $this->buildCallback($callback);
+<<<<<<< HEAD
         $this->hasCallback = null !== $callback;
         $descriptors = $this->getDescriptors();
+=======
+        $descriptors = $this->getDescriptors(null !== $callback);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if ($this->env) {
             $env += '\\' === \DIRECTORY_SEPARATOR ? array_diff_ukey($this->env, $env, 'strcasecmp') : $this->env;
@@ -308,7 +384,11 @@ class Process implements \IteratorAggregate
         $env += '\\' === \DIRECTORY_SEPARATOR ? array_diff_ukey($this->getDefaultEnv(), $env, 'strcasecmp') : $this->getDefaultEnv();
 
         if (\is_array($commandline = $this->commandline)) {
+<<<<<<< HEAD
             $commandline = implode(' ', array_map([$this, 'escapeArgument'], $commandline));
+=======
+            $commandline = implode(' ', array_map($this->escapeArgument(...), $commandline));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             if ('\\' !== \DIRECTORY_SEPARATOR) {
                 // exec is mandatory to deal with sending a signal to the process
@@ -320,17 +400,25 @@ class Process implements \IteratorAggregate
 
         if ('\\' === \DIRECTORY_SEPARATOR) {
             $commandline = $this->prepareWindowsCommandLine($commandline, $env);
+<<<<<<< HEAD
         } elseif (!$this->useFileHandles && $this->isSigchildEnabled()) {
+=======
+        } elseif ($this->isSigchildEnabled()) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             // last exit code is output on the fourth pipe and caught to work around --enable-sigchild
             $descriptors[3] = ['pipe', 'w'];
 
             // See https://unix.stackexchange.com/questions/71205/background-process-pipe-input
             $commandline = '{ ('.$commandline.') <&3 3<&- 3>/dev/null & } 3<&0;';
+<<<<<<< HEAD
             $commandline .= 'pid=$!; echo $pid >&3; wait $pid; code=$?; echo $code >&3; exit $code';
 
             // Workaround for the bug, when PTS functionality is enabled.
             // @see : https://bugs.php.net/69442
             $ptsWorkaround = fopen(__FILE__, 'r');
+=======
+            $commandline .= 'pid=$!; echo $pid >&3; wait $pid 2>/dev/null; code=$?; echo $code >&3; exit $code';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         $envPairs = [];
@@ -344,11 +432,20 @@ class Process implements \IteratorAggregate
             throw new RuntimeException(sprintf('The provided cwd "%s" does not exist.', $this->cwd));
         }
 
+<<<<<<< HEAD
         $this->process = @proc_open($commandline, $descriptors, $this->processPipes->pipes, $this->cwd, $envPairs, $this->options);
 
         if (!\is_resource($this->process)) {
             throw new RuntimeException('Unable to launch a new process.');
         }
+=======
+        $process = @proc_open($commandline, $descriptors, $this->processPipes->pipes, $this->cwd, $envPairs, $this->options);
+
+        if (!$process) {
+            throw new RuntimeException('Unable to launch a new process.');
+        }
+        $this->process = $process;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $this->status = self::STATUS_STARTED;
 
         if (isset($descriptors[3])) {
@@ -378,7 +475,11 @@ class Process implements \IteratorAggregate
      *
      * @final
      */
+<<<<<<< HEAD
     public function restart(callable $callback = null, array $env = []): static
+=======
+    public function restart(?callable $callback = null, array $env = []): static
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($this->isRunning()) {
             throw new RuntimeException('Process is already running.');
@@ -405,7 +506,11 @@ class Process implements \IteratorAggregate
      * @throws ProcessSignaledException When process stopped after receiving signal
      * @throws LogicException           When process is not yet started
      */
+<<<<<<< HEAD
     public function wait(callable $callback = null): int
+=======
+    public function wait(?callable $callback = null): int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->requireProcessIsStarted(__FUNCTION__);
 
@@ -421,7 +526,11 @@ class Process implements \IteratorAggregate
 
         do {
             $this->checkTimeout();
+<<<<<<< HEAD
             $running = '\\' === \DIRECTORY_SEPARATOR ? $this->isRunning() : $this->processPipes->areOpen();
+=======
+            $running = $this->isRunning() && ('\\' === \DIRECTORY_SEPARATOR || $this->processPipes->areOpen());
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $this->readPipes($running, '\\' !== \DIRECTORY_SEPARATOR || !$running);
         } while ($running);
 
@@ -604,6 +713,11 @@ class Process implements \IteratorAggregate
      *
      * @param int $flags A bit field of Process::ITER_* flags
      *
+<<<<<<< HEAD
+=======
+     * @return \Generator<string, string>
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws LogicException in case the output has been disabled
      * @throws LogicException In case the process is not started
      */
@@ -872,11 +986,19 @@ class Process implements \IteratorAggregate
      * Stops the process.
      *
      * @param int|float $timeout The timeout in seconds
+<<<<<<< HEAD
      * @param int       $signal  A POSIX signal to send in case the process has not stop at timeout, default is SIGKILL (9)
      *
      * @return int|null The exit-code of the process or null if it's not running
      */
     public function stop(float $timeout = 10, int $signal = null): ?int
+=======
+     * @param int|null  $signal  A POSIX signal to send in case the process has not stop at timeout, default is SIGKILL (9)
+     *
+     * @return int|null The exit-code of the process or null if it's not running
+     */
+    public function stop(float $timeout = 10, ?int $signal = null): ?int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $timeoutMicro = microtime(true) + $timeout;
         if ($this->isRunning()) {
@@ -910,7 +1032,11 @@ class Process implements \IteratorAggregate
      *
      * @internal
      */
+<<<<<<< HEAD
     public function addOutput(string $line)
+=======
+    public function addOutput(string $line): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->lastOutputTime = microtime(true);
 
@@ -924,7 +1050,11 @@ class Process implements \IteratorAggregate
      *
      * @internal
      */
+<<<<<<< HEAD
     public function addErrorOutput(string $line)
+=======
+    public function addErrorOutput(string $line): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->lastOutputTime = microtime(true);
 
@@ -946,7 +1076,11 @@ class Process implements \IteratorAggregate
      */
     public function getCommandLine(): string
     {
+<<<<<<< HEAD
         return \is_array($this->commandline) ? implode(' ', array_map([$this, 'escapeArgument'], $this->commandline)) : $this->commandline;
+=======
+        return \is_array($this->commandline) ? implode(' ', array_map($this->escapeArgument(...), $this->commandline)) : $this->commandline;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -1115,7 +1249,11 @@ class Process implements \IteratorAggregate
      *
      * This content will be passed to the underlying process standard input.
      *
+<<<<<<< HEAD
      * @param string|int|float|bool|resource|\Traversable|null $input The content
+=======
+     * @param string|resource|\Traversable|self|null $input The content
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      *
      * @return $this
      *
@@ -1138,6 +1276,11 @@ class Process implements \IteratorAggregate
      * In case you run a background process (with the start method), you should
      * trigger this method regularly to ensure the process timeout
      *
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws ProcessTimedOutException In case the timeout was reached
      */
     public function checkTimeout()
@@ -1178,6 +1321,11 @@ class Process implements \IteratorAggregate
      *
      * Enabling the "create_new_console" option allows a subprocess to continue
      * to run after the main process exited, on both Windows and *nix
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setOptions(array $options)
     {
@@ -1204,11 +1352,15 @@ class Process implements \IteratorAggregate
     {
         static $isTtySupported;
 
+<<<<<<< HEAD
         if (null === $isTtySupported) {
             $isTtySupported = (bool) @proc_open('echo 1 >/dev/null', [['file', '/dev/tty', 'r'], ['file', '/dev/tty', 'w'], ['file', '/dev/tty', 'w']], $pipes);
         }
 
         return $isTtySupported;
+=======
+        return $isTtySupported ??= ('/' === \DIRECTORY_SEPARATOR && stream_isatty(\STDOUT) && @is_writable('/dev/tty'));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -1232,15 +1384,25 @@ class Process implements \IteratorAggregate
     /**
      * Creates the descriptors needed by the proc_open.
      */
+<<<<<<< HEAD
     private function getDescriptors(): array
+=======
+    private function getDescriptors(bool $hasCallback): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($this->input instanceof \Iterator) {
             $this->input->rewind();
         }
         if ('\\' === \DIRECTORY_SEPARATOR) {
+<<<<<<< HEAD
             $this->processPipes = new WindowsPipes($this->input, !$this->outputDisabled || $this->hasCallback);
         } else {
             $this->processPipes = new UnixPipes($this->isTty(), $this->isPty(), $this->input, !$this->outputDisabled || $this->hasCallback);
+=======
+            $this->processPipes = new WindowsPipes($this->input, !$this->outputDisabled || $hasCallback);
+        } else {
+            $this->processPipes = new UnixPipes($this->isTty(), $this->isPty(), $this->input, !$this->outputDisabled || $hasCallback);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         return $this->processPipes->getDescriptors();
@@ -1254,12 +1416,19 @@ class Process implements \IteratorAggregate
      *
      * @param callable|null $callback The user defined PHP callback
      */
+<<<<<<< HEAD
     protected function buildCallback(callable $callback = null): \Closure
     {
         if ($this->outputDisabled) {
             return function ($type, $data) use ($callback): bool {
                 return null !== $callback && $callback($type, $data);
             };
+=======
+    protected function buildCallback(?callable $callback = null): \Closure
+    {
+        if ($this->outputDisabled) {
+            return fn ($type, $data): bool => null !== $callback && $callback($type, $data);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         $out = self::OUT;
@@ -1279,6 +1448,11 @@ class Process implements \IteratorAggregate
      * Updates the status of the process, reads pipes.
      *
      * @param bool $blocking Whether to use a blocking read call
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function updateStatus(bool $blocking)
     {
@@ -1286,7 +1460,13 @@ class Process implements \IteratorAggregate
             return;
         }
 
+<<<<<<< HEAD
         $this->processInformation = proc_get_status($this->process);
+=======
+        if ($this->processInformation['running'] ?? true) {
+            $this->processInformation = proc_get_status($this->process);
+        }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $running = $this->processInformation['running'];
 
         $this->readPipes($running && $blocking, '\\' !== \DIRECTORY_SEPARATOR || !$running);
@@ -1327,7 +1507,11 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException in case output has been disabled or process is not started
      */
+<<<<<<< HEAD
     private function readPipesForOutput(string $caller, bool $blocking = false)
+=======
+    private function readPipesForOutput(string $caller, bool $blocking = false): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($this->outputDisabled) {
             throw new LogicException('Output has been disabled.');
@@ -1362,7 +1546,11 @@ class Process implements \IteratorAggregate
      * @param bool $blocking Whether to use blocking calls or not
      * @param bool $close    Whether to close file handles or not
      */
+<<<<<<< HEAD
     private function readPipes(bool $blocking, bool $close)
+=======
+    private function readPipes(bool $blocking, bool $close): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $result = $this->processPipes->readAndWrite($blocking, $close);
 
@@ -1384,8 +1572,14 @@ class Process implements \IteratorAggregate
     private function close(): int
     {
         $this->processPipes->close();
+<<<<<<< HEAD
         if (\is_resource($this->process)) {
             proc_close($this->process);
+=======
+        if ($this->process) {
+            proc_close($this->process);
+            $this->process = null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
         $this->exitcode = $this->processInformation['exitcode'];
         $this->status = self::STATUS_TERMINATED;
@@ -1411,13 +1605,21 @@ class Process implements \IteratorAggregate
     /**
      * Resets data related to the latest run of the process.
      */
+<<<<<<< HEAD
     private function resetProcessData()
+=======
+    private function resetProcessData(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->starttime = null;
         $this->callback = null;
         $this->exitcode = null;
         $this->fallbackStatus = [];
+<<<<<<< HEAD
         $this->processInformation = null;
+=======
+        $this->processInformation = [];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $this->stdout = fopen('php://temp/maxmemory:'.(1024 * 1024), 'w+');
         $this->stderr = fopen('php://temp/maxmemory:'.(1024 * 1024), 'w+');
         $this->process = null;
@@ -1484,8 +1686,11 @@ class Process implements \IteratorAggregate
     private function prepareWindowsCommandLine(string $cmd, array &$env): string
     {
         $uid = uniqid('', true);
+<<<<<<< HEAD
         $varCount = 0;
         $varCache = [];
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $cmd = preg_replace_callback(
             '/"(?:(
                 [^"%!^]*+
@@ -1494,7 +1699,13 @@ class Process implements \IteratorAggregate
                     [^"%!^]*+
                 )++
             ) | [^"]*+ )"/x',
+<<<<<<< HEAD
             function ($m) use (&$env, &$varCache, &$varCount, $uid) {
+=======
+            function ($m) use (&$env, $uid) {
+                static $varCount = 0;
+                static $varCache = [];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 if (!isset($m[1])) {
                     return $m[0];
                 }
@@ -1519,7 +1730,18 @@ class Process implements \IteratorAggregate
             $cmd
         );
 
+<<<<<<< HEAD
         $cmd = 'cmd /V:ON /E:ON /D /C ('.str_replace("\n", ' ', $cmd).')';
+=======
+        static $comSpec;
+
+        if (!$comSpec && $comSpec = (new ExecutableFinder())->find('cmd.exe')) {
+            // Escape according to CommandLineToArgvW rules
+            $comSpec = '"'.preg_replace('{(\\\\*+)"}', '$1$1\"', $comSpec) .'"';
+        }
+
+        $cmd = ($comSpec ?? 'cmd').' /V:ON /E:ON /D /C ('.str_replace("\n", ' ', $cmd).')';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         foreach ($this->processPipes->getFiles() as $offset => $filename) {
             $cmd .= ' '.$offset.'>"'.$filename.'"';
         }
@@ -1532,7 +1754,11 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException if the process has not run
      */
+<<<<<<< HEAD
     private function requireProcessIsStarted(string $functionName)
+=======
+    private function requireProcessIsStarted(string $functionName): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$this->isStarted()) {
             throw new LogicException(sprintf('Process must be started before calling "%s()".', $functionName));
@@ -1544,7 +1770,11 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException if the process is not yet terminated
      */
+<<<<<<< HEAD
     private function requireProcessIsTerminated(string $functionName)
+=======
+    private function requireProcessIsTerminated(string $functionName): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$this->isTerminated()) {
             throw new LogicException(sprintf('Process must be terminated before calling "%s()".', $functionName));
@@ -1565,7 +1795,11 @@ class Process implements \IteratorAggregate
         if (str_contains($argument, "\0")) {
             $argument = str_replace("\0", '?', $argument);
         }
+<<<<<<< HEAD
         if (!preg_match('/[\/()%!^"<>&|\s]/', $argument)) {
+=======
+        if (!preg_match('/[()%!^"<>&|\s]/', $argument)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return $argument;
         }
         $argument = preg_replace('/(\\\\+)$/', '$1$1', $argument);
@@ -1573,7 +1807,11 @@ class Process implements \IteratorAggregate
         return '"'.str_replace(['"', '^', '%', '!', "\n"], ['""', '"^^"', '"^%"', '"^!"', '!LF!'], $argument).'"';
     }
 
+<<<<<<< HEAD
     private function replacePlaceholders(string $commandline, array $env)
+=======
+    private function replacePlaceholders(string $commandline, array $env): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return preg_replace_callback('/"\$\{:([_a-zA-Z]++[_a-zA-Z0-9]*+)\}"/', function ($matches) use ($commandline, $env) {
             if (!isset($env[$matches[1]]) || false === $env[$matches[1]]) {

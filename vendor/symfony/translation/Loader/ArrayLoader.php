@@ -20,9 +20,12 @@ use Symfony\Component\Translation\MessageCatalogue;
  */
 class ArrayLoader implements LoaderInterface
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function load(mixed $resource, string $locale, string $domain = 'messages'): MessageCatalogue
     {
         $resource = $this->flatten($resource);
@@ -46,9 +49,17 @@ class ArrayLoader implements LoaderInterface
         foreach ($messages as $key => $value) {
             if (\is_array($value)) {
                 foreach ($this->flatten($value) as $k => $v) {
+<<<<<<< HEAD
                     $result[$key.'.'.$k] = $v;
                 }
             } else {
+=======
+                    if (null !== $v) {
+                        $result[$key.'.'.$k] = $v;
+                    }
+                }
+            } elseif (null !== $value) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $result[$key] = $value;
             }
         }

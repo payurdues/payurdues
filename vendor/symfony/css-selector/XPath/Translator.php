@@ -30,7 +30,11 @@ use Symfony\Component\CssSelector\Parser\ParserInterface;
  */
 class Translator implements TranslatorInterface
 {
+<<<<<<< HEAD
     private $mainParser;
+=======
+    private ParserInterface $mainParser;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * @var ParserInterface[]
@@ -48,7 +52,11 @@ class Translator implements TranslatorInterface
     private array $pseudoClassTranslators = [];
     private array $attributeMatchingTranslators = [];
 
+<<<<<<< HEAD
     public function __construct(ParserInterface $parser = null)
+=======
+    public function __construct(?ParserInterface $parser = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->mainParser = $parser ?? new Parser();
 
@@ -87,9 +95,12 @@ class Translator implements TranslatorInterface
         return sprintf('concat(%s)', implode(', ', $parts));
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function cssToXPath(string $cssExpr, string $prefix = 'descendant-or-self::'): string
     {
         $selectors = $this->parseSelectors($cssExpr);
@@ -106,9 +117,12 @@ class Translator implements TranslatorInterface
         return implode(' | ', $selectors);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function selectorToXPath(SelectorNode $selector, string $prefix = 'descendant-or-self::'): string
     {
         return ($prefix ?: '').$this->nodeToXPath($selector);
@@ -220,7 +234,11 @@ class Translator implements TranslatorInterface
         foreach ($this->shortcutParsers as $shortcut) {
             $tokens = $shortcut->parse($css);
 
+<<<<<<< HEAD
             if (!empty($tokens)) {
+=======
+            if ($tokens) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 return $tokens;
             }
         }

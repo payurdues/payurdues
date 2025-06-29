@@ -19,9 +19,12 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
  */
 abstract class RedirectableUrlMatcher extends UrlMatcher implements RedirectableUrlMatcherInterface
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function match(string $pathinfo): array
     {
         try {
@@ -39,7 +42,11 @@ abstract class RedirectableUrlMatcher extends UrlMatcher implements Redirectable
                     $ret = parent::match($pathinfo);
 
                     return $this->redirect($pathinfo, $ret['_route'] ?? null, $this->context->getScheme()) + $ret;
+<<<<<<< HEAD
                 } catch (ExceptionInterface $e2) {
+=======
+                } catch (ExceptionInterface) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                     throw $e;
                 } finally {
                     $this->context->setScheme($scheme);
@@ -52,7 +59,11 @@ abstract class RedirectableUrlMatcher extends UrlMatcher implements Redirectable
                     $ret = parent::match($pathinfo);
 
                     return $this->redirect($pathinfo, $ret['_route'] ?? null) + $ret;
+<<<<<<< HEAD
                 } catch (ExceptionInterface $e2) {
+=======
+                } catch (ExceptionInterface) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                     if ($this->allowSchemes) {
                         goto redirect_scheme;
                     }

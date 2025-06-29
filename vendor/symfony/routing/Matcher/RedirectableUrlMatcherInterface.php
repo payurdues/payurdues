@@ -25,5 +25,9 @@ interface RedirectableUrlMatcherInterface
      * @param string      $route  The route name that matched
      * @param string|null $scheme The URL scheme (null to keep the current one)
      */
+<<<<<<< HEAD
     public function redirect(string $path, string $route, string $scheme = null): array;
+=======
+    public function redirect(string $path, string $route, ?string $scheme = null): array;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

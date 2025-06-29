@@ -462,7 +462,7 @@ class StudentTransactionsSeeder extends Seeder
         
             $status = "approved";
 
-            $due_id= 4;
+            $due_id= 1;
 
             // $due_id= 3;
         

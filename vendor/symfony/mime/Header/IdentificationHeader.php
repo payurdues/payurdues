@@ -36,7 +36,11 @@ final class IdentificationHeader extends AbstractHeader
      *
      * @throws RfcComplianceException
      */
+<<<<<<< HEAD
     public function setBody(mixed $body)
+=======
+    public function setBody(mixed $body): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->setId($body);
     }
@@ -53,7 +57,11 @@ final class IdentificationHeader extends AbstractHeader
      *
      * @throws RfcComplianceException
      */
+<<<<<<< HEAD
     public function setId(string|array $id)
+=======
+    public function setId(string|array $id): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->setIds(\is_array($id) ? $id : [$id]);
     }
@@ -75,7 +83,11 @@ final class IdentificationHeader extends AbstractHeader
      *
      * @throws RfcComplianceException
      */
+<<<<<<< HEAD
     public function setIds(array $ids)
+=======
+    public function setIds(array $ids): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->ids = [];
         $this->idsAsAddresses = [];

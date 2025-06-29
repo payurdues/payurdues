@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpKernel\Debug;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -111,5 +112,23 @@ class FileLinkFormatter
         }
 
         return false;
+=======
+use Symfony\Component\ErrorHandler\ErrorRenderer\FileLinkFormatter as ErrorHandlerFileLinkFormatter;
+
+trigger_deprecation('symfony/http-kernel', '6.4', 'The "%s" class is deprecated, use "%s" instead.', FileLinkFormatter::class, ErrorHandlerFileLinkFormatter::class);
+
+class_exists(ErrorHandlerFileLinkFormatter::class);
+
+if (!class_exists(FileLinkFormatter::class, false)) {
+    class_alias(ErrorHandlerFileLinkFormatter::class, FileLinkFormatter::class);
+}
+
+if (false) {
+    /**
+     * @deprecated since Symfony 6.4, use FileLinkFormatter from the ErrorHandler component instead
+     */
+    class FileLinkFormatter extends ErrorHandlerFileLinkFormatter
+    {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

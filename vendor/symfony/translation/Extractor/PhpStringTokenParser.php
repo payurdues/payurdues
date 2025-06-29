@@ -11,6 +11,11 @@
 
 namespace Symfony\Component\Translation\Extractor;
 
+<<<<<<< HEAD
+=======
+trigger_deprecation('symfony/translation', '6.2', '"%s" is deprecated.', PhpStringTokenParser::class);
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 /*
  * The following is derived from code at http://github.com/nikic/PHP-Parser
  *
@@ -47,6 +52,12 @@ namespace Symfony\Component\Translation\Extractor;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+<<<<<<< HEAD
+=======
+/**
+ * @deprecated since Symfony 6.2
+ */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 class PhpStringTokenParser
 {
     protected static $replacements = [
@@ -89,7 +100,11 @@ class PhpStringTokenParser
      * @param string      $str   String without quotes
      * @param string|null $quote Quote type
      */
+<<<<<<< HEAD
     public static function parseEscapeSequences(string $str, string $quote = null): string
+=======
+    public static function parseEscapeSequences(string $str, ?string $quote = null): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null !== $quote) {
             $str = str_replace('\\'.$quote, $quote, $str);

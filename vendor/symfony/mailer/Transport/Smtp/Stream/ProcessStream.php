@@ -24,18 +24,36 @@ use Symfony\Component\Mailer\Exception\TransportException;
 final class ProcessStream extends AbstractStream
 {
     private string $command;
+<<<<<<< HEAD
 
     public function setCommand(string $command)
+=======
+    private bool $interactive = false;
+
+    public function setCommand(string $command): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->command = $command;
     }
 
+<<<<<<< HEAD
+=======
+    public function setInteractive(bool $interactive): void
+    {
+        $this->interactive = $interactive;
+    }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function initialize(): void
     {
         $descriptorSpec = [
             0 => ['pipe', 'r'],
             1 => ['pipe', 'w'],
+<<<<<<< HEAD
             2 => ['pipe', 'w'],
+=======
+            2 => ['pipe', '\\' === \DIRECTORY_SEPARATOR ? 'a' : 'w'],
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         ];
         $pipes = [];
         $this->stream = proc_open($this->command, $descriptorSpec, $pipes);
@@ -45,17 +63,38 @@ final class ProcessStream extends AbstractStream
         }
         $this->in = &$pipes[0];
         $this->out = &$pipes[1];
+<<<<<<< HEAD
+=======
+        $this->err = &$pipes[2];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     public function terminate(): void
     {
         if (null !== $this->stream) {
             fclose($this->in);
+<<<<<<< HEAD
             fclose($this->out);
             proc_close($this->stream);
         }
 
         parent::terminate();
+=======
+            $out = stream_get_contents($this->out);
+            fclose($this->out);
+            $err = stream_get_contents($this->err);
+            fclose($this->err);
+            if (0 !== $exitCode = proc_close($this->stream)) {
+                $errorMessage = 'Process failed with exit code '.$exitCode.': '.$out.$err;
+            }
+        }
+
+        parent::terminate();
+
+        if (!$this->interactive && isset($errorMessage)) {
+            throw new TransportException($errorMessage);
+        }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     protected function getReadConnectionDescription(): string

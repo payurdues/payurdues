@@ -34,8 +34,13 @@ final class TranslationPushCommand extends Command
 {
     use TranslationTrait;
 
+<<<<<<< HEAD
     private $providers;
     private $reader;
+=======
+    private TranslationProviderCollection $providers;
+    private TranslationReaderInterface $reader;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private array $transPaths;
     private array $enabledLocales;
 
@@ -73,10 +78,14 @@ final class TranslationPushCommand extends Command
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function configure()
+=======
+    protected function configure(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $keys = $this->providers->keys();
         $defaultProvider = 1 === \count($keys) ? $keys[0] : null;
@@ -113,15 +122,22 @@ EOF
         ;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $provider = $this->providers->get($input->getArgument('provider'));
 
         if (!$this->enabledLocales) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('You must define "framework.translator.enabled_locales" or "framework.translator.providers.%s.locales" config key in order to work with translation providers.', parse_url($provider, \PHP_URL_SCHEME)));
+=======
+            throw new InvalidArgumentException(sprintf('You must define "framework.enabled_locales" or "framework.translator.providers.%s.locales" config key in order to work with translation providers.', parse_url($provider, \PHP_URL_SCHEME)));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         $io = new SymfonyStyle($input, $output);

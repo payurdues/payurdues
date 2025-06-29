@@ -25,8 +25,13 @@ class ConsoleEvent extends Event
 {
     protected $command;
 
+<<<<<<< HEAD
     private $input;
     private $output;
+=======
+    private InputInterface $input;
+    private OutputInterface $output;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(?Command $command, InputInterface $input, OutputInterface $output)
     {

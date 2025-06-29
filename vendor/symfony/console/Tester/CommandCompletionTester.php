@@ -22,7 +22,11 @@ use Symfony\Component\Console\Completion\CompletionSuggestions;
  */
 class CommandCompletionTester
 {
+<<<<<<< HEAD
     private $command;
+=======
+    private Command $command;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(Command $command)
     {

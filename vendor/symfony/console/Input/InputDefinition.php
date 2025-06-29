@@ -30,8 +30,13 @@ class InputDefinition
 {
     private array $arguments = [];
     private int $requiredCount = 0;
+<<<<<<< HEAD
     private $lastArrayArgument = null;
     private $lastOptionalArgument = null;
+=======
+    private ?InputArgument $lastArrayArgument = null;
+    private ?InputArgument $lastOptionalArgument = null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private array $options = [];
     private array $negations = [];
     private array $shortcuts = [];
@@ -46,6 +51,11 @@ class InputDefinition
 
     /**
      * Sets the definition of the input.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setDefinition(array $definition)
     {
@@ -67,6 +77,11 @@ class InputDefinition
      * Sets the InputArgument objects.
      *
      * @param InputArgument[] $arguments An array of InputArgument objects
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setArguments(array $arguments = [])
     {
@@ -81,6 +96,11 @@ class InputDefinition
      * Adds an array of InputArgument objects.
      *
      * @param InputArgument[] $arguments An array of InputArgument objects
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function addArguments(?array $arguments = [])
     {
@@ -92,6 +112,11 @@ class InputDefinition
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws LogicException When incorrect argument is given
      */
     public function addArgument(InputArgument $argument)
@@ -190,6 +215,11 @@ class InputDefinition
      * Sets the InputOption objects.
      *
      * @param InputOption[] $options An array of InputOption objects
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setOptions(array $options = [])
     {
@@ -203,6 +233,11 @@ class InputDefinition
      * Adds an array of InputOption objects.
      *
      * @param InputOption[] $options An array of InputOption objects
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function addOptions(array $options = [])
     {
@@ -212,6 +247,11 @@ class InputDefinition
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws LogicException When option given already exist
      */
     public function addOption(InputOption $option)

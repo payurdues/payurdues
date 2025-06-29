@@ -19,6 +19,7 @@
         }
     ],
     "require": {
+<<<<<<< HEAD
         "php": "^7.4 || ^8.0",
         "symfony/polyfill-php81": "^1.23"
     },
@@ -45,6 +46,29 @@
         "vimeo/psalm": "^5.4"
     },
     "minimum-stability": "RC",
+=======
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "captainhook/plugin-composer": "^5.3",
+        "ergebnis/composer-normalize": "^2.45",
+        "fakerphp/faker": "^1.24",
+        "hamcrest/hamcrest-php": "^2.0",
+        "jangregor/phpstan-prophecy": "^2.1",
+        "mockery/mockery": "^1.6",
+        "php-parallel-lint/php-console-highlighter": "^1.0",
+        "php-parallel-lint/php-parallel-lint": "^1.4",
+        "phpspec/prophecy-phpunit": "^2.3",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-mockery": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpunit/phpunit": "^10.5",
+        "ramsey/coding-standard": "^2.3",
+        "ramsey/conventional-commits": "^1.6",
+        "roave/security-advisories": "dev-latest"
+    },
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
@@ -53,6 +77,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+<<<<<<< HEAD
             "Ramsey\\Collection\\Test\\": "tests/",
             "Ramsey\\Test\\Generics\\": "tests/generics/"
         },
@@ -66,6 +91,17 @@
             "ergebnis/composer-normalize": true,
             "phpstan/extension-installer": true,
             "captainhook/plugin-composer": true
+=======
+            "Ramsey\\Collection\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "captainhook/plugin-composer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "ergebnis/composer-normalize": true,
+            "phpstan/extension-installer": true
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         },
         "sort-packages": true
     },
@@ -79,11 +115,17 @@
     },
     "scripts": {
         "dev:analyze": [
+<<<<<<< HEAD
             "@dev:analyze:phpstan",
             "@dev:analyze:psalm"
         ],
         "dev:analyze:phpstan": "phpstan analyse --ansi --memory-limit=1G",
         "dev:analyze:psalm": "psalm",
+=======
+            "@dev:analyze:phpstan"
+        ],
+        "dev:analyze:phpstan": "phpstan analyse --ansi --memory-limit=1G",
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         "dev:build:clean": "git clean -fX build/",
         "dev:lint": [
             "@dev:lint:syntax",
@@ -105,7 +147,10 @@
     "scripts-descriptions": {
         "dev:analyze": "Runs all static analysis checks.",
         "dev:analyze:phpstan": "Runs the PHPStan static analyzer.",
+<<<<<<< HEAD
         "dev:analyze:psalm": "Runs the Psalm static analyzer.",
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         "dev:build:clean": "Cleans the build/ directory.",
         "dev:lint": "Runs all linting checks.",
         "dev:lint:fix": "Auto-fixes coding standards issues, if possible.",

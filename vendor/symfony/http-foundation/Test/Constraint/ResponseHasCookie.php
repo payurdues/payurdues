@@ -21,16 +21,23 @@ final class ResponseHasCookie extends Constraint
     private string $path;
     private ?string $domain;
 
+<<<<<<< HEAD
     public function __construct(string $name, string $path = '/', string $domain = null)
+=======
+    public function __construct(string $name, string $path = '/', ?string $domain = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->name = $name;
         $this->path = $path;
         $this->domain = $domain;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function toString(): string
     {
         $str = sprintf('has cookie "%s"', $this->name);
@@ -46,8 +53,11 @@ final class ResponseHasCookie extends Constraint
 
     /**
      * @param Response $response
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function matches($response): bool
     {
@@ -56,8 +66,11 @@ final class ResponseHasCookie extends Constraint
 
     /**
      * @param Response $response
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function failureDescription($response): string
     {
@@ -68,9 +81,13 @@ final class ResponseHasCookie extends Constraint
     {
         $cookies = $response->headers->getCookies();
 
+<<<<<<< HEAD
         $filteredCookies = array_filter($cookies, function (Cookie $cookie) {
             return $cookie->getName() === $this->name && $cookie->getPath() === $this->path && $cookie->getDomain() === $this->domain;
         });
+=======
+        $filteredCookies = array_filter($cookies, fn (Cookie $cookie) => $cookie->getName() === $this->name && $cookie->getPath() === $this->path && $cookie->getDomain() === $this->domain);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         return reset($filteredCookies) ?: null;
     }

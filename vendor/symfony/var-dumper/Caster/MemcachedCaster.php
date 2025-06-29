@@ -23,6 +23,12 @@ class MemcachedCaster
     private static array $optionConstants;
     private static array $defaultOptions;
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castMemcached(\Memcached $c, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -37,8 +43,13 @@ class MemcachedCaster
 
     private static function getNonDefaultOptions(\Memcached $c): array
     {
+<<<<<<< HEAD
         self::$defaultOptions = self::$defaultOptions ?? self::discoverDefaultOptions();
         self::$optionConstants = self::$optionConstants ?? self::getOptionConstants();
+=======
+        self::$defaultOptions ??= self::discoverDefaultOptions();
+        self::$optionConstants ??= self::getOptionConstants();
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         $nonDefaultOptions = [];
         foreach (self::$optionConstants as $constantKey => $value) {
@@ -56,7 +67,11 @@ class MemcachedCaster
         $defaultMemcached->addServer('127.0.0.1', 11211);
 
         $defaultOptions = [];
+<<<<<<< HEAD
         self::$optionConstants = self::$optionConstants ?? self::getOptionConstants();
+=======
+        self::$optionConstants ??= self::getOptionConstants();
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         foreach (self::$optionConstants as $constantKey => $value) {
             $defaultOptions[$constantKey] = $defaultMemcached->getOption($value);

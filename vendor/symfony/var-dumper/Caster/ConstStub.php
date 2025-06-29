@@ -20,7 +20,11 @@ use Symfony\Component\VarDumper\Cloner\Stub;
  */
 class ConstStub extends Stub
 {
+<<<<<<< HEAD
     public function __construct(string $name, string|int|float $value = null)
+=======
+    public function __construct(string $name, string|int|float|null $value = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->class = $name;
         $this->value = 1 < \func_num_args() ? $value : $name;

@@ -36,7 +36,11 @@ class ArrayConverter
         $tree = [];
 
         foreach ($messages as $id => $value) {
+<<<<<<< HEAD
             $referenceToElement = &self::getElementByPath($tree, explode('.', $id));
+=======
+            $referenceToElement = &self::getElementByPath($tree, self::getKeyParts($id));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             $referenceToElement = $value;
 
@@ -46,7 +50,11 @@ class ArrayConverter
         return $tree;
     }
 
+<<<<<<< HEAD
     private static function &getElementByPath(array &$tree, array $parts)
+=======
+    private static function &getElementByPath(array &$tree, array $parts): mixed
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $elem = &$tree;
         $parentOfElem = null;
@@ -63,6 +71,10 @@ class ArrayConverter
                 $elem = &$elem[implode('.', \array_slice($parts, $i))];
                 break;
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $parentOfElem = &$elem;
             $elem = &$elem[$part];
         }
@@ -82,7 +94,11 @@ class ArrayConverter
         return $elem;
     }
 
+<<<<<<< HEAD
     private static function cancelExpand(array &$tree, string $prefix, array $node)
+=======
+    private static function cancelExpand(array &$tree, string $prefix, array $node): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $prefix .= '.';
 
@@ -94,4 +110,51 @@ class ArrayConverter
             }
         }
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * @return string[]
+     */
+    private static function getKeyParts(string $key): array
+    {
+        $parts = explode('.', $key);
+        $partsCount = \count($parts);
+
+        $result = [];
+        $buffer = '';
+
+        foreach ($parts as $index => $part) {
+            if (0 === $index && '' === $part) {
+                $buffer = '.';
+
+                continue;
+            }
+
+            if ($index === $partsCount - 1 && '' === $part) {
+                $buffer .= '.';
+                $result[] = $buffer;
+
+                continue;
+            }
+
+            if (isset($parts[$index + 1]) && '' === $parts[$index + 1]) {
+                $buffer .= $part;
+
+                continue;
+            }
+
+            if ($buffer) {
+                $result[] = $buffer.$part;
+                $buffer = '';
+
+                continue;
+            }
+
+            $result[] = $part;
+        }
+
+        return $result;
+    }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

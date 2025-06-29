@@ -19,7 +19,11 @@ class UnauthorizedHttpException extends HttpException
     /**
      * @param string $challenge WWW-Authenticate challenge string
      */
+<<<<<<< HEAD
     public function __construct(string $challenge, string $message = '', \Throwable $previous = null, int $code = 0, array $headers = [])
+=======
+    public function __construct(string $challenge, string $message = '', ?\Throwable $previous = null, int $code = 0, array $headers = [])
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $headers['WWW-Authenticate'] = $challenge;
 

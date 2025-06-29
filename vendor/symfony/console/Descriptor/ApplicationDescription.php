@@ -24,7 +24,11 @@ class ApplicationDescription
 {
     public const GLOBAL_NAMESPACE = '_global';
 
+<<<<<<< HEAD
     private $application;
+=======
+    private Application $application;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private ?string $namespace;
     private bool $showHidden;
     private array $namespaces;
@@ -39,7 +43,11 @@ class ApplicationDescription
      */
     private array $aliases = [];
 
+<<<<<<< HEAD
     public function __construct(Application $application, string $namespace = null, bool $showHidden = false)
+=======
+    public function __construct(Application $application, ?string $namespace = null, bool $showHidden = false)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->application = $application;
         $this->namespace = $namespace;
@@ -79,7 +87,11 @@ class ApplicationDescription
         return $this->commands[$name] ?? $this->aliases[$name];
     }
 
+<<<<<<< HEAD
     private function inspectApplication()
+=======
+    private function inspectApplication(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->commands = [];
         $this->namespaces = [];

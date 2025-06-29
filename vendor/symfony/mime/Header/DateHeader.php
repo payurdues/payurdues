@@ -30,7 +30,11 @@ final class DateHeader extends AbstractHeader
     /**
      * @param \DateTimeInterface $body
      */
+<<<<<<< HEAD
     public function setBody(mixed $body)
+=======
+    public function setBody(mixed $body): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->setDateTime($body);
     }
@@ -50,6 +54,7 @@ final class DateHeader extends AbstractHeader
      *
      * If a DateTime instance is provided, it is converted to DateTimeImmutable.
      */
+<<<<<<< HEAD
     public function setDateTime(\DateTimeInterface $dateTime)
     {
         if ($dateTime instanceof \DateTime) {
@@ -57,10 +62,19 @@ final class DateHeader extends AbstractHeader
             $dateTime = $immutable->setTimezone($dateTime->getTimezone());
         }
         $this->dateTime = $dateTime;
+=======
+    public function setDateTime(\DateTimeInterface $dateTime): void
+    {
+        $this->dateTime = \DateTimeImmutable::createFromInterface($dateTime);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     public function getBodyAsString(): string
     {
+<<<<<<< HEAD
         return $this->dateTime->format(\DateTime::RFC2822);
+=======
+        return $this->dateTime->format(\DateTimeInterface::RFC2822);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

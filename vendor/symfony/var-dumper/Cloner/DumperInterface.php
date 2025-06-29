@@ -20,6 +20,11 @@ interface DumperInterface
 {
     /**
      * Dumps a scalar value.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function dumpScalar(Cursor $cursor, string $type, string|int|float|bool|null $value);
 
@@ -29,6 +34,11 @@ interface DumperInterface
      * @param string $str The string being dumped
      * @param bool   $bin Whether $str is UTF-8 or binary encoded
      * @param int    $cut The number of characters $str has been cut by
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function dumpString(Cursor $cursor, string $str, bool $bin, int $cut);
 
@@ -38,6 +48,11 @@ interface DumperInterface
      * @param int             $type     A Cursor::HASH_* const for the type of hash
      * @param string|int|null $class    The object class, resource type or array count
      * @param bool            $hasChild When the dump of the hash has child item
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function enterHash(Cursor $cursor, int $type, string|int|null $class, bool $hasChild);
 
@@ -48,6 +63,11 @@ interface DumperInterface
      * @param string|int|null $class    The object class, resource type or array count
      * @param bool            $hasChild When the dump of the hash has child item
      * @param int             $cut      The number of items the hash has been cut by
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function leaveHash(Cursor $cursor, int $type, string|int|null $class, bool $hasChild, int $cut);
 }

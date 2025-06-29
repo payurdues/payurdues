@@ -23,10 +23,17 @@ use Symfony\Component\Console\Tester\Constraint\CommandIsSuccessful;
  */
 trait TesterTrait
 {
+<<<<<<< HEAD
     private $output;
     private array $inputs = [];
     private bool $captureStreamsIndependently = false;
     private $input;
+=======
+    private StreamOutput $output;
+    private array $inputs = [];
+    private bool $captureStreamsIndependently = false;
+    private InputInterface $input;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private int $statusCode;
 
     /**
@@ -128,9 +135,15 @@ trait TesterTrait
      *  * verbosity:                 Sets the output verbosity flag
      *  * capture_stderr_separately: Make output of stdOut and stdErr separately available
      */
+<<<<<<< HEAD
     private function initOutput(array $options)
     {
         $this->captureStreamsIndependently = \array_key_exists('capture_stderr_separately', $options) && $options['capture_stderr_separately'];
+=======
+    private function initOutput(array $options): void
+    {
+        $this->captureStreamsIndependently = $options['capture_stderr_separately'] ?? false;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if (!$this->captureStreamsIndependently) {
             $this->output = new StreamOutput(fopen('php://memory', 'w', false));
             if (isset($options['decorated'])) {
@@ -152,12 +165,18 @@ trait TesterTrait
 
             $reflectedOutput = new \ReflectionObject($this->output);
             $strErrProperty = $reflectedOutput->getProperty('stderr');
+<<<<<<< HEAD
             $strErrProperty->setAccessible(true);
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $strErrProperty->setValue($this->output, $errorOutput);
 
             $reflectedParent = $reflectedOutput->getParentClass();
             $streamProperty = $reflectedParent->getProperty('stream');
+<<<<<<< HEAD
             $streamProperty->setAccessible(true);
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $streamProperty->setValue($this->output, fopen('php://memory', 'w', false));
         }
     }

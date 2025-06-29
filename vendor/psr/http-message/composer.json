@@ -7,7 +7,11 @@
     "authors": [
         {
             "name": "PHP-FIG",
+<<<<<<< HEAD
             "homepage": "http://www.php-fig.org/"
+=======
+            "homepage": "https://www.php-fig.org/"
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
     ],
     "require": {
@@ -20,7 +24,11 @@
     },
     "extra": {
         "branch-alias": {
+<<<<<<< HEAD
             "dev-master": "1.1.x-dev"
+=======
+            "dev-master": "2.0.x-dev"
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
     }
 }

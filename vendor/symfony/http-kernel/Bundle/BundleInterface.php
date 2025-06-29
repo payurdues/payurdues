@@ -11,8 +11,13 @@
 
 namespace Symfony\Component\HttpKernel\Bundle;
 
+<<<<<<< HEAD
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+=======
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 
 /**
@@ -20,15 +25,29 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
+<<<<<<< HEAD
 interface BundleInterface extends ContainerAwareInterface
 {
     /**
      * Boots the Bundle.
+=======
+interface BundleInterface
+{
+    /**
+     * Boots the Bundle.
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function boot();
 
     /**
      * Shutdowns the Bundle.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function shutdown();
 
@@ -36,6 +55,11 @@ interface BundleInterface extends ContainerAwareInterface
      * Builds the bundle.
      *
      * It is only ever called once when the cache is empty.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function build(ContainerBuilder $container);
 
@@ -60,4 +84,12 @@ interface BundleInterface extends ContainerAwareInterface
      * The path should always be returned as a Unix path (with /).
      */
     public function getPath(): string;
+<<<<<<< HEAD
+=======
+
+    /**
+     * @return void
+     */
+    public function setContainer(?ContainerInterface $container);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

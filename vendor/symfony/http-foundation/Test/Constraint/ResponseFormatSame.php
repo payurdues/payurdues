@@ -22,7 +22,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class ResponseFormatSame extends Constraint
 {
+<<<<<<< HEAD
     private $request;
+=======
+    private Request $request;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private ?string $format;
 
     public function __construct(Request $request, ?string $format)
@@ -31,9 +35,12 @@ final class ResponseFormatSame extends Constraint
         $this->format = $format;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function toString(): string
     {
         return 'format is '.($this->format ?? 'null');
@@ -41,8 +48,11 @@ final class ResponseFormatSame extends Constraint
 
     /**
      * @param Response $response
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function matches($response): bool
     {
@@ -51,8 +61,11 @@ final class ResponseFormatSame extends Constraint
 
     /**
      * @param Response $response
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function failureDescription($response): string
     {
@@ -61,8 +74,11 @@ final class ResponseFormatSame extends Constraint
 
     /**
      * @param Response $response
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function additionalFailureDescription($response): string
     {

@@ -26,7 +26,11 @@ use Symfony\Component\CssSelector\XPath\Translator;
  */
 class CssSelectorConverter
 {
+<<<<<<< HEAD
     private $translator;
+=======
+    private Translator $translator;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private array $cache;
 
     private static array $xmlCache = [];
@@ -62,6 +66,10 @@ class CssSelectorConverter
      */
     public function toXPath(string $cssExpr, string $prefix = 'descendant-or-self::'): string
     {
+<<<<<<< HEAD
         return $this->cache[$prefix][$cssExpr] ?? $this->cache[$prefix][$cssExpr] = $this->translator->cssToXPath($cssExpr, $prefix);
+=======
+        return $this->cache[$prefix][$cssExpr] ??= $this->translator->cssToXPath($cssExpr, $prefix);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

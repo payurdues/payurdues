@@ -23,14 +23,23 @@ class_exists(NativeSessionStorage::class);
 class NativeSessionStorageFactory implements SessionStorageFactoryInterface
 {
     private array $options;
+<<<<<<< HEAD
     private $handler;
     private $metaBag;
+=======
+    private AbstractProxy|\SessionHandlerInterface|null $handler;
+    private ?MetadataBag $metaBag;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private bool $secure;
 
     /**
      * @see NativeSessionStorage constructor.
      */
+<<<<<<< HEAD
     public function __construct(array $options = [], AbstractProxy|\SessionHandlerInterface $handler = null, MetadataBag $metaBag = null, bool $secure = false)
+=======
+    public function __construct(array $options = [], AbstractProxy|\SessionHandlerInterface|null $handler = null, ?MetadataBag $metaBag = null, bool $secure = false)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->options = $options;
         $this->handler = $handler;
@@ -41,7 +50,11 @@ class NativeSessionStorageFactory implements SessionStorageFactoryInterface
     public function createStorage(?Request $request): SessionStorageInterface
     {
         $storage = new NativeSessionStorage($this->options, $this->handler, $this->metaBag);
+<<<<<<< HEAD
         if ($this->secure && $request && $request->isSecure()) {
+=======
+        if ($this->secure && $request?->isSecure()) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $storage->setOptions(['cookie_secure' => true]);
         }
 

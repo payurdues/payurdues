@@ -19,6 +19,10 @@ use RuntimeException;
 /**
  * Thrown when attempting to operate on collections of differing types.
  */
+<<<<<<< HEAD
 class CollectionMismatchException extends RuntimeException
+=======
+class CollectionMismatchException extends RuntimeException implements CollectionException
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 {
 }

@@ -18,7 +18,11 @@ namespace Symfony\Component\HttpFoundation\Session;
  */
 final class SessionBagProxy implements SessionBagInterface
 {
+<<<<<<< HEAD
     private $bag;
+=======
+    private SessionBagInterface $bag;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private array $data;
     private ?int $usageIndex;
     private ?\Closure $usageReporter;
@@ -28,7 +32,11 @@ final class SessionBagProxy implements SessionBagInterface
         $this->bag = $bag;
         $this->data = &$data;
         $this->usageIndex = &$usageIndex;
+<<<<<<< HEAD
         $this->usageReporter = $usageReporter instanceof \Closure || !\is_callable($usageReporter) ? $usageReporter : \Closure::fromCallable($usageReporter);
+=======
+        $this->usageReporter = null === $usageReporter ? null : $usageReporter(...);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     public function getBag(): SessionBagInterface
@@ -54,17 +62,23 @@ final class SessionBagProxy implements SessionBagInterface
         return empty($this->data[$this->bag->getStorageKey()]);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return $this->bag->getName();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function initialize(array &$array): void
     {
         ++$this->usageIndex;
@@ -77,17 +91,23 @@ final class SessionBagProxy implements SessionBagInterface
         $this->bag->initialize($array);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getStorageKey(): string
     {
         return $this->bag->getStorageKey();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function clear(): mixed
     {
         return $this->bag->clear();

@@ -22,7 +22,11 @@ use Symfony\Component\Console\Exception\CommandNotFoundException;
  */
 class ContainerCommandLoader implements CommandLoaderInterface
 {
+<<<<<<< HEAD
     private $container;
+=======
+    private ContainerInterface $container;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private array $commandMap;
 
     /**
@@ -34,9 +38,12 @@ class ContainerCommandLoader implements CommandLoaderInterface
         $this->commandMap = $commandMap;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function get(string $name): Command
     {
         if (!$this->has($name)) {
@@ -46,17 +53,23 @@ class ContainerCommandLoader implements CommandLoaderInterface
         return $this->container->get($this->commandMap[$name]);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function has(string $name): bool
     {
         return isset($this->commandMap[$name]) && $this->container->has($this->commandMap[$name]);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getNames(): array
     {
         return array_keys($this->commandMap);

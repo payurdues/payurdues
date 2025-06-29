@@ -18,9 +18,18 @@ use Mockery\MockInterface;
 use Phake\IMock;
 use PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
 use PHPUnit\Framework\MockObject\MockObject;
+<<<<<<< HEAD
 use Prophecy\Prophecy\ProphecySubjectInterface;
 use ProxyManager\Proxy\ProxyInterface;
 use Symfony\Component\ErrorHandler\Internal\TentativeTypes;
+=======
+use PHPUnit\Framework\MockObject\Stub;
+use Prophecy\Prophecy\ProphecySubjectInterface;
+use ProxyManager\Proxy\ProxyInterface;
+use Symfony\Component\DependencyInjection\Argument\LazyClosure;
+use Symfony\Component\ErrorHandler\Internal\TentativeTypes;
+use Symfony\Component\VarExporter\LazyObjectInterface;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
 /**
  * Autoloader checking if the class is really defined in the file found.
@@ -117,6 +126,11 @@ class DebugClassLoader
     private static array $checkedClasses = [];
     private static array $final = [];
     private static array $finalMethods = [];
+<<<<<<< HEAD
+=======
+    private static array $finalProperties = [];
+    private static array $finalConstants = [];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private static array $deprecated = [];
     private static array $internal = [];
     private static array $internalMethods = [];
@@ -131,7 +145,11 @@ class DebugClassLoader
     {
         $this->classLoader = $classLoader;
         $this->isFinder = \is_array($classLoader) && method_exists($classLoader[0], 'findFile');
+<<<<<<< HEAD
         parse_str(getenv('SYMFONY_PATCH_TYPE_DECLARATIONS') ?: '', $this->patchTypes);
+=======
+        parse_str($_ENV['SYMFONY_PATCH_TYPE_DECLARATIONS'] ?? $_SERVER['SYMFONY_PATCH_TYPE_DECLARATIONS'] ?? getenv('SYMFONY_PATCH_TYPE_DECLARATIONS') ?: '', $this->patchTypes);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $this->patchTypes += [
             'force' => null,
             'php' => \PHP_MAJOR_VERSION.'.'.\PHP_MINOR_VERSION,
@@ -249,12 +267,24 @@ class DebugClassLoader
 
             for (; $i < \count($symbols); ++$i) {
                 if (!is_subclass_of($symbols[$i], MockObject::class)
+<<<<<<< HEAD
                     && !is_subclass_of($symbols[$i], ProphecySubjectInterface::class)
                     && !is_subclass_of($symbols[$i], Proxy::class)
                     && !is_subclass_of($symbols[$i], ProxyInterface::class)
                     && !is_subclass_of($symbols[$i], LegacyProxy::class)
                     && !is_subclass_of($symbols[$i], MockInterface::class)
                     && !is_subclass_of($symbols[$i], IMock::class)
+=======
+                    && !is_subclass_of($symbols[$i], Stub::class)
+                    && !is_subclass_of($symbols[$i], ProphecySubjectInterface::class)
+                    && !is_subclass_of($symbols[$i], Proxy::class)
+                    && !is_subclass_of($symbols[$i], ProxyInterface::class)
+                    && !is_subclass_of($symbols[$i], LazyObjectInterface::class)
+                    && !is_subclass_of($symbols[$i], LegacyProxy::class)
+                    && !is_subclass_of($symbols[$i], MockInterface::class)
+                    && !is_subclass_of($symbols[$i], IMock::class)
+                    && !(is_subclass_of($symbols[$i], LazyClosure::class) && str_contains($symbols[$i], "@anonymous\0"))
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 ) {
                     $loader->checkClass($symbols[$i]);
                 }
@@ -303,7 +333,11 @@ class DebugClassLoader
         $this->checkClass($class, $file);
     }
 
+<<<<<<< HEAD
     private function checkClass(string $class, string $file = null): void
+=======
+    private function checkClass(string $class, ?string $file = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $exists = null === $file || class_exists($class, false) || interface_exists($class, false) || trait_exists($class, false);
 
@@ -380,7 +414,11 @@ class DebugClassLoader
 
         // Detect annotations on the class
         if ($doc = $this->parsePhpDoc($refl)) {
+<<<<<<< HEAD
             $classIsTemplate = isset($doc['template']);
+=======
+            $classIsTemplate = isset($doc['template']) || isset($doc['template-covariant']);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             foreach (['final', 'deprecated', 'internal'] as $annotation) {
                 if (null !== $description = $doc[$annotation][0] ?? null) {
@@ -473,8 +511,15 @@ class DebugClassLoader
         self::$finalMethods[$class] = [];
         self::$internalMethods[$class] = [];
         self::$annotatedParameters[$class] = [];
+<<<<<<< HEAD
         foreach ($parentAndOwnInterfaces as $use) {
             foreach (['finalMethods', 'internalMethods', 'annotatedParameters', 'returnTypes'] as $property) {
+=======
+        self::$finalProperties[$class] = [];
+        self::$finalConstants[$class] = [];
+        foreach ($parentAndOwnInterfaces as $use) {
+            foreach (['finalMethods', 'internalMethods', 'annotatedParameters', 'returnTypes', 'finalProperties', 'finalConstants'] as $property) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 if (isset(self::${$property}[$use])) {
                     self::${$property}[$class] = self::${$property}[$class] ? self::${$property}[$use] + self::${$property}[$class] : self::${$property}[$use];
                 }
@@ -490,7 +535,11 @@ class DebugClassLoader
                     }
                     $returnType = implode('|', $returnType);
 
+<<<<<<< HEAD
                     self::$returnTypes[$class] += [$method => [$returnType, 0 === strpos($returnType, '?') ? substr($returnType, 1).'|null' : $returnType, $use, '']];
+=======
+                    self::$returnTypes[$class] += [$method => [$returnType, str_starts_with($returnType, '?') ? substr($returnType, 1).'|null' : $returnType, $use, '']];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 }
             }
         }
@@ -525,7 +574,11 @@ class DebugClassLoader
             // To read method annotations
             $doc = $this->parsePhpDoc($method);
 
+<<<<<<< HEAD
             if (($classIsTemplate || isset($doc['template'])) && $method->hasReturnType()) {
+=======
+            if (($classIsTemplate || isset($doc['template']) || isset($doc['template-covariant'])) && $method->hasReturnType()) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 unset($doc['return']);
             }
 
@@ -565,7 +618,11 @@ class DebugClassLoader
                 $this->patchReturnTypeWillChange($method);
             }
 
+<<<<<<< HEAD
             if (null !== ($returnType ?? $returnType = self::MAGIC_METHODS[$method->name] ?? null) && !$method->hasReturnType() && !isset($doc['return'])) {
+=======
+            if (null !== ($returnType ??= self::MAGIC_METHODS[$method->name] ?? null) && !$method->hasReturnType() && !isset($doc['return'])) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 [$normalizedType, $returnType, $declaringClass, $declaringFile] = \is_string($returnType) ? [$returnType, $returnType, '', ''] : $returnType;
 
                 if ($canAddReturnType && 'docblock' !== $this->patchTypes['force']) {
@@ -629,6 +686,34 @@ class DebugClassLoader
             }
         }
 
+<<<<<<< HEAD
+=======
+        $finals = isset(self::$final[$class]) || $refl->isFinal() ? [] : [
+            'finalConstants' => $refl->getReflectionConstants(\ReflectionClassConstant::IS_PUBLIC | \ReflectionClassConstant::IS_PROTECTED),
+            'finalProperties' => $refl->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED),
+        ];
+        foreach ($finals as $type => $reflectors) {
+            foreach ($reflectors as $r) {
+                if ($r->class !== $class) {
+                    continue;
+                }
+
+                $doc = $this->parsePhpDoc($r);
+
+                foreach ($parentAndOwnInterfaces as $use) {
+                    if (isset(self::${$type}[$use][$r->name]) && !isset($doc['deprecated']) && ('finalConstants' === $type || substr($use, 0, strrpos($use, '\\')) !== substr($use, 0, strrpos($class, '\\')))) {
+                        $msg = 'finalConstants' === $type ? '%s" constant' : '$%s" property';
+                        $deprecations[] = sprintf('The "%s::'.$msg.' is considered final. You should not override it in "%s".', self::${$type}[$use][$r->name], $r->name, $class);
+                    }
+                }
+
+                if (isset($doc['final']) || ('finalProperties' === $type && str_starts_with($class, 'Symfony\\') && !$r->hasType())) {
+                    self::${$type}[$class][$r->name] = $class;
+                }
+            }
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         return $deprecations;
     }
 
@@ -711,7 +796,11 @@ class DebugClassLoader
 
         $dirFiles = self::$darwinCache[$kDir][1];
 
+<<<<<<< HEAD
         if (!isset($dirFiles[$file]) && ') : eval()\'d code' === substr($file, -17)) {
+=======
+        if (!isset($dirFiles[$file]) && str_ends_with($file, ') : eval()\'d code')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             // Get the file name from "file_name.php(123) : eval()'d code"
             $file = substr($file, 0, strrpos($file, '(', -17));
         }
@@ -727,7 +816,11 @@ class DebugClassLoader
                 if ('.' !== $f[0]) {
                     $dirFiles[$f] = $f;
                     if ($f === $file) {
+<<<<<<< HEAD
                         $kFile = $k = $file;
+=======
+                        $kFile = $file;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                     } elseif ($f !== $k = strtolower($f)) {
                         $dirFiles[$k] = $f;
                     }
@@ -763,7 +856,11 @@ class DebugClassLoader
         return $ownInterfaces;
     }
 
+<<<<<<< HEAD
     private function setReturnType(string $types, string $class, string $method, string $filename, ?string $parent, \ReflectionType $returnType = null): void
+=======
+    private function setReturnType(string $types, string $class, string $method, string $filename, ?string $parent, ?\ReflectionType $returnType = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ('__construct' === $method) {
             return;
@@ -775,14 +872,24 @@ class DebugClassLoader
             return;
         }
 
+<<<<<<< HEAD
         if ($nullable = 0 === strpos($types, 'null|')) {
             $types = substr($types, 5);
         } elseif ($nullable = '|null' === substr($types, -5)) {
+=======
+        if ($nullable = str_starts_with($types, 'null|')) {
+            $types = substr($types, 5);
+        } elseif ($nullable = str_ends_with($types, '|null')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $types = substr($types, 0, -5);
         }
         $arrayType = ['array' => 'array'];
         $typesMap = [];
+<<<<<<< HEAD
         $glue = false !== strpos($types, '&') ? '&' : '|';
+=======
+        $glue = str_contains($types, '&') ? '&' : '|';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         foreach (explode($glue, $types) as $t) {
             $t = self::SPECIAL_RETURN_TYPES[strtolower($t)] ?? $t;
             $typesMap[$this->normalizeType($t, $class, $parent, $returnType)][$t] = $t;
@@ -834,6 +941,14 @@ class DebugClassLoader
                 return;
             }
 
+<<<<<<< HEAD
+=======
+            if (!preg_match('/^(?:\\\\?[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*)+$/', $n)) {
+                // exclude any invalid PHP class name (e.g. `Cookie::SAMESITE_*`)
+                continue;
+            }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             if (!isset($phpTypes[''])) {
                 $phpTypes[] = $n;
             }
@@ -876,7 +991,11 @@ class DebugClassLoader
         // We could resolve "use" statements to return the FQDN
         // but this would be too expensive for a runtime checker
 
+<<<<<<< HEAD
         if ('[]' !== substr($type, -2)) {
+=======
+        if (!str_ends_with($type, '[]')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return $type;
         }
 
@@ -894,7 +1013,11 @@ class DebugClassLoader
     /**
      * Utility method to add #[ReturnTypeWillChange] where php triggers deprecations.
      */
+<<<<<<< HEAD
     private function patchReturnTypeWillChange(\ReflectionMethod $method)
+=======
+    private function patchReturnTypeWillChange(\ReflectionMethod $method): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (\count($method->getAttributes(\ReturnTypeWillChange::class))) {
             return;
@@ -922,7 +1045,11 @@ class DebugClassLoader
     /**
      * Utility method to add @return annotations to the Symfony code-base where it triggers self-deprecations.
      */
+<<<<<<< HEAD
     private function patchMethod(\ReflectionMethod $method, string $returnType, string $declaringFile, string $normalizedType)
+=======
+    private function patchMethod(\ReflectionMethod $method, string $returnType, string $declaringFile, string $normalizedType): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         static $patchedMethods = [];
         static $useStatements = [];
@@ -934,10 +1061,17 @@ class DebugClassLoader
         $patchedMethods[$file][$startLine] = true;
         $fileOffset = self::$fileOffsets[$file] ?? 0;
         $startLine += $fileOffset - 2;
+<<<<<<< HEAD
         if ($nullable = '|null' === substr($returnType, -5)) {
             $returnType = substr($returnType, 0, -5);
         }
         $glue = false !== strpos($returnType, '&') ? '&' : '|';
+=======
+        if ($nullable = str_ends_with($returnType, '|null')) {
+            $returnType = substr($returnType, 0, -5);
+        }
+        $glue = str_contains($returnType, '&') ? '&' : '|';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $returnType = explode($glue, $returnType);
         $code = file($file);
 
@@ -953,10 +1087,17 @@ class DebugClassLoader
                 continue;
             }
 
+<<<<<<< HEAD
             [$namespace, $useOffset, $useMap] = $useStatements[$file] ?? $useStatements[$file] = self::getUseStatements($file);
 
             if ('\\' !== $type[0]) {
                 [$declaringNamespace, , $declaringUseMap] = $useStatements[$declaringFile] ?? $useStatements[$declaringFile] = self::getUseStatements($declaringFile);
+=======
+            [$namespace, $useOffset, $useMap] = $useStatements[$file] ??= self::getUseStatements($file);
+
+            if ('\\' !== $type[0]) {
+                [$declaringNamespace, , $declaringUseMap] = $useStatements[$declaringFile] ??= self::getUseStatements($declaringFile);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
                 $p = strpos($type, '\\', 1);
                 $alias = $p ? substr($type, 0, $p) : $type;
@@ -994,7 +1135,11 @@ class DebugClassLoader
         if ('docblock' === $this->patchTypes['force'] || ('object' === $normalizedType && '7.1' === $this->patchTypes['php'])) {
             $returnType = implode($glue, $returnType).($nullable ? '|null' : '');
 
+<<<<<<< HEAD
             if (false !== strpos($code[$startLine], '#[')) {
+=======
+            if (str_contains($code[$startLine], '#[')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 --$startLine;
             }
 
@@ -1061,7 +1206,11 @@ EOTXT;
         return [$namespace, $useOffset, $useMap];
     }
 
+<<<<<<< HEAD
     private function fixReturnStatements(\ReflectionMethod $method, string $returnType)
+=======
+    private function fixReturnStatements(\ReflectionMethod $method, string $returnType): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ('docblock' !== $this->patchTypes['force']) {
             if ('7.1' === $this->patchTypes['php'] && 'object' === ltrim($returnType, '?')) {
@@ -1072,11 +1221,19 @@ EOTXT;
                 return;
             }
 
+<<<<<<< HEAD
             if ('8.0' > $this->patchTypes['php'] && (false !== strpos($returnType, '|') || \in_array($returnType, ['mixed', 'static'], true))) {
                 return;
             }
 
             if ('8.1' > $this->patchTypes['php'] && false !== strpos($returnType, '&')) {
+=======
+            if ('8.0' > $this->patchTypes['php'] && (str_contains($returnType, '|') || \in_array($returnType, ['mixed', 'static'], true))) {
+                return;
+            }
+
+            if ('8.1' > $this->patchTypes['php'] && str_contains($returnType, '&')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 return;
             }
         }
@@ -1093,7 +1250,24 @@ EOTXT;
         }
 
         $end = $method->isGenerator() ? $i : $method->getEndLine();
+<<<<<<< HEAD
         for (; $i < $end; ++$i) {
+=======
+        $inClosure = false;
+        $braces = 0;
+        for (; $i < $end; ++$i) {
+            if (!$inClosure) {
+                $inClosure = false !== strpos($code[$i], 'function (');
+            }
+
+            if ($inClosure) {
+                $braces += substr_count($code[$i], '{') - substr_count($code[$i], '}');
+                $inClosure = $braces > 0;
+
+                continue;
+            }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             if ('void' === $returnType) {
                 $fixedCode[$i] = str_replace('    return null;', '    return;', $code[$i]);
             } elseif ('mixed' === $returnType || '?' === $returnType[0]) {

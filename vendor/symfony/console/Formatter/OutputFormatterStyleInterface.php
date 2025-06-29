@@ -20,6 +20,7 @@ interface OutputFormatterStyleInterface
 {
     /**
      * Sets style foreground color.
+<<<<<<< HEAD
      */
     public function setForeground(string $color = null);
 
@@ -30,16 +31,44 @@ interface OutputFormatterStyleInterface
 
     /**
      * Sets some specific style option.
+=======
+     *
+     * @return void
+     */
+    public function setForeground(?string $color);
+
+    /**
+     * Sets style background color.
+     *
+     * @return void
+     */
+    public function setBackground(?string $color);
+
+    /**
+     * Sets some specific style option.
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setOption(string $option);
 
     /**
      * Unsets some specific style option.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function unsetOption(string $option);
 
     /**
      * Sets multiple style options at once.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setOptions(array $options);
 

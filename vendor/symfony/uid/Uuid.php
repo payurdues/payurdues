@@ -14,7 +14,11 @@ namespace Symfony\Component\Uid;
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  *
+<<<<<<< HEAD
  * @see https://tools.ietf.org/html/rfc4122#appendix-C for details about namespaces
+=======
+ * @see https://datatracker.ietf.org/doc/html/rfc9562/#section-6.6 for details about namespaces
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  */
 class Uuid extends AbstractUid
 {
@@ -25,6 +29,10 @@ class Uuid extends AbstractUid
 
     protected const TYPE = 0;
     protected const NIL = '00000000-0000-0000-0000-000000000000';
+<<<<<<< HEAD
+=======
+    protected const MAX = 'ffffffff-ffff-ffff-ffff-ffffffffffff';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(string $uuid, bool $checkVariant = false)
     {
@@ -68,6 +76,7 @@ class Uuid extends AbstractUid
             return new NilUuid();
         }
 
+<<<<<<< HEAD
         if (\in_array($uuid[19], ['8', '9', 'a', 'b', 'A', 'B'], true)) {
             switch ($uuid[14]) {
                 case UuidV1::TYPE: return new UuidV1($uuid);
@@ -79,6 +88,26 @@ class Uuid extends AbstractUid
         }
 
         return new self($uuid);
+=======
+        if (self::MAX === $uuid = strtr($uuid, 'F', 'f')) {
+            return new MaxUuid();
+        }
+
+        if (!\in_array($uuid[19], ['8', '9', 'a', 'b', 'A', 'B'], true)) {
+            return new self($uuid);
+        }
+
+        return match ((int) $uuid[14]) {
+            UuidV1::TYPE => new UuidV1($uuid),
+            UuidV3::TYPE => new UuidV3($uuid),
+            UuidV4::TYPE => new UuidV4($uuid),
+            UuidV5::TYPE => new UuidV5($uuid),
+            UuidV6::TYPE => new UuidV6($uuid),
+            UuidV7::TYPE => new UuidV7($uuid),
+            UuidV8::TYPE => new UuidV8($uuid),
+            default => new self($uuid),
+        };
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     final public static function v1(): UuidV1
@@ -112,13 +141,30 @@ class Uuid extends AbstractUid
         return new UuidV6();
     }
 
+<<<<<<< HEAD
+=======
+    final public static function v7(): UuidV7
+    {
+        return new UuidV7();
+    }
+
+    final public static function v8(string $uuid): UuidV8
+    {
+        return new UuidV8($uuid);
+    }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function isValid(string $uuid): bool
     {
         if (self::NIL === $uuid && \in_array(static::class, [__CLASS__, NilUuid::class], true)) {
             return true;
         }
 
+<<<<<<< HEAD
         if (__CLASS__ === static::class && 'ffffffff-ffff-ffff-ffff-ffffffffffff' === strtr($uuid, 'F', 'f')) {
+=======
+        if (self::MAX === strtr($uuid, 'F', 'f') && \in_array(static::class, [__CLASS__, MaxUuid::class], true)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return true;
         }
 
@@ -134,6 +180,16 @@ class Uuid extends AbstractUid
         return uuid_parse($this->uid);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Returns the identifier as a RFC 9562/4122 case insensitive string.
+     *
+     * @see https://datatracker.ietf.org/doc/html/rfc9562/#section-4
+     *
+     * @example 09748193-048a-4bfb-b825-8528cf74fdc1 (len=36)
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function toRfc4122(): string
     {
         return $this->uid;

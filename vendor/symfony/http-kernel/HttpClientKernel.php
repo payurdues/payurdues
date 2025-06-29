@@ -31,9 +31,15 @@ class_exists(ResponseHeaderBag::class);
  */
 final class HttpClientKernel implements HttpKernelInterface
 {
+<<<<<<< HEAD
     private $client;
 
     public function __construct(HttpClientInterface $client = null)
+=======
+    private HttpClientInterface $client;
+
+    public function __construct(?HttpClientInterface $client = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null === $client && !class_exists(HttpClient::class)) {
             throw new \LogicException(sprintf('You cannot use "%s" as the HttpClient component is not installed. Try running "composer require symfony/http-client".', __CLASS__));

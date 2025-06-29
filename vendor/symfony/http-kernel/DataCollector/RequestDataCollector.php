@@ -36,18 +36,28 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
      */
     private \SplObjectStorage $controllers;
     private array $sessionUsages = [];
+<<<<<<< HEAD
     private $requestStack;
 
     public function __construct(RequestStack $requestStack = null)
+=======
+    private ?RequestStack $requestStack;
+
+    public function __construct(?RequestStack $requestStack = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->controllers = new \SplObjectStorage();
         $this->requestStack = $requestStack;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function collect(Request $request, Response $response, \Throwable $exception = null)
+=======
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         // attributes are serialized and as they can be anything, they need to be converted to strings.
         $attributes = [];
@@ -66,7 +76,11 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
         $sessionMetadata = [];
         $sessionAttributes = [];
         $flashes = [];
+<<<<<<< HEAD
         if ($request->hasSession()) {
+=======
+        if (!$request->attributes->getBoolean('_stateless') && $request->hasSession()) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $session = $request->getSession();
             if ($session->isStarted()) {
                 $sessionMetadata['Created'] = date(\DATE_RFC822, $session->getMetadataBag()->getCreated());
@@ -139,7 +153,11 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
                 continue;
             }
             if ('request_headers' === $key || 'response_headers' === $key) {
+<<<<<<< HEAD
                 $this->data[$key] = array_map(function ($v) { return isset($v[0]) && !isset($v[1]) ? $v[0] : $v; }, $value);
+=======
+                $this->data[$key] = array_map(fn ($v) => isset($v[0]) && !isset($v[1]) ? $v[0] : $v, $value);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
         }
 
@@ -176,108 +194,218 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
         }
     }
 
+<<<<<<< HEAD
     public function lateCollect()
+=======
+    public function lateCollect(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->data = $this->cloneVar($this->data);
     }
 
+<<<<<<< HEAD
     public function reset()
     {
         $this->data = [];
+=======
+    public function reset(): void
+    {
+        parent::reset();
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $this->controllers = new \SplObjectStorage();
         $this->sessionUsages = [];
     }
 
+<<<<<<< HEAD
     public function getMethod()
+=======
+    public function getMethod(): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['method'];
     }
 
+<<<<<<< HEAD
     public function getPathInfo()
+=======
+    public function getPathInfo(): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['path_info'];
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return ParameterBag
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getRequestRequest()
     {
         return new ParameterBag($this->data['request_request']->getValue());
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return ParameterBag
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getRequestQuery()
     {
         return new ParameterBag($this->data['request_query']->getValue());
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return ParameterBag
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getRequestFiles()
     {
         return new ParameterBag($this->data['request_files']->getValue());
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return ParameterBag
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getRequestHeaders()
     {
         return new ParameterBag($this->data['request_headers']->getValue());
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return ParameterBag
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getRequestServer(bool $raw = false)
     {
         return new ParameterBag($this->data['request_server']->getValue($raw));
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return ParameterBag
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getRequestCookies(bool $raw = false)
     {
         return new ParameterBag($this->data['request_cookies']->getValue($raw));
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return ParameterBag
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getRequestAttributes()
     {
         return new ParameterBag($this->data['request_attributes']->getValue());
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return ParameterBag
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getResponseHeaders()
     {
         return new ParameterBag($this->data['response_headers']->getValue());
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return ParameterBag
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getResponseCookies()
     {
         return new ParameterBag($this->data['response_cookies']->getValue());
     }
 
+<<<<<<< HEAD
     public function getSessionMetadata()
+=======
+    public function getSessionMetadata(): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['session_metadata']->getValue();
     }
 
+<<<<<<< HEAD
     public function getSessionAttributes()
+=======
+    public function getSessionAttributes(): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['session_attributes']->getValue();
     }
 
+<<<<<<< HEAD
     public function getStatelessCheck()
+=======
+    public function getStatelessCheck(): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['stateless_check'];
     }
 
+<<<<<<< HEAD
     public function getSessionUsages()
+=======
+    public function getSessionUsages(): Data|array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['session_usages'];
     }
 
+<<<<<<< HEAD
     public function getFlashes()
+=======
+    public function getFlashes(): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['flashes']->getValue();
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return string|resource
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getContent()
     {
         return $this->data['content'];
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return bool
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function isJsonRequest()
     {
         return 1 === preg_match('{^application/(?:\w+\++)*json$}i', $this->data['request_headers']['content-type']);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return string|null
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getPrettyJson()
     {
         $decoded = json_decode($this->getContent());
@@ -285,31 +413,57 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
         return \JSON_ERROR_NONE === json_last_error() ? json_encode($decoded, \JSON_PRETTY_PRINT) : null;
     }
 
+<<<<<<< HEAD
     public function getContentType()
+=======
+    public function getContentType(): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['content_type'];
     }
 
+<<<<<<< HEAD
     public function getStatusText()
+=======
+    public function getStatusText(): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['status_text'];
     }
 
+<<<<<<< HEAD
     public function getStatusCode()
+=======
+    public function getStatusCode(): int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['status_code'];
     }
 
+<<<<<<< HEAD
     public function getFormat()
+=======
+    public function getFormat(): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['format'];
     }
 
+<<<<<<< HEAD
     public function getLocale()
+=======
+    public function getLocale(): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['locale'];
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return ParameterBag
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getDotenvVars()
     {
         return new ParameterBag($this->data['dotenv_vars']->getValue());
@@ -325,7 +479,11 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
         return $this->data['route'];
     }
 
+<<<<<<< HEAD
     public function getIdentifier()
+=======
+    public function getIdentifier(): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['identifier'];
     }
@@ -362,17 +520,29 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
         return $this->data['redirect'] ?? false;
     }
 
+<<<<<<< HEAD
     public function getForwardToken()
+=======
+    public function getForwardToken(): ?string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['forward_token'] ?? null;
     }
 
+<<<<<<< HEAD
     public function onKernelController(ControllerEvent $event)
+=======
+    public function onKernelController(ControllerEvent $event): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->controllers[$event->getRequest()] = $event->getController();
     }
 
+<<<<<<< HEAD
     public function onKernelResponse(ResponseEvent $event)
+=======
+    public function onKernelResponse(ResponseEvent $event): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$event->isMainRequest()) {
             return;
@@ -391,9 +561,12 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
         ];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'request';
@@ -449,7 +622,11 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
                     'file' => $r->getFileName(),
                     'line' => $r->getStartLine(),
                 ];
+<<<<<<< HEAD
             } catch (\ReflectionException $e) {
+=======
+            } catch (\ReflectionException) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 if (\is_callable($controller)) {
                     // using __call or  __callStatic
                     return [
@@ -472,7 +649,11 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
                 'line' => $r->getStartLine(),
             ];
 
+<<<<<<< HEAD
             if (str_contains($r->name, '{closure}')) {
+=======
+            if (str_contains($r->name, '{closure')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 return $controller;
             }
             $controller['method'] = $r->name;

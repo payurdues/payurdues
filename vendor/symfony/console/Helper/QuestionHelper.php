@@ -68,9 +68,13 @@ class QuestionHelper extends Helper
                 return $this->doAsk($output, $question);
             }
 
+<<<<<<< HEAD
             $interviewer = function () use ($output, $question) {
                 return $this->doAsk($output, $question);
             };
+=======
+            $interviewer = fn () => $this->doAsk($output, $question);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             return $this->validateAttempts($interviewer, $output, $question);
         } catch (MissingInputException $exception) {
@@ -84,9 +88,12 @@ class QuestionHelper extends Helper
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'question';
@@ -94,6 +101,11 @@ class QuestionHelper extends Helper
 
     /**
      * Prevents usage of stty.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public static function disableStty()
     {
@@ -126,7 +138,22 @@ class QuestionHelper extends Helper
             }
 
             if (false === $ret) {
+<<<<<<< HEAD
                 $ret = $this->readInput($inputStream, $question);
+=======
+                $isBlocked = stream_get_meta_data($inputStream)['blocked'] ?? true;
+
+                if (!$isBlocked) {
+                    stream_set_blocking($inputStream, true);
+                }
+
+                $ret = $this->readInput($inputStream, $question);
+
+                if (!$isBlocked) {
+                    stream_set_blocking($inputStream, false);
+                }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 if (false === $ret) {
                     throw new MissingInputException('Aborted.');
                 }
@@ -140,6 +167,10 @@ class QuestionHelper extends Helper
         }
 
         if ($output instanceof ConsoleSectionOutput) {
+<<<<<<< HEAD
+=======
+            $output->addContent(''); // add EOL to the question
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $output->addContent($ret);
         }
 
@@ -161,7 +192,11 @@ class QuestionHelper extends Helper
         }
 
         if ($validator = $question->getValidator()) {
+<<<<<<< HEAD
             return \call_user_func($question->getValidator(), $default);
+=======
+            return \call_user_func($validator, $default);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         } elseif ($question instanceof ChoiceQuestion) {
             $choices = $question->getChoices();
 
@@ -181,6 +216,11 @@ class QuestionHelper extends Helper
 
     /**
      * Outputs the question prompt.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function writePrompt(OutputInterface $output, Question $question)
     {
@@ -217,6 +257,11 @@ class QuestionHelper extends Helper
 
     /**
      * Outputs an error message.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function writeError(OutputInterface $output, \Exception $error)
     {
@@ -316,9 +361,13 @@ class QuestionHelper extends Helper
 
                         $matches = array_filter(
                             $autocomplete($ret),
+<<<<<<< HEAD
                             function ($match) use ($ret) {
                                 return '' === $ret || str_starts_with($match, $ret);
                             }
+=======
+                            fn ($match) => '' === $ret || str_starts_with($match, $ret)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                         );
                         $numMatches = \count($matches);
                         $ofs = -1;
@@ -406,7 +455,11 @@ class QuestionHelper extends Helper
             $exe = __DIR__.'/../Resources/bin/hiddeninput.exe';
 
             // handle code running from a phar
+<<<<<<< HEAD
             if ('phar:' === substr(__FILE__, 0, 5)) {
+=======
+            if (str_starts_with(__FILE__, 'phar:')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $tmpExe = sys_get_temp_dir().'/hiddeninput.exe';
                 copy($exe, $tmpExe);
                 $exe = $tmpExe;
@@ -432,6 +485,14 @@ class QuestionHelper extends Helper
 
         $value = fgets($inputStream, 4096);
 
+<<<<<<< HEAD
+=======
+        if (4095 === \strlen($value)) {
+            $errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
+            $errOutput->warning('The value was possibly truncated by your shell or terminal emulator');
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if (self::$stty && Terminal::hasSttyAvailable()) {
             shell_exec('stty '.$sttyMode);
         }
@@ -485,6 +546,7 @@ class QuestionHelper extends Helper
             return self::$stdinIsInteractive;
         }
 
+<<<<<<< HEAD
         if (\function_exists('stream_isatty')) {
             return self::$stdinIsInteractive = @stream_isatty(fopen('php://stdin', 'r'));
         }
@@ -500,6 +562,9 @@ class QuestionHelper extends Helper
         exec('stty 2> /dev/null', $output, $status);
 
         return self::$stdinIsInteractive = 1 !== $status;
+=======
+        return self::$stdinIsInteractive = @stream_isatty(fopen('php://stdin', 'r'));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**

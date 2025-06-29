@@ -70,7 +70,11 @@ abstract class Element
     public function toString(): string
     {
         if (is_array($this->content)) {
+<<<<<<< HEAD
             $inheritance = new InheritStyles();
+=======
+            $inheritance = new InheritStyles;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $this->content = implode('', $inheritance($this->content, $this->styles));
         }
 
@@ -83,6 +87,10 @@ abstract class Element
     public function __call(string $name, array $arguments): mixed
     {
         if (method_exists($this->styles, $name)) {
+<<<<<<< HEAD
+=======
+            // @phpstan-ignore-next-line
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $result = $this->styles->{$name}(...$arguments);
 
             if (str_starts_with($name, 'get') || str_starts_with($name, 'has')) {

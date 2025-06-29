@@ -38,15 +38,25 @@ final class MailboxListHeader extends AbstractHeader
      *
      * @throws RfcComplianceException
      */
+<<<<<<< HEAD
     public function setBody(mixed $body)
+=======
+    public function setBody(mixed $body): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->setAddresses($body);
     }
 
     /**
+<<<<<<< HEAD
      * @throws RfcComplianceException
      *
      * @return Address[]
+=======
+     * @return Address[]
+     *
+     * @throws RfcComplianceException
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function getBody(): array
     {
@@ -60,7 +70,11 @@ final class MailboxListHeader extends AbstractHeader
      *
      * @throws RfcComplianceException
      */
+<<<<<<< HEAD
     public function setAddresses(array $addresses)
+=======
+    public function setAddresses(array $addresses): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->addresses = [];
         $this->addAddresses($addresses);
@@ -73,7 +87,11 @@ final class MailboxListHeader extends AbstractHeader
      *
      * @throws RfcComplianceException
      */
+<<<<<<< HEAD
     public function addAddresses(array $addresses)
+=======
+    public function addAddresses(array $addresses): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         foreach ($addresses as $address) {
             $this->addAddress($address);
@@ -83,7 +101,11 @@ final class MailboxListHeader extends AbstractHeader
     /**
      * @throws RfcComplianceException
      */
+<<<<<<< HEAD
     public function addAddress(Address $address)
+=======
+    public function addAddress(Address $address): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->addresses[] = $address;
     }
@@ -99,9 +121,15 @@ final class MailboxListHeader extends AbstractHeader
     /**
      * Gets the full mailbox list of this Header as an array of valid RFC 2822 strings.
      *
+<<<<<<< HEAD
      * @throws RfcComplianceException
      *
      * @return string[]
+=======
+     * @return string[]
+     *
+     * @throws RfcComplianceException
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function getAddressStrings(): array
     {

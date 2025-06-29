@@ -16,11 +16,17 @@ class FatalError extends \Error
     private array $error;
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
      * @param array $error An array as returned by error_get_last()
      */
     public function __construct(string $message, int $code, array $error, int $traceOffset = null, bool $traceArgs = true, array $trace = null)
+=======
+     * @param array $error An array as returned by error_get_last()
+     */
+    public function __construct(string $message, int $code, array $error, ?int $traceOffset = null, bool $traceArgs = true, ?array $trace = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         parent::__construct($message, $code);
 
@@ -33,7 +39,11 @@ class FatalError extends \Error
                 }
             }
         } elseif (null !== $traceOffset) {
+<<<<<<< HEAD
             if (\function_exists('xdebug_get_function_stack') && $trace = @xdebug_get_function_stack()) {
+=======
+            if (\function_exists('xdebug_get_function_stack') && \in_array(\ini_get('xdebug.mode'), ['develop', false], true) && $trace = @xdebug_get_function_stack()) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 if (0 < $traceOffset) {
                     array_splice($trace, -$traceOffset);
                 }
@@ -73,15 +83,21 @@ class FatalError extends \Error
         ] as $property => $value) {
             if (null !== $value) {
                 $refl = new \ReflectionProperty(\Error::class, $property);
+<<<<<<< HEAD
                 $refl->setAccessible(true);
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $refl->setValue($this, $value);
             }
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getError(): array
     {
         return $this->error;

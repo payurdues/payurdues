@@ -13,6 +13,10 @@ namespace Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+<<<<<<< HEAD
+=======
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 /**
@@ -20,6 +24,7 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
  *
  * @author Iltar van der Berg <kjarli@gmail.com>
  */
+<<<<<<< HEAD
 final class DefaultValueResolver implements ArgumentValueResolverInterface
 {
     /**
@@ -36,5 +41,30 @@ final class DefaultValueResolver implements ArgumentValueResolverInterface
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         yield $argument->hasDefaultValue() ? $argument->getDefaultValue() : null;
+=======
+final class DefaultValueResolver implements ArgumentValueResolverInterface, ValueResolverInterface
+{
+    /**
+     * @deprecated since Symfony 6.2, use resolve() instead
+     */
+    public function supports(Request $request, ArgumentMetadata $argument): bool
+    {
+        @trigger_deprecation('symfony/http-kernel', '6.2', 'The "%s()" method is deprecated, use "resolve()" instead.', __METHOD__);
+
+        return $argument->hasDefaultValue() || (null !== $argument->getType() && $argument->isNullable() && !$argument->isVariadic());
+    }
+
+    public function resolve(Request $request, ArgumentMetadata $argument): array
+    {
+        if ($argument->hasDefaultValue()) {
+            return [$argument->getDefaultValue()];
+        }
+
+        if (null !== $argument->getType() && $argument->isNullable() && !$argument->isVariadic()) {
+            return [null];
+        }
+
+        return [];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

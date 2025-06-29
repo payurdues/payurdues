@@ -28,16 +28,23 @@ use Symfony\Component\CssSelector\Parser\TokenStream;
  */
 class NumberHandler implements HandlerInterface
 {
+<<<<<<< HEAD
     private $patterns;
+=======
+    private TokenizerPatterns $patterns;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(TokenizerPatterns $patterns)
     {
         $this->patterns = $patterns;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function handle(Reader $reader, TokenStream $stream): bool
     {
         $match = $reader->findPattern($this->patterns->getNumberPattern());

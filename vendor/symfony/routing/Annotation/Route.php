@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Routing\Annotation;
 
+<<<<<<< HEAD
 /**
  * Annotation class for @Route().
  *
@@ -194,5 +195,15 @@ class Route
     public function getEnv(): ?string
     {
         return $this->env;
+=======
+// do not deprecate in 6.4/7.0, to make it easier for the ecosystem to support 6.4, 7.4 and 8.0 simultaneously
+
+class_exists(\Symfony\Component\Routing\Attribute\Route::class);
+
+if (false) {
+    #[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
+    class Route extends \Symfony\Component\Routing\Attribute\Route
+    {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

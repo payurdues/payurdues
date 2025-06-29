@@ -34,6 +34,11 @@ interface SessionInterface
 
     /**
      * Sets the session ID.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setId(string $id);
 
@@ -44,6 +49,11 @@ interface SessionInterface
 
     /**
      * Sets the session name.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setName(string $name);
 
@@ -53,17 +63,27 @@ interface SessionInterface
      * Clears all session attributes and flashes and regenerates the
      * session and deletes the old session from persistence.
      *
+<<<<<<< HEAD
      * @param int $lifetime Sets the cookie lifetime for the session cookie. A null value
      *                      will leave the system settings unchanged, 0 sets the cookie
      *                      to expire with browser session. Time is in seconds, and is
      *                      not a Unix timestamp.
      */
     public function invalidate(int $lifetime = null): bool;
+=======
+     * @param int|null $lifetime Sets the cookie lifetime for the session cookie. A null value
+     *                           will leave the system settings unchanged, 0 sets the cookie
+     *                           to expire with browser session. Time is in seconds, and is
+     *                           not a Unix timestamp.
+     */
+    public function invalidate(?int $lifetime = null): bool;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Migrates the current session to a new session id while maintaining all
      * session attributes.
      *
+<<<<<<< HEAD
      * @param bool $destroy  Whether to delete the old session or leave it to garbage collection
      * @param int  $lifetime Sets the cookie lifetime for the session cookie. A null value
      *                       will leave the system settings unchanged, 0 sets the cookie
@@ -71,6 +91,15 @@ interface SessionInterface
      *                       not a Unix timestamp.
      */
     public function migrate(bool $destroy = false, int $lifetime = null): bool;
+=======
+     * @param bool     $destroy  Whether to delete the old session or leave it to garbage collection
+     * @param int|null $lifetime Sets the cookie lifetime for the session cookie. A null value
+     *                           will leave the system settings unchanged, 0 sets the cookie
+     *                           to expire with browser session. Time is in seconds, and is
+     *                           not a Unix timestamp.
+     */
+    public function migrate(bool $destroy = false, ?int $lifetime = null): bool;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Force the session to be saved and closed.
@@ -78,6 +107,11 @@ interface SessionInterface
      * This method is generally not required for real sessions as
      * the session will be automatically saved at the end of
      * code execution.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function save();
 
@@ -93,6 +127,11 @@ interface SessionInterface
 
     /**
      * Sets an attribute.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function set(string $name, mixed $value);
 
@@ -103,6 +142,11 @@ interface SessionInterface
 
     /**
      * Sets attributes.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function replace(array $attributes);
 
@@ -115,6 +159,11 @@ interface SessionInterface
 
     /**
      * Clears all attributes.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function clear();
 
@@ -125,6 +174,11 @@ interface SessionInterface
 
     /**
      * Registers a SessionBagInterface with the session.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function registerBag(SessionBagInterface $bag);
 

@@ -50,6 +50,10 @@ class Finder implements \IteratorAggregate, \Countable
     private array $notNames = [];
     private array $exclude = [];
     private array $filters = [];
+<<<<<<< HEAD
+=======
+    private array $pruneFilters = [];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private array $depths = [];
     private array $sizes = [];
     private bool $followLinks = false;
@@ -162,8 +166,13 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * You can use patterns (delimited with / sign), globs or simple strings.
      *
+<<<<<<< HEAD
      *     $finder->name('*.php')
      *     $finder->name('/\.php$/') // same as above
+=======
+     *     $finder->name('/\.php$/')
+     *     $finder->name('*.php') // same as above, without dot files
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      *     $finder->name('test.php')
      *     $finder->name(['test.py', 'test.php'])
      *
@@ -396,6 +405,11 @@ class Finder implements \IteratorAggregate, \Countable
      * @see ignoreVCS()
      *
      * @param string|string[] $pattern VCS patterns to ignore
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public static function addVCSPattern(string|array $pattern)
     {
@@ -425,6 +439,25 @@ class Finder implements \IteratorAggregate, \Countable
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Sorts files and directories by extension.
+     *
+     * This can be slow as all the matching files and directories must be retrieved for comparison.
+     *
+     * @return $this
+     *
+     * @see SortableIterator
+     */
+    public function sortByExtension(): static
+    {
+        $this->sort = Iterator\SortableIterator::SORT_BY_EXTENSION;
+
+        return $this;
+    }
+
+    /**
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * Sorts files and directories by name.
      *
      * This can be slow as all the matching files and directories must be retrieved for comparison.
@@ -441,6 +474,41 @@ class Finder implements \IteratorAggregate, \Countable
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Sorts files and directories by name case insensitive.
+     *
+     * This can be slow as all the matching files and directories must be retrieved for comparison.
+     *
+     * @return $this
+     *
+     * @see SortableIterator
+     */
+    public function sortByCaseInsensitiveName(bool $useNaturalSort = false): static
+    {
+        $this->sort = $useNaturalSort ? Iterator\SortableIterator::SORT_BY_NAME_NATURAL_CASE_INSENSITIVE : Iterator\SortableIterator::SORT_BY_NAME_CASE_INSENSITIVE;
+
+        return $this;
+    }
+
+    /**
+     * Sorts files and directories by size.
+     *
+     * This can be slow as all the matching files and directories must be retrieved for comparison.
+     *
+     * @return $this
+     *
+     * @see SortableIterator
+     */
+    public function sortBySize(): static
+    {
+        $this->sort = Iterator\SortableIterator::SORT_BY_SIZE;
+
+        return $this;
+    }
+
+    /**
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * Sorts files and directories by type (directories before files), then by name.
      *
      * This can be slow as all the matching files and directories must be retrieved for comparison.
@@ -530,14 +598,32 @@ class Finder implements \IteratorAggregate, \Countable
      * The anonymous function receives a \SplFileInfo and must return false
      * to remove files.
      *
+<<<<<<< HEAD
+=======
+     * @param \Closure(SplFileInfo): bool $closure
+     * @param bool                        $prune   Whether to skip traversing directories further
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @return $this
      *
      * @see CustomFilterIterator
      */
+<<<<<<< HEAD
     public function filter(\Closure $closure): static
     {
         $this->filters[] = $closure;
 
+=======
+    public function filter(\Closure $closure /* , bool $prune = false */): static
+    {
+        $prune = 1 < \func_num_args() ? func_get_arg(1) : false;
+        $this->filters[] = $closure;
+
+        if ($prune) {
+            $this->pruneFilters[] = $closure;
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         return $this;
     }
 
@@ -585,7 +671,11 @@ class Finder implements \IteratorAggregate, \Countable
                 $resolvedDirs[] = [$this->normalizeDir($dir)];
             } elseif ($glob = glob($dir, (\defined('GLOB_BRACE') ? \GLOB_BRACE : 0) | \GLOB_ONLYDIR | \GLOB_NOSORT)) {
                 sort($glob);
+<<<<<<< HEAD
                 $resolvedDirs[] = array_map([$this, 'normalizeDir'], $glob);
+=======
+                $resolvedDirs[] = array_map($this->normalizeDir(...), $glob);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             } else {
                 throw new DirectoryNotFoundException(sprintf('The "%s" directory does not exist.', $dir));
             }
@@ -623,9 +713,13 @@ class Finder implements \IteratorAggregate, \Countable
 
         $iterator = new \AppendIterator();
         foreach ($this->dirs as $dir) {
+<<<<<<< HEAD
             $iterator->append(new \IteratorIterator(new LazyIterator(function () use ($dir) {
                 return $this->searchInDirectory($dir);
             })));
+=======
+            $iterator->append(new \IteratorIterator(new LazyIterator(fn () => $this->searchInDirectory($dir))));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         foreach ($this->iterators as $it) {
@@ -693,6 +787,13 @@ class Finder implements \IteratorAggregate, \Countable
         $exclude = $this->exclude;
         $notPaths = $this->notPaths;
 
+<<<<<<< HEAD
+=======
+        if ($this->pruneFilters) {
+            $exclude = array_merge($exclude, $this->pruneFilters);
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if (static::IGNORE_VCS_FILES === (static::IGNORE_VCS_FILES & $this->ignore)) {
             $exclude = array_merge($exclude, self::$vcsPatterns);
         }

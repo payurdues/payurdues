@@ -14,7 +14,11 @@ if ('cli' !== \PHP_SAPI) {
 }
 
 // load new map
+<<<<<<< HEAD
 $data = json_decode(file_get_contents('https://cdn.jsdelivr.net/gh/jshttp/mime-db@v1.49.0/db.json'), true);
+=======
+$data = json_decode(file_get_contents('https://cdn.jsdelivr.net/gh/jshttp/mime-db/db.json'), true);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 $new = [];
 foreach ($data as $mimeType => $mimeTypeInformation) {
     if (!array_key_exists('extensions', $mimeTypeInformation)) {
@@ -93,6 +97,10 @@ $exts = [
     'ogg' => ['audio/ogg'],
     'pdf' => ['application/pdf'],
     'php' => ['application/x-php'],
+<<<<<<< HEAD
+=======
+    'png' => ['image/png'],
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     'ppt' => ['application/vnd.ms-powerpoint'],
     'rar' => ['application/x-rar-compressed'],
     'hqx' => ['application/stuffit'],
@@ -106,6 +114,11 @@ $exts = [
     'wma' => ['audio/x-ms-wma'],
     'wmv' => ['audio/x-ms-wmv'],
     'xls' => ['application/vnd.ms-excel'],
+<<<<<<< HEAD
+=======
+    'yaml' => ['application/yaml'],
+    'yml' => ['application/yaml'],
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     'zip' => ['application/zip'],
 ];
 
@@ -158,7 +171,11 @@ foreach (explode("\n", $data) as $line) {
     $state = 1;
 }
 
+<<<<<<< HEAD
 $updated = preg_replace('{Updated from upstream on .+?\.}', 'Updated from upstream on '.date('Y-m-d'), $updated, -1);
+=======
+$updated = preg_replace('{Updated from upstream on .+?\.}', sprintf('Updated from upstream on %s.', date('Y-m-d')), $updated, -1);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
 file_put_contents($output, rtrim($updated, "\n")."\n");
 

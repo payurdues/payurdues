@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+<<<<<<< HEAD
+=======
+6.4
+---
+
+ * Add `PhpSubprocess` to handle PHP subprocesses that take over the
+   configuration from their parent
+ * Add `RunProcessMessage` and `RunProcessMessageHandler`
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 5.2.0
 -----
 

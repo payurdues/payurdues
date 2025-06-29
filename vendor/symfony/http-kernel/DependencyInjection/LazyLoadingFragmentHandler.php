@@ -23,7 +23,11 @@ use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
  */
 class LazyLoadingFragmentHandler extends FragmentHandler
 {
+<<<<<<< HEAD
     private $container;
+=======
+    private ContainerInterface $container;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * @var array<string, bool>
@@ -37,9 +41,12 @@ class LazyLoadingFragmentHandler extends FragmentHandler
         parent::__construct($requestStack, [], $debug);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function render(string|ControllerReference $uri, string $renderer = 'inline', array $options = []): ?string
     {
         if (!isset($this->initialized[$renderer]) && $this->container->has($renderer)) {

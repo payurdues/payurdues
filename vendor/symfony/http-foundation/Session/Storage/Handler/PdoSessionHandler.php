@@ -11,6 +11,12 @@
 
 namespace Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
+<<<<<<< HEAD
+=======
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Types\Types;
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 /**
  * Session handler using a PDO connection to read and write data.
  *
@@ -65,7 +71,11 @@ class PdoSessionHandler extends AbstractSessionHandler
      */
     public const LOCK_TRANSACTIONAL = 2;
 
+<<<<<<< HEAD
     private $pdo;
+=======
+    private \PDO $pdo;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * DSN string or null for session.save_path or false when lazy connection disabled.
@@ -80,14 +90,29 @@ class PdoSessionHandler extends AbstractSessionHandler
     private string $timeCol = 'sess_time';
 
     /**
+<<<<<<< HEAD
      * Username when lazy-connect.
      */
     private string $username = '';
+=======
+     * Time to live in seconds.
+     */
+    private int|\Closure|null $ttl;
+
+    /**
+     * Username when lazy-connect.
+     */
+    private ?string $username = null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Password when lazy-connect.
      */
+<<<<<<< HEAD
     private string $password = '';
+=======
+    private ?string $password = null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Connection options when lazy-connect.
@@ -137,12 +162,20 @@ class PdoSessionHandler extends AbstractSessionHandler
      *  * db_password: The password when lazy-connect [default: '']
      *  * db_connection_options: An array of driver-specific connection options [default: []]
      *  * lock_mode: The strategy for locking, see constants [default: LOCK_TRANSACTIONAL]
+<<<<<<< HEAD
+=======
+     *  * ttl: The time to live in seconds.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      *
      * @param \PDO|string|null $pdoOrDsn A \PDO instance or DSN string or URL string or null
      *
      * @throws \InvalidArgumentException When PDO error mode is not PDO::ERRMODE_EXCEPTION
      */
+<<<<<<< HEAD
     public function __construct(\PDO|string $pdoOrDsn = null, array $options = [])
+=======
+    public function __construct(#[\SensitiveParameter] \PDO|string|null $pdoOrDsn = null, #[\SensitiveParameter] array $options = [])
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($pdoOrDsn instanceof \PDO) {
             if (\PDO::ERRMODE_EXCEPTION !== $pdoOrDsn->getAttribute(\PDO::ATTR_ERRMODE)) {
@@ -166,6 +199,60 @@ class PdoSessionHandler extends AbstractSessionHandler
         $this->password = $options['db_password'] ?? $this->password;
         $this->connectionOptions = $options['db_connection_options'] ?? $this->connectionOptions;
         $this->lockMode = $options['lock_mode'] ?? $this->lockMode;
+<<<<<<< HEAD
+=======
+        $this->ttl = $options['ttl'] ?? null;
+    }
+
+    /**
+     * Adds the Table to the Schema if it doesn't exist.
+     */
+    public function configureSchema(Schema $schema, ?\Closure $isSameDatabase = null): void
+    {
+        if ($schema->hasTable($this->table) || ($isSameDatabase && !$isSameDatabase($this->getConnection()->exec(...)))) {
+            return;
+        }
+
+        $table = $schema->createTable($this->table);
+        switch ($this->driver) {
+            case 'mysql':
+                $table->addColumn($this->idCol, Types::BINARY)->setLength(128)->setNotnull(true);
+                $table->addColumn($this->dataCol, Types::BLOB)->setNotnull(true);
+                $table->addColumn($this->lifetimeCol, Types::INTEGER)->setUnsigned(true)->setNotnull(true);
+                $table->addColumn($this->timeCol, Types::INTEGER)->setUnsigned(true)->setNotnull(true);
+                $table->addOption('collate', 'utf8mb4_bin');
+                $table->addOption('engine', 'InnoDB');
+                break;
+            case 'sqlite':
+                $table->addColumn($this->idCol, Types::TEXT)->setNotnull(true);
+                $table->addColumn($this->dataCol, Types::BLOB)->setNotnull(true);
+                $table->addColumn($this->lifetimeCol, Types::INTEGER)->setNotnull(true);
+                $table->addColumn($this->timeCol, Types::INTEGER)->setNotnull(true);
+                break;
+            case 'pgsql':
+                $table->addColumn($this->idCol, Types::STRING)->setLength(128)->setNotnull(true);
+                $table->addColumn($this->dataCol, Types::BINARY)->setNotnull(true);
+                $table->addColumn($this->lifetimeCol, Types::INTEGER)->setNotnull(true);
+                $table->addColumn($this->timeCol, Types::INTEGER)->setNotnull(true);
+                break;
+            case 'oci':
+                $table->addColumn($this->idCol, Types::STRING)->setLength(128)->setNotnull(true);
+                $table->addColumn($this->dataCol, Types::BLOB)->setNotnull(true);
+                $table->addColumn($this->lifetimeCol, Types::INTEGER)->setNotnull(true);
+                $table->addColumn($this->timeCol, Types::INTEGER)->setNotnull(true);
+                break;
+            case 'sqlsrv':
+                $table->addColumn($this->idCol, Types::TEXT)->setLength(128)->setNotnull(true);
+                $table->addColumn($this->dataCol, Types::BLOB)->setNotnull(true);
+                $table->addColumn($this->lifetimeCol, Types::INTEGER)->setUnsigned(true)->setNotnull(true);
+                $table->addColumn($this->timeCol, Types::INTEGER)->setUnsigned(true)->setNotnull(true);
+                break;
+            default:
+                throw new \DomainException(sprintf('Creating the session table is currently not implemented for PDO driver "%s".', $this->driver));
+        }
+        $table->setPrimaryKey([$this->idCol]);
+        $table->addIndex([$this->lifetimeCol], $this->lifetimeCol.'_idx');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -176,6 +263,11 @@ class PdoSessionHandler extends AbstractSessionHandler
      * saved in a BLOB. One could also use a shorter inlined varbinary column
      * if one was sure the data fits into it.
      *
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws \PDOException    When the table already exists
      * @throws \DomainException When an unsupported PDO driver is used
      */
@@ -184,6 +276,7 @@ class PdoSessionHandler extends AbstractSessionHandler
         // connect if we are not yet
         $this->getConnection();
 
+<<<<<<< HEAD
         switch ($this->driver) {
             case 'mysql':
                 // We use varbinary for the ID column because it prevents unwanted conversions:
@@ -212,6 +305,25 @@ class PdoSessionHandler extends AbstractSessionHandler
         try {
             $this->pdo->exec($sql);
             $this->pdo->exec("CREATE INDEX EXPIRY ON $this->table ($this->lifetimeCol)");
+=======
+        $sql = match ($this->driver) {
+            // We use varbinary for the ID column because it prevents unwanted conversions:
+            // - character set conversions between server and client
+            // - trailing space removal
+            // - case-insensitivity
+            // - language processing like é == e
+            'mysql' => "CREATE TABLE $this->table ($this->idCol VARBINARY(128) NOT NULL PRIMARY KEY, $this->dataCol BLOB NOT NULL, $this->lifetimeCol INTEGER UNSIGNED NOT NULL, $this->timeCol INTEGER UNSIGNED NOT NULL) COLLATE utf8mb4_bin, ENGINE = InnoDB",
+            'sqlite' => "CREATE TABLE $this->table ($this->idCol TEXT NOT NULL PRIMARY KEY, $this->dataCol BLOB NOT NULL, $this->lifetimeCol INTEGER NOT NULL, $this->timeCol INTEGER NOT NULL)",
+            'pgsql' => "CREATE TABLE $this->table ($this->idCol VARCHAR(128) NOT NULL PRIMARY KEY, $this->dataCol BYTEA NOT NULL, $this->lifetimeCol INTEGER NOT NULL, $this->timeCol INTEGER NOT NULL)",
+            'oci' => "CREATE TABLE $this->table ($this->idCol VARCHAR2(128) NOT NULL PRIMARY KEY, $this->dataCol BLOB NOT NULL, $this->lifetimeCol INTEGER NOT NULL, $this->timeCol INTEGER NOT NULL)",
+            'sqlsrv' => "CREATE TABLE $this->table ($this->idCol VARCHAR(128) NOT NULL PRIMARY KEY, $this->dataCol VARBINARY(MAX) NOT NULL, $this->lifetimeCol INTEGER NOT NULL, $this->timeCol INTEGER NOT NULL)",
+            default => throw new \DomainException(sprintf('Creating the session table is currently not implemented for PDO driver "%s".', $this->driver)),
+        };
+
+        try {
+            $this->pdo->exec($sql);
+            $this->pdo->exec("CREATE INDEX {$this->lifetimeCol}_idx ON $this->table ($this->lifetimeCol)");
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         } catch (\PDOException $e) {
             $this->rollback();
 
@@ -240,7 +352,11 @@ class PdoSessionHandler extends AbstractSessionHandler
         return parent::open($savePath, $sessionName);
     }
 
+<<<<<<< HEAD
     public function read(string $sessionId): string
+=======
+    public function read(#[\SensitiveParameter] string $sessionId): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         try {
             return parent::read($sessionId);
@@ -260,10 +376,14 @@ class PdoSessionHandler extends AbstractSessionHandler
         return 0;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function doDestroy(string $sessionId): bool
+=======
+    protected function doDestroy(#[\SensitiveParameter] string $sessionId): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         // delete the record associated with this id
         $sql = "DELETE FROM $this->table WHERE $this->idCol = :id";
@@ -281,12 +401,18 @@ class PdoSessionHandler extends AbstractSessionHandler
         return true;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function doWrite(string $sessionId, string $data): bool
     {
         $maxlifetime = (int) \ini_get('session.gc_maxlifetime');
+=======
+    protected function doWrite(#[\SensitiveParameter] string $sessionId, string $data): bool
+    {
+        $maxlifetime = (int) (($this->ttl instanceof \Closure ? ($this->ttl)() : $this->ttl) ?? \ini_get('session.gc_maxlifetime'));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         try {
             // We use a single MERGE SQL query when supported by the database.
@@ -327,16 +453,27 @@ class PdoSessionHandler extends AbstractSessionHandler
         return true;
     }
 
+<<<<<<< HEAD
     public function updateTimestamp(string $sessionId, string $data): bool
     {
         $expiry = time() + (int) \ini_get('session.gc_maxlifetime');
+=======
+    public function updateTimestamp(#[\SensitiveParameter] string $sessionId, string $data): bool
+    {
+        $expiry = time() + (int) (($this->ttl instanceof \Closure ? ($this->ttl)() : $this->ttl) ?? \ini_get('session.gc_maxlifetime'));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         try {
             $updateStmt = $this->pdo->prepare(
                 "UPDATE $this->table SET $this->lifetimeCol = :expiry, $this->timeCol = :time WHERE $this->idCol = :id"
             );
+<<<<<<< HEAD
             $updateStmt->bindParam(':id', $sessionId, \PDO::PARAM_STR);
             $updateStmt->bindParam(':expiry', $expiry, \PDO::PARAM_INT);
+=======
+            $updateStmt->bindValue(':id', $sessionId, \PDO::PARAM_STR);
+            $updateStmt->bindValue(':expiry', $expiry, \PDO::PARAM_INT);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $updateStmt->bindValue(':time', time(), \PDO::PARAM_INT);
             $updateStmt->execute();
         } catch (\PDOException $e) {
@@ -376,7 +513,11 @@ class PdoSessionHandler extends AbstractSessionHandler
     /**
      * Lazy-connects to the database.
      */
+<<<<<<< HEAD
     private function connect(string $dsn): void
+=======
+    private function connect(#[\SensitiveParameter] string $dsn): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->pdo = new \PDO($dsn, $this->username, $this->password, $this->connectionOptions);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -388,7 +529,11 @@ class PdoSessionHandler extends AbstractSessionHandler
      *
      * @todo implement missing support for oci DSN (which look totally different from other PDO ones)
      */
+<<<<<<< HEAD
     private function buildDsnFromUrl(string $dsnOrUrl): string
+=======
+    private function buildDsnFromUrl(#[\SensitiveParameter] string $dsnOrUrl): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         // (pdo_)?sqlite3?:///... => (pdo_)?sqlite3?://localhost/... or else the URL will be invalid
         $url = preg_replace('#^((?:pdo_)?sqlite3?):///#', '$1://localhost/', $dsnOrUrl);
@@ -451,10 +596,17 @@ class PdoSessionHandler extends AbstractSessionHandler
                         return $dsn;
                     }
                 }
+<<<<<<< HEAD
             // If "unix_socket" is not in the query, we continue with the same process as pgsql
             // no break
             case 'pgsql':
                 $dsn ?? $dsn = 'pgsql:';
+=======
+                // If "unix_socket" is not in the query, we continue with the same process as pgsql
+                // no break
+            case 'pgsql':
+                $dsn ??= 'pgsql:';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
                 if (isset($params['host']) && '' !== $params['host']) {
                     $dsn .= 'host='.$params['host'].';';
@@ -571,7 +723,11 @@ class PdoSessionHandler extends AbstractSessionHandler
      * We need to make sure we do not return session data that is already considered garbage according
      * to the session.gc_maxlifetime setting because gc() is called after read() and only sometimes.
      */
+<<<<<<< HEAD
     protected function doRead(string $sessionId): string
+=======
+    protected function doRead(#[\SensitiveParameter] string $sessionId): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (self::LOCK_ADVISORY === $this->lockMode) {
             $this->unlockStatements[] = $this->doAdvisoryLock($sessionId);
@@ -603,7 +759,11 @@ class PdoSessionHandler extends AbstractSessionHandler
                 throw new \RuntimeException('Failed to read session: INSERT reported a duplicate id but next SELECT did not return any data.');
             }
 
+<<<<<<< HEAD
             if (!filter_var(\ini_get('session.use_strict_mode'), \FILTER_VALIDATE_BOOLEAN) && self::LOCK_TRANSACTIONAL === $this->lockMode && 'sqlite' !== $this->driver) {
+=======
+            if (!filter_var(\ini_get('session.use_strict_mode'), \FILTER_VALIDATE_BOOL) && self::LOCK_TRANSACTIONAL === $this->lockMode && 'sqlite' !== $this->driver) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 // In strict mode, session fixation is not possible: new sessions always start with a unique
                 // random id, so that concurrency is not possible and this code path can be skipped.
                 // Exclusive-reading of non-existent rows does not block, so we need to do an insert to block
@@ -642,7 +802,11 @@ class PdoSessionHandler extends AbstractSessionHandler
      *       - for oci using DBMS_LOCK.REQUEST
      *       - for sqlsrv using sp_getapplock with LockOwner = Session
      */
+<<<<<<< HEAD
     private function doAdvisoryLock(string $sessionId): \PDOStatement
+=======
+    private function doAdvisoryLock(#[\SensitiveParameter] string $sessionId): \PDOStatement
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         switch ($this->driver) {
             case 'mysql':
@@ -741,7 +905,11 @@ class PdoSessionHandler extends AbstractSessionHandler
     /**
      * Returns an insert statement supported by the database for writing session data.
      */
+<<<<<<< HEAD
     private function getInsertStatement(string $sessionId, string $sessionData, int $maxlifetime): \PDOStatement
+=======
+    private function getInsertStatement(#[\SensitiveParameter] string $sessionId, string $sessionData, int $maxlifetime): \PDOStatement
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         switch ($this->driver) {
             case 'oci':
@@ -768,7 +936,11 @@ class PdoSessionHandler extends AbstractSessionHandler
     /**
      * Returns an update statement supported by the database for writing session data.
      */
+<<<<<<< HEAD
     private function getUpdateStatement(string $sessionId, string $sessionData, int $maxlifetime): \PDOStatement
+=======
+    private function getUpdateStatement(#[\SensitiveParameter] string $sessionId, string $sessionData, int $maxlifetime): \PDOStatement
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         switch ($this->driver) {
             case 'oci':
@@ -795,7 +967,11 @@ class PdoSessionHandler extends AbstractSessionHandler
     /**
      * Returns a merge/upsert (i.e. insert or update) statement when supported by the database for writing session data.
      */
+<<<<<<< HEAD
     private function getMergeStatement(string $sessionId, string $data, int $maxlifetime): ?\PDOStatement
+=======
+    private function getMergeStatement(#[\SensitiveParameter] string $sessionId, string $data, int $maxlifetime): ?\PDOStatement
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         switch (true) {
             case 'mysql' === $this->driver:

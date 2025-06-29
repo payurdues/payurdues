@@ -18,6 +18,12 @@ use Symfony\Component\Console\Exception\RuntimeException;
  * InputInterface is the interface implemented by all input classes.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+<<<<<<< HEAD
+=======
+ *
+ * @method string __toString() Returns a stringified representation of the args passed to the command.
+ *                             InputArguments MUST be escaped as well as the InputOption values passed to the command.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  */
 interface InputInterface
 {
@@ -58,6 +64,11 @@ interface InputInterface
     /**
      * Binds the current Input instance with the given arguments and options.
      *
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws RuntimeException
      */
     public function bind(InputDefinition $definition);
@@ -65,6 +76,11 @@ interface InputInterface
     /**
      * Validates the input.
      *
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws RuntimeException When not enough arguments are given
      */
     public function validate();
@@ -88,6 +104,11 @@ interface InputInterface
     /**
      * Sets an argument value by name.
      *
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws InvalidArgumentException When argument given doesn't exist
      */
     public function setArgument(string $name, mixed $value);
@@ -116,6 +137,11 @@ interface InputInterface
     /**
      * Sets an option value by name.
      *
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws InvalidArgumentException When option given doesn't exist
      */
     public function setOption(string $name, mixed $value);
@@ -132,6 +158,11 @@ interface InputInterface
 
     /**
      * Sets the input interactivity.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setInteractive(bool $interactive);
 }

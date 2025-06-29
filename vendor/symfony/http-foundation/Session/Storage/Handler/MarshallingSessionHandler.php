@@ -18,8 +18,13 @@ use Symfony\Component\Cache\Marshaller\MarshallerInterface;
  */
 class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpdateTimestampHandlerInterface
 {
+<<<<<<< HEAD
     private $handler;
     private $marshaller;
+=======
+    private AbstractSessionHandler $handler;
+    private MarshallerInterface $marshaller;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(AbstractSessionHandler $handler, MarshallerInterface $marshaller)
     {
@@ -37,7 +42,11 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
         return $this->handler->close();
     }
 
+<<<<<<< HEAD
     public function destroy(string $sessionId): bool
+=======
+    public function destroy(#[\SensitiveParameter] string $sessionId): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->handler->destroy($sessionId);
     }
@@ -47,12 +56,20 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
         return $this->handler->gc($maxlifetime);
     }
 
+<<<<<<< HEAD
     public function read(string $sessionId): string
+=======
+    public function read(#[\SensitiveParameter] string $sessionId): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->marshaller->unmarshall($this->handler->read($sessionId));
     }
 
+<<<<<<< HEAD
     public function write(string $sessionId, string $data): bool
+=======
+    public function write(#[\SensitiveParameter] string $sessionId, string $data): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $failed = [];
         $marshalledData = $this->marshaller->marshall(['data' => $data], $failed);
@@ -64,12 +81,20 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
         return $this->handler->write($sessionId, $marshalledData['data']);
     }
 
+<<<<<<< HEAD
     public function validateId(string $sessionId): bool
+=======
+    public function validateId(#[\SensitiveParameter] string $sessionId): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->handler->validateId($sessionId);
     }
 
+<<<<<<< HEAD
     public function updateTimestamp(string $sessionId, string $data): bool
+=======
+    public function updateTimestamp(#[\SensitiveParameter] string $sessionId, string $data): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->handler->updateTimestamp($sessionId, $data);
     }

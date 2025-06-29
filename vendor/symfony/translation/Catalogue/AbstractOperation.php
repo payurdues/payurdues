@@ -35,11 +35,14 @@ abstract class AbstractOperation implements OperationInterface
     protected $result;
 
     /**
+<<<<<<< HEAD
      * @var array|null The domains affected by this operation
      */
     private $domains;
 
     /**
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * This array stores 'all', 'new' and 'obsolete' messages for all valid domains.
      *
      * The data structure of this array is as follows:
@@ -62,6 +65,11 @@ abstract class AbstractOperation implements OperationInterface
      */
     protected $messages;
 
+<<<<<<< HEAD
+=======
+    private array $domains;
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     /**
      * @throws LogicException
      */
@@ -77,12 +85,18 @@ abstract class AbstractOperation implements OperationInterface
         $this->messages = [];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function getDomains(): array
     {
         if (null === $this->domains) {
+=======
+    public function getDomains(): array
+    {
+        if (!isset($this->domains)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $domains = [];
             foreach ([$this->source, $this->target] as $catalogue) {
                 foreach ($catalogue->getDomains() as $domain) {
@@ -100,9 +114,12 @@ abstract class AbstractOperation implements OperationInterface
         return $this->domains;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getMessages(string $domain): array
     {
         if (!\in_array($domain, $this->getDomains())) {
@@ -116,9 +133,12 @@ abstract class AbstractOperation implements OperationInterface
         return $this->messages[$domain][self::ALL_BATCH];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getNewMessages(string $domain): array
     {
         if (!\in_array($domain, $this->getDomains())) {
@@ -132,9 +152,12 @@ abstract class AbstractOperation implements OperationInterface
         return $this->messages[$domain][self::NEW_BATCH];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getObsoleteMessages(string $domain): array
     {
         if (!\in_array($domain, $this->getDomains())) {
@@ -148,9 +171,12 @@ abstract class AbstractOperation implements OperationInterface
         return $this->messages[$domain][self::OBSOLETE_BATCH];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getResult(): MessageCatalogueInterface
     {
         foreach ($this->getDomains() as $domain) {
@@ -174,12 +200,21 @@ abstract class AbstractOperation implements OperationInterface
 
         foreach ($this->getDomains() as $domain) {
             $intlDomain = $domain.MessageCatalogueInterface::INTL_DOMAIN_SUFFIX;
+<<<<<<< HEAD
             switch ($batch) {
                 case self::OBSOLETE_BATCH: $messages = $this->getObsoleteMessages($domain); break;
                 case self::NEW_BATCH: $messages = $this->getNewMessages($domain); break;
                 case self::ALL_BATCH: $messages = $this->getMessages($domain); break;
                 default: throw new \InvalidArgumentException(sprintf('$batch argument must be one of ["%s", "%s", "%s"].', self::ALL_BATCH, self::NEW_BATCH, self::OBSOLETE_BATCH));
             }
+=======
+            $messages = match ($batch) {
+                self::OBSOLETE_BATCH => $this->getObsoleteMessages($domain),
+                self::NEW_BATCH => $this->getNewMessages($domain),
+                self::ALL_BATCH => $this->getMessages($domain),
+                default => throw new \InvalidArgumentException(sprintf('$batch argument must be one of ["%s", "%s", "%s"].', self::ALL_BATCH, self::NEW_BATCH, self::OBSOLETE_BATCH)),
+            };
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             if (!$messages || (!$this->source->all($intlDomain) && $this->source->all($domain))) {
                 continue;
@@ -198,6 +233,11 @@ abstract class AbstractOperation implements OperationInterface
      * stores the results.
      *
      * @param string $domain The domain which the operation will be performed for
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     abstract protected function processDomain(string $domain);
 }

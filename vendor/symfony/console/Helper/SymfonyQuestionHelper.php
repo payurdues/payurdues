@@ -26,7 +26,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class SymfonyQuestionHelper extends QuestionHelper
 {
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function writePrompt(OutputInterface $output, Question $question)
     {
@@ -84,7 +88,11 @@ class SymfonyQuestionHelper extends QuestionHelper
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function writeError(OutputInterface $output, \Exception $error)
     {

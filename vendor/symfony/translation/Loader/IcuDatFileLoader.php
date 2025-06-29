@@ -23,9 +23,12 @@ use Symfony\Component\Translation\MessageCatalogue;
  */
 class IcuDatFileLoader extends IcuResFileLoader
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function load(mixed $resource, string $locale, string $domain = 'messages'): MessageCatalogue
     {
         if (!stream_is_local($resource.'.dat')) {
@@ -38,7 +41,11 @@ class IcuDatFileLoader extends IcuResFileLoader
 
         try {
             $rb = new \ResourceBundle($locale, $resource);
+<<<<<<< HEAD
         } catch (\Exception $e) {
+=======
+        } catch (\Exception) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $rb = null;
         }
 

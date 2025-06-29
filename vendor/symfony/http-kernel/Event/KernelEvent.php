@@ -16,14 +16,23 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
+<<<<<<< HEAD
  * Base class for events thrown in the HttpKernel component.
+=======
+ * Base class for events dispatched in the HttpKernel component.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class KernelEvent extends Event
 {
+<<<<<<< HEAD
     private $kernel;
     private $request;
+=======
+    private HttpKernelInterface $kernel;
+    private Request $request;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private ?int $requestType;
 
     /**

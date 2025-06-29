@@ -31,17 +31,23 @@ class FactoryCommandLoader implements CommandLoaderInterface
         $this->factories = $factories;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function has(string $name): bool
     {
         return isset($this->factories[$name]);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function get(string $name): Command
     {
         if (!isset($this->factories[$name])) {
@@ -53,9 +59,12 @@ class FactoryCommandLoader implements CommandLoaderInterface
         return $factory();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getNames(): array
     {
         return array_keys($this->factories);

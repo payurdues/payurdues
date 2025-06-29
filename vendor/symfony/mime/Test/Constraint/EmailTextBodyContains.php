@@ -24,21 +24,28 @@ final class EmailTextBodyContains extends Constraint
         $this->expectedText = $expectedText;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function toString(): string
     {
         return sprintf('contains "%s"', $this->expectedText);
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @param RawMessage $message
      */
     protected function matches($message): bool
     {
+<<<<<<< HEAD
         if (RawMessage::class === \get_class($message) || Message::class === \get_class($message)) {
             throw new \LogicException('Unable to test a message text body on a RawMessage or Message instance.');
         }
@@ -49,6 +56,16 @@ final class EmailTextBodyContains extends Constraint
     /**
      * {@inheritdoc}
      *
+=======
+        if (RawMessage::class === $message::class || Message::class === $message::class) {
+            throw new \LogicException('Unable to test a message text body on a RawMessage or Message instance.');
+        }
+
+        return str_contains($message->getTextBody(), $this->expectedText);
+    }
+
+    /**
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @param RawMessage $message
      */
     protected function failureDescription($message): string

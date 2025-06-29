@@ -16,7 +16,11 @@ namespace Symfony\Component\HttpKernel\Exception;
  */
 class LengthRequiredHttpException extends HttpException
 {
+<<<<<<< HEAD
     public function __construct(string $message = '', \Throwable $previous = null, int $code = 0, array $headers = [])
+=======
+    public function __construct(string $message = '', ?\Throwable $previous = null, int $code = 0, array $headers = [])
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         parent::__construct(411, $message, $previous, $headers, $code);
     }

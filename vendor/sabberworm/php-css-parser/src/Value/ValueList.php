@@ -14,11 +14,21 @@ abstract class ValueList extends Value
 {
     /**
      * @var array<int, RuleValueList|CSSFunction|CSSString|LineName|Size|URL|string>
+<<<<<<< HEAD
+=======
+     *
+     * @internal since 8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected $aComponents;
 
     /**
      * @var string
+<<<<<<< HEAD
+=======
+     *
+     * @internal since 8.8.0
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected $sSeparator;
 
@@ -86,6 +96,11 @@ abstract class ValueList extends Value
 
     /**
      * @return string
+<<<<<<< HEAD
+=======
+     *
+     * @deprecated in V8.8.0, will be removed in V9.0.0. Use `render` instead.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function __toString()
     {

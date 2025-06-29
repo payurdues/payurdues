@@ -20,6 +20,11 @@ interface OutputFormatterInterface
 {
     /**
      * Sets the decorated flag.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setDecorated(bool $decorated);
 
@@ -30,6 +35,11 @@ interface OutputFormatterInterface
 
     /**
      * Sets a new style.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setStyle(string $name, OutputFormatterStyleInterface $style);
 

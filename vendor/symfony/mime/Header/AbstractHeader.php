@@ -34,6 +34,12 @@ abstract class AbstractHeader implements HeaderInterface
         $this->name = $name;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function setCharset(string $charset)
     {
         $this->charset = $charset;
@@ -48,6 +54,11 @@ abstract class AbstractHeader implements HeaderInterface
      * Set the language used in this Header.
      *
      * For example, for US English, 'en-us'.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setLanguage(string $lang)
     {
@@ -64,6 +75,12 @@ abstract class AbstractHeader implements HeaderInterface
         return $this->name;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function setMaxLineLength(int $lineLength)
     {
         $this->lineLength = $lineLength;
@@ -180,6 +197,23 @@ abstract class AbstractHeader implements HeaderInterface
             $tokens[] = $encodedToken;
         }
 
+<<<<<<< HEAD
+=======
+        foreach ($tokens as $i => $token) {
+            // whitespace(s) between 2 encoded tokens
+            if (
+                0 < $i
+                && isset($tokens[$i + 1])
+                && preg_match('~^[\t ]+$~', $token)
+                && $this->tokenNeedsEncoding($tokens[$i - 1])
+                && $this->tokenNeedsEncoding($tokens[$i + 1])
+            ) {
+                $tokens[$i - 1] .= $token.$tokens[$i + 1];
+                array_splice($tokens, $i, 2);
+            }
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         return $tokens;
     }
 
@@ -229,11 +263,17 @@ abstract class AbstractHeader implements HeaderInterface
     /**
      * Generate a list of all tokens in the final header.
      */
+<<<<<<< HEAD
     protected function toTokens(string $string = null): array
     {
         if (null === $string) {
             $string = $this->getBodyAsString();
         }
+=======
+    protected function toTokens(?string $string = null): array
+    {
+        $string ??= $this->getBodyAsString();
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         $tokens = [];
         // Generate atoms; split at all invisible boundaries followed by WSP
@@ -263,8 +303,13 @@ abstract class AbstractHeader implements HeaderInterface
         // Build all tokens back into compliant header
         foreach ($tokens as $i => $token) {
             // Line longer than specified maximum or token was just a new line
+<<<<<<< HEAD
             if (("\r\n" === $token) ||
                 ($i > 0 && \strlen($currentLine.$token) > $this->lineLength)
+=======
+            if (("\r\n" === $token)
+                || ($i > 0 && \strlen($currentLine.$token) > $this->lineLength)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 && '' !== $currentLine) {
                 $headerLines[] = '';
                 $currentLine = &$headerLines[$lineCount++];

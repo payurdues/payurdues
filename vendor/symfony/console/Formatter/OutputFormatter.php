@@ -13,6 +13,11 @@ namespace Symfony\Component\Console\Formatter;
 
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 
+<<<<<<< HEAD
+=======
+use function Symfony\Component\String\b;
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 /**
  * Formatter class for console output.
  *
@@ -23,7 +28,11 @@ class OutputFormatter implements WrappableOutputFormatterInterface
 {
     private bool $decorated;
     private array $styles = [];
+<<<<<<< HEAD
     private $styleStack;
+=======
+    private OutputFormatterStyleStack $styleStack;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __clone()
     {
@@ -82,40 +91,57 @@ class OutputFormatter implements WrappableOutputFormatterInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setDecorated(bool $decorated)
     {
         $this->decorated = $decorated;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function isDecorated(): bool
     {
         return $this->decorated;
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setStyle(string $name, OutputFormatterStyleInterface $style)
     {
         $this->styles[strtolower($name)] = $style;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function hasStyle(string $name): bool
     {
         return isset($this->styles[strtolower($name)]);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getStyle(string $name): OutputFormatterStyleInterface
     {
         if (!$this->hasStyle($name)) {
@@ -125,16 +151,23 @@ class OutputFormatter implements WrappableOutputFormatterInterface
         return $this->styles[strtolower($name)];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function format(?string $message): ?string
     {
         return $this->formatAndWrap($message, 0);
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function formatAndWrap(?string $message, int $width)
     {
@@ -161,7 +194,11 @@ class OutputFormatter implements WrappableOutputFormatterInterface
             $offset = $pos + \strlen($text);
 
             // opening tag?
+<<<<<<< HEAD
             if ($open = '/' != $text[1]) {
+=======
+            if ($open = '/' !== $text[1]) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $tag = $matches[1][$i][0];
             } else {
                 $tag = $matches[3][$i][0] ?? '';
@@ -253,10 +290,17 @@ class OutputFormatter implements WrappableOutputFormatterInterface
         }
 
         preg_match('~(\\n)$~', $text, $matches);
+<<<<<<< HEAD
         $text = $prefix.preg_replace('~([^\\n]{'.$width.'})\\ *~', "\$1\n", $text);
         $text = rtrim($text, "\n").($matches[1] ?? '');
 
         if (!$currentLineLength && '' !== $current && "\n" !== substr($current, -1)) {
+=======
+        $text = $prefix.$this->addLineBreaks($text, $width);
+        $text = rtrim($text, "\n").($matches[1] ?? '');
+
+        if (!$currentLineLength && '' !== $current && !str_ends_with($current, "\n")) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $text = "\n".$text;
         }
 
@@ -277,4 +321,14 @@ class OutputFormatter implements WrappableOutputFormatterInterface
 
         return implode("\n", $lines);
     }
+<<<<<<< HEAD
+=======
+
+    private function addLineBreaks(string $text, int $width): string
+    {
+        $encoding = mb_detect_encoding($text, null, true) ?: 'UTF-8';
+
+        return b($text)->toCodePointString($encoding)->wordwrap($width, "\n", true)->toByteString($encoding);
+    }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

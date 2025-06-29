@@ -88,7 +88,11 @@ class TableStyle
      *
      * @return $this
      */
+<<<<<<< HEAD
     public function setHorizontalBorderChars(string $outside, string $inside = null): static
+=======
+    public function setHorizontalBorderChars(string $outside, ?string $inside = null): static
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->horizontalOutsideBorderChar = $outside;
         $this->horizontalInsideBorderChar = $inside ?? $outside;
@@ -113,7 +117,11 @@ class TableStyle
      *
      * @return $this
      */
+<<<<<<< HEAD
     public function setVerticalBorderChars(string $outside, string $inside = null): static
+=======
+    public function setVerticalBorderChars(string $outside, ?string $inside = null): static
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->verticalOutsideBorderChar = $outside;
         $this->verticalInsideBorderChar = $inside ?? $outside;
@@ -167,7 +175,11 @@ class TableStyle
      *
      * @return $this
      */
+<<<<<<< HEAD
     public function setCrossingChars(string $cross, string $topLeft, string $topMid, string $topRight, string $midRight, string $bottomRight, string $bottomMid, string $bottomLeft, string $midLeft, string $topLeftBottom = null, string $topMidBottom = null, string $topRightBottom = null): static
+=======
+    public function setCrossingChars(string $cross, string $topLeft, string $topMid, string $topRight, string $midRight, string $bottomRight, string $bottomMid, string $bottomLeft, string $midLeft, ?string $topLeftBottom = null, ?string $topMidBottom = null, ?string $topRightBottom = null): static
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->crossingChar = $cross;
         $this->crossingTopLeftChar = $topLeft;

@@ -27,7 +27,11 @@ trait VarDumperTestTrait
         'flags' => null,
     ];
 
+<<<<<<< HEAD
     protected function setUpVarDumper(array $casters, int $flags = null): void
+=======
+    protected function setUpVarDumper(array $casters, ?int $flags = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->varDumperConfig['casters'] = $casters;
         $this->varDumperConfig['flags'] = $flags;
@@ -52,7 +56,11 @@ trait VarDumperTestTrait
         $this->assertStringMatchesFormat($this->prepareExpectation($expected, $filter), $this->getDump($data, null, $filter), $message);
     }
 
+<<<<<<< HEAD
     protected function getDump(mixed $data, string|int $key = null, int $filter = 0): ?string
+=======
+    protected function getDump(mixed $data, string|int|null $key = null, int $filter = 0): ?string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null === $flags = $this->varDumperConfig['flags']) {
             $flags = getenv('DUMP_LIGHT_ARRAY') ? CliDumper::DUMP_LIGHT_ARRAY : 0;

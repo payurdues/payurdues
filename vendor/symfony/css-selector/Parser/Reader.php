@@ -53,7 +53,14 @@ class Reader
         return substr($this->source, $this->position + $offset, $length);
     }
 
+<<<<<<< HEAD
     public function getOffset(string $string)
+=======
+    /**
+     * @return int|false
+     */
+    public function getOffset(string $string): int|bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $position = strpos($this->source, $string, $this->position);
 
@@ -71,12 +78,20 @@ class Reader
         return false;
     }
 
+<<<<<<< HEAD
     public function moveForward(int $length)
+=======
+    public function moveForward(int $length): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->position += $length;
     }
 
+<<<<<<< HEAD
     public function moveToEnd()
+=======
+    public function moveToEnd(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->position = $this->length;
     }

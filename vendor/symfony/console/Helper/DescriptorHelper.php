@@ -14,6 +14,10 @@ namespace Symfony\Component\Console\Helper;
 use Symfony\Component\Console\Descriptor\DescriptorInterface;
 use Symfony\Component\Console\Descriptor\JsonDescriptor;
 use Symfony\Component\Console\Descriptor\MarkdownDescriptor;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Console\Descriptor\ReStructuredTextDescriptor;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Symfony\Component\Console\Descriptor\TextDescriptor;
 use Symfony\Component\Console\Descriptor\XmlDescriptor;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -38,6 +42,10 @@ class DescriptorHelper extends Helper
             ->register('xml', new XmlDescriptor())
             ->register('json', new JsonDescriptor())
             ->register('md', new MarkdownDescriptor())
+<<<<<<< HEAD
+=======
+            ->register('rst', new ReStructuredTextDescriptor())
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         ;
     }
 
@@ -48,6 +56,11 @@ class DescriptorHelper extends Helper
      * * format: string, the output format name
      * * raw_text: boolean, sets output type as raw
      *
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws InvalidArgumentException when the given format is not supported
      */
     public function describe(OutputInterface $output, ?object $object, array $options = [])
@@ -77,9 +90,12 @@ class DescriptorHelper extends Helper
         return $this;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'descriptor';

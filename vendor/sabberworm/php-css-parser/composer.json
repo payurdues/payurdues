@@ -27,7 +27,11 @@
         "ext-iconv": "*"
     },
     "require-dev": {
+<<<<<<< HEAD
         "phpunit/phpunit": "5.7.27 || 6.5.14 || 7.5.20 || 8.5.40"
+=======
+        "phpunit/phpunit": "5.7.27 || 6.5.14 || 7.5.20 || 8.5.41"
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     },
     "suggest": {
         "ext-mbstring": "for parsing UTF-8 CSS"
@@ -46,6 +50,7 @@
         "branch-alias": {
             "dev-main": "9.0.x-dev"
         }
+<<<<<<< HEAD
     },
     "scripts": {
         "ci": [
@@ -77,5 +82,7 @@
         "fix:php:fixer": "Fixes autofixable issues found by PHP CS Fixer.",
         "fix:php:sniffer": "Fixes autofixable issues found by PHP_CodeSniffer.",
         "phpstand:baseline": "Updates the PHPStan baseline file to match the code."
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

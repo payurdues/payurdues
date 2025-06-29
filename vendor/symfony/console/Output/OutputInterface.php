@@ -33,25 +33,52 @@ interface OutputInterface
     /**
      * Writes a message to the output.
      *
+<<<<<<< HEAD
      * @param $newline Whether to add a newline
      * @param $options A bitmask of options (one of the OUTPUT or VERBOSITY constants), 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
+=======
+     * @param bool $newline Whether to add a newline
+     * @param int  $options A bitmask of options (one of the OUTPUT or VERBOSITY constants),
+     *                      0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function write(string|iterable $messages, bool $newline = false, int $options = 0);
 
     /**
      * Writes a message to the output and adds a newline at the end.
      *
+<<<<<<< HEAD
      * @param $options A bitmask of options (one of the OUTPUT or VERBOSITY constants), 0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
+=======
+     * @param int $options A bitmask of options (one of the OUTPUT or VERBOSITY constants),
+     *                     0 is considered the same as self::OUTPUT_NORMAL | self::VERBOSITY_NORMAL
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function writeln(string|iterable $messages, int $options = 0);
 
     /**
      * Sets the verbosity of the output.
+<<<<<<< HEAD
+=======
+     *
+     * @param self::VERBOSITY_* $level
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setVerbosity(int $level);
 
     /**
      * Gets the current verbosity of the output.
+<<<<<<< HEAD
+=======
+     *
+     * @return self::VERBOSITY_*
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function getVerbosity(): int;
 
@@ -77,6 +104,11 @@ interface OutputInterface
 
     /**
      * Sets the decorated flag.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setDecorated(bool $decorated);
 
@@ -85,6 +117,12 @@ interface OutputInterface
      */
     public function isDecorated(): bool;
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function setFormatter(OutputFormatterInterface $formatter);
 
     /**

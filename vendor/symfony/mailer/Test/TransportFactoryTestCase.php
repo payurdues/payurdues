@@ -37,16 +37,28 @@ abstract class TransportFactoryTestCase extends TestCase
 
     abstract public function getFactory(): TransportFactoryInterface;
 
+<<<<<<< HEAD
     abstract public function supportsProvider(): iterable;
 
     abstract public function createProvider(): iterable;
 
     public function unsupportedSchemeProvider(): iterable
+=======
+    abstract public static function supportsProvider(): iterable;
+
+    abstract public static function createProvider(): iterable;
+
+    public static function unsupportedSchemeProvider(): iterable
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return [];
     }
 
+<<<<<<< HEAD
     public function incompleteDsnProvider(): iterable
+=======
+    public static function incompleteDsnProvider(): iterable
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return [];
     }
@@ -77,7 +89,11 @@ abstract class TransportFactoryTestCase extends TestCase
     /**
      * @dataProvider unsupportedSchemeProvider
      */
+<<<<<<< HEAD
     public function testUnsupportedSchemeException(Dsn $dsn, string $message = null)
+=======
+    public function testUnsupportedSchemeException(Dsn $dsn, ?string $message = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $factory = $this->getFactory();
 
@@ -102,16 +118,28 @@ abstract class TransportFactoryTestCase extends TestCase
 
     protected function getDispatcher(): EventDispatcherInterface
     {
+<<<<<<< HEAD
         return $this->dispatcher ?? $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
+=======
+        return $this->dispatcher ??= $this->createMock(EventDispatcherInterface::class);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     protected function getClient(): HttpClientInterface
     {
+<<<<<<< HEAD
         return $this->client ?? $this->client = $this->createMock(HttpClientInterface::class);
+=======
+        return $this->client ??= $this->createMock(HttpClientInterface::class);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     protected function getLogger(): LoggerInterface
     {
+<<<<<<< HEAD
         return $this->logger ?? $this->logger = $this->createMock(LoggerInterface::class);
+=======
+        return $this->logger ??= $this->createMock(LoggerInterface::class);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

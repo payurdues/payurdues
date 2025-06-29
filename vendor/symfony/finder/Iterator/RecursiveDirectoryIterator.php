@@ -18,11 +18,20 @@ use Symfony\Component\Finder\SplFileInfo;
  * Extends the \RecursiveDirectoryIterator to support relative paths.
  *
  * @author Victor Berchet <victor@suumit.com>
+<<<<<<< HEAD
+=======
+ *
+ * @extends \RecursiveDirectoryIterator<string, SplFileInfo>
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  */
 class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
 {
     private bool $ignoreUnreadableDirs;
+<<<<<<< HEAD
     private ?bool $rewindable = null;
+=======
+    private bool $ignoreFirstRewind = true;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     // these 3 properties take part of the performance optimization to avoid redoing the same work in all iterations
     private string $rootPath;
@@ -61,8 +70,14 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
             $subPathname .= $this->directorySeparator;
         }
         $subPathname .= $this->getFilename();
+<<<<<<< HEAD
 
         if ('/' !== $basePath = $this->rootPath) {
+=======
+        $basePath = $this->rootPath;
+
+        if ('/' !== $basePath && !str_ends_with($basePath, $this->directorySeparator) && !str_ends_with($basePath, '/')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $basePath .= $this->directorySeparator;
         }
 
@@ -81,7 +96,11 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
             parent::getChildren();
 
             return true;
+<<<<<<< HEAD
         } catch (\UnexpectedValueException $e) {
+=======
+        } catch (\UnexpectedValueException) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             // If directory is unreadable and finder is set to ignore it, skip children
             return false;
         }
@@ -100,7 +119,10 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
                 $children->ignoreUnreadableDirs = $this->ignoreUnreadableDirs;
 
                 // performance optimization to avoid redoing the same work in all children
+<<<<<<< HEAD
                 $children->rewindable = &$this->rewindable;
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $children->rootPath = $this->rootPath;
             }
 
@@ -110,17 +132,35 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
         }
     }
 
+<<<<<<< HEAD
     /**
      * Do nothing for non rewindable stream.
      */
     public function rewind(): void
     {
         if (false === $this->isRewindable()) {
+=======
+    public function next(): void
+    {
+        $this->ignoreFirstRewind = false;
+
+        parent::next();
+    }
+
+    public function rewind(): void
+    {
+        // some streams like FTP are not rewindable, ignore the first rewind after creation,
+        // as newly created DirectoryIterator does not need to be rewound
+        if ($this->ignoreFirstRewind) {
+            $this->ignoreFirstRewind = false;
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return;
         }
 
         parent::rewind();
     }
+<<<<<<< HEAD
 
     /**
      * Checks if the stream is rewindable.
@@ -142,4 +182,6 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
 
         return $this->rewindable = false;
     }
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

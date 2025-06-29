@@ -23,9 +23,12 @@ final class ResponseStatusCodeSame extends Constraint
         $this->statusCode = $statusCode;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function toString(): string
     {
         return 'status code is '.$this->statusCode;
@@ -33,8 +36,11 @@ final class ResponseStatusCodeSame extends Constraint
 
     /**
      * @param Response $response
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function matches($response): bool
     {
@@ -43,8 +49,11 @@ final class ResponseStatusCodeSame extends Constraint
 
     /**
      * @param Response $response
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function failureDescription($response): string
     {
@@ -53,8 +62,11 @@ final class ResponseStatusCodeSame extends Constraint
 
     /**
      * @param Response $response
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function additionalFailureDescription($response): string
     {

@@ -29,7 +29,11 @@ class GenericEvent extends Event implements \ArrayAccess, \IteratorAggregate
     protected $arguments;
 
     /**
+<<<<<<< HEAD
      * Encapsulate an event with $subject and $args.
+=======
+     * Encapsulate an event with $subject and $arguments.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      *
      * @param mixed $subject   The subject of the event, usually an object or a callable
      * @param array $arguments Arguments to store in the event

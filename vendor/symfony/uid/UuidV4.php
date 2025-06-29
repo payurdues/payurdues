@@ -20,7 +20,11 @@ class UuidV4 extends Uuid
 {
     protected const TYPE = 4;
 
+<<<<<<< HEAD
     public function __construct(string $uuid = null)
+=======
+    public function __construct(?string $uuid = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null === $uuid) {
             $uuid = random_bytes(16);

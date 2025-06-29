@@ -23,7 +23,11 @@ use Symfony\Component\VarDumper\Cloner\Stub;
 class DOMCaster
 {
     private const ERROR_CODES = [
+<<<<<<< HEAD
         \DOM_PHP_ERR => 'DOM_PHP_ERR',
+=======
+        0 => 'DOM_PHP_ERR',
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         \DOM_INDEX_SIZE_ERR => 'DOM_INDEX_SIZE_ERR',
         \DOMSTRING_SIZE_ERR => 'DOMSTRING_SIZE_ERR',
         \DOM_HIERARCHY_REQUEST_ERR => 'DOM_HIERARCHY_REQUEST_ERR',
@@ -63,6 +67,12 @@ class DOMCaster
         \XML_NAMESPACE_DECL_NODE => 'XML_NAMESPACE_DECL_NODE',
     ];
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castException(\DOMException $e, array $a, Stub $stub, bool $isNested)
     {
         $k = Caster::PREFIX_PROTECTED.'code';
@@ -73,6 +83,12 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castLength($dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -82,6 +98,12 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castImplementation(\DOMImplementation $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -92,6 +114,12 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castNode(\DOMNode $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -116,6 +144,12 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castNameSpaceNode(\DOMNameSpaceNode $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -132,12 +166,19 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castDocument(\DOMDocument $dom, array $a, Stub $stub, bool $isNested, int $filter = 0)
     {
         $a += [
             'doctype' => $dom->doctype,
             'implementation' => $dom->implementation,
             'documentElement' => new CutStub($dom->documentElement),
+<<<<<<< HEAD
             'actualEncoding' => $dom->actualEncoding,
             'encoding' => $dom->encoding,
             'xmlEncoding' => $dom->xmlEncoding,
@@ -148,6 +189,14 @@ class DOMCaster
             'strictErrorChecking' => $dom->strictErrorChecking,
             'documentURI' => $dom->documentURI ? new LinkStub($dom->documentURI) : $dom->documentURI,
             'config' => $dom->config,
+=======
+            'encoding' => $dom->encoding,
+            'xmlEncoding' => $dom->xmlEncoding,
+            'xmlStandalone' => $dom->xmlStandalone,
+            'xmlVersion' => $dom->xmlVersion,
+            'strictErrorChecking' => $dom->strictErrorChecking,
+            'documentURI' => $dom->documentURI ? new LinkStub($dom->documentURI) : $dom->documentURI,
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             'formatOutput' => $dom->formatOutput,
             'validateOnParse' => $dom->validateOnParse,
             'resolveExternals' => $dom->resolveExternals,
@@ -166,6 +215,12 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castCharacterData(\DOMCharacterData $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -176,6 +231,12 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castAttr(\DOMAttr $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -189,6 +250,12 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castElement(\DOMElement $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -199,6 +266,12 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castText(\DOMText $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -208,6 +281,7 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
     public static function castTypeinfo(\DOMTypeinfo $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -245,6 +319,11 @@ class DOMCaster
         return $a;
     }
 
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castDocumentType(\DOMDocumentType $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -259,6 +338,12 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castNotation(\DOMNotation $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -269,20 +354,35 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castEntity(\DOMEntity $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
             'publicId' => $dom->publicId,
             'systemId' => $dom->systemId,
             'notationName' => $dom->notationName,
+<<<<<<< HEAD
             'actualEncoding' => $dom->actualEncoding,
             'encoding' => $dom->encoding,
             'version' => $dom->version,
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         ];
 
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castProcessingInstruction(\DOMProcessingInstruction $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -293,6 +393,12 @@ class DOMCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castXPath(\DOMXPath $dom, array $a, Stub $stub, bool $isNested)
     {
         $a += [

@@ -19,7 +19,11 @@ use Symfony\Component\CssSelector\Parser\Tokenizer\Tokenizer;
  * CSS selector parser.
  *
  * This component is a port of the Python cssselect library,
+<<<<<<< HEAD
  * which is copyright Ian Bicking, @see https://github.com/SimonSapin/cssselect.
+=======
+ * which is copyright Ian Bicking, @see https://github.com/scrapy/cssselect.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
  *
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
  *
@@ -27,16 +31,25 @@ use Symfony\Component\CssSelector\Parser\Tokenizer\Tokenizer;
  */
 class Parser implements ParserInterface
 {
+<<<<<<< HEAD
     private $tokenizer;
 
     public function __construct(Tokenizer $tokenizer = null)
+=======
+    private Tokenizer $tokenizer;
+
+    public function __construct(?Tokenizer $tokenizer = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->tokenizer = $tokenizer ?? new Tokenizer();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function parse(string $source): array
     {
         $reader = new Reader($source);
@@ -60,9 +73,13 @@ class Parser implements ParserInterface
             }
         }
 
+<<<<<<< HEAD
         $joined = trim(implode('', array_map(function (Token $token) {
             return $token->getValue();
         }, $tokens)));
+=======
+        $joined = trim(implode('', array_map(fn (Token $token) => $token->getValue(), $tokens)));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         $int = function ($string) {
             if (!is_numeric($string)) {
@@ -197,7 +214,22 @@ class Parser implements ParserInterface
 
                 if (!$stream->getPeek()->isDelimiter(['('])) {
                     $result = new Node\PseudoNode($result, $identifier);
+<<<<<<< HEAD
 
+=======
+                    if ('Pseudo[Element[*]:scope]' === $result->__toString()) {
+                        $used = \count($stream->getUsed());
+                        if (!(2 === $used
+                           || 3 === $used && $stream->getUsed()[0]->isWhiteSpace()
+                           || $used >= 3 && $stream->getUsed()[$used - 3]->isDelimiter([','])
+                           || $used >= 4
+                                && $stream->getUsed()[$used - 3]->isWhiteSpace()
+                                && $stream->getUsed()[$used - 4]->isDelimiter([','])
+                        )) {
+                            throw SyntaxErrorException::notAtTheStartOfASelector('scope');
+                        }
+                    }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                     continue;
                 }
 
@@ -242,7 +274,11 @@ class Parser implements ParserInterface
                         }
                     }
 
+<<<<<<< HEAD
                     if (empty($arguments)) {
+=======
+                    if (!$arguments) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                         throw SyntaxErrorException::unexpectedToken('at least one argument', $next);
                     }
 

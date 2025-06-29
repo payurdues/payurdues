@@ -25,13 +25,28 @@
                     <p class="break-long-words trace-message"><?= $this->escape($exception['message']); ?></p>
                 <?php } ?>
             </div>
+<<<<<<< HEAD
+=======
+            <?php if (\count($exception['data'] ?? [])) { ?>
+                <details class="exception-properties-wrapper">
+                    <summary>Show exception properties</summary>
+                    <div class="exception-properties">
+                        <?= $this->dumpValue($exception['data']) ?>
+                    </div>
+                </details>
+            <?php } ?>
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         </div>
 
         <div id="trace-html-<?= $index; ?>" class="sf-toggle-content">
         <?php
         $isFirstUserCode = true;
         foreach ($exception['trace'] as $i => $trace) {
+<<<<<<< HEAD
             $isVendorTrace = $trace['file'] && (false !== mb_strpos($trace['file'], '/vendor/') || false !== mb_strpos($trace['file'], '/var/cache/'));
+=======
+            $isVendorTrace = $trace['file'] && (str_contains($trace['file'], '/vendor/') || str_contains($trace['file'], '/var/cache/'));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $displayCodeSnippet = $isFirstUserCode && !$isVendorTrace;
             if ($displayCodeSnippet) {
                 $isFirstUserCode = false;

@@ -26,8 +26,11 @@ class LoginAuthenticator implements AuthenticatorInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @see https://www.ietf.org/rfc/rfc4954.txt
      */
     public function authenticate(EsmtpTransport $client): void

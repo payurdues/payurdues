@@ -46,7 +46,11 @@ class RoundRobinTransport implements TransportInterface
         $this->retryPeriod = $retryPeriod;
     }
 
+<<<<<<< HEAD
     public function send(RawMessage $message, Envelope $envelope = null): ?SentMessage
+=======
+    public function send(RawMessage $message, ?Envelope $envelope = null): ?SentMessage
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $exception = null;
 

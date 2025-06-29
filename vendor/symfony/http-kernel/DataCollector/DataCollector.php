@@ -13,6 +13,10 @@ namespace Symfony\Component\HttpKernel\DataCollector;
 
 use Symfony\Component\VarDumper\Caster\CutStub;
 use Symfony\Component\VarDumper\Caster\ReflectionCaster;
+<<<<<<< HEAD
+=======
+use Symfony\Component\VarDumper\Cloner\ClonerInterface;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\VarDumper\Cloner\Stub;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
@@ -32,7 +36,11 @@ abstract class DataCollector implements DataCollectorInterface
      */
     protected $data = [];
 
+<<<<<<< HEAD
     private $cloner;
+=======
+    private ClonerInterface $cloner;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Converts the variable into a serializable Data instance.
@@ -62,9 +70,27 @@ abstract class DataCollector implements DataCollectorInterface
         $casters = [
             '*' => function ($v, array $a, Stub $s, $isNested) {
                 if (!$v instanceof Stub) {
+<<<<<<< HEAD
                     foreach ($a as $k => $v) {
                         if (\is_object($v) && !$v instanceof \DateTimeInterface && !$v instanceof Stub) {
                             $a[$k] = new CutStub($v);
+=======
+                    $b = $a;
+                    foreach ($a as $k => $v) {
+                        if (!\is_object($v) || $v instanceof \DateTimeInterface || $v instanceof Stub) {
+                            continue;
+                        }
+
+                        try {
+                            $a[$k] = $s = new CutStub($v);
+
+                            if ($b[$k] === $s) {
+                                // we've hit a non-typed reference
+                                $a[$k] = $v;
+                            }
+                        } catch (\TypeError $e) {
+                            // we've hit a typed reference
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                         }
                     }
                 }
@@ -81,6 +107,12 @@ abstract class DataCollector implements DataCollectorInterface
         return ['data'];
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function __wakeup()
     {
     }
@@ -88,14 +120,32 @@ abstract class DataCollector implements DataCollectorInterface
     /**
      * @internal to prevent implementing \Serializable
      */
+<<<<<<< HEAD
     final protected function serialize()
+=======
+    final protected function serialize(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
     }
 
     /**
      * @internal to prevent implementing \Serializable
      */
+<<<<<<< HEAD
     final protected function unserialize(string $data)
     {
     }
+=======
+    final protected function unserialize(string $data): void
+    {
+    }
+
+    /**
+     * @return void
+     */
+    public function reset()
+    {
+        $this->data = [];
+    }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

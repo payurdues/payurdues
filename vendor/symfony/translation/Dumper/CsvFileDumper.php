@@ -23,15 +23,22 @@ class CsvFileDumper extends FileDumper
     private string $delimiter = ';';
     private string $enclosure = '"';
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function formatCatalogue(MessageCatalogue $messages, string $domain, array $options = []): string
     {
         $handle = fopen('php://memory', 'r+');
 
         foreach ($messages->all($domain) as $source => $target) {
+<<<<<<< HEAD
             fputcsv($handle, [$source, $target], $this->delimiter, $this->enclosure);
+=======
+            fputcsv($handle, [$source, $target], $this->delimiter, $this->enclosure, '\\');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         rewind($handle);
@@ -43,6 +50,11 @@ class CsvFileDumper extends FileDumper
 
     /**
      * Sets the delimiter and escape character for CSV.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setCsvControl(string $delimiter = ';', string $enclosure = '"')
     {
@@ -50,9 +62,12 @@ class CsvFileDumper extends FileDumper
         $this->enclosure = $enclosure;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function getExtension(): string
     {
         return 'csv';

@@ -34,9 +34,15 @@ final class TranslationPullCommand extends Command
 {
     use TranslationTrait;
 
+<<<<<<< HEAD
     private $providerCollection;
     private $writer;
     private $reader;
+=======
+    private TranslationProviderCollection $providerCollection;
+    private TranslationWriterInterface $writer;
+    private TranslationReaderInterface $reader;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private string $defaultLocale;
     private array $transPaths;
     private array $enabledLocales;
@@ -64,9 +70,14 @@ final class TranslationPullCommand extends Command
         if ($input->mustSuggestOptionValuesFor('domains')) {
             $provider = $this->providerCollection->get($input->getArgument('provider'));
 
+<<<<<<< HEAD
             if ($provider && method_exists($provider, 'getDomains')) {
                 $domains = $provider->getDomains();
                 $suggestions->suggestValues($domains);
+=======
+            if (method_exists($provider, 'getDomains')) {
+                $suggestions->suggestValues($provider->getDomains());
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
 
             return;
@@ -83,10 +94,14 @@ final class TranslationPullCommand extends Command
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function configure()
+=======
+    protected function configure(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $keys = $this->providerCollection->keys();
         $defaultProvider = 1 === \count($keys) ? $keys[0] : null;
@@ -99,6 +114,10 @@ final class TranslationPullCommand extends Command
                 new InputOption('domains', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Specify the domains to pull.'),
                 new InputOption('locales', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Specify the locales to pull.'),
                 new InputOption('format', null, InputOption::VALUE_OPTIONAL, 'Override the default output format.', 'xlf12'),
+<<<<<<< HEAD
+=======
+                new InputOption('as-tree', null, InputOption::VALUE_OPTIONAL, 'Write messages as a tree-like structure. Needs --format=yaml. The given value defines the level where to switch to inline YAML'),
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             ])
             ->setHelp(<<<'EOF'
 The <info>%command.name%</> command pulls translations from the given provider. Only
@@ -120,9 +139,12 @@ EOF
         ;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -133,6 +155,10 @@ EOF
         $locales = $input->getOption('locales') ?: $this->enabledLocales;
         $domains = $input->getOption('domains');
         $format = $input->getOption('format');
+<<<<<<< HEAD
+=======
+        $asTree = (int) $input->getOption('as-tree');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $xliffVersion = '1.2';
 
         if ($intlIcu && !$force) {
@@ -149,6 +175,11 @@ EOF
             'path' => end($this->transPaths),
             'xliff_version' => $xliffVersion,
             'default_locale' => $this->defaultLocale,
+<<<<<<< HEAD
+=======
+            'as_tree' => (bool) $asTree,
+            'inline' => $asTree,
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         ];
 
         if (!$domains) {

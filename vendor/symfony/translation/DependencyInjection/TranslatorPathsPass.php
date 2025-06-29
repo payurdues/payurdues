@@ -16,12 +16,21 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
+<<<<<<< HEAD
+=======
+use Symfony\Component\HttpKernel\Controller\ArgumentResolver\TraceableValueResolver;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
 /**
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
 class TranslatorPathsPass extends AbstractRecursivePass
 {
+<<<<<<< HEAD
+=======
+    protected bool $skipScalars = true;
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private int $level = 0;
 
     /**
@@ -39,6 +48,12 @@ class TranslatorPathsPass extends AbstractRecursivePass
      */
     private array $controllers = [];
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('translator')) {
@@ -120,6 +135,7 @@ class TranslatorPathsPass extends AbstractRecursivePass
 
     private function findControllerArguments(ContainerBuilder $container): array
     {
+<<<<<<< HEAD
         if ($container->hasDefinition('argument_resolver.service')) {
             $argument = $container->getDefinition('argument_resolver.service')->getArgument(0);
             if ($argument instanceof Reference) {
@@ -143,5 +159,22 @@ class TranslatorPathsPass extends AbstractRecursivePass
         }
 
         return [];
+=======
+        if (!$container->has('argument_resolver.service')) {
+            return [];
+        }
+        $resolverDef = $container->findDefinition('argument_resolver.service');
+
+        if (TraceableValueResolver::class === $resolverDef->getClass()) {
+            $resolverDef = $container->getDefinition($resolverDef->getArgument(0));
+        }
+
+        $argument = $resolverDef->getArgument(0);
+        if ($argument instanceof Reference) {
+            $argument = $container->getDefinition($argument);
+        }
+
+        return $argument->getArgument(0);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

@@ -30,7 +30,11 @@ class PhpFileLoader extends FileLoader
     /**
      * Loads a PHP file.
      */
+<<<<<<< HEAD
     public function load(mixed $file, string $type = null): RouteCollection
+=======
+    public function load(mixed $file, ?string $type = null): RouteCollection
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $path = $this->locator->locate($file);
         $this->setCurrentDir(\dirname($path));
@@ -54,10 +58,14 @@ class PhpFileLoader extends FileLoader
         return $collection;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function supports(mixed $resource, string $type = null): bool
+=======
+    public function supports(mixed $resource, ?string $type = null): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return \is_string($resource) && 'php' === pathinfo($resource, \PATHINFO_EXTENSION) && (!$type || 'php' === $type);
     }

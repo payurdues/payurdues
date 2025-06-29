@@ -25,9 +25,15 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  */
 class ErrorController
 {
+<<<<<<< HEAD
     private $kernel;
     private string|object|array|null $controller;
     private $errorRenderer;
+=======
+    private HttpKernelInterface $kernel;
+    private string|object|array|null $controller;
+    private ErrorRendererInterface $errorRenderer;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(HttpKernelInterface $kernel, string|object|array|null $controller, ErrorRendererInterface $errorRenderer)
     {

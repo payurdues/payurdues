@@ -1,6 +1,20 @@
 CHANGELOG
 =========
 
+<<<<<<< HEAD
+=======
+6.4
+---
+
+ * Add early directory pruning to `Finder::filter()`
+
+6.2
+---
+
+ * Add `Finder::sortByExtension()` and `Finder::sortBySize()`
+ * Add `Finder::sortByCaseInsensitiveName()` to sort by name with case insensitive sorting methods
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 6.0
 ---
 

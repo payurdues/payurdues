@@ -20,7 +20,11 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class GithubActionReporter
 {
+<<<<<<< HEAD
     private $output;
+=======
+    private OutputInterface $output;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * @see https://github.com/actions/toolkit/blob/5e5e1b7aacba68a53836a34db4a288c3c1c1585b/packages/core/src/command.ts#L80-L85
@@ -57,7 +61,11 @@ class GithubActionReporter
      *
      * @see https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#setting-an-error-message
      */
+<<<<<<< HEAD
     public function error(string $message, string $file = null, int $line = null, int $col = null): void
+=======
+    public function error(string $message, ?string $file = null, ?int $line = null, ?int $col = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->log('error', $message, $file, $line, $col);
     }
@@ -67,7 +75,11 @@ class GithubActionReporter
      *
      * @see https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#setting-a-warning-message
      */
+<<<<<<< HEAD
     public function warning(string $message, string $file = null, int $line = null, int $col = null): void
+=======
+    public function warning(string $message, ?string $file = null, ?int $line = null, ?int $col = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->log('warning', $message, $file, $line, $col);
     }
@@ -77,12 +89,20 @@ class GithubActionReporter
      *
      * @see https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#setting-a-debug-message
      */
+<<<<<<< HEAD
     public function debug(string $message, string $file = null, int $line = null, int $col = null): void
+=======
+    public function debug(string $message, ?string $file = null, ?int $line = null, ?int $col = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->log('debug', $message, $file, $line, $col);
     }
 
+<<<<<<< HEAD
     private function log(string $type, string $message, string $file = null, int $line = null, int $col = null): void
+=======
+    private function log(string $type, string $message, ?string $file = null, ?int $line = null, ?int $col = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         // Some values must be encoded.
         $message = strtr($message, self::ESCAPED_DATA);

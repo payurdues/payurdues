@@ -32,14 +32,23 @@ use Symfony\Component\HttpKernel\Profiler\Profiler;
  */
 class ProfilerListener implements EventSubscriberInterface
 {
+<<<<<<< HEAD
     private $profiler;
     private $matcher;
+=======
+    private Profiler $profiler;
+    private ?RequestMatcherInterface $matcher;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private bool $onlyException;
     private bool $onlyMainRequests;
     private ?\Throwable $exception = null;
     /** @var \SplObjectStorage<Request, Profile> */
     private \SplObjectStorage $profiles;
+<<<<<<< HEAD
     private $requestStack;
+=======
+    private RequestStack $requestStack;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private ?string $collectParameter;
     /** @var \SplObjectStorage<Request, Request|null> */
     private \SplObjectStorage $parents;
@@ -48,7 +57,11 @@ class ProfilerListener implements EventSubscriberInterface
      * @param bool $onlyException    True if the profiler only collects data when an exception occurs, false otherwise
      * @param bool $onlyMainRequests True if the profiler only collects data when the request is the main request, false otherwise
      */
+<<<<<<< HEAD
     public function __construct(Profiler $profiler, RequestStack $requestStack, RequestMatcherInterface $matcher = null, bool $onlyException = false, bool $onlyMainRequests = false, string $collectParameter = null)
+=======
+    public function __construct(Profiler $profiler, RequestStack $requestStack, ?RequestMatcherInterface $matcher = null, bool $onlyException = false, bool $onlyMainRequests = false, ?string $collectParameter = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->profiler = $profiler;
         $this->matcher = $matcher;
@@ -63,7 +76,11 @@ class ProfilerListener implements EventSubscriberInterface
     /**
      * Handles the onKernelException event.
      */
+<<<<<<< HEAD
     public function onKernelException(ExceptionEvent $event)
+=======
+    public function onKernelException(ExceptionEvent $event): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($this->onlyMainRequests && !$event->isMainRequest()) {
             return;
@@ -75,7 +92,11 @@ class ProfilerListener implements EventSubscriberInterface
     /**
      * Handles the onKernelResponse event.
      */
+<<<<<<< HEAD
     public function onKernelResponse(ResponseEvent $event)
+=======
+    public function onKernelResponse(ResponseEvent $event): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($this->onlyMainRequests && !$event->isMainRequest()) {
             return;
@@ -87,7 +108,11 @@ class ProfilerListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         if (null !== $this->collectParameter && null !== $collectParameterValue = $request->get($this->collectParameter)) {
+<<<<<<< HEAD
             true === $collectParameterValue || filter_var($collectParameterValue, \FILTER_VALIDATE_BOOLEAN) ? $this->profiler->enable() : $this->profiler->disable();
+=======
+            true === $collectParameterValue || filter_var($collectParameterValue, \FILTER_VALIDATE_BOOL) ? $this->profiler->enable() : $this->profiler->disable();
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         $exception = $this->exception;
@@ -97,7 +122,11 @@ class ProfilerListener implements EventSubscriberInterface
             return;
         }
 
+<<<<<<< HEAD
         $session = $request->hasPreviousSession() && $request->hasSession() ? $request->getSession() : null;
+=======
+        $session = !$request->attributes->getBoolean('_stateless') && $request->hasPreviousSession() ? $request->getSession() : null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if ($session instanceof Session) {
             $usageIndexValue = $usageIndexReference = &$session->getUsageIndex();
@@ -119,7 +148,11 @@ class ProfilerListener implements EventSubscriberInterface
         $this->parents[$request] = $this->requestStack->getParentRequest();
     }
 
+<<<<<<< HEAD
     public function onKernelTerminate(TerminateEvent $event)
+=======
+    public function onKernelTerminate(TerminateEvent $event): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         // attach children to parents
         foreach ($this->profiles as $request) {

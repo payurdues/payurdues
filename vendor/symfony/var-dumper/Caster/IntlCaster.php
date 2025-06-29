@@ -21,6 +21,12 @@ use Symfony\Component\VarDumper\Cloner\Stub;
  */
 class IntlCaster
 {
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castMessageFormatter(\MessageFormatter $c, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -31,6 +37,12 @@ class IntlCaster
         return self::castError($c, $a);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castNumberFormatter(\NumberFormatter $c, array $a, Stub $stub, bool $isNested, int $filter = 0)
     {
         $a += [
@@ -108,6 +120,12 @@ class IntlCaster
         return self::castError($c, $a);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castIntlTimeZone(\IntlTimeZone $c, array $a, Stub $stub, bool $isNested)
     {
         $a += [
@@ -125,6 +143,12 @@ class IntlCaster
         return self::castError($c, $a);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castIntlCalendar(\IntlCalendar $c, array $a, Stub $stub, bool $isNested, int $filter = 0)
     {
         $a += [
@@ -142,6 +166,12 @@ class IntlCaster
         return self::castError($c, $a);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castIntlDateFormatter(\IntlDateFormatter $c, array $a, Stub $stub, bool $isNested, int $filter = 0)
     {
         $a += [

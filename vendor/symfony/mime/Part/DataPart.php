@@ -13,7 +13,10 @@ namespace Symfony\Component\Mime\Part;
 
 use Symfony\Component\Mime\Exception\InvalidArgumentException;
 use Symfony\Component\Mime\Header\Headers;
+<<<<<<< HEAD
 use Symfony\Component\Mime\MimeTypes;
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -21,6 +24,7 @@ use Symfony\Component\Mime\MimeTypes;
 class DataPart extends TextPart
 {
     /** @internal */
+<<<<<<< HEAD
     protected $_parent;
 
     private static $mimeTypes;
@@ -40,6 +44,24 @@ class DataPart extends TextPart
         if (null === $contentType) {
             $contentType = 'application/octet-stream';
         }
+=======
+    protected array $_parent;
+
+    private ?string $filename = null;
+    private string $mediaType;
+    private ?string $cid = null;
+
+    /**
+     * @param resource|string|File $body Use a File instance to defer loading the file until rendering
+     */
+    public function __construct($body, ?string $filename = null, ?string $contentType = null, ?string $encoding = null)
+    {
+        if ($body instanceof File && !$filename) {
+            $filename = $body->getFilename();
+        }
+
+        $contentType ??= $body instanceof File ? $body->getContentType() : 'application/octet-stream';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         [$this->mediaType, $subtype] = explode('/', $contentType);
 
         parent::__construct($body, null, $subtype, $encoding);
@@ -51,6 +73,7 @@ class DataPart extends TextPart
         $this->setDisposition('attachment');
     }
 
+<<<<<<< HEAD
     public static function fromPath(string $path, string $name = null, string $contentType = null): self
     {
         if (null === $contentType) {
@@ -79,6 +102,11 @@ class DataPart extends TextPart
         $p->handle = $handle;
 
         return $p;
+=======
+    public static function fromPath(string $path, ?string $name = null, ?string $contentType = null): self
+    {
+        return new self(new File($path), $name, $contentType);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -89,6 +117,23 @@ class DataPart extends TextPart
         return $this->setDisposition('inline');
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return $this
+     */
+    public function setContentId(string $cid): static
+    {
+        if (!str_contains($cid, '@')) {
+            throw new InvalidArgumentException(sprintf('Invalid cid "%s".', $cid));
+        }
+
+        $this->cid = $cid;
+
+        return $this;
+    }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getContentId(): string
     {
         return $this->cid ?: $this->cid = $this->generateContentId();
@@ -129,11 +174,25 @@ class DataPart extends TextPart
         return $str;
     }
 
+<<<<<<< HEAD
+=======
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    public function getContentType(): string
+    {
+        return implode('/', [$this->getMediaType(), $this->getMediaSubtype()]);
+    }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private function generateContentId(): string
     {
         return bin2hex(random_bytes(16)).'@symfony';
     }
 
+<<<<<<< HEAD
     public function __destruct()
     {
         if (null !== $this->handle && \is_resource($this->handle)) {
@@ -141,6 +200,8 @@ class DataPart extends TextPart
         }
     }
 
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function __sleep(): array
     {
         // converts the body to a string
@@ -149,7 +210,10 @@ class DataPart extends TextPart
         $this->_parent = [];
         foreach (['body', 'charset', 'subtype', 'disposition', 'name', 'encoding'] as $name) {
             $r = new \ReflectionProperty(TextPart::class, $name);
+<<<<<<< HEAD
             $r->setAccessible(true);
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $this->_parent[$name] = $r->getValue($this);
         }
         $this->_headers = $this->getHeaders();
@@ -157,10 +221,19 @@ class DataPart extends TextPart
         return ['_headers', '_parent', 'filename', 'mediaType'];
     }
 
+<<<<<<< HEAD
     public function __wakeup()
     {
         $r = new \ReflectionProperty(AbstractPart::class, 'headers');
         $r->setAccessible(true);
+=======
+    /**
+     * @return void
+     */
+    public function __wakeup()
+    {
+        $r = new \ReflectionProperty(AbstractPart::class, 'headers');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $r->setValue($this, $this->_headers);
         unset($this->_headers);
 
@@ -168,11 +241,18 @@ class DataPart extends TextPart
             throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
         }
         foreach (['body', 'charset', 'subtype', 'disposition', 'name', 'encoding'] as $name) {
+<<<<<<< HEAD
             if (null !== $this->_parent[$name] && !\is_string($this->_parent[$name])) {
                 throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
             }
             $r = new \ReflectionProperty(TextPart::class, $name);
             $r->setAccessible(true);
+=======
+            if (null !== $this->_parent[$name] && !\is_string($this->_parent[$name]) && !$this->_parent[$name] instanceof File) {
+                throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
+            }
+            $r = new \ReflectionProperty(TextPart::class, $name);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $r->setValue($this, $this->_parent[$name]);
         }
         unset($this->_parent);

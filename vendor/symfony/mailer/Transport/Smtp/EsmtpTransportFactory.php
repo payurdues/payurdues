@@ -29,6 +29,7 @@ final class EsmtpTransportFactory extends AbstractTransportFactory
 
         $transport = new EsmtpTransport($host, $port, $tls, $this->dispatcher, $this->logger);
 
+<<<<<<< HEAD
         if ('' !== $dsn->getOption('verify_peer') && !filter_var($dsn->getOption('verify_peer', true), \FILTER_VALIDATE_BOOLEAN)) {
             /** @var SocketStream $stream */
             $stream = $transport->getStream();
@@ -40,6 +41,23 @@ final class EsmtpTransportFactory extends AbstractTransportFactory
             $stream->setStreamOptions($streamOptions);
         }
 
+=======
+        /** @var SocketStream $stream */
+        $stream = $transport->getStream();
+        $streamOptions = $stream->getStreamOptions();
+
+        if ('' !== $dsn->getOption('verify_peer') && !filter_var($dsn->getOption('verify_peer', true), \FILTER_VALIDATE_BOOL)) {
+            $streamOptions['ssl']['verify_peer'] = false;
+            $streamOptions['ssl']['verify_peer_name'] = false;
+        }
+
+        if (null !== $peerFingerprint = $dsn->getOption('peer_fingerprint')) {
+            $streamOptions['ssl']['peer_fingerprint'] = $peerFingerprint;
+        }
+
+        $stream->setStreamOptions($streamOptions);
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if ($user = $dsn->getUser()) {
             $transport->setUsername($user);
         }
@@ -52,6 +70,13 @@ final class EsmtpTransportFactory extends AbstractTransportFactory
             $transport->setLocalDomain($localDomain);
         }
 
+<<<<<<< HEAD
+=======
+        if (null !== ($maxPerSecond = $dsn->getOption('max_per_second'))) {
+            $transport->setMaxPerSecond((float) $maxPerSecond);
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if (null !== ($restartThreshold = $dsn->getOption('restart_threshold'))) {
             $transport->setRestartThreshold((int) $restartThreshold, (int) $dsn->getOption('restart_threshold_sleep', 0));
         }

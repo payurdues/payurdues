@@ -18,6 +18,7 @@ namespace Symfony\Component\HttpKernel\ControllerMetadata;
  */
 final class ArgumentMetadataFactory implements ArgumentMetadataFactoryInterface
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
@@ -39,6 +40,14 @@ final class ArgumentMetadataFactory implements ArgumentMetadataFactoryInterface
         }
 
         foreach ($reflection->getParameters() as $param) {
+=======
+    public function createArgumentMetadata(string|object|array $controller, ?\ReflectionFunctionAbstract $reflector = null): array
+    {
+        $arguments = [];
+        $reflector ??= new \ReflectionFunction($controller(...));
+
+        foreach ($reflector->getParameters() as $param) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $attributes = [];
             foreach ($param->getAttributes() as $reflectionAttribute) {
                 if (class_exists($reflectionAttribute->getName())) {
@@ -46,7 +55,11 @@ final class ArgumentMetadataFactory implements ArgumentMetadataFactoryInterface
                 }
             }
 
+<<<<<<< HEAD
             $arguments[] = new ArgumentMetadata($param->getName(), $this->getType($param, $class), $param->isVariadic(), $param->isDefaultValueAvailable(), $param->isDefaultValueAvailable() ? $param->getDefaultValue() : null, $param->allowsNull(), $attributes);
+=======
+            $arguments[] = new ArgumentMetadata($param->getName(), $this->getType($param), $param->isVariadic(), $param->isDefaultValueAvailable(), $param->isDefaultValueAvailable() ? $param->getDefaultValue() : null, $param->allowsNull(), $attributes);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         return $arguments;
@@ -55,13 +68,18 @@ final class ArgumentMetadataFactory implements ArgumentMetadataFactoryInterface
     /**
      * Returns an associated type to the given parameter if available.
      */
+<<<<<<< HEAD
     private function getType(\ReflectionParameter $parameter, ?string $class): ?string
+=======
+    private function getType(\ReflectionParameter $parameter): ?string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$type = $parameter->getType()) {
             return null;
         }
         $name = $type instanceof \ReflectionNamedType ? $type->getName() : (string) $type;
 
+<<<<<<< HEAD
         if (null !== $class) {
             switch (strtolower($name)) {
                 case 'self':
@@ -72,5 +90,12 @@ final class ArgumentMetadataFactory implements ArgumentMetadataFactoryInterface
         }
 
         return $name;
+=======
+        return match (strtolower($name)) {
+            'self' => $parameter->getDeclaringClass()?->name,
+            'parent' => get_parent_class($parameter->getDeclaringClass()?->name ?? '') ?: null,
+            default => $name,
+        };
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

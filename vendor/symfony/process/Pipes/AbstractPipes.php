@@ -22,6 +22,7 @@ abstract class AbstractPipes implements PipesInterface
 {
     public array $pipes = [];
 
+<<<<<<< HEAD
     private $inputBuffer = '';
     private $input;
     private $blocked = true;
@@ -36,15 +37,34 @@ abstract class AbstractPipes implements PipesInterface
             $this->input = $input;
         } elseif (\is_string($input)) {
             $this->inputBuffer = $input;
+=======
+    private string $inputBuffer = '';
+    /** @var resource|string|\Iterator */
+    private $input;
+    private bool $blocked = true;
+    private ?string $lastError = null;
+
+    /**
+     * @param resource|string|\Iterator $input
+     */
+    public function __construct($input)
+    {
+        if (\is_resource($input) || $input instanceof \Iterator) {
+            $this->input = $input;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         } else {
             $this->inputBuffer = (string) $input;
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function close()
+=======
+    public function close(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         foreach ($this->pipes as $pipe) {
             if (\is_resource($pipe)) {
@@ -69,7 +89,11 @@ abstract class AbstractPipes implements PipesInterface
     /**
      * Unblocks streams.
      */
+<<<<<<< HEAD
     protected function unblock()
+=======
+    protected function unblock(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$this->blocked) {
             return;
@@ -173,7 +197,11 @@ abstract class AbstractPipes implements PipesInterface
     /**
      * @internal
      */
+<<<<<<< HEAD
     public function handleError(int $type, string $msg)
+=======
+    public function handleError(int $type, string $msg): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->lastError = $msg;
     }

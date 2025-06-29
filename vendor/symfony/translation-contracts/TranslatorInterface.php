@@ -59,7 +59,11 @@ interface TranslatorInterface
      *
      * @throws \InvalidArgumentException If the locale contains invalid characters
      */
+<<<<<<< HEAD
     public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null): string;
+=======
+    public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Returns the default locale.

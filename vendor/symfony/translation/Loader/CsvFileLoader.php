@@ -22,11 +22,16 @@ class CsvFileLoader extends FileLoader
 {
     private string $delimiter = ';';
     private string $enclosure = '"';
+<<<<<<< HEAD
     private string $escape = '\\';
 
     /**
      * {@inheritdoc}
      */
+=======
+    private string $escape = '';
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function loadResource(string $resource): array
     {
         $messages = [];
@@ -45,7 +50,11 @@ class CsvFileLoader extends FileLoader
                 continue;
             }
 
+<<<<<<< HEAD
             if ('#' !== substr($data[0], 0, 1) && isset($data[1]) && 2 === \count($data)) {
+=======
+            if (!str_starts_with($data[0], '#') && isset($data[1]) && 2 === \count($data)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $messages[$data[0]] = $data[1];
             }
         }
@@ -55,8 +64,15 @@ class CsvFileLoader extends FileLoader
 
     /**
      * Sets the delimiter, enclosure, and escape character for CSV.
+<<<<<<< HEAD
      */
     public function setCsvControl(string $delimiter = ';', string $enclosure = '"', string $escape = '\\')
+=======
+     *
+     * @return void
+     */
+    public function setCsvControl(string $delimiter = ';', string $enclosure = '"', string $escape = '')
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->delimiter = $delimiter;
         $this->enclosure = $enclosure;

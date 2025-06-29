@@ -17,6 +17,10 @@
 
 namespace Symfony\Component\HttpKernel\HttpCache;
 
+<<<<<<< HEAD
+=======
+use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -29,11 +33,21 @@ use Symfony\Component\HttpKernel\TerminableInterface;
  */
 class HttpCache implements HttpKernelInterface, TerminableInterface
 {
+<<<<<<< HEAD
     private $kernel;
     private $store;
     private $request;
     private $surrogate;
     private $surrogateCacheStrategy = null;
+=======
+    public const BODY_EVAL_BOUNDARY_LENGTH = 24;
+
+    private HttpKernelInterface $kernel;
+    private StoreInterface $store;
+    private Request $request;
+    private ?SurrogateInterface $surrogate;
+    private ?ResponseCacheStrategyInterface $surrogateCacheStrategy = null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private array $options = [];
     private array $traces = [];
 
@@ -60,6 +74,12 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      *                            on responses that don't explicitly state whether the response is
      *                            public or private via a Cache-Control directive. (default: Authorization and Cookie)
      *
+<<<<<<< HEAD
+=======
+     *   * skip_response_headers  Set of response headers that are never cached even if a response is cacheable (public).
+     *                            (default: Set-Cookie)
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      *   * allow_reload           Specifies whether the client can force a cache reload by including a
      *                            Cache-Control "no-cache" directive in the request. Set it to ``true``
      *                            for compliance with RFC 2616. (default: false)
@@ -78,26 +98,48 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      *                            the cache can serve a stale response when an error is encountered (default: 60).
      *                            This setting is overridden by the stale-if-error HTTP Cache-Control extension
      *                            (see RFC 5861).
+<<<<<<< HEAD
      */
     public function __construct(HttpKernelInterface $kernel, StoreInterface $store, SurrogateInterface $surrogate = null, array $options = [])
+=======
+     *
+     *   * terminate_on_cache_hit Specifies if the kernel.terminate event should be dispatched even when the cache
+     *                            was hit (default: true).
+     *                            Unless your application needs to process events on cache hits, it is recommended
+     *                            to set this to false to avoid having to bootstrap the Symfony framework on a cache hit.
+     */
+    public function __construct(HttpKernelInterface $kernel, StoreInterface $store, ?SurrogateInterface $surrogate = null, array $options = [])
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->store = $store;
         $this->kernel = $kernel;
         $this->surrogate = $surrogate;
 
         // needed in case there is a fatal error because the backend is too slow to respond
+<<<<<<< HEAD
         register_shutdown_function([$this->store, 'cleanup']);
+=======
+        register_shutdown_function($this->store->cleanup(...));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         $this->options = array_merge([
             'debug' => false,
             'default_ttl' => 0,
             'private_headers' => ['Authorization', 'Cookie'],
+<<<<<<< HEAD
+=======
+            'skip_response_headers' => ['Set-Cookie'],
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             'allow_reload' => false,
             'allow_revalidate' => false,
             'stale_while_revalidate' => 2,
             'stale_if_error' => 60,
             'trace_level' => 'none',
             'trace_header' => 'X-Symfony-Cache',
+<<<<<<< HEAD
+=======
+            'terminate_on_cache_hit' => true,
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         ], $options);
 
         if (!isset($options['trace_level'])) {
@@ -121,7 +163,11 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
         return $this->traces;
     }
 
+<<<<<<< HEAD
     private function addTraces(Response $response)
+=======
+    private function addTraces(Response $response): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $traceString = null;
 
@@ -177,9 +223,12 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
         return $this->surrogate;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function handle(Request $request, int $type = HttpKernelInterface::MAIN_REQUEST, bool $catch = true): Response
     {
         // FIXME: catch exceptions and implement a 500 error page here? -> in Varnish, there is a built-in error page mechanism
@@ -228,16 +277,38 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
 
         $response->prepare($request);
 
+<<<<<<< HEAD
         $response->isNotModified($request);
+=======
+        if (HttpKernelInterface::MAIN_REQUEST === $type) {
+            $response->isNotModified($request);
+        }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         return $response;
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      */
     public function terminate(Request $request, Response $response)
     {
+=======
+     * @return void
+     */
+    public function terminate(Request $request, Response $response)
+    {
+        // Do not call any listeners in case of a cache hit.
+        // This ensures identical behavior as if you had a separate
+        // reverse caching proxy such as Varnish and the like.
+        if ($this->options['terminate_on_cache_hit']) {
+            trigger_deprecation('symfony/http-kernel', '6.2', 'Setting "terminate_on_cache_hit" to "true" is deprecated and will be changed to "false" in Symfony 7.0.');
+        } elseif (\in_array('fresh', $this->traces[$this->getTraceKey($request)] ?? [], true)) {
+            return;
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if ($this->getKernel() instanceof TerminableInterface) {
             $this->getKernel()->terminate($request, $response);
         }
@@ -447,11 +518,17 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      *
      * @return Response
      */
+<<<<<<< HEAD
     protected function forward(Request $request, bool $catch = false, Response $entry = null)
     {
         if ($this->surrogate) {
             $this->surrogate->addSurrogateCapability($request);
         }
+=======
+    protected function forward(Request $request, bool $catch = false, ?Response $entry = null)
+    {
+        $this->surrogate?->addSurrogateCapability($request);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         // always a "master" request (as the real master request can be in cache)
         $response = SubRequestHandler::handle($this->kernel, $request, HttpKernelInterface::MAIN_REQUEST, $catch);
@@ -501,7 +578,11 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
             Anyway, a client that received a message without a "Date" header MUST add it.
         */
         if (!$response->headers->has('Date')) {
+<<<<<<< HEAD
             $response->setDate(\DateTime::createFromFormat('U', time()));
+=======
+            $response->setDate(\DateTimeImmutable::createFromFormat('U', time()));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         $this->processResponseBody($request, $response);
@@ -579,13 +660,32 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     /**
      * Writes the Response to the cache.
      *
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws \Exception
      */
     protected function store(Request $request, Response $response)
     {
         try {
+<<<<<<< HEAD
             $this->store->write($request, $response);
 
+=======
+            $restoreHeaders = [];
+            foreach ($this->options['skip_response_headers'] as $header) {
+                if (!$response->headers->has($header)) {
+                    continue;
+                }
+
+                $restoreHeaders[$header] = $response->headers->all($header);
+                $response->headers->remove($header);
+            }
+
+            $this->store->write($request, $response);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $this->record($request, 'store');
 
             $response->headers->set('Age', $response->getAge());
@@ -595,6 +695,13 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
             if ($this->options['debug']) {
                 throw $e;
             }
+<<<<<<< HEAD
+=======
+        } finally {
+            foreach ($restoreHeaders as $header => $values) {
+                $response->headers->set($header, $values);
+            }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         // now that the response is cached, release the lock
@@ -604,6 +711,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     /**
      * Restores the Response body.
      */
+<<<<<<< HEAD
     private function restoreResponseBody(Request $request, Response $response)
     {
         if ($response->headers->has('X-Body-Eval')) {
@@ -613,6 +721,27 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
                 include $response->headers->get('X-Body-File');
             } else {
                 eval('; ?>'.$response->getContent().'<?php ;');
+=======
+    private function restoreResponseBody(Request $request, Response $response): void
+    {
+        if ($response->headers->has('X-Body-Eval')) {
+            \assert(self::BODY_EVAL_BOUNDARY_LENGTH === 24);
+
+            ob_start();
+
+            $content = $response->getContent();
+            $boundary = substr($content, 0, 24);
+            $j = strpos($content, $boundary, 24);
+            echo substr($content, 24, $j - 24);
+            $i = $j + 24;
+
+            while (false !== $j = strpos($content, $boundary, $i)) {
+                [$uri, $alt, $ignoreErrors, $part] = explode("\n", substr($content, $i, $j - $i), 4);
+                $i = $j + 24;
+
+                echo $this->surrogate->handle($this, $uri, $alt, $ignoreErrors);
+                echo $part;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
 
             $response->setContent(ob_get_clean());
@@ -633,9 +762,18 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
         $response->headers->remove('X-Body-File');
     }
 
+<<<<<<< HEAD
     protected function processResponseBody(Request $request, Response $response)
     {
         if (null !== $this->surrogate && $this->surrogate->needsParsing($response)) {
+=======
+    /**
+     * @return void
+     */
+    protected function processResponseBody(Request $request, Response $response)
+    {
+        if ($this->surrogate?->needsParsing($response)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $this->surrogate->process($request, $response);
         }
     }
@@ -664,7 +802,11 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     /**
      * Records that an event took place.
      */
+<<<<<<< HEAD
     private function record(Request $request, string $event)
+=======
+    private function record(Request $request, string $event): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->traces[$this->getTraceKey($request)][] = $event;
     }
@@ -679,7 +821,15 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
             $path .= '?'.$qs;
         }
 
+<<<<<<< HEAD
         return $request->getMethod().' '.$path;
+=======
+        try {
+            return $request->getMethod().' '.$path;
+        } catch (SuspiciousOperationException $e) {
+            return '_BAD_METHOD_ '.$path;
+        }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -689,12 +839,22 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
     private function mayServeStaleWhileRevalidate(Response $entry): bool
     {
         $timeout = $entry->headers->getCacheControlDirective('stale-while-revalidate');
+<<<<<<< HEAD
 
         if (null === $timeout) {
             $timeout = $this->options['stale_while_revalidate'];
         }
 
         return abs($entry->getTtl() ?? 0) < $timeout;
+=======
+        $timeout ??= $this->options['stale_while_revalidate'];
+
+        $age = $entry->getAge();
+        $maxAge = $entry->getMaxAge() ?? 0;
+        $ttl = $maxAge - $age;
+
+        return abs($ttl) < $timeout;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**

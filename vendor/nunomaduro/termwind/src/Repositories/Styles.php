@@ -21,10 +21,16 @@ final class Styles
     /**
      * Creates a new style from the given arguments.
      *
+<<<<<<< HEAD
      * @param (Closure(StylesValueObject $element, string|int ...$arguments): StylesValueObject)|null $callback
      * @return Style
      */
     public static function create(string $name, Closure $callback = null): Style
+=======
+     * @param  (Closure(StylesValueObject $element, string|int ...$arguments): StylesValueObject)|null  $callback
+     */
+    public static function create(string $name, ?Closure $callback = null): Style
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         self::$storage[$name] = $style = new Style(
             $callback ?? static fn (StylesValueObject $styles) => $styles

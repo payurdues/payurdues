@@ -25,11 +25,21 @@ interface ExtractorInterface
      * Extracts translation messages from files, a file or a directory to the catalogue.
      *
      * @param string|iterable<string> $resource Files, a file or a directory
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function extract(string|iterable $resource, MessageCatalogue $catalogue);
 
     /**
      * Sets the prefix that should be used for new found messages.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setPrefix(string $prefix);
 }

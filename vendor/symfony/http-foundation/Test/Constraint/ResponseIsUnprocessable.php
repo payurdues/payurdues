@@ -16,9 +16,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ResponseIsUnprocessable extends Constraint
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function toString(): string
     {
         return 'is unprocessable';
@@ -26,8 +29,11 @@ final class ResponseIsUnprocessable extends Constraint
 
     /**
      * @param Response $other
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function matches($other): bool
     {
@@ -36,8 +42,11 @@ final class ResponseIsUnprocessable extends Constraint
 
     /**
      * @param Response $other
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function failureDescription($other): string
     {
@@ -46,8 +55,11 @@ final class ResponseIsUnprocessable extends Constraint
 
     /**
      * @param Response $other
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function additionalFailureDescription($other): string
     {

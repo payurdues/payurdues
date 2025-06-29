@@ -30,6 +30,11 @@ class TranslationWriter implements TranslationWriterInterface
 
     /**
      * Adds a dumper to the writer.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function addDumper(string $format, DumperInterface $dumper)
     {
@@ -50,6 +55,11 @@ class TranslationWriter implements TranslationWriterInterface
      * @param string $format  The format to use to dump the messages
      * @param array  $options Options that are passed to the dumper
      *
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws InvalidArgumentException
      */
     public function write(MessageCatalogue $catalogue, string $format, array $options = [])

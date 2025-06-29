@@ -27,16 +27,23 @@ class ArrayInput extends Input
 {
     private array $parameters;
 
+<<<<<<< HEAD
     public function __construct(array $parameters, InputDefinition $definition = null)
+=======
+    public function __construct(array $parameters, ?InputDefinition $definition = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->parameters = $parameters;
 
         parent::__construct($definition);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getFirstArgument(): ?string
     {
         foreach ($this->parameters as $param => $value) {
@@ -50,9 +57,12 @@ class ArrayInput extends Input
         return null;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function hasParameterOption(string|array $values, bool $onlyParams = false): bool
     {
         $values = (array) $values;
@@ -74,9 +84,12 @@ class ArrayInput extends Input
         return false;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getParameterOption(string|array $values, string|bool|int|float|array|null $default = false, bool $onlyParams = false): mixed
     {
         $values = (array) $values;
@@ -115,7 +128,11 @@ class ArrayInput extends Input
                     $params[] = $param.('' != $val ? $glue.$this->escapeToken($val) : '');
                 }
             } else {
+<<<<<<< HEAD
                 $params[] = \is_array($val) ? implode(' ', array_map([$this, 'escapeToken'], $val)) : $this->escapeToken($val);
+=======
+                $params[] = \is_array($val) ? implode(' ', array_map($this->escapeToken(...), $val)) : $this->escapeToken($val);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
         }
 
@@ -123,7 +140,11 @@ class ArrayInput extends Input
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function parse()
     {
@@ -146,7 +167,11 @@ class ArrayInput extends Input
      *
      * @throws InvalidOptionException When option given doesn't exist
      */
+<<<<<<< HEAD
     private function addShortOption(string $shortcut, mixed $value)
+=======
+    private function addShortOption(string $shortcut, mixed $value): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$this->definition->hasShortcut($shortcut)) {
             throw new InvalidOptionException(sprintf('The "-%s" option does not exist.', $shortcut));
@@ -161,7 +186,11 @@ class ArrayInput extends Input
      * @throws InvalidOptionException When option given doesn't exist
      * @throws InvalidOptionException When a required value is missing
      */
+<<<<<<< HEAD
     private function addLongOption(string $name, mixed $value)
+=======
+    private function addLongOption(string $name, mixed $value): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$this->definition->hasOption($name)) {
             if (!$this->definition->hasNegation($name)) {
@@ -194,7 +223,11 @@ class ArrayInput extends Input
      *
      * @throws InvalidArgumentException When argument given doesn't exist
      */
+<<<<<<< HEAD
     private function addArgument(string|int $name, mixed $value)
+=======
+    private function addArgument(string|int $name, mixed $value): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$this->definition->hasArgument($name)) {
             throw new InvalidArgumentException(sprintf('The "%s" argument does not exist.', $name));

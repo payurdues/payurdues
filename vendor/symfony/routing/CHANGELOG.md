@@ -1,6 +1,39 @@
 CHANGELOG
 =========
 
+<<<<<<< HEAD
+=======
+6.4
+---
+
+ * Add FQCN and FQCN::method aliases for routes loaded from attributes/annotations when applicable
+ * Add native return type to `AnnotationClassLoader::setResolver()`
+ * Deprecate Doctrine annotations support in favor of native attributes
+ * Change the constructor signature of `AnnotationClassLoader` to `__construct(?string $env = null)`, passing an annotation reader as first argument is deprecated
+ * Deprecate `AnnotationClassLoader`, use `AttributeClassLoader` instead
+ * Deprecate `AnnotationDirectoryLoader`, use `AttributeDirectoryLoader` instead
+ * Deprecate `AnnotationFileLoader`, use `AttributeFileLoader` instead
+ * Add `AddExpressionLanguageProvidersPass` (moved from `FrameworkBundle`)
+ * Add aliases for all classes in the `Annotation` namespace to `Attribute`
+
+6.2
+---
+
+ * Add `Requirement::POSITIVE_INT` for common ids and pagination
+
+6.1
+---
+
+ * Add `getMissingParameters` and `getRouteName` methods on `MissingMandatoryParametersException`
+ * Allow using UTF-8 parameter names
+ * Support the `attribute` type (alias of `annotation`) in annotation loaders
+ * Already encoded slashes are not decoded nor double-encoded anymore when generating URLs (query parameters)
+ * Add `EnumRequirement` to help generate route requirements from a `\BackedEnum`
+ * Add `Requirement`, a collection of universal regular-expression constants to use as route parameter requirements
+ * Add `params` variable to condition expression
+ * Deprecate not passing route parameters as the fourth argument to `UrlMatcher::handleRouteRequirements()`
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 5.3
 ---
 

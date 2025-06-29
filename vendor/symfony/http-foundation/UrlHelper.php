@@ -12,6 +12,10 @@
 namespace Symfony\Component\HttpFoundation;
 
 use Symfony\Component\Routing\RequestContext;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Routing\RequestContextAwareInterface;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
 /**
  * A helper service for manipulating URLs within and outside the request scope.
@@ -20,6 +24,7 @@ use Symfony\Component\Routing\RequestContext;
  */
 final class UrlHelper
 {
+<<<<<<< HEAD
     private $requestStack;
     private $requestContext;
 
@@ -27,11 +32,21 @@ final class UrlHelper
     {
         $this->requestStack = $requestStack;
         $this->requestContext = $requestContext;
+=======
+    public function __construct(
+        private RequestStack $requestStack,
+        private RequestContextAwareInterface|RequestContext|null $requestContext = null,
+    ) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     public function getAbsoluteUrl(string $path): string
     {
+<<<<<<< HEAD
         if (str_contains($path, '://') || '//' === substr($path, 0, 2)) {
+=======
+        if (str_contains($path, '://') || str_starts_with($path, '//')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return $path;
         }
 
@@ -60,7 +75,11 @@ final class UrlHelper
 
     public function getRelativePath(string $path): string
     {
+<<<<<<< HEAD
         if (str_contains($path, '://') || '//' === substr($path, 0, 2)) {
+=======
+        if (str_contains($path, '://') || str_starts_with($path, '//')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return $path;
         }
 
@@ -73,6 +92,7 @@ final class UrlHelper
 
     private function getAbsoluteUrlFromContext(string $path): string
     {
+<<<<<<< HEAD
         if (null === $this->requestContext || '' === $host = $this->requestContext->getHost()) {
             return $path;
         }
@@ -95,6 +115,38 @@ final class UrlHelper
 
         if ('/' !== $path[0]) {
             $path = rtrim($this->requestContext->getBaseUrl(), '/').'/'.$path;
+=======
+        if (null === $context = $this->requestContext) {
+            return $path;
+        }
+
+        if ($context instanceof RequestContextAwareInterface) {
+            $context = $context->getContext();
+        }
+
+        if ('' === $host = $context->getHost()) {
+            return $path;
+        }
+
+        $scheme = $context->getScheme();
+        $port = '';
+
+        if ('http' === $scheme && 80 !== $context->getHttpPort()) {
+            $port = ':'.$context->getHttpPort();
+        } elseif ('https' === $scheme && 443 !== $context->getHttpsPort()) {
+            $port = ':'.$context->getHttpsPort();
+        }
+
+        if ('#' === $path[0]) {
+            $queryString = $context->getQueryString();
+            $path = $context->getPathInfo().($queryString ? '?'.$queryString : '').$path;
+        } elseif ('?' === $path[0]) {
+            $path = $context->getPathInfo().$path;
+        }
+
+        if ('/' !== $path[0]) {
+            $path = rtrim($context->getBaseUrl(), '/').'/'.$path;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         return $scheme.'://'.$host.$port.$path;

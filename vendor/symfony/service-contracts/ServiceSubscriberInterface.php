@@ -11,6 +11,11 @@
 
 namespace Symfony\Contracts\Service;
 
+<<<<<<< HEAD
+=======
+use Symfony\Contracts\Service\Attribute\SubscribedService;
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 /**
  * A ServiceSubscriber exposes its dependencies via the static {@link getSubscribedServices} method.
  *
@@ -29,7 +34,12 @@ namespace Symfony\Contracts\Service;
 interface ServiceSubscriberInterface
 {
     /**
+<<<<<<< HEAD
      * Returns an array of service types required by such instances, optionally keyed by the service names used internally.
+=======
+     * Returns an array of service types (or {@see SubscribedService} objects) required
+     * by such instances, optionally keyed by the service names used internally.
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      *
      * For mandatory dependencies:
      *
@@ -47,7 +57,17 @@ interface ServiceSubscriberInterface
      *  * ['?Psr\Log\LoggerInterface'] is a shortcut for
      *  * ['Psr\Log\LoggerInterface' => '?Psr\Log\LoggerInterface']
      *
+<<<<<<< HEAD
      * @return string[] The required service types, optionally keyed by service names
+=======
+     * additionally, an array of {@see SubscribedService}'s can be returned:
+     *
+     *  * [new SubscribedService('logger', Psr\Log\LoggerInterface::class)]
+     *  * [new SubscribedService(type: Psr\Log\LoggerInterface::class, nullable: true)]
+     *  * [new SubscribedService('http_client', HttpClientInterface::class, attributes: new Target('githubApi'))]
+     *
+     * @return string[]|SubscribedService[] The required service types, optionally keyed by service names
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public static function getSubscribedServices(): array;
 }

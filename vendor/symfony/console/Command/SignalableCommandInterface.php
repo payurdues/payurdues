@@ -25,6 +25,15 @@ interface SignalableCommandInterface
 
     /**
      * The method will be called when the application is signaled.
+<<<<<<< HEAD
      */
     public function handleSignal(int $signal): void;
+=======
+     *
+     * @param int|false $previousExitCode
+     *
+     * @return int|false The exit code to return or false to continue the normal execution
+     */
+    public function handleSignal(int $signal, /* int|false $previousExitCode = 0 */);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

@@ -19,6 +19,7 @@ use Symfony\Component\Mime\Header\Headers;
 class SMimePart extends AbstractPart
 {
     /** @internal */
+<<<<<<< HEAD
     protected $_headers;
 
     private $body;
@@ -30,6 +31,17 @@ class SMimePart extends AbstractPart
     {
         unset($this->_headers);
 
+=======
+    protected Headers $_headers;
+
+    private iterable|string $body;
+    private string $type;
+    private string $subtype;
+    private array $parameters;
+
+    public function __construct(iterable|string $body, string $type, string $subtype, array $parameters)
+    {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         parent::__construct();
 
         $this->body = $body;
@@ -107,7 +119,10 @@ class SMimePart extends AbstractPart
     public function __wakeup(): void
     {
         $r = new \ReflectionProperty(AbstractPart::class, 'headers');
+<<<<<<< HEAD
         $r->setAccessible(true);
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $r->setValue($this, $this->_headers);
         unset($this->_headers);
     }

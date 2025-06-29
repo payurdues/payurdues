@@ -25,7 +25,11 @@ interface TranslatorBagInterface
      *
      * @throws InvalidArgumentException If the locale contains invalid characters
      */
+<<<<<<< HEAD
     public function getCatalogue(string $locale = null): MessageCatalogueInterface;
+=======
+    public function getCatalogue(?string $locale = null): MessageCatalogueInterface;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Returns all catalogues of the instance.

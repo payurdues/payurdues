@@ -16,12 +16,17 @@ namespace Symfony\Component\VarDumper\Cloner;
  */
 class VarCloner extends AbstractCloner
 {
+<<<<<<< HEAD
     private static string $gid;
     private static array $arrayCache = [];
 
     /**
      * {@inheritdoc}
      */
+=======
+    private static array $arrayCache = [];
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function doClone(mixed $var): array
     {
         $len = 1;                       // Length of $queue
@@ -44,7 +49,10 @@ class VarCloner extends AbstractCloner
         $stub = null;                   // Stub capturing the main properties of an original item value
                                         // or null if the original value is used directly
 
+<<<<<<< HEAD
         $gid = self::$gid ??= md5(random_bytes(6)); // Unique string used to detect the special $GLOBALS variable
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $arrayStub = new Stub();
         $arrayStub->type = Stub::TYPE_ARRAY;
         $fromObjCast = false;
@@ -121,6 +129,7 @@ class VarCloner extends AbstractCloner
                         }
                         $stub = $arrayStub;
 
+<<<<<<< HEAD
                         if (\PHP_VERSION_ID >= 80100) {
                             $stub->class = array_is_list($v) ? Stub::ARRAY_INDEXED : Stub::ARRAY_ASSOC;
                             $a = $v;
@@ -161,13 +170,21 @@ class VarCloner extends AbstractCloner
                         } else {
                             $a = $v;
                         }
+=======
+                        $stub->class = array_is_list($v) ? Stub::ARRAY_INDEXED : Stub::ARRAY_ASSOC;
+                        $a = $v;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                         break;
 
                     case \is_object($v):
                         if (empty($objRefs[$h = spl_object_id($v)])) {
                             $stub = new Stub();
                             $stub->type = Stub::TYPE_OBJECT;
+<<<<<<< HEAD
                             $stub->class = \get_class($v);
+=======
+                            $stub->class = $v::class;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                             $stub->value = $v;
                             $stub->handle = $h;
                             $a = $this->castObject($stub, 0 < $i);

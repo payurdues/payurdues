@@ -23,10 +23,14 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class TraceableEventDispatcher extends BaseTraceableEventDispatcher
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function beforeDispatch(string $eventName, object $event)
+=======
+    protected function beforeDispatch(string $eventName, object $event): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         switch ($eventName) {
             case KernelEvents::REQUEST:
@@ -52,16 +56,24 @@ class TraceableEventDispatcher extends BaseTraceableEventDispatcher
                 // which must be caught.
                 try {
                     $this->stopwatch->openSection($sectionId);
+<<<<<<< HEAD
                 } catch (\LogicException $e) {
+=======
+                } catch (\LogicException) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 }
                 break;
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function afterDispatch(string $eventName, object $event)
+=======
+    protected function afterDispatch(string $eventName, object $event): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         switch ($eventName) {
             case KernelEvents::CONTROLLER_ARGUMENTS:
@@ -72,7 +84,15 @@ class TraceableEventDispatcher extends BaseTraceableEventDispatcher
                 if (null === $sectionId) {
                     break;
                 }
+<<<<<<< HEAD
                 $this->stopwatch->stopSection($sectionId);
+=======
+                try {
+                    $this->stopwatch->stopSection($sectionId);
+                } catch (\LogicException) {
+                    // The stop watch service might have been reset in the meantime
+                }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 break;
             case KernelEvents::TERMINATE:
                 // In the special case described in the `preDispatch` method above, the `$token` section
@@ -83,7 +103,11 @@ class TraceableEventDispatcher extends BaseTraceableEventDispatcher
                 }
                 try {
                     $this->stopwatch->stopSection($sectionId);
+<<<<<<< HEAD
                 } catch (\LogicException $e) {
+=======
+                } catch (\LogicException) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 }
                 break;
         }

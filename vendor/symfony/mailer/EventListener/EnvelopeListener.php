@@ -23,7 +23,11 @@ use Symfony\Component\Mime\Message;
  */
 class EnvelopeListener implements EventSubscriberInterface
 {
+<<<<<<< HEAD
     private $sender = null;
+=======
+    private ?Address $sender = null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * @var Address[]|null
@@ -33,7 +37,11 @@ class EnvelopeListener implements EventSubscriberInterface
     /**
      * @param array<Address|string> $recipients
      */
+<<<<<<< HEAD
     public function __construct(Address|string $sender = null, array $recipients = null)
+=======
+    public function __construct(Address|string|null $sender = null, ?array $recipients = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null !== $sender) {
             $this->sender = Address::create($sender);

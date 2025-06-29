@@ -31,6 +31,11 @@ class RequestStack
      *
      * This method should generally not be called directly as the stack
      * management should be taken care of by the application itself.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function push(Request $request)
     {
@@ -104,4 +109,14 @@ class RequestStack
 
         throw new SessionNotFoundException();
     }
+<<<<<<< HEAD
+=======
+
+    public function resetRequestFormats(): void
+    {
+        static $resetRequestFormats;
+        $resetRequestFormats ??= \Closure::bind(static fn () => self::$formats = null, null, Request::class);
+        $resetRequestFormats();
+    }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

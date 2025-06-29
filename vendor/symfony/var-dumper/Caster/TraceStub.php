@@ -25,7 +25,11 @@ class TraceStub extends Stub
     public $sliceLength;
     public $numberingOffset;
 
+<<<<<<< HEAD
     public function __construct(array $trace, bool $keepArgs = true, int $sliceOffset = 0, int $sliceLength = null, int $numberingOffset = 0)
+=======
+    public function __construct(array $trace, bool $keepArgs = true, int $sliceOffset = 0, ?int $sliceLength = null, int $numberingOffset = 0)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->value = $trace;
         $this->keepArgs = $keepArgs;

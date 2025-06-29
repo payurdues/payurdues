@@ -29,6 +29,7 @@ final class Dsn
     private array $options = [];
     private string $originalDsn;
 
+<<<<<<< HEAD
     public function __construct(string $dsn)
     {
         $this->originalDsn = $dsn;
@@ -52,6 +53,31 @@ final class Dsn
         $this->port = $parsedDsn['port'] ?? null;
         $this->path = $parsedDsn['path'] ?? null;
         parse_str($parsedDsn['query'] ?? '', $this->options);
+=======
+    public function __construct(#[\SensitiveParameter] string $dsn)
+    {
+        $this->originalDsn = $dsn;
+
+        if (false === $params = parse_url($dsn)) {
+            throw new InvalidArgumentException('The translation provider DSN is invalid.');
+        }
+
+        if (!isset($params['scheme'])) {
+            throw new InvalidArgumentException('The translation provider DSN must contain a scheme.');
+        }
+        $this->scheme = $params['scheme'];
+
+        if (!isset($params['host'])) {
+            throw new InvalidArgumentException('The translation provider DSN must contain a host (use "default" by default).');
+        }
+        $this->host = $params['host'];
+
+        $this->user = '' !== ($params['user'] ?? '') ? rawurldecode($params['user']) : null;
+        $this->password = '' !== ($params['pass'] ?? '') ? rawurldecode($params['pass']) : null;
+        $this->port = $params['port'] ?? null;
+        $this->path = $params['path'] ?? null;
+        parse_str($params['query'] ?? '', $this->options);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     public function getScheme(): string
@@ -74,17 +100,29 @@ final class Dsn
         return $this->password;
     }
 
+<<<<<<< HEAD
     public function getPort(int $default = null): ?int
+=======
+    public function getPort(?int $default = null): ?int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->port ?? $default;
     }
 
+<<<<<<< HEAD
     public function getOption(string $key, mixed $default = null)
+=======
+    public function getOption(string $key, mixed $default = null): mixed
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->options[$key] ?? $default;
     }
 
+<<<<<<< HEAD
     public function getRequiredOption(string $key)
+=======
+    public function getRequiredOption(string $key): mixed
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!\array_key_exists($key, $this->options) || '' === trim($this->options[$key])) {
             throw new MissingRequiredOptionException($key);

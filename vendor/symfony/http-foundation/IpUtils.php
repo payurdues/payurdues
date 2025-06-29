@@ -18,6 +18,24 @@ namespace Symfony\Component\HttpFoundation;
  */
 class IpUtils
 {
+<<<<<<< HEAD
+=======
+    public const PRIVATE_SUBNETS = [
+        '127.0.0.0/8',    // RFC1700 (Loopback)
+        '10.0.0.0/8',     // RFC1918
+        '192.168.0.0/16', // RFC1918
+        '172.16.0.0/12',  // RFC1918
+        '169.254.0.0/16', // RFC3927
+        '0.0.0.0/8',      // RFC5735
+        '240.0.0.0/4',    // RFC1112
+        '::1/128',        // Loopback
+        'fc00::/7',       // Unique Local Address
+        'fe80::/10',      // Link Local Address
+        '::ffff:0:0/96',  // IPv4 translations
+        '::/128',         // Unspecified address
+    ];
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private static array $checkedIps = [];
 
     /**
@@ -59,6 +77,7 @@ class IpUtils
      */
     public static function checkIp4(string $requestIp, string $ip): bool
     {
+<<<<<<< HEAD
         $cacheKey = $requestIp.'-'.$ip;
         if (isset(self::$checkedIps[$cacheKey])) {
             return self::$checkedIps[$cacheKey];
@@ -66,17 +85,34 @@ class IpUtils
 
         if (!filter_var($requestIp, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV4)) {
             return self::$checkedIps[$cacheKey] = false;
+=======
+        $cacheKey = $requestIp.'-'.$ip.'-v4';
+        if (null !== $cacheValue = self::getCacheResult($cacheKey)) {
+            return $cacheValue;
+        }
+
+        if (!filter_var($requestIp, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV4)) {
+            return self::setCacheResult($cacheKey, false);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         if (str_contains($ip, '/')) {
             [$address, $netmask] = explode('/', $ip, 2);
 
             if ('0' === $netmask) {
+<<<<<<< HEAD
                 return self::$checkedIps[$cacheKey] = false !== filter_var($address, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV4);
             }
 
             if ($netmask < 0 || $netmask > 32) {
                 return self::$checkedIps[$cacheKey] = false;
+=======
+                return self::setCacheResult($cacheKey, false !== filter_var($address, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV4));
+            }
+
+            if ($netmask < 0 || $netmask > 32) {
+                return self::setCacheResult($cacheKey, false);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
         } else {
             $address = $ip;
@@ -84,10 +120,17 @@ class IpUtils
         }
 
         if (false === ip2long($address)) {
+<<<<<<< HEAD
             return self::$checkedIps[$cacheKey] = false;
         }
 
         return self::$checkedIps[$cacheKey] = 0 === substr_compare(sprintf('%032b', ip2long($requestIp)), sprintf('%032b', ip2long($address)), 0, $netmask);
+=======
+            return self::setCacheResult($cacheKey, false);
+        }
+
+        return self::setCacheResult($cacheKey, 0 === substr_compare(sprintf('%032b', ip2long($requestIp)), sprintf('%032b', ip2long($address)), 0, $netmask));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -104,9 +147,15 @@ class IpUtils
      */
     public static function checkIp6(string $requestIp, string $ip): bool
     {
+<<<<<<< HEAD
         $cacheKey = $requestIp.'-'.$ip;
         if (isset(self::$checkedIps[$cacheKey])) {
             return self::$checkedIps[$cacheKey];
+=======
+        $cacheKey = $requestIp.'-'.$ip.'-v6';
+        if (null !== $cacheValue = self::getCacheResult($cacheKey)) {
+            return $cacheValue;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         if (!((\extension_loaded('sockets') && \defined('AF_INET6')) || @inet_pton('::1'))) {
@@ -115,14 +164,22 @@ class IpUtils
 
         // Check to see if we were given a IP4 $requestIp or $ip by mistake
         if (!filter_var($requestIp, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV6)) {
+<<<<<<< HEAD
             return self::$checkedIps[$cacheKey] = false;
+=======
+            return self::setCacheResult($cacheKey, false);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         if (str_contains($ip, '/')) {
             [$address, $netmask] = explode('/', $ip, 2);
 
             if (!filter_var($address, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV6)) {
+<<<<<<< HEAD
                 return self::$checkedIps[$cacheKey] = false;
+=======
+                return self::setCacheResult($cacheKey, false);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
 
             if ('0' === $netmask) {
@@ -130,11 +187,19 @@ class IpUtils
             }
 
             if ($netmask < 1 || $netmask > 128) {
+<<<<<<< HEAD
                 return self::$checkedIps[$cacheKey] = false;
             }
         } else {
             if (!filter_var($ip, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV6)) {
                 return self::$checkedIps[$cacheKey] = false;
+=======
+                return self::setCacheResult($cacheKey, false);
+            }
+        } else {
+            if (!filter_var($ip, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV6)) {
+                return self::setCacheResult($cacheKey, false);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
 
             $address = $ip;
@@ -145,7 +210,11 @@ class IpUtils
         $bytesTest = unpack('n*', @inet_pton($requestIp));
 
         if (!$bytesAddr || !$bytesTest) {
+<<<<<<< HEAD
             return self::$checkedIps[$cacheKey] = false;
+=======
+            return self::setCacheResult($cacheKey, false);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         for ($i = 1, $ceil = ceil($netmask / 16); $i <= $ceil; ++$i) {
@@ -153,11 +222,19 @@ class IpUtils
             $left = ($left <= 16) ? $left : 16;
             $mask = ~(0xFFFF >> $left) & 0xFFFF;
             if (($bytesAddr[$i] & $mask) != ($bytesTest[$i] & $mask)) {
+<<<<<<< HEAD
                 return self::$checkedIps[$cacheKey] = false;
             }
         }
 
         return self::$checkedIps[$cacheKey] = true;
+=======
+                return self::setCacheResult($cacheKey, false);
+            }
+        }
+
+        return self::setCacheResult($cacheKey, true);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -167,8 +244,23 @@ class IpUtils
      */
     public static function anonymize(string $ip): string
     {
+<<<<<<< HEAD
         $wrappedIPv6 = false;
         if ('[' === substr($ip, 0, 1) && ']' === substr($ip, -1, 1)) {
+=======
+        /**
+         * If the IP contains a % symbol, then it is a local-link address with scoping according to RFC 4007
+         * In that case, we only care about the part before the % symbol, as the following functions, can only work with
+         * the IP address itself. As the scope can leak information (containing interface name), we do not want to
+         * include it in our anonymized IP data.
+         */
+        if (str_contains($ip, '%')) {
+            $ip = substr($ip, 0, strpos($ip, '%'));
+        }
+
+        $wrappedIPv6 = false;
+        if (str_starts_with($ip, '[') && str_ends_with($ip, ']')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $wrappedIPv6 = true;
             $ip = substr($ip, 1, -1);
         }
@@ -191,4 +283,39 @@ class IpUtils
 
         return $ip;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Checks if an IPv4 or IPv6 address is contained in the list of private IP subnets.
+     */
+    public static function isPrivateIp(string $requestIp): bool
+    {
+        return self::checkIp($requestIp, self::PRIVATE_SUBNETS);
+    }
+
+    private static function getCacheResult(string $cacheKey): ?bool
+    {
+        if (isset(self::$checkedIps[$cacheKey])) {
+            // Move the item last in cache (LRU)
+            $value = self::$checkedIps[$cacheKey];
+            unset(self::$checkedIps[$cacheKey]);
+            self::$checkedIps[$cacheKey] = $value;
+
+            return self::$checkedIps[$cacheKey];
+        }
+
+        return null;
+    }
+
+    private static function setCacheResult(string $cacheKey, bool $result): bool
+    {
+        if (1000 < \count(self::$checkedIps)) {
+            // stop memory leak if there are many keys
+            self::$checkedIps = \array_slice(self::$checkedIps, 500, null, true);
+        }
+
+        return self::$checkedIps[$cacheKey] = $result;
+    }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

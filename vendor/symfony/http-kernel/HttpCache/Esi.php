@@ -33,7 +33,11 @@ class Esi extends AbstractSurrogate
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function addSurrogateControl(Response $response)
     {
@@ -42,10 +46,14 @@ class Esi extends AbstractSurrogate
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function renderIncludeTag(string $uri, string $alt = null, bool $ignoreErrors = true, string $comment = ''): string
+=======
+    public function renderIncludeTag(string $uri, ?string $alt = null, bool $ignoreErrors = true, string $comment = ''): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $html = sprintf('<esi:include src="%s"%s%s />',
             $uri,
@@ -60,9 +68,12 @@ class Esi extends AbstractSurrogate
         return $html;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function process(Request $request, Response $response): Response
     {
         $type = $response->headers->get('Content-Type');
@@ -80,8 +91,13 @@ class Esi extends AbstractSurrogate
         $content = preg_replace('#<esi\:remove>.*?</esi\:remove>#s', '', $content);
         $content = preg_replace('#<esi\:comment[^>]+>#s', '', $content);
 
+<<<<<<< HEAD
         $chunks = preg_split('#<esi\:include\s+(.*?)\s*(?:/|</esi\:include)>#', $content, -1, \PREG_SPLIT_DELIM_CAPTURE);
         $chunks[0] = str_replace($this->phpEscapeMap[0], $this->phpEscapeMap[1], $chunks[0]);
+=======
+        $boundary = self::generateBodyEvalBoundary();
+        $chunks = preg_split('#<esi\:include\s+(.*?)\s*(?:/|</esi\:include)>#', $content, -1, \PREG_SPLIT_DELIM_CAPTURE);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         $i = 1;
         while (isset($chunks[$i])) {
@@ -95,6 +111,7 @@ class Esi extends AbstractSurrogate
                 throw new \RuntimeException('Unable to process an ESI tag without a "src" attribute.');
             }
 
+<<<<<<< HEAD
             $chunks[$i] = sprintf('<?php echo $this->surrogate->handle($this, %s, %s, %s) ?>'."\n",
                 var_export($options['src'], true),
                 var_export($options['alt'] ?? '', true),
@@ -105,6 +122,12 @@ class Esi extends AbstractSurrogate
             ++$i;
         }
         $content = implode('', $chunks);
+=======
+            $chunks[$i] = $boundary.$options['src']."\n".($options['alt'] ?? '')."\n".('continue' === ($options['onerror'] ?? ''))."\n";
+            $i += 2;
+        }
+        $content = $boundary.implode('', $chunks).$boundary;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         $response->setContent($content);
         $response->headers->set('X-Body-Eval', 'ESI');

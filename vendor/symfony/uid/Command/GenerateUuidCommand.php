@@ -26,18 +26,27 @@ use Symfony\Component\Uid\Uuid;
 #[AsCommand(name: 'uuid:generate', description: 'Generate a UUID')]
 class GenerateUuidCommand extends Command
 {
+<<<<<<< HEAD
     private $factory;
 
     public function __construct(UuidFactory $factory = null)
+=======
+    private UuidFactory $factory;
+
+    public function __construct(?UuidFactory $factory = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->factory = $factory ?? new UuidFactory();
 
         parent::__construct();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function configure(): void
     {
         $this
@@ -48,7 +57,11 @@ class GenerateUuidCommand extends Command
                 new InputOption('namespace', null, InputOption::VALUE_REQUIRED, 'The UUID to use at the namespace for named-based UUIDs, predefined namespaces keywords "dns", "url", "oid" and "x500" are accepted'),
                 new InputOption('random-based', null, InputOption::VALUE_NONE, 'To generate a random-based UUID'),
                 new InputOption('count', 'c', InputOption::VALUE_REQUIRED, 'The number of UUID to generate', 1),
+<<<<<<< HEAD
                 new InputOption('format', 'f', InputOption::VALUE_REQUIRED, 'The UUID output format: rfc4122, base58 or base32', 'rfc4122'),
+=======
+                new InputOption('format', 'f', InputOption::VALUE_REQUIRED, sprintf('The UUID output format ("%s")', implode('", "', $this->getAvailableFormatOptions())), 'rfc4122'),
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             ])
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> generates a UUID.
@@ -87,9 +100,12 @@ EOF
         ;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output);
@@ -138,9 +154,13 @@ EOF
                     return 1;
                 }
 
+<<<<<<< HEAD
                 $create = function () use ($node, $time): Uuid {
                     return $this->factory->timeBased($node)->create(new \DateTimeImmutable($time));
                 };
+=======
+                $create = fn (): Uuid => $this->factory->timeBased($node)->create(new \DateTimeImmutable($time));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 break;
 
             case null !== $name:
@@ -157,7 +177,11 @@ EOF
                 $create = function () use ($namespace, $name): Uuid {
                     try {
                         $factory = $this->factory->nameBased($namespace);
+<<<<<<< HEAD
                     } catch (\LogicException $e) {
+=======
+                    } catch (\LogicException) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                         throw new \InvalidArgumentException('Missing namespace: use the "--namespace" option or configure a default namespace in the underlying factory.');
                     }
 
@@ -166,11 +190,19 @@ EOF
                 break;
 
             case $random:
+<<<<<<< HEAD
                 $create = [$this->factory->randomBased(), 'create'];
                 break;
 
             default:
                 $create = [$this->factory, 'create'];
+=======
+                $create = $this->factory->randomBased()->create(...);
+                break;
+
+            default:
+                $create = $this->factory->create(...);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 break;
         }
 
@@ -179,7 +211,11 @@ EOF
         if (\in_array($formatOption, $this->getAvailableFormatOptions())) {
             $format = 'to'.ucfirst($formatOption);
         } else {
+<<<<<<< HEAD
             $io->error(sprintf('Invalid format "%s", did you mean "base32", "base58" or "rfc4122"?', $formatOption));
+=======
+            $io->error(sprintf('Invalid format "%s", supported formats are "%s".', $formatOption, implode('", "', $this->getAvailableFormatOptions())));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             return 1;
         }

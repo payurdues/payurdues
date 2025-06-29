@@ -21,8 +21,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface, LocaleAwareInterface
 {
+<<<<<<< HEAD
     private $translator;
     private $logger;
+=======
+    private TranslatorInterface $translator;
+    private LoggerInterface $logger;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * @param TranslatorInterface&TranslatorBagInterface&LocaleAwareInterface $translator The translator must implement TranslatorBagInterface
@@ -37,10 +42,14 @@ class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface, 
         $this->logger = $logger;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null): string
+=======
+    public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $trans = $this->translator->trans($id = (string) $id, $parameters, $domain, $locale);
         $this->log($id, $domain, $locale);
@@ -49,7 +58,11 @@ class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface, 
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setLocale(string $locale)
     {
@@ -62,25 +75,35 @@ class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface, 
         $this->logger->debug(sprintf('The locale of the translator has changed from "%s" to "%s".', $prev, $locale));
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getLocale(): string
     {
         return $this->translator->getLocale();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function getCatalogue(string $locale = null): MessageCatalogueInterface
+=======
+    public function getCatalogue(?string $locale = null): MessageCatalogueInterface
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->translator->getCatalogue($locale);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getCatalogues(): array
     {
         return $this->translator->getCatalogues();
@@ -99,7 +122,11 @@ class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface, 
     }
 
     /**
+<<<<<<< HEAD
      * Passes through all unknown calls onto the translator object.
+=======
+     * @return mixed
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function __call(string $method, array $args)
     {
@@ -109,11 +136,17 @@ class LoggingTranslator implements TranslatorInterface, TranslatorBagInterface, 
     /**
      * Logs for missing translations.
      */
+<<<<<<< HEAD
     private function log(string $id, ?string $domain, ?string $locale)
     {
         if (null === $domain) {
             $domain = 'messages';
         }
+=======
+    private function log(string $id, ?string $domain, ?string $locale): void
+    {
+        $domain ??= 'messages';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         $catalogue = $this->translator->getCatalogue($locale);
         if ($catalogue->defines($id, $domain)) {

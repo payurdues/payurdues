@@ -13,10 +13,17 @@ namespace Symfony\Component\HttpKernel\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\UriSigner;
+=======
+use Symfony\Component\HttpFoundation\UriSigner;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\KernelEvents;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
 /**
  * Handles content fragments represented by special URIs.
@@ -33,7 +40,11 @@ use Symfony\Component\HttpKernel\UriSigner;
  */
 class FragmentListener implements EventSubscriberInterface
 {
+<<<<<<< HEAD
     private $signer;
+=======
+    private UriSigner $signer;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private string $fragmentPath;
 
     /**
@@ -50,7 +61,11 @@ class FragmentListener implements EventSubscriberInterface
      *
      * @throws AccessDeniedHttpException if the request does not come from a trusted IP
      */
+<<<<<<< HEAD
     public function onKernelRequest(RequestEvent $event)
+=======
+    public function onKernelRequest(RequestEvent $event): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $request = $event->getRequest();
 
@@ -70,12 +85,20 @@ class FragmentListener implements EventSubscriberInterface
         }
 
         parse_str($request->query->get('_path', ''), $attributes);
+<<<<<<< HEAD
+=======
+        $attributes['_check_controller_is_allowed'] = -1; // @deprecated, switch to true in Symfony 7
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $request->attributes->add($attributes);
         $request->attributes->set('_route_params', array_replace($request->attributes->get('_route_params', []), $attributes));
         $request->query->remove('_path');
     }
 
+<<<<<<< HEAD
     protected function validateRequest(Request $request)
+=======
+    protected function validateRequest(Request $request): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         // is the Request safe?
         if (!$request->isMethodSafe()) {

@@ -20,16 +20,23 @@ final class EmailCount extends Constraint
     private ?string $transport;
     private bool $queued;
 
+<<<<<<< HEAD
     public function __construct(int $expectedValue, string $transport = null, bool $queued = false)
+=======
+    public function __construct(int $expectedValue, ?string $transport = null, bool $queued = false)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->expectedValue = $expectedValue;
         $this->transport = $transport;
         $this->queued = $queued;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function toString(): string
     {
         return sprintf('%shas %s "%d" emails', $this->transport ? $this->transport.' ' : '', $this->queued ? 'queued' : 'sent', $this->expectedValue);
@@ -37,8 +44,11 @@ final class EmailCount extends Constraint
 
     /**
      * @param MessageEvents $events
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function matches($events): bool
     {
@@ -47,8 +57,11 @@ final class EmailCount extends Constraint
 
     /**
      * @param MessageEvents $events
+<<<<<<< HEAD
      *
      * {@inheritdoc}
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function failureDescription($events): string
     {
@@ -61,8 +74,12 @@ final class EmailCount extends Constraint
         foreach ($events->getEvents($this->transport) as $event) {
             if (
                 ($this->queued && $event->isQueued())
+<<<<<<< HEAD
                 ||
                 (!$this->queued && !$event->isQueued())
+=======
+                || (!$this->queued && !$event->isQueued())
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             ) {
                 ++$count;
             }

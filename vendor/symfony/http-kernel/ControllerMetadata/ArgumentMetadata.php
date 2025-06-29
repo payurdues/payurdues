@@ -101,14 +101,39 @@ class ArgumentMetadata
     }
 
     /**
+<<<<<<< HEAD
      * @return object[]
      */
     public function getAttributes(string $name = null, int $flags = 0): array
+=======
+     * @param class-string          $name
+     * @param self::IS_INSTANCEOF|0 $flags
+     *
+     * @return array<object>
+     */
+    public function getAttributes(?string $name = null, int $flags = 0): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$name) {
             return $this->attributes;
         }
 
+<<<<<<< HEAD
+=======
+        return $this->getAttributesOfType($name, $flags);
+    }
+
+    /**
+     * @template T of object
+     *
+     * @param class-string<T>       $name
+     * @param self::IS_INSTANCEOF|0 $flags
+     *
+     * @return array<T>
+     */
+    public function getAttributesOfType(string $name, int $flags = 0): array
+    {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $attributes = [];
         if ($flags & self::IS_INSTANCEOF) {
             foreach ($this->attributes as $attribute) {
@@ -118,7 +143,11 @@ class ArgumentMetadata
             }
         } else {
             foreach ($this->attributes as $attribute) {
+<<<<<<< HEAD
                 if (\get_class($attribute) === $name) {
+=======
+                if ($attribute::class === $name) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                     $attributes[] = $attribute;
                 }
             }

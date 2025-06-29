@@ -129,8 +129,12 @@ interface QueueInterface extends ArrayInterface
      *     Implementations should use a more-specific exception that extends
      *     `\RuntimeException`.
      */
+<<<<<<< HEAD
     // phpcs:ignore SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
     public function add($element): bool;
+=======
+    public function add(mixed $element): bool;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Retrieves, but does not remove, the head of this queue.
@@ -144,7 +148,11 @@ interface QueueInterface extends ArrayInterface
      *
      * @throws NoSuchElementException if this queue is empty.
      */
+<<<<<<< HEAD
     public function element();
+=======
+    public function element(): mixed;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Inserts the specified element into this queue if it is possible to do so
@@ -160,8 +168,12 @@ interface QueueInterface extends ArrayInterface
      *
      * @return bool `true` if the element was added to this queue, else `false`.
      */
+<<<<<<< HEAD
     // phpcs:ignore SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
     public function offer($element): bool;
+=======
+    public function offer(mixed $element): bool;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Retrieves, but does not remove, the head of this queue, or returns `null`
@@ -169,9 +181,15 @@ interface QueueInterface extends ArrayInterface
      *
      * @see self::element()
      *
+<<<<<<< HEAD
      * @return T|null the head of this queue, or `null` if this queue is empty.
      */
     public function peek();
+=======
+     * @return T | null the head of this queue, or `null` if this queue is empty.
+     */
+    public function peek(): mixed;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Retrieves and removes the head of this queue, or returns `null`
@@ -179,9 +197,15 @@ interface QueueInterface extends ArrayInterface
      *
      * @see self::remove()
      *
+<<<<<<< HEAD
      * @return T|null the head of this queue, or `null` if this queue is empty.
      */
     public function poll();
+=======
+     * @return T | null the head of this queue, or `null` if this queue is empty.
+     */
+    public function poll(): mixed;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Retrieves and removes the head of this queue.
@@ -195,7 +219,11 @@ interface QueueInterface extends ArrayInterface
      *
      * @throws NoSuchElementException if this queue is empty.
      */
+<<<<<<< HEAD
     public function remove();
+=======
+    public function remove(): mixed;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Returns the type associated with this queue.

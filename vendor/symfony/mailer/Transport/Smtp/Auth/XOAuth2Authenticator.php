@@ -28,8 +28,11 @@ class XOAuth2Authenticator implements AuthenticatorInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @see https://developers.google.com/google-apps/gmail/xoauth2_protocol#the_sasl_xoauth2_mechanism
      */
     public function authenticate(EsmtpTransport $client): void

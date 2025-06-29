@@ -31,7 +31,11 @@ class ProgressIndicator
         'very_verbose_no_ansi' => ' %message% (%elapsed:6s%, %memory:6s%)',
     ];
 
+<<<<<<< HEAD
     private $output;
+=======
+    private OutputInterface $output;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private int $startTime;
     private ?string $format = null;
     private ?string $message = null;
@@ -50,6 +54,7 @@ class ProgressIndicator
      * @param int        $indicatorChangeInterval Change interval in milliseconds
      * @param array|null $indicatorValues         Animated indicator characters
      */
+<<<<<<< HEAD
     public function __construct(OutputInterface $output, string $format = null, int $indicatorChangeInterval = 100, array $indicatorValues = null)
     {
         $this->output = $output;
@@ -62,6 +67,14 @@ class ProgressIndicator
             $indicatorValues = ['-', '\\', '|', '/'];
         }
 
+=======
+    public function __construct(OutputInterface $output, ?string $format = null, int $indicatorChangeInterval = 100, ?array $indicatorValues = null)
+    {
+        $this->output = $output;
+
+        $format ??= $this->determineBestFormat();
+        $indicatorValues ??= ['-', '\\', '|', '/'];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $indicatorValues = array_values($indicatorValues);
 
         if (2 > \count($indicatorValues)) {
@@ -76,6 +89,11 @@ class ProgressIndicator
 
     /**
      * Sets the current indicator message.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setMessage(?string $message)
     {
@@ -86,6 +104,11 @@ class ProgressIndicator
 
     /**
      * Starts the indicator output.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function start(string $message)
     {
@@ -104,6 +127,11 @@ class ProgressIndicator
 
     /**
      * Advances the indicator.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function advance()
     {
@@ -130,7 +158,11 @@ class ProgressIndicator
     /**
      * Finish the indicator with message.
      *
+<<<<<<< HEAD
      * @param $message
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function finish(string $message)
     {
@@ -156,6 +188,11 @@ class ProgressIndicator
      * Sets a placeholder formatter for a given name.
      *
      * This method also allow you to override an existing placeholder.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public static function setPlaceholderFormatterDefinition(string $name, callable $callable)
     {
@@ -174,7 +211,11 @@ class ProgressIndicator
         return self::$formatters[$name] ?? null;
     }
 
+<<<<<<< HEAD
     private function display()
+=======
+    private function display(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (OutputInterface::VERBOSITY_QUIET === $this->output->getVerbosity()) {
             return;
@@ -191,6 +232,7 @@ class ProgressIndicator
 
     private function determineBestFormat(): string
     {
+<<<<<<< HEAD
         switch ($this->output->getVerbosity()) {
             // OutputInterface::VERBOSITY_QUIET: display is disabled anyway
             case OutputInterface::VERBOSITY_VERBOSE:
@@ -201,12 +243,25 @@ class ProgressIndicator
             default:
                 return $this->output->isDecorated() ? 'normal' : 'normal_no_ansi';
         }
+=======
+        return match ($this->output->getVerbosity()) {
+            // OutputInterface::VERBOSITY_QUIET: display is disabled anyway
+            OutputInterface::VERBOSITY_VERBOSE => $this->output->isDecorated() ? 'verbose' : 'verbose_no_ansi',
+            OutputInterface::VERBOSITY_VERY_VERBOSE,
+            OutputInterface::VERBOSITY_DEBUG => $this->output->isDecorated() ? 'very_verbose' : 'very_verbose_no_ansi',
+            default => $this->output->isDecorated() ? 'normal' : 'normal_no_ansi',
+        };
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
      * Overwrites a previous message to the output.
      */
+<<<<<<< HEAD
     private function overwrite(string $message)
+=======
+    private function overwrite(string $message): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($this->output->isDecorated()) {
             $this->output->write("\x0D\x1B[2K");
@@ -227,6 +282,7 @@ class ProgressIndicator
     private static function initPlaceholderFormatters(): array
     {
         return [
+<<<<<<< HEAD
             'indicator' => function (self $indicator) {
                 return $indicator->indicatorValues[$indicator->indicatorCurrent % \count($indicator->indicatorValues)];
             },
@@ -239,6 +295,12 @@ class ProgressIndicator
             'memory' => function () {
                 return Helper::formatMemory(memory_get_usage(true));
             },
+=======
+            'indicator' => fn (self $indicator) => $indicator->indicatorValues[$indicator->indicatorCurrent % \count($indicator->indicatorValues)],
+            'message' => fn (self $indicator) => $indicator->message,
+            'elapsed' => fn (self $indicator) => Helper::formatTime(time() - $indicator->startTime, 2),
+            'memory' => fn () => Helper::formatMemory(memory_get_usage(true)),
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         ];
     }
 }

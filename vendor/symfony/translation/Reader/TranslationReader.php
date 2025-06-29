@@ -33,6 +33,11 @@ class TranslationReader implements TranslationReaderInterface
      * Adds a loader to the translation extractor.
      *
      * @param string $format The format of the loader
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function addLoader(string $format, LoaderInterface $loader)
     {
@@ -40,7 +45,11 @@ class TranslationReader implements TranslationReaderInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function read(string $directory, MessageCatalogue $catalogue)
     {

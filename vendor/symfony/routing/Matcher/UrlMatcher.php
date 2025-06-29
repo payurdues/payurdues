@@ -63,24 +63,34 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setContext(RequestContext $context)
     {
         $this->context = $context;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getContext(): RequestContext
     {
         return $this->context;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function match(string $pathinfo): array
     {
         $this->allow = $this->allowSchemes = [];
@@ -96,9 +106,12 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
         throw 0 < \count($this->allow) ? new MethodNotAllowedException(array_unique($this->allow)) : new ResourceNotFoundException(sprintf('No routes found for "%s".', $pathinfo));
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function matchRequest(Request $request): array
     {
         $this->request = $request;
@@ -110,6 +123,12 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
         return $ret;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function addExpressionLanguageProvider(ExpressionFunctionProviderInterface $provider)
     {
         $this->expressionLanguageProviders[] = $provider;
@@ -152,7 +171,11 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
                 continue;
             }
 
+<<<<<<< HEAD
             $hasTrailingVar = $trimmedPathinfo !== $pathinfo && preg_match('#\{\w+\}/?$#', $route->getPath());
+=======
+            $hasTrailingVar = $trimmedPathinfo !== $pathinfo && preg_match('#\{[\w\x80-\xFF]+\}/?$#', $route->getPath());
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             if ($hasTrailingVar && ($hasTrailingSlash || (null === $m = $matches[\count($compiledRoute->getPathVariables())] ?? null) || '/' !== ($m[-1] ?? '/')) && preg_match($regex, $trimmedPathinfo, $m)) {
                 if ($hasTrailingSlash) {
@@ -167,7 +190,13 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
                 continue;
             }
 
+<<<<<<< HEAD
             $status = $this->handleRouteRequirements($pathinfo, $name, $route);
+=======
+            $attributes = $this->getAttributes($route, $name, array_replace($matches, $hostMatches));
+
+            $status = $this->handleRouteRequirements($pathinfo, $name, $route, $attributes);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             if (self::REQUIREMENT_MISMATCH === $status[0]) {
                 continue;
@@ -190,7 +219,11 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
                 continue;
             }
 
+<<<<<<< HEAD
             return $this->getAttributes($route, $name, array_replace($matches, $hostMatches, $status[1] ?? []));
+=======
+            return array_replace($attributes, $status[1] ?? []);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         return [];
@@ -220,10 +253,32 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
      *
      * @return array The first element represents the status, the second contains additional information
      */
+<<<<<<< HEAD
     protected function handleRouteRequirements(string $pathinfo, string $name, Route $route): array
     {
         // expression condition
         if ($route->getCondition() && !$this->getExpressionLanguage()->evaluate($route->getCondition(), ['context' => $this->context, 'request' => $this->request ?: $this->createRequest($pathinfo)])) {
+=======
+    protected function handleRouteRequirements(string $pathinfo, string $name, Route $route/* , array $routeParameters */): array
+    {
+        if (\func_num_args() < 4) {
+            trigger_deprecation('symfony/routing', '6.1', 'The "%s()" method will have a new "array $routeParameters" argument in version 7.0, not defining it is deprecated.', __METHOD__);
+            $routeParameters = [];
+        } else {
+            $routeParameters = func_get_arg(3);
+
+            if (!\is_array($routeParameters)) {
+                throw new \TypeError(sprintf('"%s": Argument $routeParameters is expected to be an array, got "%s".', __METHOD__, get_debug_type($routeParameters)));
+            }
+        }
+
+        // expression condition
+        if ($route->getCondition() && !$this->getExpressionLanguage()->evaluate($route->getCondition(), [
+            'context' => $this->context,
+            'request' => $this->request ?: $this->createRequest($pathinfo),
+            'params' => $routeParameters,
+        ])) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return [self::REQUIREMENT_MISMATCH, null];
         }
 
@@ -244,11 +299,22 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
         return $defaults;
     }
 
+<<<<<<< HEAD
     protected function getExpressionLanguage()
     {
         if (null === $this->expressionLanguage) {
             if (!class_exists(ExpressionLanguage::class)) {
                 throw new \LogicException('Unable to use expressions as the Symfony ExpressionLanguage component is not installed.');
+=======
+    /**
+     * @return ExpressionLanguage
+     */
+    protected function getExpressionLanguage()
+    {
+        if (!isset($this->expressionLanguage)) {
+            if (!class_exists(ExpressionLanguage::class)) {
+                throw new \LogicException('Unable to use expressions as the Symfony ExpressionLanguage component is not installed. Try running "composer require symfony/expression-language".');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
             $this->expressionLanguage = new ExpressionLanguage(null, $this->expressionLanguageProviders);
         }

@@ -23,9 +23,12 @@ class_exists(CliDumper::class);
  */
 class CliErrorRenderer implements ErrorRendererInterface
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function render(\Throwable $exception): FlattenException
     {
         $cloner = new VarCloner();

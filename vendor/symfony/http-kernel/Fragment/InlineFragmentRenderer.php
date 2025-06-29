@@ -27,18 +27,28 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 class InlineFragmentRenderer extends RoutableFragmentRenderer
 {
+<<<<<<< HEAD
     private $kernel;
     private $dispatcher;
 
     public function __construct(HttpKernelInterface $kernel, EventDispatcherInterface $dispatcher = null)
+=======
+    private HttpKernelInterface $kernel;
+    private ?EventDispatcherInterface $dispatcher;
+
+    public function __construct(HttpKernelInterface $kernel, ?EventDispatcherInterface $dispatcher = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->kernel = $kernel;
         $this->dispatcher = $dispatcher;
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * Additional available options:
      *
      *  * alt: an alternative URI to render in case of an error
@@ -105,6 +115,12 @@ class InlineFragmentRenderer extends RoutableFragmentRenderer
         }
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return Request
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function createSubRequest(string $uri, Request $request)
     {
         $cookies = $request->cookies->all();
@@ -120,9 +136,13 @@ class InlineFragmentRenderer extends RoutableFragmentRenderer
 
         static $setSession;
 
+<<<<<<< HEAD
         if (null === $setSession) {
             $setSession = \Closure::bind(static function ($subRequest, $request) { $subRequest->session = $request->session; }, null, Request::class);
         }
+=======
+        $setSession ??= \Closure::bind(static function ($subRequest, $request) { $subRequest->session = $request->session; }, null, Request::class);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $setSession($subRequest, $request);
 
         if ($request->get('_format')) {
@@ -131,13 +151,25 @@ class InlineFragmentRenderer extends RoutableFragmentRenderer
         if ($request->getDefaultLocale() !== $request->getLocale()) {
             $subRequest->setLocale($request->getLocale());
         }
+<<<<<<< HEAD
+=======
+        if ($request->attributes->has('_stateless')) {
+            $subRequest->attributes->set('_stateless', $request->attributes->get('_stateless'));
+        }
+        if ($request->attributes->has('_check_controller_is_allowed')) {
+            $subRequest->attributes->set('_check_controller_is_allowed', $request->attributes->get('_check_controller_is_allowed'));
+        }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         return $subRequest;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'inline';

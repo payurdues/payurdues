@@ -29,7 +29,11 @@ class ParseException extends RuntimeException
      * @param string|null $snippet    The snippet of code near the problem
      * @param string|null $parsedFile The file name where the error occurred
      */
+<<<<<<< HEAD
     public function __construct(string $message, int $parsedLine = -1, string $snippet = null, string $parsedFile = null, \Throwable $previous = null)
+=======
+    public function __construct(string $message, int $parsedLine = -1, ?string $snippet = null, ?string $parsedFile = null, ?\Throwable $previous = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->parsedFile = $parsedFile;
         $this->parsedLine = $parsedLine;
@@ -51,6 +55,11 @@ class ParseException extends RuntimeException
 
     /**
      * Sets the snippet of code near the error.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setSnippet(string $snippet)
     {
@@ -71,6 +80,11 @@ class ParseException extends RuntimeException
 
     /**
      * Sets the filename where the error occurred.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setParsedFile(string $parsedFile)
     {
@@ -89,6 +103,11 @@ class ParseException extends RuntimeException
 
     /**
      * Sets the line where the error occurred.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setParsedLine(int $parsedLine)
     {
@@ -97,12 +116,20 @@ class ParseException extends RuntimeException
         $this->updateRepr();
     }
 
+<<<<<<< HEAD
     private function updateRepr()
+=======
+    private function updateRepr(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->message = $this->rawMessage;
 
         $dot = false;
+<<<<<<< HEAD
         if ('.' === substr($this->message, -1)) {
+=======
+        if (str_ends_with($this->message, '.')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $this->message = substr($this->message, 0, -1);
             $dot = true;
         }

@@ -35,7 +35,11 @@ namespace Symfony\Component\Finder\Comparator;
 class NumberComparator extends Comparator
 {
     /**
+<<<<<<< HEAD
      * @param string|int $test A comparison string or an integer
+=======
+     * @param string|null $test A comparison string or null
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      *
      * @throws \InvalidArgumentException If the test is not understood
      */

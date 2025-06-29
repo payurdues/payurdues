@@ -24,11 +24,22 @@ class DateCaster
 {
     private const PERIOD_LIMIT = 3;
 
+<<<<<<< HEAD
     public static function castDateTime(\DateTimeInterface $d, array $a, Stub $stub, bool $isNested, int $filter)
     {
         $prefix = Caster::PREFIX_VIRTUAL;
         $location = $d->getTimezone()->getLocation();
         $fromNow = (new \DateTime())->diff($d);
+=======
+    /**
+     * @return array
+     */
+    public static function castDateTime(\DateTimeInterface $d, array $a, Stub $stub, bool $isNested, int $filter)
+    {
+        $prefix = Caster::PREFIX_VIRTUAL;
+        $location = $d->getTimezone() ? $d->getTimezone()->getLocation() : null;
+        $fromNow = (new \DateTimeImmutable())->diff($d);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         $title = $d->format('l, F j, Y')
             ."\n".self::formatInterval($fromNow).' from now'
@@ -47,6 +58,12 @@ class DateCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castInterval(\DateInterval $interval, array $a, Stub $stub, bool $isNested, int $filter)
     {
         $now = new \DateTimeImmutable('@0', new \DateTimeZone('UTC'));
@@ -76,10 +93,20 @@ class DateCaster
         return $i->format(rtrim($format));
     }
 
+<<<<<<< HEAD
     public static function castTimeZone(\DateTimeZone $timeZone, array $a, Stub $stub, bool $isNested, int $filter)
     {
         $location = $timeZone->getLocation();
         $formatted = (new \DateTime('now', $timeZone))->format($location ? 'e (P)' : 'P');
+=======
+    /**
+     * @return array
+     */
+    public static function castTimeZone(\DateTimeZone $timeZone, array $a, Stub $stub, bool $isNested, int $filter)
+    {
+        $location = $timeZone->getLocation();
+        $formatted = (new \DateTimeImmutable('now', $timeZone))->format($location ? 'e (P)' : 'P');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $title = $location && \extension_loaded('intl') ? \Locale::getDisplayRegion('-'.$location['country_code']) : '';
 
         $z = [Caster::PREFIX_VIRTUAL.'timezone' => new ConstStub($formatted, $title)];
@@ -87,6 +114,12 @@ class DateCaster
         return $filter & Caster::EXCLUDE_VERBOSE ? $z : $z + $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castPeriod(\DatePeriod $p, array $a, Stub $stub, bool $isNested, int $filter)
     {
         $dates = [];

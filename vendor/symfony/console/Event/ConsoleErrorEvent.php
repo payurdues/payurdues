@@ -25,7 +25,11 @@ final class ConsoleErrorEvent extends ConsoleEvent
     private \Throwable $error;
     private int $exitCode;
 
+<<<<<<< HEAD
     public function __construct(InputInterface $input, OutputInterface $output, \Throwable $error, Command $command = null)
+=======
+    public function __construct(InputInterface $input, OutputInterface $output, \Throwable $error, ?Command $command = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         parent::__construct($command, $input, $output);
 
@@ -47,7 +51,10 @@ final class ConsoleErrorEvent extends ConsoleEvent
         $this->exitCode = $exitCode;
 
         $r = new \ReflectionProperty($this->error, 'code');
+<<<<<<< HEAD
         $r->setAccessible(true);
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $r->setValue($this->error, $this->exitCode);
     }
 

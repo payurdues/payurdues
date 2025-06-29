@@ -32,6 +32,10 @@ class Cookie
 
     private bool $raw;
     private ?string $sameSite = null;
+<<<<<<< HEAD
+=======
+    private bool $partitioned = false;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private bool $secureDefault = false;
 
     private const RESERVED_CHARS_LIST = "=,; \t\r\n\v\f";
@@ -51,6 +55,10 @@ class Cookie
             'httponly' => false,
             'raw' => !$decode,
             'samesite' => null,
+<<<<<<< HEAD
+=======
+            'partitioned' => false,
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         ];
 
         $parts = HeaderUtils::split($cookie, ';=');
@@ -66,28 +74,57 @@ class Cookie
             $data['expires'] = time() + (int) $data['max-age'];
         }
 
+<<<<<<< HEAD
         return new static($name, $value, $data['expires'], $data['path'], $data['domain'], $data['secure'], $data['httponly'], $data['raw'], $data['samesite']);
     }
 
     public static function create(string $name, string $value = null, int|string|\DateTimeInterface $expire = 0, ?string $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = true, bool $raw = false, ?string $sameSite = self::SAMESITE_LAX): self
     {
         return new self($name, $value, $expire, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
+=======
+        return new static($name, $value, $data['expires'], $data['path'], $data['domain'], $data['secure'], $data['httponly'], $data['raw'], $data['samesite'], $data['partitioned']);
+    }
+
+    /**
+     * @see self::__construct
+     *
+     * @param self::SAMESITE_*|''|null $sameSite
+     * @param bool                     $partitioned
+     */
+    public static function create(string $name, ?string $value = null, int|string|\DateTimeInterface $expire = 0, ?string $path = '/', ?string $domain = null, ?bool $secure = null, bool $httpOnly = true, bool $raw = false, ?string $sameSite = self::SAMESITE_LAX /* , bool $partitioned = false */): self
+    {
+        $partitioned = 9 < \func_num_args() ? func_get_arg(9) : false;
+
+        return new self($name, $value, $expire, $path, $domain, $secure, $httpOnly, $raw, $sameSite, $partitioned);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
      * @param string                        $name     The name of the cookie
      * @param string|null                   $value    The value of the cookie
      * @param int|string|\DateTimeInterface $expire   The time the cookie expires
+<<<<<<< HEAD
      * @param string                        $path     The path on the server in which the cookie will be available on
+=======
+     * @param string|null                   $path     The path on the server in which the cookie will be available on
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @param string|null                   $domain   The domain that the cookie is available to
      * @param bool|null                     $secure   Whether the client should send back the cookie only over HTTPS or null to auto-enable this when the request is already using HTTPS
      * @param bool                          $httpOnly Whether the cookie will be made accessible only through the HTTP protocol
      * @param bool                          $raw      Whether the cookie value should be sent with no url encoding
+<<<<<<< HEAD
      * @param string|null                   $sameSite Whether the cookie will be available for cross-site requests
      *
      * @throws \InvalidArgumentException
      */
     public function __construct(string $name, string $value = null, int|string|\DateTimeInterface $expire = 0, ?string $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = true, bool $raw = false, ?string $sameSite = 'lax')
+=======
+     * @param self::SAMESITE_*|''|null      $sameSite Whether the cookie will be available for cross-site requests
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct(string $name, ?string $value = null, int|string|\DateTimeInterface $expire = 0, ?string $path = '/', ?string $domain = null, ?bool $secure = null, bool $httpOnly = true, bool $raw = false, ?string $sameSite = self::SAMESITE_LAX, bool $partitioned = false)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         // from PHP source code
         if ($raw && false !== strpbrk($name, self::RESERVED_CHARS_LIST)) {
@@ -107,6 +144,10 @@ class Cookie
         $this->httpOnly = $httpOnly;
         $this->raw = $raw;
         $this->sameSite = $this->withSameSite($sameSite)->sameSite;
+<<<<<<< HEAD
+=======
+        $this->partitioned = $partitioned;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -211,6 +252,11 @@ class Cookie
 
     /**
      * Creates a cookie copy with SameSite attribute.
+<<<<<<< HEAD
+=======
+     *
+     * @param self::SAMESITE_*|''|null $sameSite
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function withSameSite(?string $sameSite): static
     {
@@ -231,6 +277,20 @@ class Cookie
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Creates a cookie copy that is tied to the top-level site in cross-site context.
+     */
+    public function withPartitioned(bool $partitioned = true): static
+    {
+        $cookie = clone $this;
+        $cookie->partitioned = $partitioned;
+
+        return $cookie;
+    }
+
+    /**
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * Returns the cookie as a string.
      */
     public function __toString(): string
@@ -244,12 +304,20 @@ class Cookie
         $str .= '=';
 
         if ('' === (string) $this->getValue()) {
+<<<<<<< HEAD
             $str .= 'deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001).'; Max-Age=0';
+=======
+            $str .= 'deleted; expires='.gmdate('D, d M Y H:i:s T', time() - 31536001).'; Max-Age=0';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         } else {
             $str .= $this->isRaw() ? $this->getValue() : rawurlencode($this->getValue());
 
             if (0 !== $this->getExpiresTime()) {
+<<<<<<< HEAD
                 $str .= '; expires='.gmdate('D, d-M-Y H:i:s T', $this->getExpiresTime()).'; Max-Age='.$this->getMaxAge();
+=======
+                $str .= '; expires='.gmdate('D, d M Y H:i:s T', $this->getExpiresTime()).'; Max-Age='.$this->getMaxAge();
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
         }
 
@@ -261,11 +329,19 @@ class Cookie
             $str .= '; domain='.$this->getDomain();
         }
 
+<<<<<<< HEAD
         if (true === $this->isSecure()) {
             $str .= '; secure';
         }
 
         if (true === $this->isHttpOnly()) {
+=======
+        if ($this->isSecure()) {
+            $str .= '; secure';
+        }
+
+        if ($this->isHttpOnly()) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $str .= '; httponly';
         }
 
@@ -273,6 +349,13 @@ class Cookie
             $str .= '; samesite='.$this->getSameSite();
         }
 
+<<<<<<< HEAD
+=======
+        if ($this->isPartitioned()) {
+            $str .= '; partitioned';
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         return $str;
     }
 
@@ -359,7 +442,19 @@ class Cookie
     }
 
     /**
+<<<<<<< HEAD
      * Gets the SameSite attribute.
+=======
+     * Checks whether the cookie should be tied to the top-level site in cross-site context.
+     */
+    public function isPartitioned(): bool
+    {
+        return $this->partitioned;
+    }
+
+    /**
+     * @return self::SAMESITE_*|null
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function getSameSite(): ?string
     {

@@ -27,7 +27,11 @@ final class Transports implements TransportInterface
      * @var array<string, TransportInterface>
      */
     private array $transports = [];
+<<<<<<< HEAD
     private $default;
+=======
+    private TransportInterface $default;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * @param iterable<string, TransportInterface> $transports
@@ -44,10 +48,17 @@ final class Transports implements TransportInterface
         }
     }
 
+<<<<<<< HEAD
     public function send(RawMessage $message, Envelope $envelope = null): ?SentMessage
     {
         /** @var Message $message */
         if (RawMessage::class === \get_class($message) || !$message->getHeaders()->has('X-Transport')) {
+=======
+    public function send(RawMessage $message, ?Envelope $envelope = null): ?SentMessage
+    {
+        /** @var Message $message */
+        if (RawMessage::class === $message::class || !$message->getHeaders()->has('X-Transport')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return $this->default->send($message, $envelope);
         }
 

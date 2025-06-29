@@ -47,28 +47,44 @@ class StrictSessionHandler extends AbstractSessionHandler
         return $this->handler->open($savePath, $sessionName);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function doRead(string $sessionId): string
+=======
+    protected function doRead(#[\SensitiveParameter] string $sessionId): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->handler->read($sessionId);
     }
 
+<<<<<<< HEAD
     public function updateTimestamp(string $sessionId, string $data): bool
+=======
+    public function updateTimestamp(#[\SensitiveParameter] string $sessionId, string $data): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->write($sessionId, $data);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function doWrite(string $sessionId, string $data): bool
+=======
+    protected function doWrite(#[\SensitiveParameter] string $sessionId, string $data): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->handler->write($sessionId, $data);
     }
 
+<<<<<<< HEAD
     public function destroy(string $sessionId): bool
+=======
+    public function destroy(#[\SensitiveParameter] string $sessionId): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->doDestroy = true;
         $destroyed = parent::destroy($sessionId);
@@ -76,10 +92,14 @@ class StrictSessionHandler extends AbstractSessionHandler
         return $this->doDestroy ? $this->doDestroy($sessionId) : $destroyed;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function doDestroy(string $sessionId): bool
+=======
+    protected function doDestroy(#[\SensitiveParameter] string $sessionId): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->doDestroy = false;
 

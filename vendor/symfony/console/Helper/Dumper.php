@@ -21,12 +21,21 @@ use Symfony\Component\VarDumper\Dumper\CliDumper;
  */
 final class Dumper
 {
+<<<<<<< HEAD
     private $output;
     private $dumper;
     private $cloner;
     private \Closure $handler;
 
     public function __construct(OutputInterface $output, CliDumper $dumper = null, ClonerInterface $cloner = null)
+=======
+    private OutputInterface $output;
+    private ?CliDumper $dumper;
+    private ?ClonerInterface $cloner;
+    private \Closure $handler;
+
+    public function __construct(OutputInterface $output, ?CliDumper $dumper = null, ?ClonerInterface $cloner = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->output = $output;
         $this->dumper = $dumper;
@@ -34,6 +43,7 @@ final class Dumper
 
         if (class_exists(CliDumper::class)) {
             $this->handler = function ($var): string {
+<<<<<<< HEAD
                 $dumper = $this->dumper ?? $this->dumper = new CliDumper(null, null, CliDumper::DUMP_LIGHT_ARRAY | CliDumper::DUMP_COMMA_SEPARATOR);
                 $dumper->setColors($this->output->isDecorated());
 
@@ -53,6 +63,20 @@ final class Dumper
                     default:
                         return rtrim(print_r($var, true));
                 }
+=======
+                $dumper = $this->dumper ??= new CliDumper(null, null, CliDumper::DUMP_LIGHT_ARRAY | CliDumper::DUMP_COMMA_SEPARATOR);
+                $dumper->setColors($this->output->isDecorated());
+
+                return rtrim($dumper->dump(($this->cloner ??= new VarCloner())->cloneVar($var)->withRefHandles(false), true));
+            };
+        } else {
+            $this->handler = fn ($var): string => match (true) {
+                null === $var => 'null',
+                true === $var => 'true',
+                false === $var => 'false',
+                \is_string($var) => '"'.$var.'"',
+                default => rtrim(print_r($var, true)),
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             };
         }
     }

@@ -11,6 +11,10 @@
 
 namespace Symfony\Component\VarDumper\Caster;
 
+<<<<<<< HEAD
+=======
+use Symfony\Component\ErrorHandler\Exception\FlattenException;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 use Symfony\Component\ErrorHandler\Exception\SilencedErrorContext;
 use Symfony\Component\VarDumper\Cloner\Stub;
 use Symfony\Component\VarDumper\Exception\ThrowingCasterException;
@@ -41,21 +45,43 @@ class ExceptionCaster
         \E_USER_ERROR => 'E_USER_ERROR',
         \E_USER_WARNING => 'E_USER_WARNING',
         \E_USER_NOTICE => 'E_USER_NOTICE',
+<<<<<<< HEAD
         \E_STRICT => 'E_STRICT',
+=======
+        2048 => 'E_STRICT',
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     ];
 
     private static array $framesCache = [];
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castError(\Error $e, array $a, Stub $stub, bool $isNested, int $filter = 0)
     {
         return self::filterExceptionArray($stub->class, $a, "\0Error\0", $filter);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castException(\Exception $e, array $a, Stub $stub, bool $isNested, int $filter = 0)
     {
         return self::filterExceptionArray($stub->class, $a, "\0Exception\0", $filter);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castErrorException(\ErrorException $e, array $a, Stub $stub, bool $isNested)
     {
         if (isset($a[$s = Caster::PREFIX_PROTECTED.'severity'], self::$errorTypes[$a[$s]])) {
@@ -65,6 +91,12 @@ class ExceptionCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castThrowingCasterException(ThrowingCasterException $e, array $a, Stub $stub, bool $isNested)
     {
         $trace = Caster::PREFIX_VIRTUAL.'trace';
@@ -83,6 +115,12 @@ class ExceptionCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castSilencedErrorContext(SilencedErrorContext $e, array $a, Stub $stub, bool $isNested)
     {
         $sPrefix = "\0".SilencedErrorContext::class."\0";
@@ -110,6 +148,12 @@ class ExceptionCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castTraceStub(TraceStub $trace, array $a, Stub $stub, bool $isNested)
     {
         if (!$isNested) {
@@ -184,6 +228,12 @@ class ExceptionCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castFrameStub(FrameStub $frame, array $a, Stub $stub, bool $isNested)
     {
         if (!$isNested) {
@@ -267,6 +317,22 @@ class ExceptionCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+    public static function castFlattenException(FlattenException $e, array $a, Stub $stub, bool $isNested)
+    {
+        if ($isNested) {
+            $k = sprintf(Caster::PATTERN_PRIVATE, FlattenException::class, 'traceAsString');
+            $a[$k] = new CutStub($a[$k]);
+        }
+
+        return $a;
+    }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private static function filterExceptionArray(string $xClass, array $a, string $xPrefix, int $filter): array
     {
         if (isset($a[$xPrefix.'trace'])) {
@@ -285,12 +351,19 @@ class ExceptionCaster
         if (empty($a[$xPrefix.'previous'])) {
             unset($a[$xPrefix.'previous']);
         }
+<<<<<<< HEAD
         unset($a[$xPrefix.'string'], $a[Caster::PREFIX_DYNAMIC.'xdebug_message'], $a[Caster::PREFIX_DYNAMIC.'__destructorException']);
 
         if (isset($a[Caster::PREFIX_PROTECTED.'message']) && str_contains($a[Caster::PREFIX_PROTECTED.'message'], "@anonymous\0")) {
             $a[Caster::PREFIX_PROTECTED.'message'] = preg_replace_callback('/[a-zA-Z_\x7f-\xff][\\\\a-zA-Z0-9_\x7f-\xff]*+@anonymous\x00.*?\.php(?:0x?|:[0-9]++\$)[0-9a-fA-F]++/', function ($m) {
                 return class_exists($m[0], false) ? (get_parent_class($m[0]) ?: key(class_implements($m[0])) ?: 'class').'@anonymous' : $m[0];
             }, $a[Caster::PREFIX_PROTECTED.'message']);
+=======
+        unset($a[$xPrefix.'string'], $a[Caster::PREFIX_DYNAMIC.'xdebug_message']);
+
+        if (isset($a[Caster::PREFIX_PROTECTED.'message']) && str_contains($a[Caster::PREFIX_PROTECTED.'message'], "@anonymous\0")) {
+            $a[Caster::PREFIX_PROTECTED.'message'] = preg_replace_callback('/[a-zA-Z_\x7f-\xff][\\\\a-zA-Z0-9_\x7f-\xff]*+@anonymous\x00.*?\.php(?:0x?|:[0-9]++\$)?[0-9a-fA-F]++/', fn ($m) => class_exists($m[0], false) ? (get_parent_class($m[0]) ?: key(class_implements($m[0])) ?: 'class').'@anonymous' : $m[0], $a[Caster::PREFIX_PROTECTED.'message']);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         if (isset($a[Caster::PREFIX_PROTECTED.'file'], $a[Caster::PREFIX_PROTECTED.'line'])) {
@@ -337,7 +410,11 @@ class ExceptionCaster
                     $stub->attr['file'] = $f;
                     $stub->attr['line'] = $caller->getStartLine();
                 }
+<<<<<<< HEAD
             } catch (\ReflectionException $e) {
+=======
+            } catch (\ReflectionException) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 // ignore fake class/function
             }
 
@@ -352,9 +429,13 @@ class ExceptionCaster
             $pad = null;
             for ($i = $srcContext << 1; $i >= 0; --$i) {
                 if (isset($src[$i][$ltrim]) && "\r" !== ($c = $src[$i][$ltrim]) && "\n" !== $c) {
+<<<<<<< HEAD
                     if (null === $pad) {
                         $pad = $c;
                     }
+=======
+                    $pad ??= $c;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                     if ((' ' !== $c && "\t" !== $c) || $pad !== $c) {
                         break;
                     }

@@ -16,6 +16,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\VarDumper\Caster\ClassStub;
+<<<<<<< HEAD
+=======
+use Symfony\Component\VarDumper\Cloner\Data;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -24,11 +28,16 @@ use Symfony\Component\VarDumper\Caster\ClassStub;
  */
 class ConfigDataCollector extends DataCollector implements LateDataCollectorInterface
 {
+<<<<<<< HEAD
     private $kernel;
+=======
+    private KernelInterface $kernel;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Sets the Kernel associated with this Request.
      */
+<<<<<<< HEAD
     public function setKernel(KernelInterface $kernel = null)
     {
         $this->kernel = $kernel;
@@ -41,6 +50,21 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
     {
         $eom = \DateTime::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_MAINTENANCE);
         $eol = \DateTime::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_LIFE);
+=======
+    public function setKernel(?KernelInterface $kernel = null): void
+    {
+        if (1 > \func_num_args()) {
+            trigger_deprecation('symfony/http-kernel', '6.2', 'Calling "%s()" without any arguments is deprecated, pass null explicitly instead.', __METHOD__);
+        }
+
+        $this->kernel = $kernel;
+    }
+
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
+    {
+        $eom = \DateTimeImmutable::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_MAINTENANCE);
+        $eol = \DateTimeImmutable::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_LIFE);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         $this->data = [
             'token' => $response->headers->get('X-Debug-Token'),
@@ -57,15 +81,24 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
             'php_intl_locale' => class_exists(\Locale::class, false) && \Locale::getDefault() ? \Locale::getDefault() : 'n/a',
             'php_timezone' => date_default_timezone_get(),
             'xdebug_enabled' => \extension_loaded('xdebug'),
+<<<<<<< HEAD
             'apcu_enabled' => \extension_loaded('apcu') && filter_var(\ini_get('apc.enabled'), \FILTER_VALIDATE_BOOLEAN),
             'zend_opcache_enabled' => \extension_loaded('Zend OPcache') && filter_var(\ini_get('opcache.enable'), \FILTER_VALIDATE_BOOLEAN),
+=======
+            'apcu_enabled' => \extension_loaded('apcu') && filter_var(\ini_get('apc.enabled'), \FILTER_VALIDATE_BOOL),
+            'zend_opcache_enabled' => \extension_loaded('Zend OPcache') && filter_var(\ini_get('opcache.enable'), \FILTER_VALIDATE_BOOL),
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             'bundles' => [],
             'sapi_name' => \PHP_SAPI,
         ];
 
         if (isset($this->kernel)) {
             foreach ($this->kernel->getBundles() as $name => $bundle) {
+<<<<<<< HEAD
                 $this->data['bundles'][$name] = new ClassStub(\get_class($bundle));
+=======
+                $this->data['bundles'][$name] = new ClassStub($bundle::class);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
         }
 
@@ -75,6 +108,7 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
@@ -84,6 +118,9 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
     }
 
     public function lateCollect()
+=======
+    public function lateCollect(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->data = $this->cloneVar($this->data);
     }
@@ -195,14 +232,31 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
     }
 
     /**
+<<<<<<< HEAD
      * Returns true if the XDebug is enabled.
      */
     public function hasXDebug(): bool
+=======
+     * Returns true if the Xdebug is enabled.
+     */
+    public function hasXdebug(): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['xdebug_enabled'];
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Returns true if the function xdebug_info is available.
+     */
+    public function hasXdebugInfo(): bool
+    {
+        return \function_exists('xdebug_info');
+    }
+
+    /**
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * Returns true if APCu is enabled.
      */
     public function hasApcu(): bool
@@ -218,7 +272,11 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
         return $this->data['zend_opcache_enabled'];
     }
 
+<<<<<<< HEAD
     public function getBundles()
+=======
+    public function getBundles(): array|Data
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['bundles'];
     }
@@ -231,9 +289,12 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
         return $this->data['sapi_name'];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'config';
@@ -241,9 +302,15 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
 
     private function determineSymfonyState(): string
     {
+<<<<<<< HEAD
         $now = new \DateTime();
         $eom = \DateTime::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_MAINTENANCE)->modify('last day of this month');
         $eol = \DateTime::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_LIFE)->modify('last day of this month');
+=======
+        $now = new \DateTimeImmutable();
+        $eom = \DateTimeImmutable::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_MAINTENANCE)->modify('last day of this month');
+        $eol = \DateTimeImmutable::createFromFormat('d/m/Y', '01/'.Kernel::END_OF_LIFE)->modify('last day of this month');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if ($now > $eol) {
             $versionState = 'eol';

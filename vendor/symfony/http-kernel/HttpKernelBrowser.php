@@ -36,7 +36,11 @@ class HttpKernelBrowser extends AbstractBrowser
     /**
      * @param array $server The server parameters (equivalent of $_SERVER)
      */
+<<<<<<< HEAD
     public function __construct(HttpKernelInterface $kernel, array $server = [], History $history = null, CookieJar $cookieJar = null)
+=======
+    public function __construct(HttpKernelInterface $kernel, array $server = [], ?History $history = null, ?CookieJar $cookieJar = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         // These class properties must be set before calling the parent constructor, as it may depend on it.
         $this->kernel = $kernel;
@@ -47,6 +51,11 @@ class HttpKernelBrowser extends AbstractBrowser
 
     /**
      * Sets whether to catch exceptions when the kernel is handling a request.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function catchExceptions(bool $catchExceptions)
     {
@@ -54,8 +63,11 @@ class HttpKernelBrowser extends AbstractBrowser
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @param Request $request
      *
      * @return Response
@@ -72,8 +84,11 @@ class HttpKernelBrowser extends AbstractBrowser
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @param Request $request
      *
      * @return string
@@ -87,7 +102,11 @@ class HttpKernelBrowser extends AbstractBrowser
 
         $requires = '';
         foreach (get_declared_classes() as $class) {
+<<<<<<< HEAD
             if (0 === strpos($class, 'ComposerAutoloaderInit')) {
+=======
+            if (str_starts_with($class, 'ComposerAutoloaderInit')) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $r = new \ReflectionClass($class);
                 $file = \dirname($r->getFileName(), 2).'/autoload.php';
                 if (file_exists($file)) {
@@ -114,6 +133,12 @@ EOF;
         return $code.$this->getHandleScript();
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return string
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function getHandleScript()
     {
         return <<<'EOF'
@@ -127,9 +152,12 @@ echo serialize($response);
 EOF;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function filterRequest(DomRequest $request): Request
     {
         $httpRequest = Request::create($request->getUri(), $request->getMethod(), $request->getParameters(), $request->getCookies(), $request->getFiles(), $server = $request->getServer(), $request->getContent());
@@ -186,8 +214,11 @@ EOF;
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @param Response $response
      */
     protected function filterResponse(object $response): DomResponse

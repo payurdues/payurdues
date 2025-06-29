@@ -27,6 +27,11 @@ interface EventDispatcherInterface extends ContractsEventDispatcherInterface
      *
      * @param int $priority The higher this value, the earlier an event
      *                      listener will be triggered in the chain (defaults to 0)
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function addListener(string $eventName, callable $listener, int $priority = 0);
 
@@ -35,14 +40,30 @@ interface EventDispatcherInterface extends ContractsEventDispatcherInterface
      *
      * The subscriber is asked for all the events it is
      * interested in and added as a listener for these events.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function addSubscriber(EventSubscriberInterface $subscriber);
 
     /**
      * Removes an event listener from the specified events.
+<<<<<<< HEAD
      */
     public function removeListener(string $eventName, callable $listener);
 
+=======
+     *
+     * @return void
+     */
+    public function removeListener(string $eventName, callable $listener);
+
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function removeSubscriber(EventSubscriberInterface $subscriber);
 
     /**
@@ -50,7 +71,11 @@ interface EventDispatcherInterface extends ContractsEventDispatcherInterface
      *
      * @return array<callable[]|callable>
      */
+<<<<<<< HEAD
     public function getListeners(string $eventName = null): array;
+=======
+    public function getListeners(?string $eventName = null): array;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Gets the listener priority for a specific event.
@@ -62,5 +87,9 @@ interface EventDispatcherInterface extends ContractsEventDispatcherInterface
     /**
      * Checks whether an event has any registered listeners.
      */
+<<<<<<< HEAD
     public function hasListeners(string $eventName = null): bool;
+=======
+    public function hasListeners(?string $eventName = null): bool;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

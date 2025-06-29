@@ -22,15 +22,24 @@ use Symfony\Component\VarDumper\Server\Connection;
  */
 class ServerDumper implements DataDumperInterface
 {
+<<<<<<< HEAD
     private $connection;
     private $wrappedDumper;
+=======
+    private Connection $connection;
+    private ?DataDumperInterface $wrappedDumper;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * @param string                     $host             The server host
      * @param DataDumperInterface|null   $wrappedDumper    A wrapped instance used whenever we failed contacting the server
      * @param ContextProviderInterface[] $contextProviders Context providers indexed by context name
      */
+<<<<<<< HEAD
     public function __construct(string $host, DataDumperInterface $wrappedDumper = null, array $contextProviders = [])
+=======
+    public function __construct(string $host, ?DataDumperInterface $wrappedDumper = null, array $contextProviders = [])
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->connection = new Connection($host, $contextProviders);
         $this->wrappedDumper = $wrappedDumper;
@@ -42,12 +51,23 @@ class ServerDumper implements DataDumperInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return string|null
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function dump(Data $data)
     {
         if (!$this->connection->write($data) && $this->wrappedDumper) {
+<<<<<<< HEAD
             $this->wrappedDumper->dump($data);
         }
+=======
+            return $this->wrappedDumper->dump($data);
+        }
+
+        return null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

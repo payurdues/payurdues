@@ -24,9 +24,19 @@ use Symfony\Component\Mailer\Exception\TransportException;
  */
 abstract class AbstractStream
 {
+<<<<<<< HEAD
     protected $stream;
     protected $in;
     protected $out;
+=======
+    /** @var resource|null */
+    protected $stream;
+    /** @var resource|null */
+    protected $in;
+    /** @var resource|null */
+    protected $out;
+    protected $err;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     private string $debug = '';
 
@@ -65,7 +75,11 @@ abstract class AbstractStream
 
     public function terminate(): void
     {
+<<<<<<< HEAD
         $this->stream = $this->out = $this->in = null;
+=======
+        $this->stream = $this->err = $this->out = $this->in = null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     public function readLine(): string
@@ -74,6 +88,7 @@ abstract class AbstractStream
             return '';
         }
 
+<<<<<<< HEAD
         $line = fgets($this->out);
         if ('' === $line || false === $line) {
             $metas = stream_get_meta_data($this->out);
@@ -83,6 +98,19 @@ abstract class AbstractStream
             if ($metas['eof']) {
                 throw new TransportException(sprintf('Connection to "%s" has been closed unexpectedly.', $this->getReadConnectionDescription()));
             }
+=======
+        $line = @fgets($this->out);
+        if ('' === $line || false === $line) {
+            if (stream_get_meta_data($this->out)['timed_out']) {
+                throw new TransportException(sprintf('Connection to "%s" timed out.', $this->getReadConnectionDescription()));
+            }
+            if (feof($this->out)) { // don't use "eof" metadata, it's not accurate on Windows
+                throw new TransportException(sprintf('Connection to "%s" has been closed unexpectedly.', $this->getReadConnectionDescription()));
+            }
+            if (false === $line) {
+                throw new TransportException(sprintf('Unable to read from connection to "%s": ', $this->getReadConnectionDescription()).error_get_last()['message']);
+            }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         $this->debug .= sprintf('< %s', $line);

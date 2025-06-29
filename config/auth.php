@@ -49,10 +49,15 @@ return [
             'driver' => 'session',
             'provider' => 'associations',
         ],
-    ],
-    
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
 
-    
+    ],
+
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -78,15 +83,20 @@ return [
         ],
 
 
-            'students' => [
-                'driver' => 'eloquent',
-                'model' => App\Models\Student::class,
-            ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Student::class,
+        ],
 
-            'associations' => [
-                'driver' => 'eloquent',
-                'model' => App\Models\Association::class,
-            ],
+        'associations' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Association::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
 
         // 'users' => [
         //     'driver' => 'database',

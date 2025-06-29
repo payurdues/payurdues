@@ -46,11 +46,18 @@ class AcceptHeader
      */
     public static function fromString(?string $headerValue): self
     {
+<<<<<<< HEAD
         $index = 0;
 
         $parts = HeaderUtils::split($headerValue ?? '', ',;=');
 
         return new self(array_map(function ($subParts) use (&$index) {
+=======
+        $parts = HeaderUtils::split($headerValue ?? '', ',;=');
+
+        return new self(array_map(function ($subParts) {
+            static $index = 0;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $part = array_shift($subParts);
             $attributes = HeaderUtils::combine($subParts);
 
@@ -115,9 +122,13 @@ class AcceptHeader
      */
     public function filter(string $pattern): self
     {
+<<<<<<< HEAD
         return new self(array_filter($this->items, function (AcceptHeaderItem $item) use ($pattern) {
             return preg_match($pattern, $item->getValue());
         }));
+=======
+        return new self(array_filter($this->items, fn (AcceptHeaderItem $item) => preg_match($pattern, $item->getValue())));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -127,7 +138,11 @@ class AcceptHeader
     {
         $this->sort();
 
+<<<<<<< HEAD
         return !empty($this->items) ? reset($this->items) : null;
+=======
+        return $this->items ? reset($this->items) : null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**

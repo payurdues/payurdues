@@ -14,10 +14,15 @@ namespace Symfony\Component\Translation\Provider;
 use Symfony\Component\Translation\TranslatorBag;
 use Symfony\Component\Translation\TranslatorBagInterface;
 
+<<<<<<< HEAD
 interface ProviderInterface
 {
     public function __toString(): string;
 
+=======
+interface ProviderInterface extends \Stringable
+{
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     /**
      * Translations available in the TranslatorBag only must be created.
      * Translations available in both the TranslatorBag and on the provider

@@ -15,7 +15,13 @@ use Symfony\Component\ErrorHandler\Exception\SilencedErrorContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+<<<<<<< HEAD
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+=======
+use Symfony\Component\HttpKernel\Log\DebugLoggerConfigurator;
+use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+use Symfony\Component\VarDumper\Cloner\Data;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -24,6 +30,7 @@ use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
  */
 class LoggerDataCollector extends DataCollector implements LateDataCollectorInterface
 {
+<<<<<<< HEAD
     private $logger;
     private ?string $containerPathPrefix;
     private $currentRequest = null;
@@ -36,18 +43,34 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
             $this->logger = $logger;
         }
 
+=======
+    private ?DebugLoggerInterface $logger;
+    private ?string $containerPathPrefix;
+    private ?Request $currentRequest = null;
+    private ?RequestStack $requestStack;
+    private ?array $processedLogs = null;
+
+    public function __construct(?object $logger = null, ?string $containerPathPrefix = null, ?RequestStack $requestStack = null)
+    {
+        $this->logger = DebugLoggerConfigurator::getDebugLogger($logger);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $this->containerPathPrefix = $containerPathPrefix;
         $this->requestStack = $requestStack;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function collect(Request $request, Response $response, \Throwable $exception = null)
+=======
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->currentRequest = $this->requestStack && $this->requestStack->getMainRequest() !== $request ? $request : null;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
@@ -65,6 +88,11 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
     public function lateCollect()
     {
         if (isset($this->logger)) {
+=======
+    public function lateCollect(): void
+    {
+        if ($this->logger) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $containerDeprecationLogs = $this->getContainerDeprecationLogs();
             $this->data = $this->computeErrorsCount($containerDeprecationLogs);
             // get compiler logs later (only when they are needed) to improve performance
@@ -76,12 +104,20 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
         $this->currentRequest = null;
     }
 
+<<<<<<< HEAD
     public function getLogs()
+=======
+    public function getLogs(): Data|array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['logs'] ?? [];
     }
 
+<<<<<<< HEAD
     public function getProcessedLogs()
+=======
+    public function getProcessedLogs(): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null !== $this->processedLogs) {
             return $this->processedLogs;
@@ -119,14 +155,22 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
         }
 
         // sort logs from oldest to newest
+<<<<<<< HEAD
         usort($logs, static function ($logA, $logB) {
             return $logA['timestamp'] <=> $logB['timestamp'];
         });
+=======
+        usort($logs, static fn ($logA, $logB) => $logA['timestamp'] <=> $logB['timestamp']);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         return $this->processedLogs = $logs;
     }
 
+<<<<<<< HEAD
     public function getFilters()
+=======
+    public function getFilters(): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $filters = [
             'channel' => [],
@@ -157,39 +201,66 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
         return $filters;
     }
 
+<<<<<<< HEAD
     public function getPriorities()
+=======
+    public function getPriorities(): Data|array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['priorities'] ?? [];
     }
 
+<<<<<<< HEAD
     public function countErrors()
+=======
+    public function countErrors(): int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['error_count'] ?? 0;
     }
 
+<<<<<<< HEAD
     public function countDeprecations()
+=======
+    public function countDeprecations(): int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['deprecation_count'] ?? 0;
     }
 
+<<<<<<< HEAD
     public function countWarnings()
+=======
+    public function countWarnings(): int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['warning_count'] ?? 0;
     }
 
+<<<<<<< HEAD
     public function countScreams()
+=======
+    public function countScreams(): int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->data['scream_count'] ?? 0;
     }
 
+<<<<<<< HEAD
     public function getCompilerLogs()
+=======
+    public function getCompilerLogs(): Data
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->cloneVar($this->getContainerCompilerLogs($this->data['compiler_logs_filepath'] ?? null));
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'logger';
@@ -222,9 +293,15 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
         return $logs;
     }
 
+<<<<<<< HEAD
     private function getContainerCompilerLogs(string $compilerLogsFilepath = null): array
     {
         if (!is_file($compilerLogsFilepath)) {
+=======
+    private function getContainerCompilerLogs(?string $compilerLogsFilepath = null): array
+    {
+        if (!$compilerLogsFilepath || !is_file($compilerLogsFilepath)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return [];
         }
 
@@ -241,7 +318,11 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
         return $logs;
     }
 
+<<<<<<< HEAD
     private function sanitizeLogs(array $logs)
+=======
+    private function sanitizeLogs(array $logs): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $sanitizedLogs = [];
         $silencedLogs = [];
@@ -273,7 +354,11 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
                 continue;
             }
 
+<<<<<<< HEAD
             $errorId = md5("{$exception->getSeverity()}/{$exception->getLine()}/{$exception->getFile()}\0{$message}", true);
+=======
+            $errorId = hash('xxh128', "{$exception->getSeverity()}/{$exception->getLine()}/{$exception->getFile()}\0{$message}", true);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
             if (isset($sanitizedLogs[$errorId])) {
                 ++$sanitizedLogs[$errorId]['errorCount'];

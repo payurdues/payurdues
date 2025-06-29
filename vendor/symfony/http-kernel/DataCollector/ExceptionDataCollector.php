@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ExceptionDataCollector extends DataCollector
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
@@ -30,10 +31,18 @@ class ExceptionDataCollector extends DataCollector
         if (null !== $exception) {
             $this->data = [
                 'exception' => FlattenException::createFromThrowable($exception),
+=======
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
+    {
+        if (null !== $exception) {
+            $this->data = [
+                'exception' => FlattenException::createWithDataRepresentation($exception),
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             ];
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
@@ -42,6 +51,8 @@ class ExceptionDataCollector extends DataCollector
         $this->data = [];
     }
 
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function hasException(): bool
     {
         return isset($this->data['exception']);
@@ -72,9 +83,12 @@ class ExceptionDataCollector extends DataCollector
         return $this->data['exception']->getTrace();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'exception';

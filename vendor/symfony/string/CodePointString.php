@@ -186,7 +186,11 @@ class CodePointString extends AbstractUnicodeString
         return $str;
     }
 
+<<<<<<< HEAD
     public function slice(int $start = 0, int $length = null): static
+=======
+    public function slice(int $start = 0, ?int $length = null): static
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $str = clone $this;
         $str->string = mb_substr($this->string, $start, $length, 'UTF-8');
@@ -194,7 +198,11 @@ class CodePointString extends AbstractUnicodeString
         return $str;
     }
 
+<<<<<<< HEAD
     public function splice(string $replacement, int $start = 0, int $length = null): static
+=======
+    public function splice(string $replacement, int $start = 0, ?int $length = null): static
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!preg_match('//u', $replacement)) {
             throw new InvalidArgumentException('Invalid UTF-8 string.');
@@ -208,9 +216,15 @@ class CodePointString extends AbstractUnicodeString
         return $str;
     }
 
+<<<<<<< HEAD
     public function split(string $delimiter, int $limit = null, int $flags = null): array
     {
         if (1 > $limit = $limit ?? \PHP_INT_MAX) {
+=======
+    public function split(string $delimiter, ?int $limit = null, ?int $flags = null): array
+    {
+        if (1 > $limit ??= \PHP_INT_MAX) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             throw new InvalidArgumentException('Split limit must be a positive integer.');
         }
 

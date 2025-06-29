@@ -24,9 +24,15 @@ class OutputFormatterStyleStack implements ResetInterface
      */
     private array $styles = [];
 
+<<<<<<< HEAD
     private $emptyStyle;
 
     public function __construct(OutputFormatterStyleInterface $emptyStyle = null)
+=======
+    private OutputFormatterStyleInterface $emptyStyle;
+
+    public function __construct(?OutputFormatterStyleInterface $emptyStyle = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->emptyStyle = $emptyStyle ?? new OutputFormatterStyle();
         $this->reset();
@@ -34,6 +40,11 @@ class OutputFormatterStyleStack implements ResetInterface
 
     /**
      * Resets stack (ie. empty internal arrays).
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function reset()
     {
@@ -42,6 +53,11 @@ class OutputFormatterStyleStack implements ResetInterface
 
     /**
      * Pushes a style in the stack.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function push(OutputFormatterStyleInterface $style)
     {
@@ -53,9 +69,15 @@ class OutputFormatterStyleStack implements ResetInterface
      *
      * @throws InvalidArgumentException When style tags incorrectly nested
      */
+<<<<<<< HEAD
     public function pop(OutputFormatterStyleInterface $style = null): OutputFormatterStyleInterface
     {
         if (empty($this->styles)) {
+=======
+    public function pop(?OutputFormatterStyleInterface $style = null): OutputFormatterStyleInterface
+    {
+        if (!$this->styles) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return $this->emptyStyle;
         }
 
@@ -79,7 +101,11 @@ class OutputFormatterStyleStack implements ResetInterface
      */
     public function getCurrent(): OutputFormatterStyleInterface
     {
+<<<<<<< HEAD
         if (empty($this->styles)) {
+=======
+        if (!$this->styles) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return $this->emptyStyle;
         }
 

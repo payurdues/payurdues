@@ -26,6 +26,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 abstract class Descriptor implements DescriptorInterface
 {
+<<<<<<< HEAD
     /**
      * @var OutputInterface
      */
@@ -63,6 +64,25 @@ abstract class Descriptor implements DescriptorInterface
      * Writes content to output.
      */
     protected function write(string $content, bool $decorated = false)
+=======
+    protected OutputInterface $output;
+
+    public function describe(OutputInterface $output, object $object, array $options = []): void
+    {
+        $this->output = $output;
+
+        match (true) {
+            $object instanceof InputArgument => $this->describeInputArgument($object, $options),
+            $object instanceof InputOption => $this->describeInputOption($object, $options),
+            $object instanceof InputDefinition => $this->describeInputDefinition($object, $options),
+            $object instanceof Command => $this->describeCommand($object, $options),
+            $object instanceof Application => $this->describeApplication($object, $options),
+            default => throw new InvalidArgumentException(sprintf('Object of type "%s" is not describable.', get_debug_type($object))),
+        };
+    }
+
+    protected function write(string $content, bool $decorated = false): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->output->write($content, false, $decorated ? OutputInterface::OUTPUT_NORMAL : OutputInterface::OUTPUT_RAW);
     }
@@ -70,25 +90,45 @@ abstract class Descriptor implements DescriptorInterface
     /**
      * Describes an InputArgument instance.
      */
+<<<<<<< HEAD
     abstract protected function describeInputArgument(InputArgument $argument, array $options = []);
+=======
+    abstract protected function describeInputArgument(InputArgument $argument, array $options = []): void;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Describes an InputOption instance.
      */
+<<<<<<< HEAD
     abstract protected function describeInputOption(InputOption $option, array $options = []);
+=======
+    abstract protected function describeInputOption(InputOption $option, array $options = []): void;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Describes an InputDefinition instance.
      */
+<<<<<<< HEAD
     abstract protected function describeInputDefinition(InputDefinition $definition, array $options = []);
+=======
+    abstract protected function describeInputDefinition(InputDefinition $definition, array $options = []): void;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Describes a Command instance.
      */
+<<<<<<< HEAD
     abstract protected function describeCommand(Command $command, array $options = []);
+=======
+    abstract protected function describeCommand(Command $command, array $options = []): void;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Describes an Application instance.
      */
+<<<<<<< HEAD
     abstract protected function describeApplication(Application $application, array $options = []);
+=======
+    abstract protected function describeApplication(Application $application, array $options = []): void;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

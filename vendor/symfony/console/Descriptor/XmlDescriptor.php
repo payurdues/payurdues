@@ -79,7 +79,11 @@ class XmlDescriptor extends Descriptor
         return $dom;
     }
 
+<<<<<<< HEAD
     public function getApplicationDocument(Application $application, string $namespace = null, bool $short = false): \DOMDocument
+=======
+    public function getApplicationDocument(Application $application, ?string $namespace = null, bool $short = false): \DOMDocument
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($rootXml = $dom->createElement('symfony'));
@@ -120,42 +124,62 @@ class XmlDescriptor extends Descriptor
         return $dom;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function describeInputArgument(InputArgument $argument, array $options = [])
+=======
+    protected function describeInputArgument(InputArgument $argument, array $options = []): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->writeDocument($this->getInputArgumentDocument($argument));
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function describeInputOption(InputOption $option, array $options = [])
+=======
+    protected function describeInputOption(InputOption $option, array $options = []): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->writeDocument($this->getInputOptionDocument($option));
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function describeInputDefinition(InputDefinition $definition, array $options = [])
+=======
+    protected function describeInputDefinition(InputDefinition $definition, array $options = []): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->writeDocument($this->getInputDefinitionDocument($definition));
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function describeCommand(Command $command, array $options = [])
+=======
+    protected function describeCommand(Command $command, array $options = []): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->writeDocument($this->getCommandDocument($command, $options['short'] ?? false));
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function describeApplication(Application $application, array $options = [])
+=======
+    protected function describeApplication(Application $application, array $options = []): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->writeDocument($this->getApplicationDocument($application, $options['namespace'] ?? null, $options['short'] ?? false));
     }
@@ -163,7 +187,11 @@ class XmlDescriptor extends Descriptor
     /**
      * Appends document children to parent node.
      */
+<<<<<<< HEAD
     private function appendDocument(\DOMNode $parentNode, \DOMNode $importedParent)
+=======
+    private function appendDocument(\DOMNode $parentNode, \DOMNode $importedParent): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         foreach ($importedParent->childNodes as $childNode) {
             $parentNode->appendChild($parentNode->ownerDocument->importNode($childNode, true));
@@ -173,7 +201,11 @@ class XmlDescriptor extends Descriptor
     /**
      * Writes DOM document.
      */
+<<<<<<< HEAD
     private function writeDocument(\DOMDocument $dom)
+=======
+    private function writeDocument(\DOMDocument $dom): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $dom->formatOutput = true;
         $this->write($dom->saveXML());

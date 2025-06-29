@@ -18,8 +18,11 @@ use ArrayIterator;
 use Traversable;
 
 use function count;
+<<<<<<< HEAD
 use function serialize;
 use function unserialize;
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
 /**
  * This class provides a basic implementation of `ArrayInterface`, to minimize
@@ -44,7 +47,11 @@ abstract class AbstractArray implements ArrayInterface
      */
     public function __construct(array $data = [])
     {
+<<<<<<< HEAD
         // Invoke offsetSet() for each value added; in this way, sub-classes
+=======
+        // Invoke offsetSet() for each value added; in this way, subclasses
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         // may provide additional logic about values added to the array object.
         foreach ($data as $key => $value) {
             $this[$key] = $value;
@@ -70,7 +77,11 @@ abstract class AbstractArray implements ArrayInterface
      *
      * @param array-key $offset The offset to check.
      */
+<<<<<<< HEAD
     public function offsetExists($offset): bool
+=======
+    public function offsetExists(mixed $offset): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return isset($this->data[$offset]);
     }
@@ -82,6 +93,7 @@ abstract class AbstractArray implements ArrayInterface
      *
      * @param array-key $offset The offset for which a value should be returned.
      *
+<<<<<<< HEAD
      * @return T|null the value stored at the offset, or null if the offset
      *     does not exist.
      */
@@ -89,6 +101,14 @@ abstract class AbstractArray implements ArrayInterface
     public function offsetGet($offset)
     {
         return $this->data[$offset] ?? null;
+=======
+     * @return T the value stored at the offset, or null if the offset
+     *     does not exist.
+     */
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->data[$offset];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -96,12 +116,20 @@ abstract class AbstractArray implements ArrayInterface
      *
      * @link http://php.net/manual/en/arrayaccess.offsetset.php ArrayAccess::offsetSet()
      *
+<<<<<<< HEAD
      * @param array-key|null $offset The offset to set. If `null`, the value may be
      *     set at a numerically-indexed offset.
      * @param T $value The value to set at the given offset.
      */
     // phpcs:ignore SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
     public function offsetSet($offset, $value): void
+=======
+     * @param array-key | null $offset The offset to set. If `null`, the value
+     *     may be set at a numerically-indexed offset.
+     * @param T $value The value to set at the given offset.
+     */
+    public function offsetSet(mixed $offset, mixed $value): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($offset === null) {
             $this->data[] = $value;
@@ -117,12 +145,17 @@ abstract class AbstractArray implements ArrayInterface
      *
      * @param array-key $offset The offset to remove from the array.
      */
+<<<<<<< HEAD
     public function offsetUnset($offset): void
+=======
+    public function offsetUnset(mixed $offset): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         unset($this->data[$offset]);
     }
 
     /**
+<<<<<<< HEAD
      * Returns a serialized string representation of this array object.
      *
      * @deprecated The Serializable interface will go away in PHP 9.
@@ -137,6 +170,8 @@ abstract class AbstractArray implements ArrayInterface
     }
 
     /**
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * Returns data suitable for PHP serialization.
      *
      * @link https://www.php.net/manual/en/language.oop5.magic.php#language.oop5.magic.serialize
@@ -150,6 +185,7 @@ abstract class AbstractArray implements ArrayInterface
     }
 
     /**
+<<<<<<< HEAD
      * Converts a serialized string representation into an instance object.
      *
      * @deprecated The Serializable interface will go away in PHP 9.
@@ -169,6 +205,8 @@ abstract class AbstractArray implements ArrayInterface
     }
 
     /**
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * Adds unserialized data to the object.
      *
      * @param array<array-key, T> $data
@@ -203,6 +241,10 @@ abstract class AbstractArray implements ArrayInterface
 
     public function isEmpty(): bool
     {
+<<<<<<< HEAD
         return count($this->data) === 0;
+=======
+        return $this->data === [];
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

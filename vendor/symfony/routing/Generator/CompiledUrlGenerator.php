@@ -23,7 +23,11 @@ class CompiledUrlGenerator extends UrlGenerator
     private array $compiledRoutes = [];
     private ?string $defaultLocale;
 
+<<<<<<< HEAD
     public function __construct(array $compiledRoutes, RequestContext $context, LoggerInterface $logger = null, string $defaultLocale = null)
+=======
+    public function __construct(array $compiledRoutes, RequestContext $context, ?LoggerInterface $logger = null, ?string $defaultLocale = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->compiledRoutes = $compiledRoutes;
         $this->context = $context;

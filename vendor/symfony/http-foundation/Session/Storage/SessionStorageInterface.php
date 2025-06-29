@@ -40,6 +40,11 @@ interface SessionStorageInterface
 
     /**
      * Sets the session ID.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setId(string $id);
 
@@ -50,6 +55,11 @@ interface SessionStorageInterface
 
     /**
      * Sets the session name.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setName(string $name);
 
@@ -72,6 +82,7 @@ interface SessionStorageInterface
      * Otherwise session data could get lost again for concurrent requests with the
      * new ID. One result could be that you get logged out after just logging in.
      *
+<<<<<<< HEAD
      * @param bool $destroy  Destroy session when regenerating?
      * @param int  $lifetime Sets the cookie lifetime for the session cookie. A null value
      *                       will leave the system settings unchanged, 0 sets the cookie
@@ -81,6 +92,17 @@ interface SessionStorageInterface
      * @throws \RuntimeException If an error occurs while regenerating this storage
      */
     public function regenerate(bool $destroy = false, int $lifetime = null): bool;
+=======
+     * @param bool     $destroy  Destroy session when regenerating?
+     * @param int|null $lifetime Sets the cookie lifetime for the session cookie. A null value
+     *                           will leave the system settings unchanged, 0 sets the cookie
+     *                           to expire with browser session. Time is in seconds, and is
+     *                           not a Unix timestamp.
+     *
+     * @throws \RuntimeException If an error occurs while regenerating this storage
+     */
+    public function regenerate(bool $destroy = false, ?int $lifetime = null): bool;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Force the session to be saved and closed.
@@ -90,6 +112,11 @@ interface SessionStorageInterface
      * a real PHP session would interfere with testing, in which case
      * it should actually persist the session data if required.
      *
+<<<<<<< HEAD
+=======
+     * @return void
+     *
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws \RuntimeException if the session is saved without being started, or if the session
      *                           is already closed
      */
@@ -97,6 +124,11 @@ interface SessionStorageInterface
 
     /**
      * Clear all session data in memory.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function clear();
 
@@ -109,6 +141,11 @@ interface SessionStorageInterface
 
     /**
      * Registers a SessionBagInterface for use.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function registerBag(SessionBagInterface $bag);
 

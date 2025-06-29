@@ -22,16 +22,23 @@ use Symfony\Contracts\Service\ServiceProviderInterface;
  */
 class ExpressionLanguageProvider implements ExpressionFunctionProviderInterface
 {
+<<<<<<< HEAD
     private $functions;
+=======
+    private ServiceProviderInterface $functions;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct(ServiceProviderInterface $functions)
     {
         $this->functions = $functions;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getFunctions(): array
     {
         $functions = [];
@@ -39,12 +46,17 @@ class ExpressionLanguageProvider implements ExpressionFunctionProviderInterface
         foreach ($this->functions->getProvidedServices() as $function => $type) {
             $functions[] = new ExpressionFunction(
                 $function,
+<<<<<<< HEAD
                 static function (...$args) use ($function) {
                     return sprintf('($context->getParameter(\'_functions\')->get(%s)(%s))', var_export($function, true), implode(', ', $args));
                 },
                 function ($values, ...$args) use ($function) {
                     return $values['context']->getParameter('_functions')->get($function)(...$args);
                 }
+=======
+                static fn (...$args) => sprintf('($context->getParameter(\'_functions\')->get(%s)(%s))', var_export($function, true), implode(', ', $args)),
+                fn ($values, ...$args) => $values['context']->getParameter('_functions')->get($function)(...$args)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             );
         }
 

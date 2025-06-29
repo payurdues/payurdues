@@ -24,13 +24,25 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ErrorListener implements EventSubscriberInterface
 {
+<<<<<<< HEAD
     private $logger;
 
     public function __construct(LoggerInterface $logger = null)
+=======
+    private ?LoggerInterface $logger;
+
+    public function __construct(?LoggerInterface $logger = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->logger = $logger;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function onConsoleError(ConsoleErrorEvent $event)
     {
         if (null === $this->logger) {
@@ -48,6 +60,12 @@ class ErrorListener implements EventSubscriberInterface
         $this->logger->critical('Error thrown while running command "{command}". Message: "{message}"', ['exception' => $error, 'command' => $inputString, 'message' => $error->getMessage()]);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function onConsoleTerminate(ConsoleTerminateEvent $event)
     {
         if (null === $this->logger) {
@@ -79,7 +97,11 @@ class ErrorListener implements EventSubscriberInterface
 
     private static function getInputString(ConsoleEvent $event): ?string
     {
+<<<<<<< HEAD
         $commandName = $event->getCommand() ? $event->getCommand()->getName() : null;
+=======
+        $commandName = $event->getCommand()?->getName();
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $input = $event->getInput();
 
         if ($input instanceof \Stringable) {

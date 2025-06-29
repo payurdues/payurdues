@@ -18,5 +18,24 @@ class Association extends Authenticatable implements AuthenticatableContract
     }
 
 
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'link',
+        'about',
+        'contact_person_name',
+        'contact_person_phone',
+        'bank_code',
+        'bank_name',
+        'bank_account_no',
+        'bank_account_name',
+        'provider',
+        'image',
+        'approval_doc'
+    ];
+
+
+
+    //protected $guarded = [];
 }

@@ -32,7 +32,11 @@ class ProcessHelper extends Helper
      * @param callable|null $callback A PHP callback to run whenever there is some
      *                                output available on STDOUT or STDERR
      */
+<<<<<<< HEAD
     public function run(OutputInterface $output, array|Process $cmd, string $error = null, callable $callback = null, int $verbosity = OutputInterface::VERBOSITY_VERY_VERBOSE): Process
+=======
+    public function run(OutputInterface $output, array|Process $cmd, ?string $error = null, ?callable $callback = null, int $verbosity = OutputInterface::VERBOSITY_VERY_VERBOSE): Process
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!class_exists(Process::class)) {
             throw new \LogicException('The ProcessHelper cannot be run as the Process component is not installed. Try running "compose require symfony/process".');
@@ -94,7 +98,11 @@ class ProcessHelper extends Helper
      *
      * @see run()
      */
+<<<<<<< HEAD
     public function mustRun(OutputInterface $output, array|Process $cmd, string $error = null, callable $callback = null): Process
+=======
+    public function mustRun(OutputInterface $output, array|Process $cmd, ?string $error = null, ?callable $callback = null): Process
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $process = $this->run($output, $cmd, $error, $callback);
 
@@ -108,7 +116,11 @@ class ProcessHelper extends Helper
     /**
      * Wraps a Process callback to add debugging output.
      */
+<<<<<<< HEAD
     public function wrapCallback(OutputInterface $output, Process $process, callable $callback = null): callable
+=======
+    public function wrapCallback(OutputInterface $output, Process $process, ?callable $callback = null): callable
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if ($output instanceof ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
@@ -130,9 +142,12 @@ class ProcessHelper extends Helper
         return str_replace('<', '\\<', $str);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'process';

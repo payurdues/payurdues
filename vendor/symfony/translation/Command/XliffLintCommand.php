@@ -41,23 +41,40 @@ class XliffLintCommand extends Command
     private ?\Closure $isReadableProvider;
     private bool $requireStrictFileNames;
 
+<<<<<<< HEAD
     public function __construct(string $name = null, callable $directoryIteratorProvider = null, callable $isReadableProvider = null, bool $requireStrictFileNames = true)
     {
         parent::__construct($name);
 
         $this->directoryIteratorProvider = null === $directoryIteratorProvider || $directoryIteratorProvider instanceof \Closure ? $directoryIteratorProvider : \Closure::fromCallable($directoryIteratorProvider);
         $this->isReadableProvider = null === $isReadableProvider || $isReadableProvider instanceof \Closure ? $isReadableProvider : \Closure::fromCallable($isReadableProvider);
+=======
+    public function __construct(?string $name = null, ?callable $directoryIteratorProvider = null, ?callable $isReadableProvider = null, bool $requireStrictFileNames = true)
+    {
+        parent::__construct($name);
+
+        $this->directoryIteratorProvider = null === $directoryIteratorProvider ? null : $directoryIteratorProvider(...);
+        $this->isReadableProvider = null === $isReadableProvider ? null : $isReadableProvider(...);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $this->requireStrictFileNames = $requireStrictFileNames;
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     protected function configure()
     {
         $this
             ->addArgument('filename', InputArgument::IS_ARRAY, 'A file, a directory or "-" for reading from STDIN')
+<<<<<<< HEAD
             ->addOption('format', null, InputOption::VALUE_REQUIRED, 'The output format')
+=======
+            ->addOption('format', null, InputOption::VALUE_REQUIRED, sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())))
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             ->setHelp(<<<EOF
 The <info>%command.name%</info> command lints an XLIFF file and outputs to STDOUT
 the first encountered syntax error.
@@ -109,7 +126,11 @@ EOF
         return $this->display($io, $filesInfo);
     }
 
+<<<<<<< HEAD
     private function validate(string $content, string $file = null): array
+=======
+    private function validate(string $content, ?string $file = null): array
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $errors = [];
 
@@ -154,6 +175,7 @@ EOF
         return ['file' => $file, 'valid' => 0 === \count($errors), 'messages' => $errors];
     }
 
+<<<<<<< HEAD
     private function display(SymfonyStyle $io, array $files)
     {
         switch ($this->format) {
@@ -169,6 +191,19 @@ EOF
     }
 
     private function displayTxt(SymfonyStyle $io, array $filesInfo, bool $errorAsGithubAnnotations = false)
+=======
+    private function display(SymfonyStyle $io, array $files): int
+    {
+        return match ($this->format) {
+            'txt' => $this->displayTxt($io, $files),
+            'json' => $this->displayJson($io, $files),
+            'github' => $this->displayTxt($io, $files, true),
+            default => throw new InvalidArgumentException(sprintf('Supported formats are "%s".', implode('", "', $this->getAvailableFormatOptions()))),
+        };
+    }
+
+    private function displayTxt(SymfonyStyle $io, array $filesInfo, bool $errorAsGithubAnnotations = false): int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $countFiles = \count($filesInfo);
         $erroredFiles = 0;
@@ -184,9 +219,13 @@ EOF
                     // general document errors have a '-1' line number
                     $line = -1 === $error['line'] ? null : $error['line'];
 
+<<<<<<< HEAD
                     if ($githubReporter) {
                         $githubReporter->error($error['message'], $info['file'], $line, null !== $line ? $error['column'] : null);
                     }
+=======
+                    $githubReporter?->error($error['message'], $info['file'], $line, null !== $line ? $error['column'] : null);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
                     return null === $line ? $error['message'] : sprintf('Line %d, Column %d: %s', $line, $error['column'], $error['message']);
                 }, $info['messages']));
@@ -202,7 +241,11 @@ EOF
         return min($erroredFiles, 1);
     }
 
+<<<<<<< HEAD
     private function displayJson(SymfonyStyle $io, array $filesInfo)
+=======
+    private function displayJson(SymfonyStyle $io, array $filesInfo): int
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $errors = 0;
 
@@ -218,7 +261,14 @@ EOF
         return min($errors, 1);
     }
 
+<<<<<<< HEAD
     private function getFiles(string $fileOrDirectory)
+=======
+    /**
+     * @return iterable<\SplFileInfo>
+     */
+    private function getFiles(string $fileOrDirectory): iterable
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (is_file($fileOrDirectory)) {
             yield new \SplFileInfo($fileOrDirectory);
@@ -235,6 +285,7 @@ EOF
         }
     }
 
+<<<<<<< HEAD
     private function getDirectoryIterator(string $directory)
     {
         $default = function ($directory) {
@@ -243,6 +294,17 @@ EOF
                 \RecursiveIteratorIterator::LEAVES_ONLY
             );
         };
+=======
+    /**
+     * @return iterable<\SplFileInfo>
+     */
+    private function getDirectoryIterator(string $directory): iterable
+    {
+        $default = fn ($directory) => new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($directory, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS),
+            \RecursiveIteratorIterator::LEAVES_ONLY
+        );
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if (null !== $this->directoryIteratorProvider) {
             return ($this->directoryIteratorProvider)($directory, $default);
@@ -251,11 +313,17 @@ EOF
         return $default($directory);
     }
 
+<<<<<<< HEAD
     private function isReadable(string $fileOrDirectory)
     {
         $default = function ($fileOrDirectory) {
             return is_readable($fileOrDirectory);
         };
+=======
+    private function isReadable(string $fileOrDirectory): bool
+    {
+        $default = fn ($fileOrDirectory) => is_readable($fileOrDirectory);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if (null !== $this->isReadableProvider) {
             return ($this->isReadableProvider)($fileOrDirectory, $default);
@@ -278,7 +346,18 @@ EOF
     public function complete(CompletionInput $input, CompletionSuggestions $suggestions): void
     {
         if ($input->mustSuggestOptionValuesFor('format')) {
+<<<<<<< HEAD
             $suggestions->suggestValues(['txt', 'json', 'github']);
         }
     }
+=======
+            $suggestions->suggestValues($this->getAvailableFormatOptions());
+        }
+    }
+
+    private function getAvailableFormatOptions(): array
+    {
+        return ['txt', 'json', 'github'];
+    }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

@@ -5,6 +5,12 @@ namespace Sabberworm\CSS;
 use Sabberworm\CSS\Comment\Commentable;
 use Sabberworm\CSS\Parsing\OutputException;
 
+<<<<<<< HEAD
+=======
+/**
+ * @internal since 8.8.0
+ */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 class OutputFormatter
 {
     /**
@@ -117,6 +123,14 @@ class OutputFormatter
      */
     public function spaceBeforeListArgumentSeparator($sSeparator)
     {
+<<<<<<< HEAD
+=======
+        $spaceForSeparator = $this->oFormat->getSpaceBeforeListArgumentSeparators();
+        if (isset($spaceForSeparator[$sSeparator])) {
+            return $spaceForSeparator[$sSeparator];
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         return $this->space('BeforeListArgumentSeparator', $sSeparator);
     }
 
@@ -127,6 +141,14 @@ class OutputFormatter
      */
     public function spaceAfterListArgumentSeparator($sSeparator)
     {
+<<<<<<< HEAD
+=======
+        $spaceForSeparator = $this->oFormat->getSpaceAfterListArgumentSeparators();
+        if (isset($spaceForSeparator[$sSeparator])) {
+            return $spaceForSeparator[$sSeparator];
+        }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         return $this->space('AfterListArgumentSeparator', $sSeparator);
     }
 
@@ -250,6 +272,10 @@ class OutputFormatter
      */
     private function indent()
     {
+<<<<<<< HEAD
         return str_repeat($this->oFormat->sIndentation, $this->oFormat->level());
+=======
+        return str_repeat($this->oFormat->sIndentation, $this->oFormat->getIndentationLevel());
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

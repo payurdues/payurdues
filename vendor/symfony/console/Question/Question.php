@@ -36,7 +36,11 @@ class Question
      * @param string                     $question The question to ask to the user
      * @param string|bool|int|float|null $default  The default answer to return if the user enters nothing
      */
+<<<<<<< HEAD
     public function __construct(string $question, string|bool|int|float $default = null)
+=======
+    public function __construct(string $question, string|bool|int|float|null $default = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->question = $question;
         $this->default = $default;
@@ -146,6 +150,7 @@ class Question
         if (\is_array($values)) {
             $values = $this->isAssoc($values) ? array_merge(array_keys($values), array_values($values)) : array_values($values);
 
+<<<<<<< HEAD
             $callback = static function () use ($values) {
                 return $values;
             };
@@ -153,6 +158,14 @@ class Question
             $valueCache = null;
             $callback = static function () use ($values, &$valueCache) {
                 return $valueCache ?? $valueCache = iterator_to_array($values, false);
+=======
+            $callback = static fn () => $values;
+        } elseif ($values instanceof \Traversable) {
+            $callback = static function () use ($values) {
+                static $valueCache;
+
+                return $valueCache ??= iterator_to_array($values, false);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             };
         } else {
             $callback = null;
@@ -176,13 +189,25 @@ class Question
      *
      * @return $this
      */
+<<<<<<< HEAD
     public function setAutocompleterCallback(callable $callback = null): static
     {
+=======
+    public function setAutocompleterCallback(?callable $callback = null): static
+    {
+        if (1 > \func_num_args()) {
+            trigger_deprecation('symfony/console', '6.2', 'Calling "%s()" without any arguments is deprecated, pass null explicitly instead.', __METHOD__);
+        }
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         if ($this->hidden && null !== $callback) {
             throw new LogicException('A hidden question cannot use the autocompleter.');
         }
 
+<<<<<<< HEAD
         $this->autocompleterCallback = null === $callback || $callback instanceof \Closure ? $callback : \Closure::fromCallable($callback);
+=======
+        $this->autocompleterCallback = null === $callback ? null : $callback(...);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         return $this;
     }
@@ -192,9 +217,18 @@ class Question
      *
      * @return $this
      */
+<<<<<<< HEAD
     public function setValidator(callable $validator = null): static
     {
         $this->validator = null === $validator || $validator instanceof \Closure ? $validator : \Closure::fromCallable($validator);
+=======
+    public function setValidator(?callable $validator = null): static
+    {
+        if (1 > \func_num_args()) {
+            trigger_deprecation('symfony/console', '6.2', 'Calling "%s()" without any arguments is deprecated, pass null explicitly instead.', __METHOD__);
+        }
+        $this->validator = null === $validator ? null : $validator(...);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         return $this;
     }
@@ -246,7 +280,11 @@ class Question
      */
     public function setNormalizer(callable $normalizer): static
     {
+<<<<<<< HEAD
         $this->normalizer = $normalizer instanceof \Closure ? $normalizer : \Closure::fromCallable($normalizer);
+=======
+        $this->normalizer = $normalizer(...);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         return $this;
     }
@@ -261,6 +299,12 @@ class Question
         return $this->normalizer;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return bool
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function isAssoc(array $array)
     {
         return (bool) \count(array_filter(array_keys($array), 'is_string'));

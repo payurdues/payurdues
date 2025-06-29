@@ -23,12 +23,21 @@ class CollectionConfigurator
     use Traits\HostTrait;
     use Traits\RouteTrait;
 
+<<<<<<< HEAD
     private $parent;
     private $parentConfigurator;
     private ?array $parentPrefixes;
     private string|array|null $host = null;
 
     public function __construct(RouteCollection $parent, string $name, self $parentConfigurator = null, array $parentPrefixes = null)
+=======
+    private RouteCollection $parent;
+    private ?CollectionConfigurator $parentConfigurator;
+    private ?array $parentPrefixes;
+    private string|array|null $host = null;
+
+    public function __construct(RouteCollection $parent, string $name, ?self $parentConfigurator = null, ?array $parentPrefixes = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->parent = $parent;
         $this->name = $name;
@@ -43,6 +52,12 @@ class CollectionConfigurator
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return void
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function __wakeup()
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
@@ -115,6 +130,12 @@ class CollectionConfigurator
         return $this;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * This method overrides the one from LocalizedRouteTrait.
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private function createRoute(string $path): Route
     {
         return (clone $this->route)->setPath($path);

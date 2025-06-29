@@ -24,6 +24,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlFileLoader extends FileLoader
 {
+<<<<<<< HEAD
     private $yamlParser;
 
     /**
@@ -32,6 +33,13 @@ class YamlFileLoader extends FileLoader
     protected function loadResource(string $resource): array
     {
         if (null === $this->yamlParser) {
+=======
+    private YamlParser $yamlParser;
+
+    protected function loadResource(string $resource): array
+    {
+        if (!isset($this->yamlParser)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             if (!class_exists(\Symfony\Component\Yaml\Parser::class)) {
                 throw new LogicException('Loading translations from the YAML format requires the Symfony Yaml component.');
             }

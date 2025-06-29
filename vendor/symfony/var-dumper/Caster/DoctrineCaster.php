@@ -25,6 +25,12 @@ use Symfony\Component\VarDumper\Cloner\Stub;
  */
 class DoctrineCaster
 {
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castCommonProxy(CommonProxy $proxy, array $a, Stub $stub, bool $isNested)
     {
         foreach (['__cloner__', '__initializer__'] as $k) {
@@ -37,6 +43,12 @@ class DoctrineCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castOrmProxy(OrmProxy $proxy, array $a, Stub $stub, bool $isNested)
     {
         foreach (['_entityPersister', '_identifier'] as $k) {
@@ -49,6 +61,12 @@ class DoctrineCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castPersistentCollection(PersistentCollection $coll, array $a, Stub $stub, bool $isNested)
     {
         foreach (['snapshot', 'association', 'typeClass'] as $k) {

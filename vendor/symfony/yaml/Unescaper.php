@@ -45,9 +45,13 @@ class Unescaper
      */
     public function unescapeDoubleQuotedString(string $value): string
     {
+<<<<<<< HEAD
         $callback = function ($match) {
             return $this->unescapeCharacter($match[0]);
         };
+=======
+        $callback = fn ($match) => $this->unescapeCharacter($match[0]);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         // evaluate the string
         return preg_replace_callback('/'.self::REGEX_ESCAPED_CHARACTER.'/u', $callback, $value);
@@ -60,6 +64,7 @@ class Unescaper
      */
     private function unescapeCharacter(string $value): string
     {
+<<<<<<< HEAD
         switch ($value[1]) {
             case '0':
                 return "\x0";
@@ -110,6 +115,36 @@ class Unescaper
             default:
                 throw new ParseException(sprintf('Found unknown escape character "%s".', $value));
         }
+=======
+        return match ($value[1]) {
+            '0' => "\x0",
+            'a' => "\x7",
+            'b' => "\x8",
+            't' => "\t",
+            "\t" => "\t",
+            'n' => "\n",
+            'v' => "\xB",
+            'f' => "\xC",
+            'r' => "\r",
+            'e' => "\x1B",
+            ' ' => ' ',
+            '"' => '"',
+            '/' => '/',
+            '\\' => '\\',
+            // U+0085 NEXT LINE
+            'N' => "\xC2\x85",
+            // U+00A0 NO-BREAK SPACE
+            '_' => "\xC2\xA0",
+            // U+2028 LINE SEPARATOR
+            'L' => "\xE2\x80\xA8",
+            // U+2029 PARAGRAPH SEPARATOR
+            'P' => "\xE2\x80\xA9",
+            'x' => self::utf8chr(hexdec(substr($value, 2, 2))),
+            'u' => self::utf8chr(hexdec(substr($value, 2, 4))),
+            'U' => self::utf8chr(hexdec(substr($value, 2, 8))),
+            default => throw new ParseException(sprintf('Found unknown escape character "%s".', $value)),
+        };
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**

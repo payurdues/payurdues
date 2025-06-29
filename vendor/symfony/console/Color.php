@@ -117,6 +117,7 @@ final class Color
         }
 
         if ('#' === $color[0]) {
+<<<<<<< HEAD
             $color = substr($color, 1);
 
             if (3 === \strlen($color)) {
@@ -128,6 +129,9 @@ final class Color
             }
 
             return ($background ? '4' : '3').$this->convertHexColorToAnsi(hexdec($color));
+=======
+            return ($background ? '4' : '3').Terminal::getColorMode()->convertFromHexToAnsiColorCode($color);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         }
 
         if (isset(self::COLORS[$color])) {
@@ -140,6 +144,7 @@ final class Color
 
         throw new InvalidArgumentException(sprintf('Invalid "%s" color; expected one of (%s).', $color, implode(', ', array_merge(array_keys(self::COLORS), array_keys(self::BRIGHT_COLORS)))));
     }
+<<<<<<< HEAD
 
     private function convertHexColorToAnsi(int $color): string
     {
@@ -177,4 +182,6 @@ final class Color
 
         return (int) $diff * 100 / $v;
     }
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 }

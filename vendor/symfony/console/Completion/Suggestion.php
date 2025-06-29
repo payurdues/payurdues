@@ -16,6 +16,7 @@ namespace Symfony\Component\Console\Completion;
  *
  * @author Wouter de Jong <wouter@wouterj.nl>
  */
+<<<<<<< HEAD
 class Suggestion
 {
     private string $value;
@@ -23,6 +24,14 @@ class Suggestion
     public function __construct(string $value)
     {
         $this->value = $value;
+=======
+class Suggestion implements \Stringable
+{
+    public function __construct(
+        private readonly string $value,
+        private readonly string $description = ''
+    ) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     public function getValue(): string
@@ -30,6 +39,14 @@ class Suggestion
         return $this->value;
     }
 
+<<<<<<< HEAD
+=======
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function __toString(): string
     {
         return $this->getValue();

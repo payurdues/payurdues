@@ -21,12 +21,20 @@ namespace Symfony\Component\HttpFoundation\Session\Storage\Handler;
  */
 class MemcachedSessionHandler extends AbstractSessionHandler
 {
+<<<<<<< HEAD
     private $memcached;
+=======
+    private \Memcached $memcached;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Time to live in seconds.
      */
+<<<<<<< HEAD
     private ?int $ttl;
+=======
+    private int|\Closure|null $ttl;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /**
      * Key prefix for shared environments.
@@ -59,32 +67,48 @@ class MemcachedSessionHandler extends AbstractSessionHandler
         return $this->memcached->quit();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function doRead(string $sessionId): string
+=======
+    protected function doRead(#[\SensitiveParameter] string $sessionId): string
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->memcached->get($this->prefix.$sessionId) ?: '';
     }
 
+<<<<<<< HEAD
     public function updateTimestamp(string $sessionId, string $data): bool
+=======
+    public function updateTimestamp(#[\SensitiveParameter] string $sessionId, string $data): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->memcached->touch($this->prefix.$sessionId, $this->getCompatibleTtl());
 
         return true;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function doWrite(string $sessionId, string $data): bool
+=======
+    protected function doWrite(#[\SensitiveParameter] string $sessionId, string $data): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         return $this->memcached->set($this->prefix.$sessionId, $data, $this->getCompatibleTtl());
     }
 
     private function getCompatibleTtl(): int
     {
+<<<<<<< HEAD
         $ttl = (int) ($this->ttl ?? \ini_get('session.gc_maxlifetime'));
+=======
+        $ttl = ($this->ttl instanceof \Closure ? ($this->ttl)() : $this->ttl) ?? \ini_get('session.gc_maxlifetime');
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         // If the relative TTL that is used exceeds 30 days, memcached will treat the value as Unix time.
         // We have to convert it to an absolute Unix time at this point, to make sure the TTL is correct.
@@ -95,10 +119,14 @@ class MemcachedSessionHandler extends AbstractSessionHandler
         return $ttl;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     protected function doDestroy(string $sessionId): bool
+=======
+    protected function doDestroy(#[\SensitiveParameter] string $sessionId): bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $result = $this->memcached->delete($this->prefix.$sessionId);
 

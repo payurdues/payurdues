@@ -21,7 +21,11 @@ use Symfony\Component\Translation\TranslatorBagInterface;
  */
 class FilteringProvider implements ProviderInterface
 {
+<<<<<<< HEAD
     private $provider;
+=======
+    private ProviderInterface $provider;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     private array $locales;
     private array $domains;
 
@@ -37,9 +41,12 @@ class FilteringProvider implements ProviderInterface
         return (string) $this->provider;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function write(TranslatorBagInterface $translatorBag): void
     {
         $this->provider->write($translatorBag);

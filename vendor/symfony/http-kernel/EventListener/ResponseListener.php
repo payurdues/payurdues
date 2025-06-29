@@ -36,7 +36,11 @@ class ResponseListener implements EventSubscriberInterface
     /**
      * Filters the Response.
      */
+<<<<<<< HEAD
     public function onKernelResponse(ResponseEvent $event)
+=======
+    public function onKernelResponse(ResponseEvent $event): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!$event->isMainRequest()) {
             return;

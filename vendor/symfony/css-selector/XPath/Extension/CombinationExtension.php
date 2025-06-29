@@ -25,6 +25,7 @@ use Symfony\Component\CssSelector\XPath\XPathExpr;
  */
 class CombinationExtension extends AbstractExtension
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
@@ -35,6 +36,15 @@ class CombinationExtension extends AbstractExtension
             '>' => [$this, 'translateChild'],
             '+' => [$this, 'translateDirectAdjacent'],
             '~' => [$this, 'translateIndirectAdjacent'],
+=======
+    public function getCombinationTranslators(): array
+    {
+        return [
+            ' ' => $this->translateDescendant(...),
+            '>' => $this->translateChild(...),
+            '+' => $this->translateDirectAdjacent(...),
+            '~' => $this->translateIndirectAdjacent(...),
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         ];
     }
 
@@ -61,9 +71,12 @@ class CombinationExtension extends AbstractExtension
         return $xpath->join('/following-sibling::', $combinedXpath);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'combination';

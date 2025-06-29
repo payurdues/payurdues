@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpKernel;
 
+<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -105,5 +106,19 @@ class UriSigner
         $fragment = isset($url['fragment']) ? '#'.$url['fragment'] : '';
 
         return $scheme.$user.$pass.$host.$port.$path.$query.$fragment;
+=======
+use Symfony\Component\HttpFoundation\UriSigner as HttpFoundationUriSigner;
+
+trigger_deprecation('symfony/http-kernel', '6.4', 'The "%s" class is deprecated, use "%s" instead.', UriSigner::class, HttpFoundationUriSigner::class);
+
+class_exists(HttpFoundationUriSigner::class);
+
+if (false) {
+    /**
+     * @deprecated since Symfony 6.4, to be removed in 7.0, use {@link HttpFoundationUriSigner} instead
+     */
+    class UriSigner extends HttpFoundationUriSigner
+    {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

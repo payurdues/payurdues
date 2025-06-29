@@ -74,9 +74,12 @@ class FormatterHelper extends Helper
         return self::substr($message, 0, $length).$suffix;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'formatter';

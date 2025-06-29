@@ -35,8 +35,11 @@ class RouteCompiler implements RouteCompilerInterface
     public const VARIABLE_MAXIMUM_LENGTH = 32;
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      * @throws \InvalidArgumentException if a path variable is named _fragment
      * @throws \LogicException           if a variable is referenced more than once
      * @throws \DomainException          if a variable name starts with a digit or if it is too long to be successfully used as
@@ -117,7 +120,11 @@ class RouteCompiler implements RouteCompilerInterface
 
         // Match all variables enclosed in "{}" and iterate over them. But we only want to match the innermost variable
         // in case of nested "{}", e.g. {foo{bar}}. This in ensured because \w does not match "{" or "}" itself.
+<<<<<<< HEAD
         preg_match_all('#\{(!)?(\w+)\}#', $pattern, $matches, \PREG_OFFSET_CAPTURE | \PREG_SET_ORDER);
+=======
+        preg_match_all('#\{(!)?([\w\x80-\xFF]+)\}#', $pattern, $matches, \PREG_OFFSET_CAPTURE | \PREG_SET_ORDER);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         foreach ($matches as $match) {
             $important = $match[1][1] >= 0;
             $varName = $match[2][0];
@@ -170,7 +177,11 @@ class RouteCompiler implements RouteCompilerInterface
                     preg_quote($defaultSeparator),
                     $defaultSeparator !== $nextSeparator && '' !== $nextSeparator ? preg_quote($nextSeparator) : ''
                 );
+<<<<<<< HEAD
                 if (('' !== $nextSeparator && !preg_match('#^\{\w+\}#', $followingPattern)) || '' === $followingPattern) {
+=======
+                if (('' !== $nextSeparator && !preg_match('#^\{[\w\x80-\xFF]+\}#', $followingPattern)) || '' === $followingPattern) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                     // When we have a separator, which is disallowed for the variable, we can optimize the regex with a possessive
                     // quantifier. This prevents useless backtracking of PCRE and improves performance by 20% for matching those patterns.
                     // Given the above example, there is no point in backtracking into {page} (that forbids the dot) when a dot must follow
@@ -271,7 +282,11 @@ class RouteCompiler implements RouteCompilerInterface
             return '';
         }
         // first remove all placeholders from the pattern so we can find the next real static character
+<<<<<<< HEAD
         if ('' === $pattern = preg_replace('#\{\w+\}#', '', $pattern)) {
+=======
+        if ('' === $pattern = preg_replace('#\{[\w\x80-\xFF]+\}#', '', $pattern)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return '';
         }
         if ($useUtf8) {

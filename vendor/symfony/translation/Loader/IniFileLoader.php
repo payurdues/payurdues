@@ -18,9 +18,12 @@ namespace Symfony\Component\Translation\Loader;
  */
 class IniFileLoader extends FileLoader
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected function loadResource(string $resource): array
     {
         return parse_ini_file($resource, true);

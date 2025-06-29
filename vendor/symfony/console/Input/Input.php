@@ -28,12 +28,20 @@ use Symfony\Component\Console\Exception\RuntimeException;
 abstract class Input implements InputInterface, StreamableInputInterface
 {
     protected $definition;
+<<<<<<< HEAD
+=======
+    /** @var resource */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     protected $stream;
     protected $options = [];
     protected $arguments = [];
     protected $interactive = true;
 
+<<<<<<< HEAD
     public function __construct(InputDefinition $definition = null)
+=======
+    public function __construct(?InputDefinition $definition = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null === $definition) {
             $this->definition = new InputDefinition();
@@ -44,7 +52,11 @@ abstract class Input implements InputInterface, StreamableInputInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function bind(InputDefinition $definition)
     {
@@ -57,53 +69,79 @@ abstract class Input implements InputInterface, StreamableInputInterface
 
     /**
      * Processes command line arguments.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     abstract protected function parse();
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function validate()
     {
         $definition = $this->definition;
         $givenArguments = $this->arguments;
 
+<<<<<<< HEAD
         $missingArguments = array_filter(array_keys($definition->getArguments()), function ($argument) use ($definition, $givenArguments) {
             return !\array_key_exists($argument, $givenArguments) && $definition->getArgument($argument)->isRequired();
         });
+=======
+        $missingArguments = array_filter(array_keys($definition->getArguments()), fn ($argument) => !\array_key_exists($argument, $givenArguments) && $definition->getArgument($argument)->isRequired());
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if (\count($missingArguments) > 0) {
             throw new RuntimeException(sprintf('Not enough arguments (missing: "%s").', implode(', ', $missingArguments)));
         }
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function isInteractive(): bool
     {
         return $this->interactive;
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setInteractive(bool $interactive)
     {
         $this->interactive = $interactive;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getArguments(): array
     {
         return array_merge($this->definition->getArgumentDefaults(), $this->arguments);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getArgument(string $name): mixed
     {
         if (!$this->definition->hasArgument($name)) {
@@ -114,7 +152,11 @@ abstract class Input implements InputInterface, StreamableInputInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setArgument(string $name, mixed $value)
     {
@@ -125,25 +167,34 @@ abstract class Input implements InputInterface, StreamableInputInterface
         $this->arguments[$name] = $value;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function hasArgument(string $name): bool
     {
         return $this->definition->hasArgument($name);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getOptions(): array
     {
         return array_merge($this->definition->getOptionDefaults(), $this->options);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getOption(string $name): mixed
     {
         if ($this->definition->hasNegation($name)) {
@@ -162,7 +213,11 @@ abstract class Input implements InputInterface, StreamableInputInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setOption(string $name, mixed $value)
     {
@@ -177,9 +232,12 @@ abstract class Input implements InputInterface, StreamableInputInterface
         $this->options[$name] = $value;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function hasOption(string $name): bool
     {
         return $this->definition->hasOption($name) || $this->definition->hasNegation($name);
@@ -194,7 +252,13 @@ abstract class Input implements InputInterface, StreamableInputInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @param resource $stream
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function setStream($stream)
     {
@@ -202,7 +266,11 @@ abstract class Input implements InputInterface, StreamableInputInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
+=======
+     * @return resource
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function getStream()
     {

@@ -43,6 +43,12 @@ class XmlReaderCaster
         \XMLReader::XML_DECLARATION => 'XML_DECLARATION',
     ];
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castXmlReader(\XMLReader $reader, array $a, Stub $stub, bool $isNested)
     {
         try {
@@ -52,7 +58,11 @@ class XmlReaderCaster
                 'VALIDATE' => @$reader->getParserProperty(\XMLReader::VALIDATE),
                 'SUBST_ENTITIES' => @$reader->getParserProperty(\XMLReader::SUBST_ENTITIES),
             ];
+<<<<<<< HEAD
         } catch (\Error $e) {
+=======
+        } catch (\Error) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $properties = [
                 'LOADDTD' => false,
                 'DEFAULTATTRS' => false,
@@ -82,6 +92,10 @@ class XmlReaderCaster
             $info[$props]->cut = $count;
         }
 
+<<<<<<< HEAD
+=======
+        $a = Caster::filter($a, Caster::EXCLUDE_UNINITIALIZED, [], $count);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
         $info = Caster::filter($info, Caster::EXCLUDE_EMPTY, [], $count);
         // +2 because hasValue and hasAttributes are always filtered
         $stub->cut += $count + 2;

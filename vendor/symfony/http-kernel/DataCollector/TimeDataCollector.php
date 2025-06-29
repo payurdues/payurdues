@@ -24,6 +24,7 @@ use Symfony\Component\Stopwatch\StopwatchEvent;
  */
 class TimeDataCollector extends DataCollector implements LateDataCollectorInterface
 {
+<<<<<<< HEAD
     private $kernel;
     private $stopwatch;
 
@@ -37,6 +38,19 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
      * {@inheritdoc}
      */
     public function collect(Request $request, Response $response, \Throwable $exception = null)
+=======
+    private ?KernelInterface $kernel;
+    private ?Stopwatch $stopwatch;
+
+    public function __construct(?KernelInterface $kernel = null, ?Stopwatch $stopwatch = null)
+    {
+        $this->kernel = $kernel;
+        $this->stopwatch = $stopwatch;
+        $this->data = ['events' => [], 'stopwatch_installed' => false, 'start_time' => 0];
+    }
+
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null !== $this->kernel) {
             $startTime = $this->kernel->getStartTime();
@@ -52,6 +66,7 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
         ];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
@@ -68,6 +83,16 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
      * {@inheritdoc}
      */
     public function lateCollect()
+=======
+    public function reset(): void
+    {
+        $this->data = ['events' => [], 'stopwatch_installed' => false, 'start_time' => 0];
+
+        $this->stopwatch?->reset();
+    }
+
+    public function lateCollect(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (null !== $this->stopwatch && isset($this->data['token'])) {
             $this->setEvents($this->stopwatch->getSectionEvents($this->data['token']));
@@ -78,7 +103,11 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
     /**
      * @param StopwatchEvent[] $events The request events
      */
+<<<<<<< HEAD
     public function setEvents(array $events)
+=======
+    public function setEvents(array $events): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         foreach ($events as $event) {
             $event->ensureStopped();
@@ -133,9 +162,12 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
         return $this->data['stopwatch_installed'];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'time';

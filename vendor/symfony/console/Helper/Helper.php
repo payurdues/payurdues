@@ -21,6 +21,7 @@ use Symfony\Component\String\UnicodeString;
  */
 abstract class Helper implements HelperInterface
 {
+<<<<<<< HEAD
     protected $helperSet = null;
 
     /**
@@ -34,6 +35,21 @@ abstract class Helper implements HelperInterface
     /**
      * {@inheritdoc}
      */
+=======
+    protected $helperSet;
+
+    /**
+     * @return void
+     */
+    public function setHelperSet(?HelperSet $helperSet = null)
+    {
+        if (1 > \func_num_args()) {
+            trigger_deprecation('symfony/console', '6.2', 'Calling "%s()" without any arguments is deprecated, pass null explicitly instead.', __METHOD__);
+        }
+        $this->helperSet = $helperSet;
+    }
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getHelperSet(): ?HelperSet
     {
         return $this->helperSet;
@@ -45,7 +61,11 @@ abstract class Helper implements HelperInterface
      */
     public static function width(?string $string): int
     {
+<<<<<<< HEAD
         $string ?? $string = '';
+=======
+        $string ??= '';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if (preg_match('//u', $string)) {
             return (new UnicodeString($string))->width(false);
@@ -64,7 +84,11 @@ abstract class Helper implements HelperInterface
      */
     public static function length(?string $string): int
     {
+<<<<<<< HEAD
         $string ?? $string = '';
+=======
+        $string ??= '';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if (preg_match('//u', $string)) {
             return (new UnicodeString($string))->length();
@@ -80,9 +104,15 @@ abstract class Helper implements HelperInterface
     /**
      * Returns the subset of a string, using mb_substr if it is available.
      */
+<<<<<<< HEAD
     public static function substr(?string $string, int $from, int $length = null): string
     {
         $string ?? $string = '';
+=======
+    public static function substr(?string $string, int $from, ?int $length = null): string
+    {
+        $string ??= '';
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
         if (false === $encoding = mb_detect_encoding($string, null, true)) {
             return substr($string, $from, $length);
@@ -91,6 +121,7 @@ abstract class Helper implements HelperInterface
         return mb_substr($string, $from, $length, $encoding);
     }
 
+<<<<<<< HEAD
     public static function formatTime(int|float $secs)
     {
         static $timeFormats = [
@@ -120,6 +151,54 @@ abstract class Helper implements HelperInterface
         }
     }
 
+=======
+    /**
+     * @return string
+     */
+    public static function formatTime(int|float $secs, int $precision = 1)
+    {
+        $secs = (int) floor($secs);
+
+        if (0 === $secs) {
+            return '< 1 sec';
+        }
+
+        static $timeFormats = [
+            [1, '1 sec', 'secs'],
+            [60, '1 min', 'mins'],
+            [3600, '1 hr', 'hrs'],
+            [86400, '1 day', 'days'],
+        ];
+
+        $times = [];
+        foreach ($timeFormats as $index => $format) {
+            $seconds = isset($timeFormats[$index + 1]) ? $secs % $timeFormats[$index + 1][0] : $secs;
+
+            if (isset($times[$index - $precision])) {
+                unset($times[$index - $precision]);
+            }
+
+            if (0 === $seconds) {
+                continue;
+            }
+
+            $unitCount = ($seconds / $format[0]);
+            $times[$index] = 1 === $unitCount ? $format[1] : $unitCount.' '.$format[2];
+
+            if ($secs === $seconds) {
+                break;
+            }
+
+            $secs -= $seconds;
+        }
+
+        return implode(', ', array_reverse($times));
+    }
+
+    /**
+     * @return string
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function formatMemory(int $memory)
     {
         if ($memory >= 1024 * 1024 * 1024) {
@@ -137,6 +216,12 @@ abstract class Helper implements HelperInterface
         return sprintf('%d B', $memory);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return string
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function removeDecoration(OutputFormatterInterface $formatter, ?string $string)
     {
         $isDecorated = $formatter->isDecorated();

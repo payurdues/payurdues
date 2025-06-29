@@ -19,7 +19,11 @@ namespace Symfony\Component\Process;
  */
 class PhpExecutableFinder
 {
+<<<<<<< HEAD
     private $executableFinder;
+=======
+    private ExecutableFinder $executableFinder;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public function __construct()
     {
@@ -32,6 +36,7 @@ class PhpExecutableFinder
     public function find(bool $includeArgs = true): string|false
     {
         if ($php = getenv('PHP_BINARY')) {
+<<<<<<< HEAD
             if (!is_executable($php)) {
                 $command = '\\' === \DIRECTORY_SEPARATOR ? 'where' : 'command -v';
                 if ($php = strtok(exec($command.' '.escapeshellarg($php)), \PHP_EOL)) {
@@ -41,6 +46,10 @@ class PhpExecutableFinder
                 } else {
                     return false;
                 }
+=======
+            if (!is_executable($php) && !$php = $this->executableFinder->find($php)) {
+                return false;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
 
             if (@is_dir($php)) {
@@ -54,7 +63,11 @@ class PhpExecutableFinder
         $args = $includeArgs && $args ? ' '.implode(' ', $args) : '';
 
         // PHP_BINARY return the current sapi executable
+<<<<<<< HEAD
         if (\PHP_BINARY && \in_array(\PHP_SAPI, ['cgi-fcgi', 'cli', 'cli-server', 'phpdbg'], true)) {
+=======
+        if (\PHP_BINARY && \in_array(\PHP_SAPI, ['cli', 'cli-server', 'phpdbg'], true)) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             return \PHP_BINARY.$args;
         }
 

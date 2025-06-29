@@ -33,7 +33,11 @@ abstract class ObjectLoader extends Loader
     /**
      * Calls the object method that will load the routes.
      */
+<<<<<<< HEAD
     public function load(mixed $resource, string $type = null): RouteCollection
+=======
+    public function load(mixed $resource, ?string $type = null): RouteCollection
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         if (!preg_match('/^[^\:]+(?:::(?:[^\:]+))?$/', $resource)) {
             throw new \InvalidArgumentException(sprintf('Invalid resource "%s" passed to the %s route loader: use the format "object_id::method" or "object_id" if your object class has an "__invoke" method.', $resource, \is_string($type) ? '"'.$type.'"' : 'object'));
@@ -66,7 +70,11 @@ abstract class ObjectLoader extends Loader
         return $routeCollection;
     }
 
+<<<<<<< HEAD
     private function addClassResource(\ReflectionClass $class, RouteCollection $collection)
+=======
+    private function addClassResource(\ReflectionClass $class, RouteCollection $collection): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         do {
             if (is_file($class->getFileName())) {

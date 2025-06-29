@@ -11,6 +11,11 @@
 
 namespace Symfony\Component\VarDumper\Cloner;
 
+<<<<<<< HEAD
+=======
+use Symfony\Component\VarDumper\Cloner\Internal\NoDefault;
+
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 /**
  * Represents the main properties of a PHP variable.
  *
@@ -23,6 +28,10 @@ class Stub
     public const TYPE_ARRAY = 3;
     public const TYPE_OBJECT = 4;
     public const TYPE_RESOURCE = 5;
+<<<<<<< HEAD
+=======
+    public const TYPE_SCALAR = 6;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     public const STRING_BINARY = 1;
     public const STRING_UTF8 = 2;
@@ -49,15 +58,31 @@ class Stub
         $properties = [];
 
         if (!isset(self::$defaultProperties[$c = static::class])) {
+<<<<<<< HEAD
             self::$defaultProperties[$c] = get_class_vars($c);
 
             foreach ((new \ReflectionClass($c))->getStaticProperties() as $k => $v) {
                 unset(self::$defaultProperties[$c][$k]);
+=======
+            $reflection = new \ReflectionClass($c);
+            self::$defaultProperties[$c] = [];
+
+            foreach ($reflection->getProperties() as $p) {
+                if ($p->isStatic()) {
+                    continue;
+                }
+
+                self::$defaultProperties[$c][$p->name] = $p->hasDefaultValue() ? $p->getDefaultValue() : ($p->hasType() ? NoDefault::NoDefault : null);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
         }
 
         foreach (self::$defaultProperties[$c] as $k => $v) {
+<<<<<<< HEAD
             if ($this->$k !== $v) {
+=======
+            if (NoDefault::NoDefault === $v || $this->$k !== $v) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
                 $properties[] = $k;
             }
         }

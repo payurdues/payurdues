@@ -23,10 +23,17 @@ namespace Symfony\Component\CssSelector\Node;
  */
 class SelectorNode extends AbstractNode
 {
+<<<<<<< HEAD
     private $tree;
     private ?string $pseudoElement;
 
     public function __construct(NodeInterface $tree, string $pseudoElement = null)
+=======
+    private NodeInterface $tree;
+    private ?string $pseudoElement;
+
+    public function __construct(NodeInterface $tree, ?string $pseudoElement = null)
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->tree = $tree;
         $this->pseudoElement = $pseudoElement ? strtolower($pseudoElement) : null;
@@ -42,9 +49,12 @@ class SelectorNode extends AbstractNode
         return $this->pseudoElement;
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getSpecificity(): Specificity
     {
         return $this->tree->getSpecificity()->plus(new Specificity(0, 0, $this->pseudoElement ? 1 : 0));

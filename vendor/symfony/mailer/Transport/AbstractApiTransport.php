@@ -37,10 +37,19 @@ abstract class AbstractApiTransport extends AbstractHttpTransport
         return $this->doSendApi($message, $email, $message->getEnvelope());
     }
 
+<<<<<<< HEAD
     protected function getRecipients(Email $email, Envelope $envelope): array
     {
         return array_filter($envelope->getRecipients(), function (Address $address) use ($email) {
             return false === \in_array($address, array_merge($email->getCc(), $email->getBcc()), true);
         });
+=======
+    /**
+     * @return Address[]
+     */
+    protected function getRecipients(Email $email, Envelope $envelope): array
+    {
+        return array_filter($envelope->getRecipients(), fn (Address $address) => false === \in_array($address, array_merge($email->getCc(), $email->getBcc()), true));
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

@@ -59,6 +59,12 @@ class PdoCaster
         ],
     ];
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castPdo(\PDO $c, array $a, Stub $stub, bool $isNested)
     {
         $attr = [];
@@ -76,7 +82,11 @@ class PdoCaster
                 if ($v && isset($v[$attr[$k]])) {
                     $attr[$k] = new ConstStub($v[$attr[$k]], $attr[$k]);
                 }
+<<<<<<< HEAD
             } catch (\Exception $e) {
+=======
+            } catch (\Exception) {
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             }
         }
         if (isset($attr[$k = 'STATEMENT_CLASS'][1])) {
@@ -108,6 +118,12 @@ class PdoCaster
         return $a;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array
+     */
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public static function castPdoStatement(\PDOStatement $c, array $a, Stub $stub, bool $isNested)
     {
         $prefix = Caster::PREFIX_VIRTUAL;

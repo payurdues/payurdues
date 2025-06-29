@@ -22,6 +22,7 @@ use Symfony\Component\Process\Exception\RuntimeException;
  */
 class InputStream implements \IteratorAggregate
 {
+<<<<<<< HEAD
     /** @var callable|null */
     private $onEmpty = null;
     private $input = [];
@@ -33,6 +34,20 @@ class InputStream implements \IteratorAggregate
     public function onEmpty(callable $onEmpty = null)
     {
         $this->onEmpty = $onEmpty;
+=======
+    private ?\Closure $onEmpty = null;
+    private array $input = [];
+    private bool $open = true;
+
+    /**
+     * Sets a callback that is called when the write buffer becomes empty.
+     *
+     * @return void
+     */
+    public function onEmpty(?callable $onEmpty = null)
+    {
+        $this->onEmpty = null !== $onEmpty ? $onEmpty(...) : null;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 
     /**
@@ -40,6 +55,11 @@ class InputStream implements \IteratorAggregate
      *
      * @param resource|string|int|float|bool|\Traversable|null $input The input to append as scalar,
      *                                                                stream resource or \Traversable
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function write(mixed $input)
     {
@@ -54,6 +74,11 @@ class InputStream implements \IteratorAggregate
 
     /**
      * Closes the write buffer.
+<<<<<<< HEAD
+=======
+     *
+     * @return void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function close()
     {
@@ -62,6 +87,11 @@ class InputStream implements \IteratorAggregate
 
     /**
      * Tells whether the write buffer is closed or not.
+<<<<<<< HEAD
+=======
+     *
+     * @return bool
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
      */
     public function isClosed()
     {

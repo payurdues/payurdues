@@ -26,18 +26,26 @@ class MemoryDataCollector extends DataCollector implements LateDataCollectorInte
         $this->reset();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function collect(Request $request, Response $response, \Throwable $exception = null)
+=======
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->updateMemoryUsage();
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function reset()
+=======
+    public function reset(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->data = [
             'memory' => 0,
@@ -45,10 +53,14 @@ class MemoryDataCollector extends DataCollector implements LateDataCollectorInte
         ];
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
     public function lateCollect()
+=======
+    public function lateCollect(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->updateMemoryUsage();
     }
@@ -63,14 +75,21 @@ class MemoryDataCollector extends DataCollector implements LateDataCollectorInte
         return $this->data['memory_limit'];
     }
 
+<<<<<<< HEAD
     public function updateMemoryUsage()
+=======
+    public function updateMemoryUsage(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this->data['memory'] = memory_get_peak_usage(true);
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function getName(): string
     {
         return 'memory';

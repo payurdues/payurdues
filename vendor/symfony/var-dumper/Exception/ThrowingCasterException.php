@@ -21,6 +21,10 @@ class ThrowingCasterException extends \Exception
      */
     public function __construct(\Throwable $prev)
     {
+<<<<<<< HEAD
         parent::__construct('Unexpected '.\get_class($prev).' thrown from a caster: '.$prev->getMessage(), 0, $prev);
+=======
+        parent::__construct('Unexpected '.$prev::class.' thrown from a caster: '.$prev->getMessage(), 0, $prev);
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     }
 }

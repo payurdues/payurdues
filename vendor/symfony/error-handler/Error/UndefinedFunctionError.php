@@ -13,9 +13,12 @@ namespace Symfony\Component\ErrorHandler\Error;
 
 class UndefinedFunctionError extends \Error
 {
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     public function __construct(string $message, \Throwable $previous)
     {
         parent::__construct($message, $previous->getCode(), $previous->getPrevious());
@@ -26,7 +29,10 @@ class UndefinedFunctionError extends \Error
             'trace' => $previous->getTrace(),
         ] as $property => $value) {
             $refl = new \ReflectionProperty(\Error::class, $property);
+<<<<<<< HEAD
             $refl->setAccessible(true);
+=======
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
             $refl->setValue($this, $value);
         }
     }

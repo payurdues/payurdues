@@ -38,7 +38,11 @@ use Symfony\Component\VarDumper\Server\DumpServer;
 #[AsCommand(name: 'server:dump', description: 'Start a dump server that collects and displays dumps in a single place')]
 class ServerDumpCommand extends Command
 {
+<<<<<<< HEAD
     private $server;
+=======
+    private DumpServer $server;
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
 
     /** @var DumpDescriptorInterface[] */
     private array $descriptors;
@@ -54,7 +58,11 @@ class ServerDumpCommand extends Command
         parent::__construct();
     }
 
+<<<<<<< HEAD
     protected function configure()
+=======
+    protected function configure(): void
+>>>>>>> 4c2526d8c3461b141e11c9b74940c69c0053e8f5
     {
         $this
             ->addOption('format', null, InputOption::VALUE_REQUIRED, sprintf('The output format (%s)', implode(', ', $this->getAvailableFormats())), 'cli')
