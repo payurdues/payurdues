@@ -36,6 +36,9 @@ class Association extends Authenticatable implements AuthenticatableContract
     ];
 
 
-
+    public function elections()
+    {
+        return $this->hasMany(Election::class);
+    }
     //protected $guarded = [];
 }

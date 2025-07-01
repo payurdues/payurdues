@@ -38,8 +38,8 @@ class DashboardController extends Controller
 
         $Due = json_decode($Duee->payable_faculties, true);
         }
-      //  $students= Student::where('faculty',$Due)->get();
-        $students= Student::where('association_id',$association_id)->get();
+       $students= Student::where('faculty',$Due)->get();
+        // $students= Student::where('association_id',$association_id)->get();
 
         $duesCount =Due::where('association_id',$association_id)->count();
 

@@ -1,17 +1,23 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssociationController;
+use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DuesController;
 use App\Http\Controllers\DueController;
+use App\Http\Controllers\DuesController;
+use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\FlutterwaveTransaction;
 use App\Http\Controllers\MembersController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\WaitingListController;
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+
+
+
 
 
 
@@ -110,7 +116,25 @@ Route::middleware(['auth:association'])->group(function () {
 
     Route::post('/students/import', [MembersController::class, 'import'])->name('students.import');
 
-    //Route::get('members', [MembersController::class, 'index'])->name('members');
+ 
+      // Route for listing elections (index)
+    Route::get('voting', [ElectionController::class, 'index'])->name('election_index');
+
+    // Route for showing a specific election
+    Route::get('/Create/election', [ElectionController::class, 'create'])->name('create_election');
+    //  Route::get('/Create/category', [ElectionController::class, 'create_category'])->name('create_category');
+
+    Route::post('/Election/store', [ElectionController::class, 'store'])->name('elections.store');
+
+    // Route::get('/Elections/{election}', [ElectionController::class, 'show'])->name('elections.show');
+
+    Route::get('/elections/{election}', [ElectionController::class, 'show'])->name('elections.show');
+
+    Route::resource('categories', CategoryController::class);
+
+    Route::post('/candidates/store', [CandidateController::class, 'store'])->name('candidates.store');
+
+
 
 });
 
