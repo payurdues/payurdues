@@ -1233,9 +1233,13 @@ section {
     position: relative;
     width: 100%;
     aspect-ratio: 3 / 4;
-    overflow: hidden;
     background-color: #fff;
-    
+    overflow: hidden;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
 }
 
 .square-image-container img {
@@ -1243,4 +1247,50 @@ section {
     height: 100%;
     object-fit: cover;
     object-position: top center;
+}
+
+.candidate-option {
+    margin-top: 0;
+}
+
+.candidate-name {
+    font-size: 110%;
+    margin-top: 6px;
+    line-height: 110%;
+}
+
+.candidate.winner .candidate-name {
+    font-weight: 600;
+}
+
+.candidate-name span {
+    line-height: 100%;
+}
+
+
+.candidate-option.selected .square-image-container {
+    border: 2px solid var(--pColor);
+    
+}
+
+.candidate-option.selected .square-image-container img {
+  border: 2px solid var(--pColor) !important;
+  transform: scale(1.22);
+  transition: 0.3s ease;
+  cursor: pointer;
+  -webkit-transform: scale(1.22);
+  -moz-transform: scale(1.22);
+  -ms-transform: scale(1.22);
+  -o-transform: scale(1.22);
+}
+
+.candidate-option.selected::after {
+    content: none;
+}
+
+.candidate.winner .candidate-name,
+.candidate-option.selected .candidate-name {
+    background: linear-gradient(to bottom, var(--gradient)); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;    
 }

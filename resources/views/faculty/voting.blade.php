@@ -43,12 +43,12 @@
 
                                 <div class="d-flex justify-content-between align-items-center gap-3">
                                     <p class="fw-bold">Category</p>
-                                    <p class="text-end">{{ $election->category->name ?? 'N/A' }}</p>
+                                    <p class="text-end">{{ $election->categories->count() ?? 'N/A' }}</p>
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center gap-3">
                                     <p class="fw-bold">Contestant</p>
-                                    <p class="text-end">{{ $election->contestants_count ?? '0' }}</p>
+                                    <p class="text-end">{{ $election->candidates->count() ?? '0' }}</p>
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center gap-3">
@@ -95,12 +95,12 @@
 
                                 <div class="d-flex justify-content-between align-items-center gap-3">
                                     <p class="fw-bold">Category</p>
-                                    <p class="text-end">{{ $election->category->name ?? 'N/A' }}</p>
+                                    <p class="text-end">{{ $election->categories->count() ?? 'N/A' }}</p>
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center gap-3">
                                     <p class="fw-bold">Contestant</p>
-                                    <p class="text-end">{{ $election->contestants_count ?? 0 }}</p>
+                                    <p class="text-end">{{ $election->candidates->count() ?? 0 }}</p>
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center gap-3">

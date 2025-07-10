@@ -13,8 +13,10 @@ use App\Http\Controllers\MembersController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\VoteController;
 use App\Http\Controllers\WaitingListController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -53,6 +55,8 @@ Route::get('/login', [StudentController::class, 'showLoginForm'])->name('login.f
 // Handle login submission
 Route::post('/login', [StudentController::class, 'login'])->name('login');
 
+Route::get('/check-password-set', [StudentController::class, 'checkPasswordSet'])->name('check.password.set');
+
 Route::post('/flw-webhook', [FlutterwaveTransaction::class, 'handleFlutterwaveWebhook']);
 
 Route::post('/payment/callback', [FlutterwaveTransaction::class, 'paymentCallback'])->name('payment.callback');
@@ -65,12 +69,17 @@ Route::middleware(['auth:student'])->group(function () {
     Route::get('/Pay-due', [StudentController::class, 'selectDue'])->name('select.due');
 
     Route::get('/History', [StudentController::class, 'history'])->name('select.history');
-
+    Route::get('/Voting', [ElectionController::class, 'members_index'])->name('members_election_index');
+     Route::get('/Election-Result/{election}', [ElectionController::class, 'viewResult'])->name('election_result');
     Route::post('/flutterwave/bank-transfer', [StudentController::class, 'initiateBankTransfer']);
 
     Route::get('/test-due', [StudentController::class, 'noldselectDue'])->name('test.due');
     Route::get('/select-due', [StudentController::class, 'oldselectDue'])->name('selecssst.due');
     Route::get('/PaymentFassa', [StudentController::class, 'paymentpage'])->name('payment.show');
+
+    Route::get('/student/set-password', [StudentController::class, 'showSetPasswordForm'])->name('student.set.password');
+    Route::post('/student/set-password', [StudentController::class, 'setPassword'])->name('student.save.password');
+
 
     Route::get('/PaymentPROSPECTUS', [StudentController::class, 'paymentpagePROSPECTUS'])->name('PROSPECTUSpayment.show');
 
@@ -79,11 +88,16 @@ Route::middleware(['auth:student'])->group(function () {
     // routes/web.php
     Route::get('/receipt/{trans_id}', [PaymentController::class, 'showReceipt'])->name('receipt.show');
 
+    // memebers.elections.show
 
+    Route::post('/votes', [VoteController::class, 'store'])->name('votes.store');
+
+    Route::get('/Vote/{election}', [ElectionController::class, 'membersShow'])->name('memebers.elections.show');
 
     Route::get('callback', [PaymentController::class, 'callback'])->name('callback');
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('cancel', [PaymentController::class, 'cancel'])->name('cancel');
+
 });
 
 

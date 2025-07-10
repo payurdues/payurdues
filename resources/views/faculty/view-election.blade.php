@@ -66,48 +66,70 @@
                 
                 <div class="row row-cols-1 row-cols-lg-2 justify-content-between g-3 g-md-5">
 
-                    <div class="col">
-                        <div class="accordion" id="categoryAccordion1">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button py-4 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#category1" aria-expanded="true" aria-controls="category1">
-                                    <h4 class="text-color-gradient">President</h4>
-                                    </button>
-                                </h2>
+                   @if ($election->categories->isEmpty())
+                        <div class="text-center my-5 p-4 border border-dashed rounded bg-light">
+                            <h4 class="text-color-gradient mb-3">No Categories or Candidates Yet</h4>
+                            <p class="text-muted">You haven’t added any categories or candidates for the current election.</p>
+                            <p>To begin:</p>
+                            <ul class="list-unstyled mb-3">
+                                <li>➕ Click <strong>Create Category</strong> to define positions like President, Treasurer, etc.</li>
+                                <li>👤 Click <strong>Add Candidate</strong> to assign contestants to a category.</li>
+                            </ul>
 
-                                <div id="category1" class="accordion-collapse collapse" data-bs-parent="#categoryAccordion1">
-                                    <div class="accordion-body">
-                                        <div class="row row-cols-2 g-3">
-                                            
-                                            <div class="col">
-                                                <div class="bg-white mt-3 rounded-4 overflow-hidden">
-                                                    <div class="square-image-container">
-                                                        <img src="../assets/img/candidate-1.jpg" class="rounded-3 img-thumbnail" alt="...">
-                                                    </div>
-                                                    <div class="p-4 pt-0 text-center">
-                                                        <h4 class="text-color-gradient mb-1">Adewale Ayuba</h3>
-                                                        <p class="fs-small fw-light">(AKA Agbawo)</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                            <button class="btn btn-pay-gradient  me-2" data-bs-toggle="modal" data-bs-target="#createCategory">
+                                Create Category
+                            </button>
 
-                                            <div class="col">
-                                                <div class="bg-white mt-3 rounded-4 overflow-hidden">
-                                                    <div class="square-image-container">
-                                                        <img src="../assets/img/candidate-2.jpg" class="rounded-3 img-thumbnail" alt="...">
+                            <button class="btn btn-pay-gradient" data-bs-toggle="modal" data-bs-target="#createCandidate">
+                                Add Candidate
+                            </button>
+                        </div>
+                    @endif
+
+
+
+                    @foreach ($election->categories as $category)
+                        <div class="col mb-4">
+                            <div class="accordion" id="categoryAccordion{{ $category->id }}">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button py-4 collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#category{{ $category->id }}"
+                                                aria-expanded="true"
+                                                aria-controls="category{{ $category->id }}">
+                                            <h4 class="text-color-gradient">{{ $category->name }}</h4>
+                                        </button>
+                                    </h2>
+
+                                    <div id="category{{ $category->id }}"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#categoryAccordion{{ $category->id }}">
+                                        <div class="accordion-body">
+                                            <div class="row row-cols-2 g-3">
+                                                @foreach ($category->candidates as $candidate)
+                                                    <div class="col">
+                                                        <div class="bg-white mt-3 rounded-4 overflow-hidden">
+                                                            <div class="square-image-container">
+                                                                <img src="{{ asset('storage/' . $candidate->image) }}"
+                                                                    class="rounded-3 img-thumbnail" alt="{{ $candidate->full_name }}">
+                                                            </div>
+                                                            <div class="p-4 pt-0 text-center">
+                                                                <h4 class="text-color-gradient mb-1">{{ $candidate->full_name }}</h4>
+                                                                <p class="fs-small fw-light">{{ $candidate->alias }}</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="p-4 pt-0 text-center">
-                                                        <h4 class="text-color-gradient mb-1">Adewale Ayuba</h3>
-                                                        <p class="fs-small fw-light">(AKA Agbawo)</p>
-                                                    </div>
-                                                </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
+            
+
                     
 
                 </div>

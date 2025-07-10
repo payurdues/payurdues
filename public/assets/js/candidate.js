@@ -4,14 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const wrapper = document.getElementById("candidatesWrapper");
     const tableWrapper = document.getElementById("candidateTableWrapper");
     const tableBody = document.querySelector("#candidateTable tbody");
-    const categoryInput = document.getElementById("category_id");
+    const categoryInput = document.getElementById("categoryName");
 
     addBtn.addEventListener("click", (e) => {
         e.preventDefault();
 
         // Ensure category name is filled
         if (!categoryInput.value.trim()) {
-            alert("Please select a Category before adding candidates.");
+            alert("Please fill in the Category Name before adding candidates.");
             return;
         }
 
@@ -41,13 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="p-3 border border-p rounded-3 pt-4">
                 <div class="row">
                 <div class="col-md-6 mb-3">
-                    <input type="text" name="full_name[]" class="form-control full-name" placeholder="Full Name">
+                    <input type="text" class="form-control full-name" placeholder="Full Name">
                 </div>
                 <div class="col-md-6 mb-3">
-                    <input type="text" name="alias[]" class="form-control alias" placeholder="a.k.a">
+                    <input type="text" class="form-control alias" placeholder="a.k.a">
                 </div>
                 <div class="col-12 mb-3">
-                    <input type="file" name="image[]" class="form-control">
+                    <input type="file" class="form-control">
                 </div>
                 </div>
             </div>
