@@ -63,7 +63,7 @@
 
                     <!-- Login Form -->
                     
-                    <form action="{{ route('login') }}" method="POST">
+                    {{-- <form action="{{ route('login') }}" method="POST">
                         @csrf
                         <div class="text-start mb-3">
                             <label for="identifier" class="form-label fw-bold">Matric Number or Form Number</label>
@@ -78,7 +78,29 @@
 
                         <input type="submit" value="Login" class="btn btn-pay-gradient w-100 mt-3 modal-button">
 
+                    </form> --}}
+
+                    <form id="loginForm" action="{{ route('login') }}" method="POST">
+                        @csrf
+
+                        <div class="text-start mb-3">
+                            <label for="identifier" class="form-label fw-bold">Matric Number or Form Number</label>
+                            <input type="text" class="form-control ps-3" name="identifier" id="identifier" placeholder="Matric Number or Form Number" required>
+                        </div>
+
+                        <div id="firstNameGroup" class="text-start mb-3">
+                            <label for="first_name" class="form-label fw-bold">First Name</label>
+                            <input type="text" class="form-control ps-3" name="first_name" id="first_name" placeholder="Enter Your First Name">
+                        </div>
+
+                        <div id="passwordGroup" class="text-start mb-3 d-none">
+                            <label for="password" class="form-label fw-bold">Password</label>
+                            <input type="password" class="form-control ps-3" name="password" id="password" placeholder="Enter Your Password">
+                        </div>
+
+                        <input type="submit" value="Login" class="btn btn-pay-gradient w-100 mt-3 modal-button">
                     </form>
+
                 </div>
             </div>
             <div class="col-4 d-none d-md-block">
@@ -102,6 +124,35 @@
       <!-- Custom JS -->
       <script src="{{asset('assets/js/main.js')}}"></script>
       
-        
+        <script>
+            document.getElementById('identifier').addEventListener('blur', function () {
+                const identifier = this.value;
+
+                if (identifier.trim() !== '') {
+                    fetch(`/check-password-set?identifier=${encodeURIComponent(identifier)}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.password_set) {
+                                // Show password field
+                                document.getElementById('passwordGroup').classList.remove('d-none');
+                                document.getElementById('password').required = true;
+
+                                // Hide first_name field
+                                document.getElementById('firstNameGroup').classList.add('d-none');
+                                document.getElementById('first_name').required = false;
+                            } else {
+                                // Show first_name field
+                                document.getElementById('firstNameGroup').classList.remove('d-none');
+                                document.getElementById('first_name').required = true;
+
+                                // Hide password field
+                                document.getElementById('passwordGroup').classList.add('d-none');
+                                document.getElementById('password').required = false;
+                            }
+                        });
+                }
+            });
+        </script>
+
     </body>
 </html>

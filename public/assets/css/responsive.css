@@ -2,8 +2,11 @@
 
 /* Extra small devices (phones, 576px and down) */
 @media (max-width: 576px) { 
-
-
+   
+    .modal-heading-2.mobile {
+        font-size: 26px;
+        line-height: 110%;
+    }
 }
 
 @media (max-width: 767.98px) {
@@ -33,6 +36,7 @@
         font-size: 14px;
         font-weight: 700;
     }
+
 
     
 

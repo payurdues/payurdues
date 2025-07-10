@@ -7,7 +7,6 @@
 @section('content')
 
     <div class="dashboard-content">
-
         <div class="dashboard-content_balance d-flex flex-wrap flex-md-nowrap gap-3 mb-4" style="box-sizing: border-box;">
 
             <div class="col-lg-4 col-md col-12 balance-card">
@@ -110,7 +109,6 @@
                                 <td>₦4,000-Basic dues</td> --}}
                             </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>

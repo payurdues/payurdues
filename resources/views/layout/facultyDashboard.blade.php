@@ -157,7 +157,7 @@
                         </li>
 
                         <li>
-                            <a href="#" class="d-flex align-items-center gap-4">
+                            <a href="{{ route('election_index') }}" class="d-flex align-items-center gap-4 {{ Route::is('election_index') || Route::is('create_election') ? 'active' : '' }}">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -255,7 +255,6 @@
             const receivedLink = document.getElementById('receivedLink');
             const payoutDiv = document.getElementById('payoutDiv');
             const receivedDiv = document.getElementById('receivedDiv');
-
             payoutLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (payoutDiv.classList.contains('d-none')) {

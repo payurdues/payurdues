@@ -7,13 +7,11 @@
 @section('content')
 
     <div class="dashboard-content">
-
         <div class="dashboard-content_header px-md-3 d-flex justify-content-between align-items-center">
             <div class="">
                 <h1 class="dashboard-content_heading">Members</h1>
                 <p class="dashboard-content_paragraph">{{ $students->count() }} Members</p>
             </div>
-
             <div class="">
                 {{-- <a href="members.html" class="d-flex align-items-center justify-content-center gap-1 btn-pay-gradient" data-bs-toggle="modal" data-bs-target="#addMember">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,14 +76,12 @@
                     <tbody>
                         @foreach($students as $student)
                             <tr data-bs-toggle="modal" data-bs-target="#viewMember">
-
                                 <td> {{ $student->form_no ?? $student->matric_no }}</td>
                                 <td>{{ $student->first_name }} {{ $student->other_names }}</td>
                                 <td> {{ $student->level }}</td>
                                 <td> {{ $student->department }}</td>
                             </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>
@@ -208,7 +204,6 @@
     <div class="modal fade" id="viewMember" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewMemberLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content p-3 py-5 p-md-5">
-
                 <div class="d-flex justify-content-end">
                     <button type="button" class="btn-close mb-3 border rounded-md p-1" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>

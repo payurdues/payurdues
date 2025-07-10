@@ -17,31 +17,63 @@ class MembersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        if (!Auth::guard('association')->check()) {
-            return redirect()->route('login');
-        }
+    // public function index(Request $request)
+    // {
+    //     if (!Auth::guard('association')->check()) {
+    //         return redirect()->route('login');
+    //     }
 
-        $association_id = Auth::guard('association')->user()->id;
+    //     $association_id = Auth::guard('association')->user()->id;
 
-        $Duee = Due::where('association_id', $association_id)->with(['association'])->first(['payable_faculties']);
-        $Due = json_decode($Duee->payable_faculties, true);
+    //     $Duee = Due::where('association_id', $association_id)->with(['association'])->first(['payable_faculties']);
+    //     // $Due = json_decode($Duee->payable_faculties, true);
 
-        // Start building the query
-        $query = Student::query()->where('association_id',$association_id);
+    //     // // Start building the query
+    //     // $query = Student::query()->where('association_id',$association_id);
 
 
-        // Filter by level (if present)
-        if ($request->has('levels')) {
-            $query->whereIn('level', $request->levels);
-        }
+    //     $Due = "No Due";
+    //     if(isset($Duee->payable_faculties)){
+
+    //     $Due = json_decode($Duee->payable_faculties, true);
+    //     }
+    //    $query= Student::where('faculty',$Due)->get();
+
+    //     // dd($query);
+    //     // Filter by level (if present)
+    //     if ($request->has('levels')) {
+    //         $query->whereIn('level', $request->levels);
+    //     }
 
         
-        $students = $query->get();
-        $duesCount = Due::where('association_id', $association_id)->count();
+    //     $students = $query->get();
+    //     $duesCount = Due::where('association_id', $association_id)->count();
 
-        return view('faculty.members', compact('students'));
+    //     return view('faculty.members', compact('students'));
+    // }
+
+     public function index()
+    {
+        //
+
+        if (!Auth::guard('association')->check()) {
+            return redirect()->route('login'); // Redirect if not authenticated
+        }
+
+        // Fetch the authenticated student
+        $association_id = Auth::guard('association')->user()->id;
+
+
+        $Duee =Due::where('association_id',$association_id)->with(['association'])->first(['payable_faculties']);
+        $Due = json_decode($Duee->payable_faculties, true);
+
+        $students= Student::where('faculty',$Due)->get();
+
+        $duesCount =Due::where('association_id',$association_id)->count();
+
+        // dd($Transactions->due->count());
+       
+        return view('faculty.members',compact('students'));
     }
 
     /**
