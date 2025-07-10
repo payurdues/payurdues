@@ -26,15 +26,14 @@ class CandidateController extends Controller
 
     public function store(Request $request)
     {
+
+        // dd($request->all());
         $request->validate([
             'category_id' => 'required|exists:categories,id',
             'full_name.*' => 'required|string|max:255',
             'alias.*' => 'nullable|string|max:255',
             'image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10048'
         ]);
-        // if ($request->hasFile('photo')) {
-        //     $validated['photo'] = $request->file('photo')->store('candidates', 'public');
-        // }
 
         $election_id = Category::find($request->category_id)?->election_id;
 

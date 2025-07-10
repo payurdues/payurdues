@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const wrapper = document.getElementById("candidatesWrapper");
     const tableWrapper = document.getElementById("candidateTableWrapper");
     const tableBody = document.querySelector("#candidateTable tbody");
-    const categoryInput = document.getElementById("categoryName");
+    const categoryInput = document.getElementById("category_id");
 
     addBtn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -41,13 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="p-3 border border-p rounded-3 pt-4">
                 <div class="row">
                 <div class="col-md-6 mb-3">
-                    <input type="text" class="form-control full-name" placeholder="Full Name">
+                    <input type="text" class="form-control full-name" name="full_name[]" placeholder="Full Name">
                 </div>
                 <div class="col-md-6 mb-3">
-                    <input type="text" class="form-control alias" placeholder="a.k.a">
+                    <input type="text" class="form-control alias" name="alias[]" placeholder="a.k.a">
                 </div>
                 <div class="col-12 mb-3">
-                    <input type="file" class="form-control">
+                    <input type="file" class="form-control" name="image[]">
                 </div>
                 </div>
             </div>
