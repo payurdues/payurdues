@@ -43,7 +43,7 @@
                         <img src="../assets/img/svg/Ellipse 2.svg" alt="PayUrDues">
                     </div>
                     <div class="div">
-                        <p class="mb-0 header-title">Hello Adebola</p>
+                        <p class="mb-0 header-title">Hello {{ $student->first_name }},  {{ $student->other_names }}</p>
                         <p class="mb-0 header-subtitle">You have some dues to pay, we are here to help you</p>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                 <div class="dashboard-content">
 
                     <div class="dashboard-content_header mb-4 d-none d-md-flex justify-content-between align-items-center ps-5">
-                        <a href="index.html" class="d-flex gap-2 align-items-center">
+                        <a href="{{ url()->previous() }}" class="d-flex gap-2 align-items-center">
                             <img src="../assets/img/svg/ArrowLeft.svg" alt="PayUrDues">
                             <h3 class="dashboard-content_heading">Voting</h3>
                         </a>

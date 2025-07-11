@@ -186,4 +186,74 @@ class ElectionController extends Controller
 
 
 
+    public function adminMonitor($electionId)
+    {
+        $election = Election::with(['categories.candidates'])->findOrFail($electionId);
+
+        // Voting status
+        $votingStart = \Carbon\Carbon::parse($election->voting_date . ' ' . $election->voting_time);
+        $votingEnd = $votingStart->copy()->addHours($election->voting_period);
+        $now = now();
+        $votingClosed = $now->greaterThan($votingEnd);
+
+        // Collect results
+        $results = [];
+        foreach ($election->categories as $category) {
+            $candidates = $category->candidates()->withCount([
+                'votes as total_votes' => function ($query) use ($election) {
+                    $query->where('election_id', $election->id);
+                }
+            ])->get();
+
+            $maxVotes = $candidates->max('total_votes');
+
+            foreach ($candidates as $candidate) {
+                $results[$category->id][] = [
+                    'candidate' => $candidate,
+                    'votes' => $candidate->total_votes,
+                    'is_winner' => $votingClosed && $candidate->total_votes == $maxVotes,
+                ];
+            }
+        }
+
+        // Unique voters count
+        $totalVoters = Vote::where('election_id', $election->id)->distinct('student_id')->count('student_id');
+
+        return view('faculty.view-election-details', compact('election', 'results', 'totalVoters', 'votingEnd', 'votingClosed'));
+    }
+
+    public function showResults($electionId)
+    {
+        $election = Election::with(['categories.candidates'])->findOrFail($electionId);
+
+        $votingStart = \Carbon\Carbon::parse($election->voting_date . ' ' . $election->voting_time);
+        $votingEnd = $votingStart->copy()->addHours($election->voting_period);
+        $now = now();
+        $votingEnded = $now->gt($votingEnd);
+
+        $results = [];
+
+        foreach ($election->categories as $category) {
+            $candidates = $category->candidates->map(function ($candidate) use ($election) {
+                $voteCount = Vote::where('election_id', $election->id)
+                                ->where('candidate_id', $candidate->id)
+                                ->count();
+                $candidate->vote_count = $voteCount;
+                return $candidate;
+            });
+
+            $maxVotes = $candidates->max('vote_count');
+
+            $results[] = [
+                'category' => $category,
+                'candidates' => $candidates,
+                'maxVotes' => $maxVotes,
+            ];
+        }
+
+        return view('faculty.view-election-details', compact('election', 'results', 'votingEnded', 'votingEnd'));
+    }
+
+
+
 }

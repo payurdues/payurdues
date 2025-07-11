@@ -127,6 +127,7 @@ Route::middleware(['auth:association'])->group(function () {
     Route::resource('members', MembersController::class)->name('members', 'show_member')->only(['index', 'show']);
     Route::post('students/store', [MembersController::class, 'store'])->name('students.store');
 
+    Route::get('/elections/{election}/results', [ElectionController::class, 'showResults'])->name('admin.elections.results');
 
     Route::post('/students/import', [MembersController::class, 'import'])->name('students.import');
 

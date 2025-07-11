@@ -180,7 +180,7 @@
                                     </div>
                                 </div>
 
-                                <a href="{{ route('elections.show', $election->id) }}" class="d-flex align-items-center justify-content-center gap-1 btn-pay-gradient-outline">     
+                                <a href="{{ route('admin.elections.results', $election->id) }}" class="d-flex align-items-center justify-content-center gap-1 btn-pay-gradient-outline">     
                                     <p class="">View Details</p>
                                 </a>
                             </div>
