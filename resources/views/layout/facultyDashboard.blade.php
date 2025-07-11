@@ -157,7 +157,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('election_index') }}" class="d-flex align-items-center gap-4 {{ Route::is('election_index') || Route::is('create_election') ? 'active' : '' }}">
+                            <a href="{{ route('election_index') }}" class="d-flex align-items-center gap-4 {{ Route::is('election_index') || Route::is('create_election') || Route::is('admin.elections.results')  || Route::is('elections.show') ? 'active' : '' }}">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path

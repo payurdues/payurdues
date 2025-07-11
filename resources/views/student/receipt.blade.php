@@ -37,7 +37,7 @@
 
         <header class="px-3 px-md-5">
             <nav class="d-flex justify-content-between align-items-center py-4">
-                <a href="index.html" class="d-flex gap-2 align-items-center d-md-none">
+                <a href="{{ url()->previous() }}" class="d-flex gap-2 align-items-center d-md-none">
                     <img src="{{asset('assets/img/svg/ArrowLeft.svg')}}" alt="PayUrDues">
                     <p class="mb-0 header-title">Receipt</p>
                 </a>

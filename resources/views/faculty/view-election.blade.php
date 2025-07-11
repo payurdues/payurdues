@@ -8,7 +8,7 @@
 
         <div class="dashboard-content">
             
-            <a href="voting.html" class="d-flex gap-3 align-items-center mt-3 mt-md-5">
+            <a href="{{ url()->previous() }}" class="d-flex gap-3 align-items-center mt-3 mt-md-5">
                 <img src="../assets/img/svg/ArrowLeft.svg" alt="PayUrDues">
                 <h5 class="dashboard-content_heading">{{ $election->title }}</h5>
             </a>

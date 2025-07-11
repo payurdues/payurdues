@@ -38,7 +38,7 @@
 
         <header class="px-3 px-md-5">
             <nav class="d-flex justify-content-between align-items-center py-4">
-                <a href="index.html" class="d-flex gap-2 align-items-center d-md-none">
+                <a href="{{ url()->previous() }}" class="d-flex gap-2 align-items-center d-md-none">
                     <img src="../assets/img/svg/ArrowLeft.svg" alt="PayUrDues">
                     <p class="mb-0 header-title">History</p>
                 </a>
@@ -47,7 +47,7 @@
                         <img src="../assets/img/svg/Ellipse 2.svg" alt="PayUrDues">
                     </div>
                     <div class="div">
-                        <p class="mb-0 header-title">Hello Adebola</p>
+                        <p class="mb-0 header-title">Hello {{ $student->first_name }},  {{ $student->other_names }}</p>
                         <p class="mb-0 header-subtitle">You have some dues to pay, we are here to help you</p>
                     </div>
                 </div>
